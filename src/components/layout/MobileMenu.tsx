@@ -22,7 +22,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
   const menuItems: MenuItem[] = [
     {
       name: "Sản phẩm",
-      url: "/123",
+      url: "/",
       children: [
         { name: "Xử lý nước cấp", url: "/", children: [] },
         { name: "Xử lý nước thải", url: "/", children: [] },
@@ -50,7 +50,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
     },
     {
       name: "Đối tác",
-      url: "/12313",
+      url: "/",
       children: [],
     },
     {

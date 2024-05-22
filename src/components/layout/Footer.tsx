@@ -184,6 +184,15 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        <div className="mobile:hidden tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
+          <div className="text-center text-white text-base font-normal font-['Inter'] leading-normal ">
+            <p>
+              Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần
+              đầu ngày 03/04/2013, tại Sở KH&ĐT TP.HCM.
+            </p>
+            <p> Copyright 2024 © NTSE.VN</p>
+          </div>
+        </div>
       </footer>
     </>
   );
