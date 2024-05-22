@@ -1,16 +1,24 @@
-// components/LanguageSwitch.tsx
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Menu, Dropdown } from "antd";
-import { GlobalOutlined } from "@ant-design/icons";
+"use client";
+import React, { useContext, useState } from "react";
+import { Menu, Dropdown, Space } from "antd";
 import i18n from "../../config/i18n";
 import IconGlobe from "../icons/IconGlobe";
+import { LanguageContext } from "../../context/LanguageContext";
+
+interface LanguageSwitchProps {
+  initialLanguage: string;
+}
 
 const LanguageSwitch: React.FC = () => {
-  const { t } = useTranslation();
+  const contextValue = useContext(LanguageContext);
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
+  if (!contextValue) {
+    return <div>Language context is not available.</div>;
+  }
+
+  const { language, changeLanguage } = contextValue;
+  const handleMenuClick = (e: any) => {
+    changeLanguage(e.key);
   };
 
   const menu = (
@@ -25,11 +33,11 @@ const LanguageSwitch: React.FC = () => {
   );
 
   return (
-    <Dropdown overlay={menu} placement="bottomCenter">
-      <button className="text-[#3B559E] font-medium py-2 px-4 rounded inline-flex items-center">
-        <IconGlobe />
-        <span className="ml-1">{i18n.language?.toUpperCase()}</span>
-      </button>
+    <Dropdown overlay={menu} placement="bottom">
+      <Space className="text-blue-600 font-medium py-2 px-4 rounded inline-flex items-center">
+        <IconGlobe /> {/* Sử dụng icon từ Ant Design 5 */}
+        <span>{language.toUpperCase()}</span>
+      </Space>
     </Dropdown>
   );
 };

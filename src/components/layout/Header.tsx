@@ -10,9 +10,14 @@ import IconAngleUp from "../icons/IconAngleUp";
 import IconGlobe from "../icons/IconGlobe";
 import LanguageSwitch from "../LanguageSwitch";
 import { useTranslation } from "react-i18next";
+import { Suspense } from "react";
+import { GetServerSideProps } from "next";
+import IconMenu from "../icons/IconMenu";
+
+import MobileMenu from "./MobileMenu";
 
 const Header: React.FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const menuItems = useMemo(
@@ -88,6 +93,7 @@ const Header: React.FC = () => {
     ],
     []
   );
+
   // get pathname to active navigation
   useEffect(() => {
     console.log("pathname to active navigation", pathname);
@@ -104,14 +110,22 @@ const Header: React.FC = () => {
     setActiveKey(foundItem ? foundItem.key : null);
   }, [pathname, menuItems]);
   console.log("rerender");
+
+  // mobileMenu
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    console.log("Menu clicked");
+  };
   return (
     <header className="flex h-[100px] border-spacing-0 bg-white">
-      <div className="w-full max-w-full h-auto p-0 px-[135px] my-[30px] mx-auto flex justify-between">
+      <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px] desktop:px-[135px] my-[30px] mx-auto justify-between">
         <div className="flex w-full">
           <Link href="/">
-            <Image src={NTSLogo} alt="NTS Logo" />
+            <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
           </Link>
-          <ul className="bg-transparent w-full flex justify-between mx-8">
+          <ul className="hidden desktop:flex bg-transparent w-full  justify-between mx-8">
             {menuItems.map((item) => (
               <li
                 key={item.key}
@@ -119,7 +133,7 @@ const Header: React.FC = () => {
                  `}>
                 <div
                   onClick={(event) => {
-                    event.stopPropagation(); // Ngăn chặn lan truyền sự kiện
+                    event.stopPropagation();
                     handleToggleDropdown(item.key);
                   }}
                   className={`font-inter text-base font-medium leading-6 text-left  flex items-center gap-3 cursor-pointer 
@@ -128,15 +142,41 @@ const Header: React.FC = () => {
                   }
                   `}>
                   {item.label}
-                  {/* {activeKey === item.key ? <IconAngleUp /> : <IconAngleDown />} */}
                 </div>
               </li>
             ))}
           </ul>
-          <LanguageSwitch />
+          <div className="hidden desktop:flex">
+            <LanguageSwitch />
+          </div>
+        </div>
+      </div>
+      <div className=" mobile:flex desktop:hidden w-full h-[72px] px-[15px] py-4 bg-white shadow justify-between items-center inline-flex">
+        <Image
+          className="w-[60px] h-10"
+          src={NTSLogo.src}
+          alt="logo"
+          width={60}
+          height={40}
+        />
+        <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
+          <button
+            className="w-[30.30px] h-[19.40px] relative"
+            onClick={toggleMenu}>
+            <IconMenu />
+          </button>
+          <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
         </div>
       </div>
     </header>
   );
 };
 export default Header;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      locale: locale || "vi", // Kiểu của locale là string | undefined
+    },
+  };
+};
