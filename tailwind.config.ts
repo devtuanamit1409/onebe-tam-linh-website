@@ -20,6 +20,17 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+
+      container: {
+        center: true,
+        padding: "2rem",
+        screens: {
+          sm: "640px",
+          md: "768px",
+          lg: "1024px",
+          xl: "1280px",
+        },
+
       aspectRatio: {
         "4/3": "4 / 3",
         "1.55": "1.55",
