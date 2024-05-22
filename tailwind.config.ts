@@ -7,11 +7,23 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      mobile: "360px",
+      tablet: "744px",
+      laptop: "1024px",
+      desktop: "1440px",
+    },
+
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      aspectRatio: {
+        "4/3": "4 / 3",
+        "1.55": "1.55",
+        "6/5": "6 / 5",
       },
     },
   },

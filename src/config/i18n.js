@@ -8,30 +8,24 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "vi",
+    fallbackLng: "en",
     supportedLngs: ["vi", "en"],
     ns: ["home"],
     defaultNS: "home",
     debug: false,
-    detection: {
-      order: [
-        "querystring",
-        "cookie",
-        "localStorage",
-        "sessionStorage",
-        "navigator",
-        "htmlTag",
-        "path",
-        "subdomain",
-      ],
-      caches: ["cookie"],
-    },
-    backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json",
+    interpolation: {
+      escapeValue: false,
     },
     react: {
       useSuspense: false,
     },
+
+    backend: {
+      loadPath: "/public/locales/{{lng}}/{{ns}}.json",
+    },
+    // react: {
+    //   useSuspense: false,
+    // },
   });
 
 export default i18n;

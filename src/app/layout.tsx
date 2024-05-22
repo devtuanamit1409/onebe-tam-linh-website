@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-
+import { cookies } from "next/headers";
+import { LanguageProvider } from "@/context/LanguageContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -13,16 +14,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const cookieStore = cookies();
+  const language = cookieStore.get("language")?.value || "vi";
+
   return (
-    <html lang="en">
+    <html lang={language}>
       <body className={inter.className}>
-        <Header />
-        <div id="top-content"></div>
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider initialLanguage={language}>
+          <Header />
+          <div id="top-content"></div>
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
