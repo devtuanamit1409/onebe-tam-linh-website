@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+.section-contact {
+  background-image: url("../../public/home/bg-section-contact.png");
+  background-size: cover;
+}
+.btn-view {
+  box-shadow: 0px 1px 1px 0px rgba(166, 175, 195, 0.3);
+}
