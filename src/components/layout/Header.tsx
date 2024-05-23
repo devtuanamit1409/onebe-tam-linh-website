@@ -4,13 +4,9 @@ import NTSLogo from "../../../public/images/logo/logo.png";
 import IconAngleDown from "../icons/IconAngleDown";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Dropdown, Menu } from "antd";
 import { usePathname } from "next/navigation";
 import IconAngleUp from "../icons/IconAngleUp";
-import IconGlobe from "../icons/IconGlobe";
 import LanguageSwitch from "../LanguageSwitch";
-import { useTranslation } from "react-i18next";
-import { Suspense } from "react";
 import { GetServerSideProps } from "next";
 import IconMenu from "../icons/IconMenu";
 
