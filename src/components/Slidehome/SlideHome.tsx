@@ -33,7 +33,7 @@ const SlideHome = () => {
               <div
                 className={`content-baner-${item.key} flex justify-center items-center`}
               >
-                <div className="w-[90%] md:w-[846px]">
+                <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
                       <button className="rounded-[32px] py-[12px] px-[24px] text-white border border-white">
@@ -41,7 +41,7 @@ const SlideHome = () => {
                       </button>
                     </div>
                     <div className="col-span-1">
-                      <h1 className="text-[28px] md:text-[48px] font-bold text-white">
+                      <h1 className="text-[28px] laptop:text-[48px] font-bold text-white">
                         {item.title}
                       </h1>
                     </div>
@@ -60,7 +60,7 @@ const SlideHome = () => {
           </SwiperSlide>
         ))}
         <div className="flex justify-center items-center py-4">
-          <div className="md:w-[846px]  absolute bottom-[20%]  z-50">
+          <div className="laptop:w-[846px]  absolute bottom-[20%]  z-50">
             <ProgressBar
               currentIndex={currentIndex}
               stepsCount={data_banner.length}

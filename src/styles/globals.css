@@ -6,3 +6,7 @@ body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
 }
+.section-contact {
+  background-image: url("../../public/home/bg-section-contact.png");
+  background-size: cover;
+}
