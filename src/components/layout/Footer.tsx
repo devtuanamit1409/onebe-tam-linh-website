@@ -40,7 +40,7 @@ const Footer = () => {
                   <a
                     href="tel:+01234567899"
                     target="_blank"
-                    className="text-white text-sm font-medium font-['Inter'] leading-snug">
+                    className="text-white text-sm font-medium  leading-snug">
                     +012 (345) 678 99
                   </a>
                 </div>
@@ -57,7 +57,7 @@ const Footer = () => {
                   <a
                     href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
                     target="_blank"
-                    className=" text-white text-sm font-medium font-['Inter'] leading-snug desktop:max-w-[300px] laptop:w-full">
+                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full">
                     Số 15, đường số 3, KDC Gia Hòa, P. Phước Long B, Tp.Thủ Đức,
                     Tp.HCM
                   </a>
@@ -74,23 +74,23 @@ const Footer = () => {
           <div className="mobile:col-span-12 laptop:col-start-4 laptop:col-end-13 desktop:pl-[40px] laptop:pl-[24px] desktop:flex justify-between mobile:grid mobile:grid-cols-2 gap-4">
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex-col">
-                <p className="text-white text-lg font-semibold font-['Inter'] leading-relaxed pr-2">
+                <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Sản phẩm
                 </p>
                 <div className=" h-24 flex-col justify-start items-start gap-3 inline-flex">
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Vật liệu mới, thiết bị plastic ngành nước
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Thiết bị xử lý nước
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Thiết bị tưới cây, tưới cây tự động
                   </Link>
                 </div>
@@ -98,33 +98,33 @@ const Footer = () => {
             </div>
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex-col">
-                <p className="text-white text-lg font-semibold font-['Inter'] leading-relaxed pr-2">
+                <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Dịch vụ
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Tư vấn kỹ thuật nước
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Tư vấn giải pháp tái sử dụng nước
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Thi công, chuyển giao công nghệ
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Bảo hành, bảo trì chuyên nghiệp
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Đào tạo nghề ngành nước
                   </Link>
                 </div>
@@ -132,28 +132,28 @@ const Footer = () => {
             </div>
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex-col">
-                <p className="text-white text-lg font-semibold font-['Inter'] leading-relaxed pr-2">
+                <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Công ty Kỹ thuật NTS
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Về chúng tôi
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Công ty thành viên
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Góc chuyên gia
                   </Link>
                   <Link
                     href="/"
-                    className="text-white text-base font-normal font-['Inter'] leading-normal">
+                    className="text-white text-base font-normal  leading-normal">
                     Chương trình cộng đồng
                   </Link>
                 </div>
@@ -161,7 +161,7 @@ const Footer = () => {
             </div>
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex-col">
-                <p className="text-white text-lg font-semibold font-['Inter'] leading-relaxed pr-2">
+                <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Theo dõi chúng tôi trên
                 </p>
                 <div className="flex-col justify-start items-start gap-[25px] flex">
@@ -185,7 +185,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mobile:hidden tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
-          <div className="text-center text-white text-base font-normal font-['Inter'] leading-normal ">
+          <div className="text-center text-white text-base font-normal  leading-normal ">
             <p>
               Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần
               đầu ngày 03/04/2013, tại Sở KH&ĐT TP.HCM.

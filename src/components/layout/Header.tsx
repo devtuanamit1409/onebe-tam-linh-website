@@ -24,33 +24,18 @@ const Header: React.FC = () => {
     () => [
       {
         key: "xu-ly-nuoc",
-        label: (
-          <div className="flex items-center gap-3">
-            Xử lý nước{" "}
-            {activeKey === "xu-ly-nuoc" ? <IconAngleUp /> : <IconAngleDown />}
-          </div>
-        ),
+        label: <div className="flex items-center gap-3">Xử lý nước </div>,
+        showIcon: true,
       },
       {
         key: "thiet-ke-co-dien",
-        label: (
-          <div className="flex items-center gap-3">
-            Thiết kế cơ điện{" "}
-            {activeKey === "thiet-ke-co-dien" ? (
-              <IconAngleUp />
-            ) : (
-              <IconAngleDown />
-            )}
-          </div>
-        ),
+        label: <div className="flex items-center gap-3">Thiết kế cơ điện </div>,
+        showIcon: true,
       },
       {
         key: "du-an",
-        label: (
-          <div className="flex items-center gap-3">
-            Dự án {activeKey === "du-an" ? <IconAngleUp /> : <IconAngleDown />}
-          </div>
-        ),
+        label: <div className="flex items-center gap-3">Dự án</div>,
+        showIcon: true,
       },
       {
         key: "doi-tac",
@@ -59,15 +44,12 @@ const Header: React.FC = () => {
             Đối tác
           </Link>
         ),
+        showIcon: false,
       },
       {
         key: "ve-chung-toi",
-        label: (
-          <div className="flex items-center gap-3">
-            Về chúng tôi{" "}
-            {activeKey === "ve-chung-toi" ? <IconAngleUp /> : <IconAngleDown />}
-          </div>
-        ),
+        label: <div className="flex items-center gap-3">Về chúng tôi </div>,
+        showIcon: true,
       },
       {
         key: "tin-tuc",
@@ -76,19 +58,14 @@ const Header: React.FC = () => {
             Tin tức
           </Link>
         ),
+        showIcon: false,
       },
       {
         key: "thong-tu-nghi-dinh",
         label: (
-          <div className="flex items-center gap-3">
-            Thông tư - Nghị định{" "}
-            {activeKey === "thong-tu-nghi-dinh" ? (
-              <IconAngleUp />
-            ) : (
-              <IconAngleDown />
-            )}
-          </div>
+          <div className="flex items-center gap-3">Thông tư - Nghị định </div>
         ),
+        showIcon: true,
       },
     ],
     []
@@ -99,9 +76,14 @@ const Header: React.FC = () => {
     console.log("pathname to active navigation", pathname);
     setActiveKey(pathname);
   }, [pathname]);
-  const handleToggleDropdown = (key: string) => {
+  const handleToggleMegaMenu = (key: string, condition: boolean) => {
     console.log(key);
     setActiveKey((prevKey) => (prevKey === key ? null : key));
+    if (!condition === true) {
+      return;
+    } else {
+      console.log("open mega menu");
+    }
   };
   useEffect(() => {
     const foundItem = menuItems.find((item) =>
@@ -109,7 +91,6 @@ const Header: React.FC = () => {
     );
     setActiveKey(foundItem ? foundItem.key : null);
   }, [pathname, menuItems]);
-  console.log("rerender");
 
   // mobileMenu
   const [isOpen, setIsOpen] = useState(false);
@@ -134,7 +115,7 @@ const Header: React.FC = () => {
                 <div
                   onClick={(event) => {
                     event.stopPropagation();
-                    handleToggleDropdown(item.key);
+                    handleToggleMegaMenu(item.key, item.showIcon);
                   }}
                   className={`font-inter text-base font-medium leading-6 text-left  flex items-center gap-3 cursor-pointer 
                   ${
@@ -142,6 +123,12 @@ const Header: React.FC = () => {
                   }
                   `}>
                   {item.label}
+                  {item.showIcon &&
+                    (activeKey === item.key ? (
+                      <IconAngleUp />
+                    ) : (
+                      <IconAngleDown />
+                    ))}
                 </div>
               </li>
             ))}
