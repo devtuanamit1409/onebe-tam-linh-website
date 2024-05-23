@@ -130,7 +130,8 @@ const Header: React.FC = () => {
               <li
                 key={item.key}
                 className={`border-b-2 border-transparent flex items-center
-                 `}>
+                 `}
+              >
                 <div
                   onClick={(event) => {
                     event.stopPropagation();
@@ -140,7 +141,8 @@ const Header: React.FC = () => {
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
                   }
-                  `}>
+                  `}
+                >
                   {item.label}
                 </div>
               </li>
@@ -162,7 +164,8 @@ const Header: React.FC = () => {
         <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
           <button
             className="w-[30.30px] h-[19.40px] relative"
-            onClick={toggleMenu}>
+            onClick={toggleMenu}
+          >
             <IconMenu />
           </button>
           <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
