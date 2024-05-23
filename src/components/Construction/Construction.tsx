@@ -26,7 +26,7 @@ const Construction = () => {
   return (
     <>
       <div className="grid grid-cols-12 gap-4 items-stretch">
-        <div className="col-span-12 md:col-span-8">
+        <div className="col-span-12 laptop:col-span-8">
           <div className="flex flex-col gap-[24px]">
             {construction.map((item, key) => {
               return (
@@ -74,7 +74,7 @@ const Construction = () => {
             })}
           </div>
         </div>
-        <div className="col-span-12 md:col-span-4">
+        <div className="col-span-12 laptop:col-span-4">
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
             <div className=" flex flex-col gap-[6px]">
               <h5 className="text-[#28A645] font-bold pt-[16px]">Xử lý nước</h5>
