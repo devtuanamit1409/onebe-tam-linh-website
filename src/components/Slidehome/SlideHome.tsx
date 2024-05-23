@@ -24,15 +24,13 @@ const SlideHome = () => {
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
-      >
+        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
         {data_banner.map((item) => (
           <SwiperSlide key={item.key}>
             <div className="image-container">
               <Image src={item.urlImage} alt="Slide Home" layout="responsive" />
               <div
-                className={`content-baner-${item.key} flex justify-center items-center`}
-              >
+                className={`content-baner-${item.key} flex justify-center items-center`}>
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
@@ -60,7 +58,7 @@ const SlideHome = () => {
           </SwiperSlide>
         ))}
         <div className="flex justify-center items-center py-4">
-          <div className="laptop:w-[846px]  absolute bottom-[20%]  z-50">
+          <div className="laptop:w-[846px]  absolute bottom-[20%]  z-30">
             <ProgressBar
               currentIndex={currentIndex}
               stepsCount={data_banner.length}
