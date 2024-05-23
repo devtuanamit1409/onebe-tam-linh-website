@@ -65,10 +65,7 @@
 .swiper-pagination-bullet-active {
   background: #28a645 !important;
 }
-.section-contact {
-  background-image: url("../../../public/home/bg-section-contact.png");
-  background-size: cover;
-}
+
 .sp {
   background-image: url("../../../public/home/sp.png");
   background-size: cover;
