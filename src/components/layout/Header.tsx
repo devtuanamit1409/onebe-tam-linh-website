@@ -4,32 +4,31 @@ import NTSLogo from "../../../public/images/logo/logo.png";
 import IconAngleDown from "../icons/IconAngleDown";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Dropdown, Menu } from "antd";
 import { usePathname } from "next/navigation";
 import IconAngleUp from "../icons/IconAngleUp";
-import IconGlobe from "../icons/IconGlobe";
 import LanguageSwitch from "../LanguageSwitch";
-import { useTranslation } from "react-i18next";
-import { Suspense } from "react";
 import { GetServerSideProps } from "next";
 import IconMenu from "../icons/IconMenu";
 
 import MobileMenu from "./MobileMenu";
+import MegaMenu from "../MegaMenu";
 
 const Header: React.FC = () => {
   // const { t } = useTranslation();
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const menuItems = useMemo(
     () => [
       {
-        key: "xu-ly-nuoc",
-        label: <div className="flex items-center gap-3">Xử lý nước </div>,
+        key: "san-pham",
+        label: <div className="flex items-center gap-3">Sản phẩm </div>,
         showIcon: true,
       },
       {
-        key: "thiet-ke-co-dien",
-        label: <div className="flex items-center gap-3">Thiết kế cơ điện </div>,
+        key: "dich-vu",
+        label: <div className="flex items-center gap-3">Dịch vụ </div>,
         showIcon: true,
       },
       {
@@ -76,15 +75,41 @@ const Header: React.FC = () => {
     console.log("pathname to active navigation", pathname);
     setActiveKey(pathname);
   }, [pathname]);
+
   const handleToggleMegaMenu = (key: string, condition: boolean) => {
-    console.log(key);
-    setActiveKey((prevKey) => (prevKey === key ? null : key));
-    if (!condition === true) {
+    if (!condition) {
       return;
+    }
+
+    if (isMenuOpen && !isTransitioning) {
+      if (activeKey === key) {
+        setActiveKey(null); // Đóng menu hiện tại khi click lại
+        setIsMenuOpen(false);
+      } else {
+        setIsTransitioning(true); // Bắt đầu transition khi chuyển sang menu khác
+        setActiveKey(key); // Đặt activeKey ngay lập tức để trigger transition
+      }
     } else {
-      console.log("open mega menu");
+      setIsMenuOpen(true);
+      setActiveKey(key); // Mở menu khi chưa có menu nào đang mở
     }
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(
+      () => {
+        setIsTransitioning(false);
+        if (activeKey) {
+          // Chỉ mở menu nếu activeKey có giá trị
+          setIsMenuOpen(true);
+        }
+      },
+      isTransitioning ? 450 : 0
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [isTransitioning, activeKey]);
+
   useEffect(() => {
     const foundItem = menuItems.find((item) =>
       pathname.startsWith(`/${item.key}`)
@@ -100,7 +125,7 @@ const Header: React.FC = () => {
     console.log("Menu clicked");
   };
   return (
-    <header className="flex h-[100px] border-spacing-0 bg-white">
+    <header className="flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen">
       <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px] desktop:px-[135px] my-[30px] mx-auto justify-between">
         <div className="flex w-full">
           <Link href="/">
@@ -111,8 +136,7 @@ const Header: React.FC = () => {
               <li
                 key={item.key}
                 className={`border-b-2 border-transparent flex items-center
-                 `}
-              >
+                 `}>
                 <div
                   onClick={(event) => {
                     event.stopPropagation();
@@ -122,8 +146,7 @@ const Header: React.FC = () => {
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
                   }
-                  `}
-                >
+                  `}>
                   {item.label}
                   {item.showIcon &&
                     (activeKey === item.key ? (
@@ -151,13 +174,17 @@ const Header: React.FC = () => {
         <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
           <button
             className="w-[30.30px] h-[19.40px] relative"
-            onClick={toggleMenu}
-          >
+            onClick={toggleMenu}>
             <IconMenu />
           </button>
           <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
         </div>
       </div>
+      <MegaMenu
+        activeKey={activeKey}
+        isMenuOpen={isMenuOpen}
+        isTransitioning={isTransitioning}
+      />
     </header>
   );
 };

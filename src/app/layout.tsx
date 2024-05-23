@@ -25,7 +25,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider initialLanguage={language}>
           <Header />
-          <div id="top-content"></div>
+          <div
+            id="top-content"
+            className="desktop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
           <Footer />
         </LanguageProvider>
