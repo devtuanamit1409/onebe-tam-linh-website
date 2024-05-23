@@ -23,7 +23,7 @@ export default function Home() {
             Giới Thiệu Về Chúng Tôi
           </h2>
           <div className="flex justify-center">
-            <div className="laptop:w-[1038px] z-50">
+            <div className="laptop:w-[1038px] z-40">
               <p className="text-[#111928] py-[24px] text-start laptop:text-center text-[20px] font-medium">
                 Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định hướng trở
                 thành nhà cung cấp hàng đầu cho các giải pháp kỹ thuật công
@@ -52,7 +52,7 @@ export default function Home() {
                       <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
                         Sản phẩm
                       </h4>
-                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-50">
+                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
                         NTS Engineering với đội ngũ chuyên gia luôn tìm tòi các
                         sản phẩm plastic nhằm nâng cao hiệu quả công nghệ xử lý
                         nước thải, xử lý nước cấp.
@@ -79,7 +79,7 @@ export default function Home() {
                       <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
                         Dịch vụ
                       </h4>
-                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-50">
+                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
                         NTS Engineering với với đội ngũ chuyên gia luôn tìm tòi
                         các sản phẩm plastic nhằm nâng cao hiệu quả công nghệ xử
                         lý nước thải, xử lý nước cấp.
@@ -106,7 +106,7 @@ export default function Home() {
                       <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
                         Dự án cộng đồng
                       </h4>
-                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-50">
+                      <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
                         Mang nước sạch cho cộng đồng được xem là nghĩa vụ và
                         trách nhiệm của chúng tôi khi hoạt động trong lĩnh vực
                         nước. Đây là cơ hội để chúng tôi được chia sẻ với những
@@ -131,7 +131,7 @@ export default function Home() {
           <div className="container">
             <div className="grid grid-cols-12 gap-8 pt-[5%]">
               <div className="col-span-12 laptop:col-span-6 relative">
-                <div className="h-[417px] w-[356px] card-member relative z-50">
+                <div className="h-[417px] w-[356px] card-member relative z-40">
                   <SlideMember />
                 </div>
 

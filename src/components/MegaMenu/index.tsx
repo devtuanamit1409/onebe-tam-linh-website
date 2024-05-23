@@ -306,7 +306,7 @@ const MegaMenu = ({
     <>
       {activeKey === "doi-tac" || activeKey === "tin-tuc" ? null : (
         <div
-          className={`hidden desktop:block px-[92px] py-[37.5px] absolute left-0 w-full bg-white z-40 transition-all duration-450 ease-in-out ${
+          className={`hidden desktop:block px-[92px] py-[37.5px] border-t-2 border-[#28A645] absolute left-0 w-full bg-white z-50 transition-all duration-450 ease-in-out ${
             isMenuOpen ? "top-[100px]" : "-translate-y-full"
           }`}>
           {activeItem && (

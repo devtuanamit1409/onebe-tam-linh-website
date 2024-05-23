@@ -112,7 +112,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
   return (
     <div
       onClick={toggleMenu}
-      className={`fixed inset-0 bg-white z-50 transform ${
+      className={`fixed inset-0 bg-white z-40 transform ${
         isOpen ? "translate-x-0" : "translate-x-full"
       } transition-transform duration-300 ease-in-out`}>
       <div
