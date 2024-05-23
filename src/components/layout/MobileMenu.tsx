@@ -22,7 +22,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
   const menuItems: MenuItem[] = [
     {
       name: "Sản phẩm",
-      url: "/123",
+      url: "/",
       children: [
         { name: "Xử lý nước cấp", url: "/", children: [] },
         { name: "Xử lý nước thải", url: "/", children: [] },
@@ -50,7 +50,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
     },
     {
       name: "Đối tác",
-      url: "/12313",
+      url: "/",
       children: [],
     },
     {
@@ -147,7 +147,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
                   onClick={() => {
                     handleMenuItemClick(item);
                   }}
-                  className="text-black text-lg font-semibold font-['Inter'] leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center ">
+                  className="text-black text-lg font-semibold  leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center ">
                   {item.name}
                   <IconAngleRight />
                 </li>
@@ -155,7 +155,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
                 <Link
                   href={item.url}
                   key={index}
-                  className="text-black text-lg font-semibold font-['Inter'] leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center">
+                  className="text-black text-lg font-semibold  leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center">
                   {item.name}
                   {item.children.length > 0 ? ( // Kiểm tra xem có children hay không
                     <IconAngleRightColorFull />
@@ -171,7 +171,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
           {breadcrumb.length <= 1 ? (
             <button className="w-full h-[50px] px-4  items-center gap-1 flex rounded-lg border-indigo-800 shadow border justify-center text-indigo-800">
               <IconGlobe />
-              <p className="text-black text-lg font-medium font-['Inter'] leading-relaxed">
+              <p className="text-black text-lg font-medium  leading-relaxed">
                 VN
               </p>
             </button>
@@ -179,7 +179,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
             <div className="w-[712px] h-[52px] px-6 py-3.5 rounded-lg shadow border border-indigo-800 justify-between items-center inline-flex">
               {breadcrumb.slice(1).map((item, index) => (
                 <Link href={item.url} key={index} className="">
-                  <p className="text-indigo-800 text-base font-medium font-['Inter'] leading-normal text-left flex justify-between ">
+                  <p className="text-indigo-800 text-base font-medium  leading-normal text-left flex justify-between ">
                     Tới trang {item.name}
                   </p>
                 </Link>
