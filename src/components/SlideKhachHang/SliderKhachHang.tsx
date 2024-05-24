@@ -8,18 +8,18 @@ import Image from "next/image";
 
 const SliderKhachHang = () => {
   const imagesUrl = [
-    "/logoDoiTac/logo1.png",
-    "/logoDoiTac/logo2.png",
-    "/logoDoiTac/logo3.svg",
-    "/logoDoiTac/logo4.png",
-    "/logoDoiTac/logo5.png",
-    "/logoDoiTac/logo6.png",
-    "/logoDoiTac/logo1.png",
-    "/logoDoiTac/logo2.png",
-    "/logoDoiTac/logo3.svg",
-    "/logoDoiTac/logo4.png",
-    "/logoDoiTac/logo5.png",
-    "/logoDoiTac/logo6.png",
+    "images/logoDoiTac/logo1.png",
+    "images/logoDoiTac/logo2.png",
+    "images/logoDoiTac/logo3.svg",
+    "images/logoDoiTac/logo4.png",
+    "images/logoDoiTac/logo5.png",
+    "images/logoDoiTac/logo6.png",
+    "images/logoDoiTac/logo1.png",
+    "images/logoDoiTac/logo2.png",
+    "images/logoDoiTac/logo3.svg",
+    "images/logoDoiTac/logo4.png",
+    "images/logoDoiTac/logo5.png",
+    "images/logoDoiTac/logo6.png",
   ];
   return (
     <>

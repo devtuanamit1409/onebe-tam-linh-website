@@ -41,7 +41,7 @@
   transition: width 0.3s ease-in-out;
 }
 .section-member {
-  background-image: url("../../../public/home/bg-section.svg");
+  background-image: url("../../../public/images/home/bg-section.svg");
   background-size: cover;
   height: 708px;
 }
@@ -67,22 +67,22 @@
 }
 
 .sp {
-  background-image: url("../../../public/home/sp.png");
+  background-image: url("../../../public/images/home/sp.png");
   background-size: cover;
 }
 .dv {
-  background-image: url("../../../public/home/dv.png");
+  background-image: url("../../../public/images/home/dv.png");
   background-size: cover;
 }
 .du {
-  background-image: url("../../../public/home/du.png");
+  background-image: url("../../../public/images/home/du.png");
   background-size: cover;
 }
 .btn-more {
   box-shadow: 0px 1px 3px 0px rgba(166, 175, 195, 0.4);
 }
 .section-gioi-thieu {
-  background-image: url("../../../public/home/bg-gioi-thieu.png");
+  background-image: url("../../../public/images/home/bg-gioi-thieu.png");
   background-size: cover;
 }
 @media (max-width: 600px) {

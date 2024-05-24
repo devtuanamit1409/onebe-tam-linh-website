@@ -13,7 +13,7 @@ const Slidemember = () => {
       name: "Irritec",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo1.png",
+      urlLogo: "/images/logoDoiTac/logo1.png",
       width: 194,
       height: 44,
     },
@@ -21,7 +21,7 @@ const Slidemember = () => {
       name: "Tata Garden",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo7.png",
+      urlLogo: "/images/logoDoiTac/logo7.png",
       width: 103,
       height: 103,
     },
@@ -29,7 +29,7 @@ const Slidemember = () => {
       name: "Irricons",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo5.png",
+      urlLogo: "/images/logoDoiTac/logo5.png",
       width: 190,
       height: 45,
     },
