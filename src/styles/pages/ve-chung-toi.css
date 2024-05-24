@@ -1,7 +1,7 @@
 .box-vct-1 {
   width: 351px;
   height: 535px;
-  background-image: url("../../../public/ve-chung-toi/box-vct1.png");
+  background-image: url("../../../public/images/ve-chung-toi/box-vct1.png");
   background-size: cover;
   box-shadow: -16px 16px 0px 0px #cfe6fd;
 }
@@ -9,14 +9,14 @@
 .box-vct-2 {
   width: 351px;
   height: 535px;
-  background-image: url("../../../public/ve-chung-toi/box-vct2.png");
+  background-image: url("../../../public/images/ve-chung-toi/box-vct2.png");
   background-size: cover;
   box-shadow: -16px 16px 0px 0px #cfe6fd;
 }
 .box-vct-3 {
   width: 351px;
   height: 535px;
-  background-image: url("../../../public/ve-chung-toi/box-vct3.png");
+  background-image: url("../../../public/images/ve-chung-toi/box-vct3.png");
   background-size: cover;
   box-shadow: -16px 16px 0px 0px #cfe6fd;
 }

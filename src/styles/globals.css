@@ -7,7 +7,7 @@ body {
   overflow-x: hidden;
 }
 .section-contact {
-  background-image: url("../../public/home/bg-section-contact.png");
+  background-image: url("../../public/images/home/bg-section-contact.png");
   background-size: cover;
 }
 .btn-view {

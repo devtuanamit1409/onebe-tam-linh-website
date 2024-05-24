@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css"; // Cơ bản CSS
 import "swiper/css/navigation"; // CSS cho module Navigation
 import Image from "next/image";
-import demo_tin_tuc from "../../../public/tin-tuc/demo-tin-tuc.jpg";
+import demo_tin_tuc from "../../../public/images/tin-tuc/demo-tin-tuc.jpg";
 import { Swiper as SwiperClass } from "swiper";
 import IconNextCricle from "../icons/IconNextCricle";
 import IconPrevCricle from "../icons/IconPrevCricle";
@@ -22,6 +22,7 @@ const TintucNoibat: React.FC = () => {
   };
   return (
     <>
+      <h2 className="font-bold text-[32px]">Bài viết tiêu điểm</h2>
       <Swiper
         modules={[Navigation]}
         className="mySwiper"
@@ -35,7 +36,6 @@ const TintucNoibat: React.FC = () => {
       >
         <SwiperSlide>
           <div>
-            <h2 className="font-bold text-[32px]">Bài viết tiêu điểm</h2>
             <div className="py-[24px] relative">
               <Image
                 src={demo_tin_tuc}
@@ -78,7 +78,6 @@ const TintucNoibat: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div>
-            <h2 className="font-bold text-[32px]">Bài viết tiêu điểm</h2>
             <div className="py-[24px] relative">
               <Image
                 src={demo_tin_tuc}
@@ -121,7 +120,6 @@ const TintucNoibat: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div>
-            <h2 className="font-bold text-[32px]">Bài viết tiêu điểm</h2>
             <div className="py-[24px] relative">
               <Image
                 src={demo_tin_tuc}
