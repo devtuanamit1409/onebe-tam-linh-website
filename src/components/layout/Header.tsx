@@ -126,7 +126,7 @@ const Header: React.FC = () => {
   };
   return (
     <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen">
-      <div className="container mobile:shadow">
+      <div className="container mobile:shadow desktop:shadow-none">
         <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px]  my-[30px] mx-auto justify-between">
           <div className="flex w-full">
             <Link href="/">
