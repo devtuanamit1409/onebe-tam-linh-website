@@ -1,8 +1,12 @@
-export default function IconArrowRight() {
+interface IconPrevCricleProps {
+  width?: number;
+  height?: number;
+}
+const IconArrowRight: React.FC<IconPrevCricleProps> = ({ width, height }) => {
   return (
     <svg
-      width="24"
-      height="24"
+      width={width || 24}
+      height={height || 24}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
@@ -12,4 +16,6 @@ export default function IconArrowRight() {
       />
     </svg>
   );
-}
+};
+
+export default IconArrowRight;

@@ -1,22 +1,25 @@
 import IconAngleRightColorFull from "@/components/icons/IconAngleRightColorFull";
-import bannerSanPham from "../../../public/images/banner/banner-san-pham.png";
+import bannerDuAn from "../../../public/images/banner/banner-du-an.png";
 import Image from "next/image";
 import Link from "next/link";
-import { Collapse, Descriptions } from "antd";
-import CollapsePanel from "antd/es/collapse/CollapsePanel";
+
 import PageMenu from "@/components/PageMenu";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
 import IconArrowRight from "@/components/icons/IconArrowRight";
+import IconChemicalBottle from "@/components/icons/IconChemiscalBottle";
+import IconCircleLeaf from "@/components/icons/IconCircleLeaf";
+import IconCircleDesign from "@/components/icons/IconCircleDesign";
 
 const page = () => {
   const menuItem = [
     {
-      title: "xử lý nước Cấp",
+      title: "Ngành Xử lý Nước",
       url: "/",
+      tagIcon: <IconChemicalBottle />,
       children: [
         {
-          title: "Hệ thống lọc tổng",
+          title: "Dự án xử lý nước thải tòa nhà văn phòng FPT 3 – quận 9, HCM",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -24,7 +27,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước cấp sinh hoạt",
+          title: "Dự án xử lý nước thải y tế Bệnh viện Quận 7, Hồ Chí Minh",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -35,11 +38,13 @@ const page = () => {
       ],
     },
     {
-      title: "Tái sử dụng nước",
+      title: "Ngành Thiết kế cơ điện",
       url: "/",
+      tagIcon: <IconCircleDesign />,
       children: [
         {
-          title: "Thu gom và sử dụng nước mưa",
+          title:
+            "Dự án Tư vấn thiết kế cơ điện công trình Nhà máy Nhựa Tiền Phong",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -48,7 +53,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Tái sử dụng nước thải",
+          title: "10 bước lắp đặt Thiết Bị Tưới HCM ai cũng có thể thực hiện",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -59,11 +64,13 @@ const page = () => {
       ],
     },
     {
-      title: "xử lý nước Thải",
+      title: "Dự án cộng đồng",
       url: "/",
+      tagIcon: <IconCircleLeaf />,
+
       children: [
         {
-          title: "Xử lý nước thải bệnh viện",
+          title: "ATM Nước",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -72,7 +79,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước thải khu dân cư",
+          title: "Tư vấn quản lý và sử dụng nguồn nước hiệu quả",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -81,16 +88,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước thải toà nhà văn phòng",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-        {
-          title: "Xử lý nước thải trường học",
+          title: "Chuyện của nước",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -143,7 +141,7 @@ const page = () => {
     <div>
       <div className="relative w-full h-[18.5%] min-h-[682px] overflow-hidden">
         <Image
-          src={bannerSanPham}
+          src={bannerDuAn}
           alt="banner"
           layout="fill"
           objectFit="contain"
@@ -152,7 +150,7 @@ const page = () => {
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
           <h2 className="text-black text-[54px] font-bold  capitalize leading-normal">
-            Sản phẩm
+            Dự án
           </h2>
           <p className="text-gray-500 text-xl font-medium  leading-normal">
             This is a short discription about this content

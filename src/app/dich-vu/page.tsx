@@ -1,5 +1,5 @@
 import IconAngleRightColorFull from "@/components/icons/IconAngleRightColorFull";
-import bannerSanPham from "../../../public/images/banner/banner-san-pham.png";
+import bannerDichVu from "../../../public/images/banner/banner-dich-vu.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Collapse, Descriptions } from "antd";
@@ -12,11 +12,11 @@ import IconArrowRight from "@/components/icons/IconArrowRight";
 const page = () => {
   const menuItem = [
     {
-      title: "xử lý nước Cấp",
+      title: "",
       url: "/",
       children: [
         {
-          title: "Hệ thống lọc tổng",
+          title: "Tư vấn kỹ thuật nước",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -24,7 +24,34 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước cấp sinh hoạt",
+          title: "Tư vấn giải pháp tái sử dụng nước",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title: "Thi công, chuyển giao công nghệ",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title: "Bảo hành, bảo trì chuyên nghiệp",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title: "Đào tạo nghề ngành nước",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -35,11 +62,11 @@ const page = () => {
       ],
     },
     {
-      title: "Tái sử dụng nước",
+      title: "Câu hỏi thường gặp",
       url: "/",
       children: [
         {
-          title: "Thu gom và sử dụng nước mưa",
+          title: "Thiết kế cơ điện ( Thiết kế M&E ) là gì?",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -48,22 +75,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Tái sử dụng nước thải",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-      ],
-    },
-    {
-      title: "xử lý nước Thải",
-      url: "/",
-      children: [
-        {
-          title: "Xử lý nước thải bệnh viện",
+          title: "Hệ thống cơ điện có vai trò như thế nào trong công trình?",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -72,7 +84,7 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước thải khu dân cư",
+          title: "Thiết kế cơ điện có khó không?",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -81,7 +93,8 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước thải toà nhà văn phòng",
+          title:
+            "Một đội thiết kế ME chuyên nghiệp cần tối thiểu bao nhiêu người?",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -90,7 +103,35 @@ const page = () => {
           children: [],
         },
         {
-          title: "Xử lý nước thải trường học",
+          title: "Đơn giá thiết kế ME tính như thế nào?",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title: "Kỹ sư xây dựng hay kiến trúc sư có thể thiết kế ME không?",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title:
+            "Sự khác nhau giữa thiết kế M&E và thiết kế hạ tầng kỹ thuật điện nước?",
+          url: "/",
+          icon: <IconAngleRightColorFull />,
+          descriptions:
+            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+
+          children: [],
+        },
+        {
+          title: "Công ty NTS áp dụng tiêu chuẩn nào cho các hồ sơ thiết kế?",
           url: "/",
           icon: <IconAngleRightColorFull />,
           descriptions:
@@ -143,7 +184,7 @@ const page = () => {
     <div>
       <div className="relative w-full h-[18.5%] min-h-[682px] overflow-hidden">
         <Image
-          src={bannerSanPham}
+          src={bannerDichVu}
           alt="banner"
           layout="fill"
           objectFit="contain"
@@ -152,7 +193,7 @@ const page = () => {
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
           <h2 className="text-black text-[54px] font-bold  capitalize leading-normal">
-            Sản phẩm
+            Dịch vụ
           </h2>
           <p className="text-gray-500 text-xl font-medium  leading-normal">
             This is a short discription about this content
