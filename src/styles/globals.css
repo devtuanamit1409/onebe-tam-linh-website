@@ -32,3 +32,44 @@ body {
   background: #fbfcff;
   border-top: 3px solid var(--Primary, #3f51b5);
 }
+
+.blog-content {
+  padding: 40px 120px;
+  h2 {
+    margin-bottom: 64px;
+    color: var(--Dark-Dark-2, #1f2a37);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 50% */
+  }
+  h3 {
+    margin: 12px 0;
+    color: #000;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%; /* 51.2px */
+  }
+  p {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%; /* 32px */
+  }
+  li {
+    margin-left: 16px;
+    list-style-type: disc;
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
