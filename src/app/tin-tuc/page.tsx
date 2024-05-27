@@ -4,10 +4,11 @@ import "../../styles/pages/tin-tuc.css";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
 import demo_tin_tuc_2 from "../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
 import IconSearch from "@/components/icons/IconSearch";
-import IconWater from "@/components/IconWater";
-import IconDesign from "@/components/IconDesign";
+import IconWater from "@/components/icons/IconWater";
+import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 
+import demo_goc_chuyen_gia from "../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
 const page = () => {
   const tin_tuc_noi_bat = [
     {
@@ -70,12 +71,35 @@ const page = () => {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
   ];
+  const data_detail = [
+    {
+      image: demo_goc_chuyen_gia,
+      title:
+        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
+      describe:
+        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
+    },
+    {
+      image: demo_goc_chuyen_gia,
+      title:
+        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
+      describe:
+        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
+    },
+    {
+      image: demo_goc_chuyen_gia,
+      title:
+        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
+      describe:
+        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
+    },
+  ];
   return (
     <>
       <div className="container py-[50px]">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-6">
-            <TintucNoibat />
+            <TintucNoibat data={data_detail} name="Tin tức nổi bật" />
           </div>
           <div className="col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
