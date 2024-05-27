@@ -13,3 +13,22 @@ body {
 .btn-view {
   box-shadow: 0px 1px 1px 0px rgba(166, 175, 195, 0.3);
 }
+.time-up {
+  border-radius: 32px;
+  border: 2px solid var(--glass, rgba(236, 236, 236, 0.7));
+  background: var(
+    --glass,
+    linear-gradient(
+      124deg,
+      rgba(236, 236, 236, 0.7) -0.1%,
+      rgba(224, 224, 224, 0.7) 99.9%
+    )
+  );
+}
+.box-tin-tuc-noi-bat {
+  border-right: 1px solid var(--Stroke, #dfe4ea);
+  border-bottom: 1px solid var(--Stroke, #dfe4ea);
+  border-left: 1px solid var(--Stroke, #dfe4ea);
+  background: #fbfcff;
+  border-top: 3px solid var(--Primary, #3f51b5);
+}
