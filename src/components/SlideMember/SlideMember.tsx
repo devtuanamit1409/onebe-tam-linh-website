@@ -7,6 +7,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import IconArrowRight from "../icons/IconArrowRight";
+import IconAngleRight from "../icons/IconAngleRight";
 const Slidemember = () => {
   const member = [
     {
@@ -71,12 +73,7 @@ const Slidemember = () => {
               <div className="py-[24px] flex justify-center">
                 <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
                   <span className="mr-[8px]">Truy cập website</span>
-                  <Image
-                    src="/svg-home/chevron-right.svg"
-                    alt=""
-                    width={8.484}
-                    height={15.805}
-                  />
+                  <IconAngleRight />
                 </button>
               </div>
             </div>

@@ -137,7 +137,7 @@ export default function Home() {
 
                 <Image
                   className="absolute top-[0%] left-[-7%] z-10"
-                  src="/home/Intersect.png"
+                  src="/images/home/Intersect.png"
                   alt=""
                   width={480}
                   height={100}
