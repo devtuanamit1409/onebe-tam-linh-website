@@ -10,7 +10,7 @@ const page = () => {
         <div className="container">
           <div className="flex justify-center py-[67px]">
             <Image
-              src="/ve-chung-toi/logo-ve-toi.png"
+              src="/images/ve-chung-toi/logo-ve-toi.png"
               alt="Về NTS"
               width={653}
               height={97}
@@ -30,7 +30,7 @@ const page = () => {
               </p>
               <div className="pt-[40px] rounded-[32px] overflow-hidden relative">
                 <Image
-                  src="/ve-chung-toi/banner-ve-chung-toi.jpg"
+                  src="/images/ve-chung-toi/banner-ve-chung-toi.jpg"
                   layout="responsive"
                   width={1920}
                   height={1080}
