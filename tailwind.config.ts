@@ -25,8 +25,8 @@ const config: Config = {
         center: true,
         padding: "2rem",
         screens: {
-          sm: "500px",
-          md: "744px",
+          sm: "100%",
+          md: "100%",
           lg: "1024px",
           xl: "1440px",
         },
