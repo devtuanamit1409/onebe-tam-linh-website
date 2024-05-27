@@ -184,7 +184,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
                   </p>
                 </Link>
               ))}
-              <div className="w-6 h-6 relative">
+              <div className="w-6 h-6 relative text-indigo-800 ">
                 <IconArrowRight />
               </div>
             </div>
