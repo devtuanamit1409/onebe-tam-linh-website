@@ -4,8 +4,8 @@ import "../../styles/pages/tin-tuc.css";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
 import demo_tin_tuc_2 from "../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
 import IconSearch from "@/components/icons/IconSearch";
-import IconWater from "@/components/IconWater";
-import IconDesign from "@/components/IconDesign";
+import IconWater from "@/components/icons/IconWater";
+import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 
 const page = () => {
