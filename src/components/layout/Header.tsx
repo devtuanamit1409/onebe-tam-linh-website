@@ -125,66 +125,68 @@ const Header: React.FC = () => {
     console.log("Menu clicked");
   };
   return (
-    <header className="flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen">
-      <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px] desktop:px-[135px] my-[30px] mx-auto justify-between">
-        <div className="flex w-full">
-          <Link href="/">
-            <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
-          </Link>
-          <ul className="hidden desktop:flex bg-transparent w-full  justify-between mx-8">
-            {menuItems.map((item) => (
-              <li
-                key={item.key}
-                className={`border-b-2 border-transparent flex items-center
+    <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen">
+      <div className="container mobile:shadow desktop:shadow-none">
+        <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px]  my-[30px] mx-auto justify-between">
+          <div className="flex w-full">
+            <Link href="/">
+              <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
+            </Link>
+            <ul className="hidden desktop:flex bg-transparent w-full  justify-between mx-8">
+              {menuItems.map((item) => (
+                <li
+                  key={item.key}
+                  className={`border-b-2 border-transparent flex items-center
                  `}>
-                <div
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    handleToggleMegaMenu(item.key, item.showIcon);
-                  }}
-                  className={`font-inter text-base font-medium leading-6 text-left  flex items-center gap-3 cursor-pointer 
+                  <div
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleToggleMegaMenu(item.key, item.showIcon);
+                    }}
+                    className={`font-inter text-base font-medium leading-6 text-left  flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
                   }
                   `}>
-                  {item.label}
-                  {item.showIcon &&
-                    (activeKey === item.key ? (
-                      <IconAngleUp />
-                    ) : (
-                      <IconAngleDown />
-                    ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="hidden desktop:flex">
-            <LanguageSwitch />
+                    {item.label}
+                    {item.showIcon &&
+                      (activeKey === item.key ? (
+                        <IconAngleUp />
+                      ) : (
+                        <IconAngleDown />
+                      ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="hidden desktop:flex">
+              <LanguageSwitch />
+            </div>
           </div>
         </div>
-      </div>
-      <div className=" mobile:flex desktop:hidden w-full h-[72px] px-[15px] py-4 bg-white shadow justify-between items-center inline-flex">
-        <Image
-          className="w-[60px] h-10"
-          src={NTSLogo.src}
-          alt="logo"
-          width={60}
-          height={40}
-        />
-        <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
-          <button
-            className="w-[30.30px] h-[19.40px] relative"
-            onClick={toggleMenu}>
-            <IconMenu />
-          </button>
-          <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+        <div className=" mobile:flex desktop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
+          <Image
+            className="w-[60px] h-10"
+            src={NTSLogo.src}
+            alt="logo"
+            width={60}
+            height={40}
+          />
+          <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
+            <button
+              className="w-[30.30px] h-[19.40px] relative"
+              onClick={toggleMenu}>
+              <IconMenu />
+            </button>
+            <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+          </div>
         </div>
+        <MegaMenu
+          activeKey={activeKey}
+          isMenuOpen={isMenuOpen}
+          isTransitioning={isTransitioning}
+        />
       </div>
-      <MegaMenu
-        activeKey={activeKey}
-        isMenuOpen={isMenuOpen}
-        isTransitioning={isTransitioning}
-      />
     </header>
   );
 };

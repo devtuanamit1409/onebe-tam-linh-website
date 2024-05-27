@@ -7,13 +7,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import IconArrowRight from "../icons/IconArrowRight";
+import IconAngleRight from "../icons/IconAngleRight";
 const Slidemember = () => {
   const member = [
     {
       name: "Irritec",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo1.png",
+      urlLogo: "/images/logoDoiTac/logo1.png",
       width: 194,
       height: 44,
     },
@@ -21,7 +23,7 @@ const Slidemember = () => {
       name: "Tata Garden",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo7.png",
+      urlLogo: "/images/logoDoiTac/logo7.png",
       width: 103,
       height: 103,
     },
@@ -29,7 +31,7 @@ const Slidemember = () => {
       name: "Irricons",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/logoDoiTac/logo5.png",
+      urlLogo: "/images/logoDoiTac/logo5.png",
       width: 190,
       height: 45,
     },
@@ -71,12 +73,7 @@ const Slidemember = () => {
               <div className="py-[24px] flex justify-center">
                 <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
                   <span className="mr-[8px]">Truy cập website</span>
-                  <Image
-                    src="/svg-home/chevron-right.svg"
-                    alt=""
-                    width={8.484}
-                    height={15.805}
-                  />
+                  <IconAngleRight />
                 </button>
               </div>
             </div>

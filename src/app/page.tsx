@@ -43,7 +43,7 @@ export default function Home() {
                     <div className="p-[32px] ">
                       <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                         <Image
-                          src="/svg-home/water.svg"
+                          src="images/svg-home/water.svg"
                           alt="icon"
                           width={32}
                           height={32}
@@ -70,7 +70,7 @@ export default function Home() {
                     <div className="p-[32px] ">
                       <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                         <Image
-                          src="/svg-home/garden.svg"
+                          src="images/svg-home/garden.svg"
                           alt="icon"
                           width={32}
                           height={32}
@@ -97,7 +97,7 @@ export default function Home() {
                     <div className="p-[32px] ">
                       <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                         <Image
-                          src="/svg-home/quill.svg"
+                          src="images/svg-home/quill.svg"
                           alt="icon"
                           width={32}
                           height={32}
@@ -137,7 +137,7 @@ export default function Home() {
 
                 <Image
                   className="absolute top-[0%] left-[-7%] z-10"
-                  src="/home/Intersect.png"
+                  src="/images/home/Intersect.png"
                   alt=""
                   width={480}
                   height={100}

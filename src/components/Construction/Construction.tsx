@@ -8,7 +8,7 @@ const Construction = () => {
       detail: " Dự án xử lý nước thải tòa nhà văn phòng FPT 3 - quận 9",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlImage: "/home/demo-du-an-1.jpg",
+      urlImage: "/images/home/demo-du-an-1.jpg",
       width: 500,
       height: 500,
     },
@@ -17,7 +17,7 @@ const Construction = () => {
       detail: " Dự án xử lý nước thải tòa nhà văn phòng FPT 3 - quận 9",
       describe:
         "This is a short description about this card.This is a short description about this card.",
-      urlImage: "/home/demo-du-an-2.jpg",
+      urlImage: "/images/home/demo-du-an-2.jpg",
       width: 500,
       height: 500,
     },
@@ -60,7 +60,7 @@ const Construction = () => {
                             Đọc ngay
                           </span>
                           <Image
-                            src="/svg-home/arrow-right.svg"
+                            src="/images/svg-home/arrow-right.svg"
                             alt=""
                             height={20}
                             width={20}
