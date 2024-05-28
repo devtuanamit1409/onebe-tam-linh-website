@@ -8,7 +8,7 @@ interface BoxTinTucProps {
 const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
   return (
     <>
-      <div className="grid grid-cols-12 gap-8">
+      <div className="grid grid-cols-12 gap-8 overflow-hidden">
         {data.map((item, key) => {
           return (
             <div key={key} className="col-span-12 desktop:col-span-4 mb-[40px]">

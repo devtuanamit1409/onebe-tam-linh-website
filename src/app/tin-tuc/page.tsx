@@ -98,10 +98,10 @@ const page = () => {
     <>
       <div className="container py-[50px]">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-6">
+          <div className="col-span-12 desktop:col-span-6">
             <TintucNoibat data={data_detail} name="Tin tức nổi bật" />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 desktop:col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
               Tin mới lên
             </h2>
@@ -150,7 +150,7 @@ const page = () => {
           <hr />
         </div>
 
-        <div className="flex justify-between ">
+        <div className="flex justify-between flex-wrap ">
           <div>
             <h2 className="text-[35px] font-bold">Tất cả bài viết</h2>
           </div>

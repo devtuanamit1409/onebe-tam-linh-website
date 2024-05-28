@@ -62,14 +62,16 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
             <Breadcrumb.Item>
               <Link
                 className="hover:bg-transparent !bg-transparent"
-                href="/san-pham">
+                href="/san-pham"
+              >
                 Sản phẩm
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link
                 className="hover:bg-transparent !bg-transparent"
-                href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc">
+                href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
+              >
                 Vật liệu mới, thiết bị plastic ngành nước
               </Link>
             </Breadcrumb.Item>
@@ -99,7 +101,8 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
             </h2>
             <Link
               href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
+            >
               Tới trang tin tức <IconArrowRight width={20} height={20} />
             </Link>
           </div>
