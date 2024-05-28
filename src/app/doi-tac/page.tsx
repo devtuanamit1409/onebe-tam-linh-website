@@ -64,12 +64,12 @@ const page = () => {
           objectFit="contain"
         />
       </div>
-      <div className="md:pt-[80px] pt-[32px] pb-[64px]">
-        <div className="flex flex-col gap-[24px] md:gap-[40px] text-center">
+      <div className="desktop:pt-[80px] pt-[32px] pb-[64px]">
+        <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
           <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
             ĐỐI TÁC LIÊN KẾT
           </h5>
-          <h1 className="text-[24px] md:text-[54px] font-bold">
+          <h1 className="text-[24px] desktop:text-[54px] font-bold">
             Hợp tác chiến lược
           </h1>
           <p>This is a short discription about this content</p>

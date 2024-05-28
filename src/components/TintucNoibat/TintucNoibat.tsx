@@ -53,7 +53,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     alt="tin-tuc-tieu-diem"
                   />
                   <div className="absolute top-[15%] left-[5%]">
-                    <span className="text-[18px] py-[16px] px-[24px] time-up font-bold">
+                    <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-bold">
                       Mới đây
                     </span>
                   </div>
