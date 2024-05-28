@@ -85,7 +85,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
         </p>
 
         <div
-          className="blog-content"
+          className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:py-[20px]"
           dangerouslySetInnerHTML={{
             __html: data ? String(data) : "",
           }}

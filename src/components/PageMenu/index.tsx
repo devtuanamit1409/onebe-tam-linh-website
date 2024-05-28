@@ -33,14 +33,14 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
               ">
             <div className=" flex-col w-full gap-4">
               {item.tagIcon ? (
-                <div className="text-black text-[28px] font-bold  capitalize leading-[44.80px] flex justify-between items-center">
-                  <div className="flex items-start gap-6">
+                <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex justify-between items-center mb-8">
+                  <div className="flex items-center gap-6">
                     {item.tagIcon}
                     <p>{item.title}</p>
                   </div>
                   <Link
                     href={item.url}
-                    className=" h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
+                    className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
                     <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
                       Xem tất cả
                     </div>
@@ -50,7 +50,7 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                   </Link>
                 </div>
               ) : (
-                <p className="text-black text-[28px] font-bold  capitalize leading-[44.80px] flex">
+                <p className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex mb-8">
                   {item.title}
                 </p>
               )}
@@ -59,12 +59,10 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                 return (
                   <div
                     key={child.title}
-                    className="text-gray-500 text-2xl font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full pt-6  pl-2 mb-6 border-b-2 border-zinc-200 flex-col overflow-hidden"
+                    className="text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden"
                     onClick={() => handleMenuClick(child.title)}>
                     <div className="flex w-full justify-between items-center">
-                      {}
                       {child.title}
-
                       <div
                         className={`transform transition-transform duration-300 p-4 ${
                           activeMenu === child.title ? "rotate-90" : ""
@@ -73,10 +71,12 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                       </div>
                     </div>
                     <div
-                      className={`transform origin-top transition-all mt-4  overflow-hidden duration-300 ease-in-out ${
-                        activeMenu === child.title ? "max-h-96 pb-4" : "max-h-0"
+                      className={`transform origin-top transition-all desktop:mt-4   overflow-hidden duration-300 ease-in-out ${
+                        activeMenu === child.title
+                          ? "max-h-96 pb-4 mt-4"
+                          : "max-h-0"
                       }`}>
-                      <p className=" text-slate-400 text-xl font-light  leading-loose mb-4 select-none">
+                      <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
                         {child.descriptions}
                       </p>
 
@@ -94,6 +94,18 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                   </div>
                 );
               })}
+              {item.tagIcon && (
+                <Link
+                  href={item.url}
+                  className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
+                  <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
+                    Xem tất cả
+                  </div>
+                  <div className="text-indigo-800">
+                    <IconAngleRight />
+                  </div>
+                </Link>
+              )}
             </div>
           </div>
         );

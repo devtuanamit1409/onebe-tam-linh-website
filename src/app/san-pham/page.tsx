@@ -141,12 +141,12 @@ const page = () => {
   ];
   return (
     <div>
-      <div className="relative w-full h-[18.5%] min-h-[682px] overflow-hidden">
+      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
           src={bannerSanPham}
           alt="banner"
           layout="fill"
-          objectFit="contain"
+          objectFit="cover"
         />
       </div>
       <div className="container">
