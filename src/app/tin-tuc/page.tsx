@@ -75,7 +75,7 @@ const page = () => {
     {
       image: demo_goc_chuyen_gia,
       title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
+        "Công nghệ lọc sinh học nhỏ giọt - Thiết kế mới tối ưu dành cho môi trường",
       describe:
         "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
     },
@@ -96,7 +96,7 @@ const page = () => {
   ];
   return (
     <>
-      <div className="container py-[50px]">
+      <div className="container py-[32px] desktop:py-[50px]">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 desktop:col-span-6">
             <TintucNoibat data={data_detail} name="Tin tức nổi bật" />
