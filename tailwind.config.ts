@@ -15,6 +15,10 @@ const config: Config = {
     },
 
     extend: {
+      spacing: {
+        "1rem": "1rem",
+        "2rem": "2rem",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -23,7 +27,10 @@ const config: Config = {
 
       container: {
         center: true,
-        padding: "2rem",
+        padding: {
+          DEFAULT: "1rem",
+          md: "2rem",
+        },
         screens: {
           sm: "100%",
           md: "100%",
