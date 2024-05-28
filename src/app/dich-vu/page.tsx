@@ -60,86 +60,86 @@ const page = () => {
         },
       ],
     },
-    {
-      title: "Câu hỏi thường gặp",
-      url: "/",
-      children: [
-        {
-          title: "Thiết kế cơ điện ( Thiết kế M&E ) là gì?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    // {
+    //   title: "Câu hỏi thường gặp",
+    //   url: "/",
+    //   children: [
+    //     {
+    //       title: "Thiết kế cơ điện ( Thiết kế M&E ) là gì?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title: "Hệ thống cơ điện có vai trò như thế nào trong công trình?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title: "Hệ thống cơ điện có vai trò như thế nào trong công trình?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title: "Thiết kế cơ điện có khó không?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title: "Thiết kế cơ điện có khó không?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title:
-            "Một đội thiết kế ME chuyên nghiệp cần tối thiểu bao nhiêu người?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title:
+    //         "Một đội thiết kế ME chuyên nghiệp cần tối thiểu bao nhiêu người?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title: "Đơn giá thiết kế ME tính như thế nào?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title: "Đơn giá thiết kế ME tính như thế nào?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title: "Kỹ sư xây dựng hay kiến trúc sư có thể thiết kế ME không?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title: "Kỹ sư xây dựng hay kiến trúc sư có thể thiết kế ME không?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title:
-            "Sự khác nhau giữa thiết kế M&E và thiết kế hạ tầng kỹ thuật điện nước?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title:
+    //         "Sự khác nhau giữa thiết kế M&E và thiết kế hạ tầng kỹ thuật điện nước?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-        {
-          title: "Công ty NTS áp dụng tiêu chuẩn nào cho các hồ sơ thiết kế?",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
+    //       children: [],
+    //     },
+    //     {
+    //       title: "Công ty NTS áp dụng tiêu chuẩn nào cho các hồ sơ thiết kế?",
+    //       url: "/",
+    //       icon: <IconAngleRightColorFull />,
+    //       descriptions:
+    //         "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-      ],
-    },
+    //       children: [],
+    //     },
+    //   ],
+    // },
   ];
   const data_tin_tuc = [
     {
@@ -181,12 +181,12 @@ const page = () => {
   ];
   return (
     <div>
-      <div className="relative w-full h-[18.5%] min-h-[682px] overflow-hidden">
+      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
           src={bannerDichVu}
           alt="banner"
           layout="fill"
-          objectFit="contain"
+          objectFit="cover"
         />
       </div>
       <div className="container">

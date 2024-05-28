@@ -34,14 +34,14 @@ body {
 }
 
 .blog-content {
-  padding: 40px 120px;
+  /* padding: 40px 120px; */
   h2 {
     margin-bottom: 64px;
     color: var(--Dark-Dark-2, #1f2a37);
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
-    line-height: 24px; /* 50% */
+    line-height: 48px; /* 50% */
   }
   h3 {
     margin: 12px 0;

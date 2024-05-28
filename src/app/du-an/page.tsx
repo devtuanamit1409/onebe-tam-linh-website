@@ -139,13 +139,8 @@ const page = () => {
   ];
   return (
     <div>
-      <div className="relative w-full h-[18.5%] min-h-[682px] overflow-hidden">
-        <Image
-          src={bannerDuAn}
-          alt="banner"
-          layout="fill"
-          objectFit="contain"
-        />
+      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
+        <Image src={bannerDuAn} alt="banner" layout="fill" objectFit="cover" />
       </div>
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
