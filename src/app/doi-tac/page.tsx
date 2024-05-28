@@ -56,7 +56,7 @@ const page = () => {
   ];
   return (
     <>
-      <div className="relative w-full h-[18.5%] min-h-[682px]">
+      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
           src={cong_ty_thanh_vien}
           alt="banner"
@@ -64,21 +64,26 @@ const page = () => {
           objectFit="contain"
         />
       </div>
-      <div className="pt-[80px] pb-[64px]">
-        <div className="flex flex-col gap-[40px] text-center">
-          <h5 className="text-[#28A645] text-[20px] font-medium">
+      <div className="md:pt-[80px] pt-[32px] pb-[64px]">
+        <div className="flex flex-col gap-[24px] md:gap-[40px] text-center">
+          <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
             ĐỐI TÁC LIÊN KẾT
           </h5>
-          <h1 className="text-[54px] font-bold">Hợp tác chiến lược</h1>
+          <h1 className="text-[24px] md:text-[54px] font-bold">
+            Hợp tác chiến lược
+          </h1>
           <p>This is a short discription about this content</p>
         </div>
       </div>
       <div className="pb-[80px]">
         <div className="container">
-          <div className="grid grid-cols-12 gap-[50px]">
+          <div className="grid grid-cols-12 desktop:gap-[50px] tablet:gap-[32px]">
             {member.map((item, index) => {
               return (
-                <div key={index} className="col-span-4 ">
+                <div
+                  key={index}
+                  className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]"
+                >
                   <div className="border border-[#DFE4EA]">
                     <div className="px-[24px] pb-[24px] pt-[100px]">
                       <div className="flex flex-col gap-[24px]">
@@ -114,6 +119,11 @@ const page = () => {
                 </div>
               );
             })}
+          </div>
+          <div className="flex justify-center pt-[40px]">
+            <button className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] ">
+              Xem thêm
+            </button>
           </div>
         </div>
       </div>
