@@ -52,7 +52,13 @@ const page = () => {
             Luật bảo vệ môi trường
           </h1>
           <p className="text-[#8899A8]">
-            This is a short discription about this content
+            This is a short discription about this content This is a short
+            discription about this content This is a short discription about
+            this content This is a short discription about this content This is
+            a short discription about this content This is a short discription
+            about this content This is a short discription about this content
+            This is a short discription about this content This is a short
+            discription about this content
           </p>
         </div>
       </div>

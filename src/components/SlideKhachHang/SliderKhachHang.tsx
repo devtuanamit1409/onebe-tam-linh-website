@@ -50,10 +50,11 @@ const SliderKhachHang = () => {
           },
         }}
         modules={[Autoplay]}
-        className="mySwiper"
-      >
+        className="mySwiper">
         {imagesUrl.map((url, index) => (
-          <SwiperSlide key={index} className="flex items-center ">
+          <SwiperSlide
+            key={index}
+            className="!flex items-center justify-center min-h-[50px]">
             <img src={url} alt="logo" width="full" />
           </SwiperSlide>
         ))}
