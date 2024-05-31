@@ -38,19 +38,19 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
         }}
         onSlideChange={(swiper) => {
           setCurrentIndex(swiper.realIndex);
-        }}
-      >
+        }}>
         {data.map((item: any, key: any) => {
           return (
             <SwiperSlide key={key}>
               <div>
-                <div className="py-[24px] relative">
+                <div className="py-[16px] relative overflow-hidden">
                   <Image
                     src={item.image}
                     layout="responsive"
                     width={100}
                     height={100}
                     alt="tin-tuc-tieu-diem"
+                    className="mobile:rounded-xl desktop:rounded-none"
                   />
                   <div className="absolute top-[15%] left-[5%]">
                     <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-bold">
@@ -58,10 +58,10 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     </span>
                   </div>
                 </div>
-                <h1 className="text-[40px] text-[#374151] font-bold">
+                <h1 className="desktop:text-[40px] laptop:text-[28px] mobile:text-[18px] tablet:text-[#374151] mobile:text-black font-bold">
                   {item.title}
                 </h1>
-                <p className="py-[24px] text-[24px] text-[#8899A8]">
+                <p className="py-[24px] desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] mobile:text-black">
                   {item.describe}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">
@@ -71,8 +71,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     width="9"
                     height="16"
                     viewBox="0 0 9 16"
-                    fill="none"
-                  >
+                    fill="none">
                     <path
                       d="M0.96875 15.9062C0.78125 15.9062 0.625 15.8438 0.46875 15.7188C0.1875 15.4375 0.1875 15 0.46875 14.7188L7.03125 8L0.46875 1.3125C0.1875 1.03125 0.1875 0.59375 0.46875 0.3125C0.75 0.03125 1.1875 0.03125 1.46875 0.3125L8.53125 7.5C8.8125 7.78125 8.8125 8.21875 8.53125 8.5L1.46875 15.6875C1.34375 15.8125 1.15625 15.9062 0.96875 15.9062Z"
                       fill="white"

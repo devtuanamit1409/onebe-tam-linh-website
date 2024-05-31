@@ -165,11 +165,23 @@ const Footer = () => {
                   Theo dõi chúng tôi trên
                 </p>
                 <div className="flex-col justify-start items-start gap-[25px] flex">
-                  <div className="justify-start items-start gap-[15px] inline-flex">
-                    <div className=" relative">
+                  <div className="grid grid-cols-5 gap-[15px]">
+                    <div className="">
                       <IconFacebookRounded />
                     </div>
-                    <div className=" relative">
+                    <div className="">
+                      <IconYoutubeRounded />
+                    </div>
+                    <div className="">
+                      <IconYoutubeRounded />
+                    </div>
+                    <div className="">
+                      <IconYoutubeRounded />
+                    </div>
+                    <div className="">
+                      <IconYoutubeRounded />
+                    </div>
+                    <div className="">
                       <IconYoutubeRounded />
                     </div>
                   </div>
@@ -184,7 +196,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mobile:hidden tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
+        <div className=" tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
           <div className="text-center text-white text-base font-normal  leading-normal ">
             <p>
               Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần
