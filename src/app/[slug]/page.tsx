@@ -62,16 +62,14 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
             <Breadcrumb.Item>
               <Link
                 className="hover:bg-transparent !bg-transparent"
-                href="/san-pham"
-              >
+                href="/san-pham">
                 Sản phẩm
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link
                 className="hover:bg-transparent !bg-transparent"
-                href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
-              >
+                href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc">
                 Vật liệu mới, thiết bị plastic ngành nước
               </Link>
             </Breadcrumb.Item>
@@ -80,12 +78,12 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       <div className="container">
-        <p className="text-center text-green-600 text-xl font-medium leading-normal mb-6">
+        <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:mb-6 mobile:mb-4">
           SẢN PHẨM
         </p>
 
         <div
-          className="blog-content"
+          className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
           dangerouslySetInnerHTML={{
             __html: data ? String(data) : "",
           }}
@@ -101,8 +99,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
             </h2>
             <Link
               href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
-            >
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
               Tới trang tin tức <IconArrowRight width={20} height={20} />
             </Link>
           </div>

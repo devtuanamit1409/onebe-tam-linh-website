@@ -6,11 +6,9 @@ import { useEffect, useState } from "react";
 const MegaMenu = ({
   activeKey,
   isMenuOpen,
-  isTransitioning,
 }: {
   activeKey: string | null;
   isMenuOpen: boolean;
-  isTransitioning: boolean;
 }) => {
   const megaMenuItem = [
     {
@@ -291,23 +289,25 @@ const MegaMenu = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => {
-        setIsOpen(isMenuOpen);
-      },
-      isTransitioning ? 450 : 0
-    );
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(
+  //     () => {
+  //       setIsOpen(isMenuOpen);
+  //     },
+  //     isTransitioning ? 450 : 0
+  //   );
 
-    return () => clearTimeout(timeoutId);
-  }, [isMenuOpen, isTransitioning]);
+  //   return () => clearTimeout(timeoutId);
+  // }, [isMenuOpen, isTransitioning]);
 
   return (
     <>
       {activeKey === "doi-tac" || activeKey === "tin-tuc" ? null : (
         <div
-          className={`hidden desktop:block px-[92px] py-[37.5px] border-t-2 border-[#28A645] absolute left-0 w-full bg-white z-50 transition-all duration-700 ease-in-out ${
-            isMenuOpen ? "top-[100px]" : "-translate-y-full top-0"
+          className={`hidden desktop:block px-[92px] py-[37.5px] border-t-2 border-[#28A645] absolute left-0 w-full bg-white z-40 transition-all duration-700 ease-in-out ${
+            isMenuOpen
+              ? "top-[100px] opacity-100"
+              : "-translate-y-full top-[0px] opacity-0"
           }`}>
           {activeItem && (
             <div className="flex justify-between gap-[32.5px]">

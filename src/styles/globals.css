@@ -34,14 +34,18 @@ body {
 }
 
 .blog-content {
-  padding: 40px 120px;
+  /* padding: 40px 120px; */
   h2 {
     margin-bottom: 64px;
     color: var(--Dark-Dark-2, #1f2a37);
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
-    line-height: 24px; /* 50% */
+    line-height: 48px; /* 50% */
+
+    @media (min-width: 360px) and (max-width: 1023px) {
+      margin-bottom: 24px;
+    }
   }
   h3 {
     margin: 12px 0;
@@ -71,5 +75,12 @@ body {
     width: 100%;
     height: auto;
     object-fit: cover;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 1023px) {
+  .swiper-home > .swiper-wrapper {
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
   }
 }

@@ -81,40 +81,26 @@ const Header: React.FC = () => {
       return;
     }
 
-    if (isMenuOpen && !isTransitioning) {
+    if (isMenuOpen) {
       if (activeKey === key) {
-        setActiveKey(null); // Đóng menu hiện tại khi click lại
+        setActiveKey(null);
         setIsMenuOpen(false);
       } else {
-        setIsTransitioning(true); // Bắt đầu transition khi chuyển sang menu khác
-        setActiveKey(key); // Đặt activeKey ngay lập tức để trigger transition
+        setActiveKey(key);
       }
     } else {
       setIsMenuOpen(true);
-      setActiveKey(key); // Mở menu khi chưa có menu nào đang mở
+      setActiveKey(key);
     }
   };
-
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => {
-        setIsTransitioning(false);
-        if (activeKey) {
-          // Chỉ mở menu nếu activeKey có giá trị
-          setIsMenuOpen(true);
-        }
-      },
-      isTransitioning ? 450 : 0
-    );
-
-    return () => clearTimeout(timeoutId);
-  }, [isTransitioning, activeKey]);
 
   useEffect(() => {
     const foundItem = menuItems.find((item) =>
       pathname.startsWith(`/${item.key}`)
     );
     setActiveKey(foundItem ? foundItem.key : null);
+    setIsMenuOpen(false);
+    setIsOpen(false);
   }, [pathname, menuItems]);
 
   // mobileMenu
@@ -125,9 +111,9 @@ const Header: React.FC = () => {
     console.log("Menu clicked");
   };
   return (
-    <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen">
-      <div className="container mobile:shadow desktop:shadow-none">
-        <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4 mobile:px-[15px]  my-[30px] mx-auto justify-between">
+    <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
+      <div className="container">
+        <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4  my-[30px] mx-auto justify-between">
           <div className="flex w-full">
             <Link href="/">
               <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
@@ -181,11 +167,7 @@ const Header: React.FC = () => {
             <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
           </div>
         </div>
-        <MegaMenu
-          activeKey={activeKey}
-          isMenuOpen={isMenuOpen}
-          isTransitioning={isTransitioning}
-        />
+        <MegaMenu activeKey={activeKey} isMenuOpen={isMenuOpen} />
       </div>
     </header>
   );
