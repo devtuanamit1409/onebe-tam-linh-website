@@ -147,13 +147,16 @@ const Page: React.FC = () => {
       <div className="container">
         <div className="pt-[40px] pb-[32px]">
           <div className="text-center leading-10">
-            <h5 className="text-[#28A645] font-bold text-[18px] ">
+            <h5 className="text-[#28A645] font-bold text-[18px] laptop:block mobile:hidden ">
               GÓC CHUYÊN GIA
             </h5>
-            <h1 className="text-[#111928] font-bold text-[40px]">
+            <h1 className="text-[#111928] font-bold text-[40px] laptop:block mobile:hidden">
               Các chuyên gia của chúng tôi
             </h1>
-            <div className="flex justify-center pt-5 ">
+            <h1 className="text-[#111928] font-bold text-[24px] laptop:hidden mobile:block">
+              Các chuyên gia nổi bật
+            </h1>
+            <div className="laptop:flex mobile:hidden justify-center pt-5 ">
               <div className="max-w-[40%]">
                 <p className="text-[#637381] leading-7">
                   There are many variations of passages of Lorem Ipsum available
@@ -163,8 +166,8 @@ const Page: React.FC = () => {
             </div>
           </div>
           <div className="py-[32px]">
-            <div className="flex gap-4">
-              <button onClick={onPrev}>
+            <div className="laptop:flex laptop:flex-row mobile:flex-col gap-4 relative">
+              <button onClick={onPrev} className="mobile:hidden laptop:block">
                 <IconPrevCricle active={currentIndex === 0 ? false : true} />
               </button>
               <Swiper
@@ -172,11 +175,15 @@ const Page: React.FC = () => {
                 spaceBetween={10}
                 breakpoints={{
                   640: {
-                    slidesPerView: 2,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                   },
-                  768: {
-                    slidesPerView: 4,
+                  744: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  },
+                  920: {
+                    slidesPerView: 2,
                     spaceBetween: 10,
                   },
                   1024: {
@@ -191,12 +198,11 @@ const Page: React.FC = () => {
                 }}
                 onSlideChange={(swiper) => {
                   setCurrentIndex(swiper.realIndex);
-                }}
-              >
+                }}>
                 {data.map((item, key) => {
                   return (
                     <SwiperSlide key={key}>
-                      <div className="relative">
+                      <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto">
                         <Image
                           alt={item.name}
                           src={item.image}
@@ -217,37 +223,50 @@ const Page: React.FC = () => {
                   );
                 })}
               </Swiper>
-              <button onClick={onNext}>
+              <button onClick={onNext} className="mobile:hidden laptop:block">
                 <IconNextCricle
                   active={currentIndex === totalSlides - 1 ? false : true}
                 />
               </button>
+              <div className="mobile:flex laptop:hidden justify-center items-center mt-[32px]">
+                <button onClick={onPrev}>
+                  <IconPrevCricle active={currentIndex === 0 ? false : true} />
+                </button>
+                <button onClick={onNext}>
+                  <IconNextCricle
+                    active={currentIndex === totalSlides - 1 ? false : true}
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div className="py-[40px]">
+        <div className="py-[40px]  mobile:hidden tablet:block">
           <hr className="border border-[#ECECEC]" />
         </div>
+        <h3 className="text-[35px] font-bold">Góc chuyên gia</h3>
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 desktop:col-span-6 ">
-            <TintucNoibat data={data_detail} name="Góc chuyên gia" />
+          <div className="mobile:col-span-12 tablet:col-span-6 ">
+            <TintucNoibat data={data_detail} name="" />
           </div>
-          <div className="col-span-12 desktop:col-span-6">
+          <div className="mobile:col-span-12 tablet:col-span-6">
             {tin_tuc_noi_bat.map((item, key) => {
               return (
                 <div key={key} className="py-[16px]">
                   <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                    <div className="col-span-7">
+                    <div className="tablet:col-span-6 mobile:col-span-12">
                       <div className="flex flex-col gap-[16px]">
                         <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
                           <div className="text-indigo-800 text-base font-normal leading-normal">
                             {item.category}
                           </div>
                         </div>
-                        <h3 className="text-[20px] text-[#374151] font-[500]">
+                        <h3
+                          className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
+                          title={item.title}>
                           {item.title}
                         </h3>
-                        <p className="text-[18px] text-[#8899A8]">
+                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
                           {item.description}
                         </p>
                         <div className="flex justify-start">
@@ -257,13 +276,14 @@ const Page: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-span-5">
-                      <div className="">
+                    <div className="tablet:col-span-6 mobile:col-span-12 ">
+                      <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
                         <Image
-                          height={196}
-                          width={196}
+                          // height={196}
+                          // width={196}
                           src={demo_tin_tuc_2}
-                          layout="responsive"
+                          layout="fill"
+                          objectFit="cover"
                           alt="tin-tuc-moi-len"
                         />
                       </div>

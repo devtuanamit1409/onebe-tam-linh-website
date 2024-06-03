@@ -24,7 +24,7 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
     );
   };
   return (
-    <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px]">
+    <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px] desktop:px-[120px]">
       {menu.map((item: MenuItemProps, index: number) => {
         return (
           <div

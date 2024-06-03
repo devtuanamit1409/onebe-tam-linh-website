@@ -50,8 +50,7 @@ const Slidemember = () => {
           clickable: true,
         }}
         modules={[EffectFade, Pagination, Autoplay]}
-        className="slider-member swiper-container"
-      >
+        className="slider-member swiper-container">
         {member.map((item, key) => (
           <SwiperSlide key={key}>
             <div className="py-[24px] px-[16px]">
@@ -72,7 +71,7 @@ const Slidemember = () => {
 
               <div className="py-[24px] flex justify-center">
                 <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
-                  <span className="mr-[8px]">Truy cập website</span>
+                  <span className="mr-[8px]">Truy cập trang web</span>
                   <IconAngleRight />
                 </button>
               </div>
