@@ -1,4 +1,6 @@
-import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+// src/interceptors/request.interceptor.ts
+import { InternalAxiosRequestConfig } from "axios";
+
 export function RequestInterceptorFulfilled(
   config: InternalAxiosRequestConfig<any>
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> {
@@ -6,9 +8,7 @@ export function RequestInterceptorFulfilled(
   return config;
 }
 
-export function RequestInterceptorRejected(
-  config: InternalAxiosRequestConfig<any>
-): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> {
+export function RequestInterceptorRejected(error: any): any {
   console.log("REQUEST INTERCEPTOR REJECTED");
-  return config;
+  return Promise.reject(error);
 }

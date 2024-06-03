@@ -11,9 +11,11 @@ import {
 class ApiService {
   private axios: AxiosInstance;
   constructor() {
+    const token = process.env.DEV_TOKEN;
     this.axios = axios.create({
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     this.axios.interceptors.request.use(
