@@ -1,3 +1,3 @@
-export enum ENDPOINT {
-  GET_USERS = "https://reqres.in/api/users",
-}
+export const ENDPOINT = {
+  GET_HOME: `${process.env.URL_API}/home`,
+};
