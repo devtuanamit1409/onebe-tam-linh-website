@@ -1,3 +1,5 @@
+"use server";
+import Head from "next/head";
 import SlideHome from "@/components/Slidehome/SlideHome";
 import SliderKhachHang from "@/components/SlideKhachHang/SliderKhachHang";
 import "../styles/pages/home.css";
@@ -11,11 +13,91 @@ import imageBannerVeChungToi3 from "../../public/images/bannerHome/banner-ve-chu
 import bannerMember from "../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
+import type { Metadata } from "next";
 
-export default function Home() {
+const searchData = {
+  populate: ["seo.thumbnail", "banner.urlImage"].toString(),
+};
+const searchParams = new URLSearchParams(searchData).toString();
+
+async function fetchData() {
+  try {
+    const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+export async function generateMetadata(): Promise<Metadata> {
+  const dataHome = await fetchData();
+  const seo =
+    (dataHome as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
+
+  const baseUrl = process.env.URL_API;
+
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/home`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle ||
+        seo.title ||
+        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
+interface HomeProps {
+  banner: any;
+}
+
+const Home: React.FC<HomeProps> = async () => {
+  const dataHome = await fetchData();
+  console.log(dataHome);
+  const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
+    ?.attributes?.banner;
   return (
     <main>
-      <SlideHome />
+      <SlideHome banner={banner} />
       <div className="flex justify-center  ">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px] ">
@@ -75,7 +157,8 @@ export default function Home() {
                     <div className="inline-flex justify-center w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         Về chúng tôi
                       </Link>
                     </div>
@@ -114,7 +197,8 @@ export default function Home() {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] ">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] "
+                      >
                         Xem thêm
                       </Link>
                     </div>
@@ -159,4 +243,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
