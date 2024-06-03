@@ -27,7 +27,8 @@ export default function RootLayout({
           <Header />
           <div
             id="top-content"
-            className="desktop:mt-[100px] mobile:mt-[72px]"></div>
+            className="desktop:mt-[100px] mobile:mt-[72px]"
+          ></div>
           <main>{children}</main>
           <Footer />
         </LanguageProvider>
