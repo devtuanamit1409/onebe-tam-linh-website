@@ -18,7 +18,18 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import type { Metadata } from "next";
 
 const searchData = {
-  populate: ["seo.thumbnail", "banner.urlImage"].toString(),
+  populate: [
+    "seo.thumbnail",
+    "banner.urlImage",
+    "listlogo.urlImage",
+    "gioiThieu",
+    "gioiThieu.image1",
+    "gioiThieu.image2",
+    "gioiThieu.image3",
+    "boxServices",
+    "descriptionThanhVien",
+    "cardThanhVien.logo",
+  ].toString(),
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
@@ -94,16 +105,61 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = async () => {
   const dataHome = await fetchData();
+  const baseUrl = process.env.URL_API;
+  const listlogo =
+    (dataHome as { data: { attributes: { listlogo: any } } })?.data?.attributes
+      ?.listlogo || [];
+  console.log("dataHome", dataHome);
 
   const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
     ?.attributes?.banner;
+  const gioiThieu = (dataHome as { data: { attributes: { gioiThieu: any } } })
+    ?.data?.attributes?.gioiThieu;
+  const gioiThieuImage1 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image1: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image1?.data?.attributes?.url;
+  const gioiThieuImage2 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image2: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image2?.data?.attributes?.url;
+  const gioiThieuImage3 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image3: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image3?.data?.attributes?.url;
+  const boxService =
+    (dataHome as { data: { attributes: { boxServices: any } } })?.data
+      ?.attributes?.boxServices || [];
+  const descriptionThanhVien =
+    (dataHome as { data: { attributes: { descriptionThanhVien: any } } })?.data
+      ?.attributes?.descriptionThanhVien || [];
+
+  const cardThanhVien = (
+    dataHome as { data: { attributes: { cardThanhVien: any } } }
+  )?.data?.attributes?.cardThanhVien;
+
   return (
     <main>
       <SlideHome banner={banner} />
       <div className="flex justify-center  ">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px] ">
-            <SliderKhachHang />
+            <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
       </div>
@@ -115,7 +171,7 @@ const Home: React.FC<HomeProps> = async () => {
                 <div className="col-span-1 grid grid-cols-2 gap-[25px]">
                   <div className="relative h-full   desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden -translate-y-[-50%]">
                     <Image
-                      src={imageBannerVeChungToi1.src}
+                      src={`${baseUrl}${gioiThieuImage1}`}
                       alt="Image 1"
                       layout="fill"
                       objectFit="cover"
@@ -125,7 +181,7 @@ const Home: React.FC<HomeProps> = async () => {
                   <div className="flex flex-col justify-center gap-[25px]">
                     <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={imageBannerVeChungToi2.src}
+                        src={`${baseUrl}${gioiThieuImage2}`}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -133,7 +189,7 @@ const Home: React.FC<HomeProps> = async () => {
                     </div>
                     <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={imageBannerVeChungToi3.src}
+                        src={`${baseUrl}${gioiThieuImage3}`}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -148,19 +204,12 @@ const Home: React.FC<HomeProps> = async () => {
                       Giới thiệu về chúng tôi
                     </h4>
                     <div className=" text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 mobile:text-center">
-                      Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định
-                      hướng trở thành nhà cung cấp hàng đầu cho các giải pháp kỹ
-                      thuật công trình. Theo đó những lĩnh vực chính mà NTS theo
-                      đuổi một cách tâm huyết ngay từ những ngày đầu là: Tư vấn
-                      cơ điện, Xử lý nước, Tái sử dụng nước; Cung cấp thiết bị
-                      sân vườn, thiết bị tưới cây; Thiết bị thu hồi nước mưa và
-                      các tiện ích khác…
+                      {gioiThieu && gioiThieu?.description}
                     </div>
                     <div className="inline-flex justify-center w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
-                      >
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
                         Về chúng tôi
                       </Link>
                     </div>
@@ -168,7 +217,7 @@ const Home: React.FC<HomeProps> = async () => {
                 </div>
               </div>
 
-              <AboutUsSlider />
+              <AboutUsSlider dataBoxService={boxService} />
             </div>
           </div>
         </div>
@@ -191,16 +240,12 @@ const Home: React.FC<HomeProps> = async () => {
                       Các Công Ty Thành Viên
                     </h2>
                     <p className="pt-[24px] text-[18px] max-w-[572px] font-medium text-center">
-                      Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định
-                      hướng trở thành nhà cung cấp hàng đầu cho các giải pháp kỹ
-                      thuật công trình. Tất cả đều hướng đến trọng tâm là phục
-                      vụ tiện ích cho cuộc sống một cách bền vững và lâu dài.
+                      {descriptionThanhVien && descriptionThanhVien}
                     </p>
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] "
-                      >
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] ">
                         Xem thêm
                       </Link>
                     </div>
@@ -209,7 +254,7 @@ const Home: React.FC<HomeProps> = async () => {
               </div>
               <div className="col-span-12  relativ flex justify-center">
                 <div className="h-[417px] w-[356px] card-member relative z-40">
-                  <SlideMember />
+                  <SlideMember cardThanhVien={cardThanhVien} />
                 </div>
               </div>
             </div>

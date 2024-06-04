@@ -8,8 +8,18 @@ import { Autoplay, Navigation } from "swiper/modules";
 import IconArrowRight from "../icons/IconArrowRight";
 import IconCircleArrowLeft from "../icons/IconCircleArrowLeft";
 import IconCircleArrowRight from "../icons/IconCircleArrowRight";
+interface boxServiceProps {
+  id: number;
+  title?: string;
+  description?: string;
+  path: string;
+}
+interface boxService {
+  dataBoxService: boxServiceProps[];
+}
 
-const AboutUsSlider = () => {
+const AboutUsSlider = (dataBoxService: boxService) => {
+  console.log(dataBoxService.dataBoxService);
   const data = [
     {
       image: {
@@ -18,10 +28,9 @@ const AboutUsSlider = () => {
         width: 32,
         height: 32,
       },
-      title: " Sản phẩm",
-      description:
-        "  NTS Engineering với đội ngũ chuyên gia luôn tìm tòi các sản phẩm plastic nhằm nâng cao hiệu quả công nghệ xử lý nước thải, xử lý nước cấp.",
-      url: "/",
+      title: dataBoxService.dataBoxService[0].title,
+      description: dataBoxService.dataBoxService[0].description,
+      url: dataBoxService.dataBoxService[0].path,
     },
     {
       image: {
@@ -30,10 +39,9 @@ const AboutUsSlider = () => {
         width: 32,
         height: 32,
       },
-      title: "Dịch vụ",
-      description:
-        "  NTS Engineering với đội ngũ chuyên gia luôn tìm tòi các sản phẩm plastic nhằm nâng cao hiệu quả công nghệ xử lý nước thải, xử lý nước cấp.",
-      url: "/",
+      title: dataBoxService.dataBoxService[1].title,
+      description: dataBoxService.dataBoxService[1].description,
+      url: dataBoxService.dataBoxService[1].path,
     },
     {
       image: {
@@ -42,10 +50,9 @@ const AboutUsSlider = () => {
         width: 32,
         height: 32,
       },
-      title: "Dự án cộng đồng",
-      description:
-        "Mang nước sạch cho cộng đồng được xem là nghĩa vụ và trách nhiệm của chúng tôi khi hoạt động trong lĩnh vực nước. Đây là cơ hội để chúng tôi được chia sẻ với những vùng đất, con người khó khăn.",
-      url: "/",
+      title: dataBoxService.dataBoxService[2].title,
+      description: dataBoxService.dataBoxService[2].description,
+      url: dataBoxService.dataBoxService[2].path,
     },
   ];
   return (
