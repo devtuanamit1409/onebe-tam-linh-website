@@ -5,6 +5,13 @@ const nextConfig = {
     defaultLocale: "vi",
     localeDetection: false,
   },
+  images: {
+    domains: ["localhost", "165.232.172.27"],
+  },
+  env: {
+    URL_API: process.env.URL_API,
+    DEV_TOKEN: process.env.DEV_TOKEN,
+  },
 };
 
 export default nextConfig;

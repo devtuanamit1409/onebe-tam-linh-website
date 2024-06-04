@@ -2,8 +2,128 @@ import Image from "next/image";
 import cong_ty_thanh_vien from "../../../public/images/ve-chung-toi/doi-tac-lien-ket.png";
 import "../../styles/pages/home.css";
 import IconAngleRight from "@/components/icons/IconAngleRight";
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
+import { Metadata } from "next";
+import Link from "next/link";
+import { useState } from "react";
+import ListMember from "@/components/ListMember";
 
-const page = () => {
+const searchData = {
+  populate: [
+    "description",
+    "banner.urlImage",
+    "seo.thumbnail",
+    "cardThanhVien.logo",
+  ].toString(),
+};
+const searchParams = new URLSearchParams(searchData).toString();
+
+export async function generateMetadata(): Promise<Metadata> {
+  const dataDoiTac = await fetchData();
+  const seo =
+    (dataDoiTac as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
+  console.log("seo", seo);
+  const baseUrl = process.env.URL_API;
+
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/home`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle ||
+        seo.title ||
+        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
+
+async function fetchData() {
+  try {
+    const data = await apiService.get(`${ENDPOINT.GET_DOITAC}?${searchParams}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+const page: React.FC = async () => {
+  const dataDoiTac = await fetchData();
+  const baseUrl = process.env.URL_API;
+  const description = (
+    dataDoiTac as { data: { attributes: { description: string } } }
+  )?.data?.attributes?.description;
+  const banner = (
+    dataDoiTac as {
+      data: {
+        attributes: {
+          banner: { urlImage: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.banner?.urlImage?.data?.attributes?.url;
+  const listMember = (
+    dataDoiTac as {
+      data: {
+        attributes: {
+          cardThanhVien: {
+            id: number;
+            title: string;
+            description: string;
+            path: string;
+            logo: {
+              data: {
+                attributes: {
+                  width: number;
+                  height: number;
+                  url: string;
+                };
+              };
+            };
+          }[];
+        };
+      };
+    }
+  )?.data?.attributes?.cardThanhVien;
+
   const member = [
     {
       name: "Irritec",
@@ -54,11 +174,12 @@ const page = () => {
       height: 45,
     },
   ];
+
   return (
     <>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
-          src={cong_ty_thanh_vien}
+          src={`${baseUrl}${banner}`}
           alt="banner"
           layout="fill"
           objectFit="contain"
@@ -72,61 +193,10 @@ const page = () => {
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
             Hợp tác chiến lược
           </h1>
-          <p>This is a short discription about this content</p>
+          <p>{description && description}</p>
         </div>
       </div>
-      <div className="pb-[80px]">
-        <div className="container">
-          <div className="grid grid-cols-12 desktop:gap-[50px] tablet:gap-[32px]">
-            {member.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]"
-                >
-                  <div className="border border-[#DFE4EA]">
-                    <div className="px-[24px] pb-[24px] pt-[100px]">
-                      <div className="flex flex-col gap-[24px]">
-                        <div className="flex justify-center">
-                          <div className="max-w-[190x] max-h-[103px]">
-                            <div className="">
-                              <Image
-                                src={item.urlLogo}
-                                alt="logo"
-                                width={100}
-                                height={103}
-                                layout="responsive"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <h2 className="text-center font-semibold text-[28px]">
-                          {item.name}
-                        </h2>
-                        <p className="text-[#6B7280] text-[18px]">
-                          This is a short description about this card.This is a
-                          short description about this card.{" "}
-                        </p>
-                        <div className="py-[24px] flex justify-center">
-                          <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
-                            <span className="mr-[8px]">Truy cập website</span>
-                            <IconAngleRight />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex justify-center pt-[40px]">
-            <button className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] ">
-              Xem thêm
-            </button>
-          </div>
-        </div>
-      </div>
+      <ListMember listMember={listMember} />
     </>
   );
 };

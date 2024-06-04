@@ -7,37 +7,53 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
-import data_banner from "./data";
 import ProgressBar from "../ProgressBar/ProgressBar";
 
-const SlideHome = () => {
+interface BannerItem {
+  id: string;
+  urlImage: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
+  title: string;
+  path: string;
+  name: string;
+  description: string;
+}
+
+const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const labels = data_banner.map((item) => item.name);
-  console.log(data_banner);
+  const labels = banner?.map((item) => item.name);
+  // console.log(banner);
+  const baseUrl = process.env.URL_API;
+  // console.log(baseUrl);
   return (
     <>
       <Swiper
         spaceBetween={30}
-        // autoplay={{
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
         onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
-        {data_banner.map((item) => (
-          <SwiperSlide key={item.key}>
+        {banner?.map((item) => (
+          <SwiperSlide key={item.id}>
             <div className="image-container">
               <Image
-                src={item.urlImage}
+                src={`${baseUrl}${item.urlImage.data.attributes.url}`}
                 alt="Slide Home"
                 layout="responsive"
                 width={1000}
                 height={1000}
               />
               <div
-                className={`content-baner-${item.key} flex justify-center desktop:items-center mobile:pt-[60px]`}>
+                className={`content-baner-${item.id} flex justify-center desktop:items-center mobile:pt-[60px]`}>
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
@@ -52,7 +68,7 @@ const SlideHome = () => {
                     </div>
                     <div className="col-span-1">
                       <p className="text-white tablet:text-[18px] mobile:text-[14px]">
-                        {item.describe}
+                        {item.description}
                       </p>
                     </div>
                     <div className="col-span-1">
@@ -67,10 +83,10 @@ const SlideHome = () => {
           </SwiperSlide>
         ))}
         <div className="flex justify-center items-center py-4 container">
-          <div className="laptop:w-[846px] tablet:w-full container mobile:pr-[32px] mobile:pl-[32px]  absolute tablet:bottom-[20%] mobile:bottom-[86px]  z-30">
+          <div className="laptop:w-[846px] tablet:w-full container mobile:pr-[32px] mobile:pl-[32px] absolute tablet:bottom-[20%] mobile:bottom-[86px] z-30">
             <ProgressBar
               currentIndex={currentIndex}
-              stepsCount={data_banner.length}
+              stepsCount={banner?.length}
               labels={labels}
             />
           </div>

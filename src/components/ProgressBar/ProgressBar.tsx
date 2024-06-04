@@ -1,6 +1,14 @@
 import React from "react";
 
-const ProgressBar = ({ currentIndex, stepsCount, labels }) => {
+const ProgressBar = ({
+  currentIndex,
+  stepsCount,
+  labels,
+}: {
+  currentIndex: number;
+  stepsCount: number;
+  labels: string[];
+}) => {
   const widthPercentage = ((currentIndex + 1) / stepsCount) * 100;
 
   return (
@@ -30,7 +38,7 @@ const ProgressBar = ({ currentIndex, stepsCount, labels }) => {
             zIndex: "2000",
           }}></div>
       </div>
-      {labels.map((marker, index) => (
+      {labels?.map((marker, index) => (
         <div
           key={marker}
           className={`  progress-bar-step tablet:absolute tablet:translate-x-[-50%] mobile:w-full mobile:text-center mobile:mt-4  ${

@@ -1,3 +1,5 @@
+"use server";
+import Head from "next/head";
 import SlideHome from "@/components/Slidehome/SlideHome";
 import SliderKhachHang from "@/components/SlideKhachHang/SliderKhachHang";
 import "../styles/pages/home.css";
@@ -11,15 +13,153 @@ import imageBannerVeChungToi3 from "../../public/images/bannerHome/banner-ve-chu
 import bannerMember from "../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
+import type { Metadata } from "next";
 
-export default function Home() {
+const searchData = {
+  populate: [
+    "seo.thumbnail",
+    "banner.urlImage",
+    "listlogo.urlImage",
+    "gioiThieu",
+    "gioiThieu.image1",
+    "gioiThieu.image2",
+    "gioiThieu.image3",
+    "boxServices",
+    "descriptionThanhVien",
+    "cardThanhVien.logo",
+  ].toString(),
+};
+const searchParams = new URLSearchParams(searchData).toString();
+
+console.log(searchParams);
+
+async function fetchData() {
+  try {
+    const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+export async function generateMetadata(): Promise<Metadata> {
+  const dataHome = await fetchData();
+  const seo =
+    (dataHome as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
+
+  const baseUrl = process.env.URL_API;
+
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/home`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle ||
+        seo.title ||
+        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
+interface HomeProps {
+  banner: any;
+}
+
+const Home: React.FC<HomeProps> = async () => {
+  const dataHome = await fetchData();
+  const baseUrl = process.env.URL_API;
+  const listlogo =
+    (dataHome as { data: { attributes: { listlogo: any } } })?.data?.attributes
+      ?.listlogo || [];
+  console.log("dataHome", dataHome);
+
+  const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
+    ?.attributes?.banner;
+  const gioiThieu = (dataHome as { data: { attributes: { gioiThieu: any } } })
+    ?.data?.attributes?.gioiThieu;
+  const gioiThieuImage1 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image1: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image1?.data?.attributes?.url;
+  const gioiThieuImage2 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image2: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image2?.data?.attributes?.url;
+  const gioiThieuImage3 = (
+    dataHome as {
+      data: {
+        attributes: {
+          gioiThieu: { image3: { data: { attributes: { url: string } } } };
+        };
+      };
+    }
+  )?.data?.attributes?.gioiThieu?.image3?.data?.attributes?.url;
+  const boxService =
+    (dataHome as { data: { attributes: { boxServices: any } } })?.data
+      ?.attributes?.boxServices || [];
+  const descriptionThanhVien =
+    (dataHome as { data: { attributes: { descriptionThanhVien: any } } })?.data
+      ?.attributes?.descriptionThanhVien || [];
+
+  const cardThanhVien = (
+    dataHome as { data: { attributes: { cardThanhVien: any } } }
+  )?.data?.attributes?.cardThanhVien;
+
   return (
     <main>
-      <SlideHome />
+      <SlideHome banner={banner} />
       <div className="flex justify-center  ">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px] ">
-            <SliderKhachHang />
+            <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
       </div>
@@ -31,7 +171,7 @@ export default function Home() {
                 <div className="col-span-1 grid grid-cols-2 gap-[25px]">
                   <div className="relative h-full   desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden -translate-y-[-50%]">
                     <Image
-                      src={imageBannerVeChungToi1.src}
+                      src={`${baseUrl}${gioiThieuImage1}`}
                       alt="Image 1"
                       layout="fill"
                       objectFit="cover"
@@ -41,7 +181,7 @@ export default function Home() {
                   <div className="flex flex-col justify-center gap-[25px]">
                     <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={imageBannerVeChungToi2.src}
+                        src={`${baseUrl}${gioiThieuImage2}`}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -49,7 +189,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={imageBannerVeChungToi3.src}
+                        src={`${baseUrl}${gioiThieuImage3}`}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -64,13 +204,7 @@ export default function Home() {
                       Giới thiệu về chúng tôi
                     </h4>
                     <div className=" text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 mobile:text-center">
-                      Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định
-                      hướng trở thành nhà cung cấp hàng đầu cho các giải pháp kỹ
-                      thuật công trình. Theo đó những lĩnh vực chính mà NTS theo
-                      đuổi một cách tâm huyết ngay từ những ngày đầu là: Tư vấn
-                      cơ điện, Xử lý nước, Tái sử dụng nước; Cung cấp thiết bị
-                      sân vườn, thiết bị tưới cây; Thiết bị thu hồi nước mưa và
-                      các tiện ích khác…
+                      {gioiThieu && gioiThieu?.description}
                     </div>
                     <div className="inline-flex justify-center w-full">
                       <Link
@@ -83,7 +217,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <AboutUsSlider />
+              <AboutUsSlider dataBoxService={boxService} />
             </div>
           </div>
         </div>
@@ -106,10 +240,7 @@ export default function Home() {
                       Các Công Ty Thành Viên
                     </h2>
                     <p className="pt-[24px] text-[18px] max-w-[572px] font-medium text-center">
-                      Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định
-                      hướng trở thành nhà cung cấp hàng đầu cho các giải pháp kỹ
-                      thuật công trình. Tất cả đều hướng đến trọng tâm là phục
-                      vụ tiện ích cho cuộc sống một cách bền vững và lâu dài.
+                      {descriptionThanhVien && descriptionThanhVien}
                     </p>
                     <div className="pt-[24px] flex justify-center">
                       <Link
@@ -123,7 +254,7 @@ export default function Home() {
               </div>
               <div className="col-span-12  relativ flex justify-center">
                 <div className="h-[417px] w-[356px] card-member relative z-40">
-                  <SlideMember />
+                  <SlideMember cardThanhVien={cardThanhVien} />
                 </div>
               </div>
             </div>
@@ -159,4 +290,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
