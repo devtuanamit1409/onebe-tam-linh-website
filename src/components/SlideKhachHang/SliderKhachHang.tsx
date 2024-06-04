@@ -6,7 +6,23 @@ import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 import Image from "next/image";
 
-const SliderKhachHang = () => {
+interface ListLogoprops {
+  listlogo: listLogo[];
+}
+interface listLogo {
+  id: number;
+  alt: string;
+  urlImage: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
+}
+
+const SliderKhachHang = (listlogo: ListLogoprops) => {
+  const baseUrl = process.env.URL_API;
   const imagesUrl = [
     "images/logoDoiTac/logo1.png",
     "images/logoDoiTac/logo2.png",
@@ -27,7 +43,7 @@ const SliderKhachHang = () => {
         slidesPerView={1}
         spaceBetween={10}
         autoplay={{
-          delay: 1500,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -51,11 +67,15 @@ const SliderKhachHang = () => {
         }}
         modules={[Autoplay]}
         className="mySwiper">
-        {imagesUrl.map((url, index) => (
+        {listlogo.listlogo?.map((item: any) => (
           <SwiperSlide
-            key={index}
+            key={item?.id}
             className="!flex items-center justify-center min-h-[50px]">
-            <img src={url} alt="logo" width="full" />
+            <img
+              src={`${baseUrl}${item?.urlImage?.data?.attributes?.url}`}
+              alt="logo"
+              width="full"
+            />
           </SwiperSlide>
         ))}
       </Swiper>

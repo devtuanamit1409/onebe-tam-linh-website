@@ -14,20 +14,17 @@ const ProgressBar = ({
   return (
     <div
       className="progress-bar-container"
-      style={{ position: "relative", width: "100%", height: "3px" }}
-    >
+      style={{ position: "relative", width: "100%", height: "3px" }}>
       <div
         className="progress-bar-background"
-        style={{ width: "100%", backgroundColor: "#ddd", height: "100%" }}
-      >
+        style={{ width: "100%", backgroundColor: "#ddd", height: "100%" }}>
         <div
           className="progress-bar-fill"
           style={{
             height: "100%",
             backgroundColor: "#28a645",
             width: `${widthPercentage}%`,
-          }}
-        ></div>
+          }}></div>
         <div
           className="progress-indicator"
           style={{
@@ -39,10 +36,9 @@ const ProgressBar = ({
             top: "50%",
             transform: "translate(-50%, -50%) rotate(45deg)",
             zIndex: "2000",
-          }}
-        ></div>
+          }}></div>
       </div>
-      {labels.map((marker, index) => (
+      {labels?.map((marker, index) => (
         <div
           key={marker}
           className={`  progress-bar-step tablet:absolute tablet:translate-x-[-50%] mobile:w-full mobile:text-center mobile:mt-4  ${
@@ -58,8 +54,7 @@ const ProgressBar = ({
             left: `${(100 / stepsCount) * (index + 0.5)}%`,
             // transform: "translateX(-50%)",
             fontWeight: index === currentIndex ? "bold" : "normal",
-          }}
-        >
+          }}>
           {marker}
         </div>
       ))}
