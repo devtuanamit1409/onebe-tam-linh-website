@@ -6,7 +6,7 @@ const nextConfig = {
     localeDetection: false,
   },
   images: {
-    domains: ["localhost", "your-production-domain.com"],
+    domains: ["localhost", "165.232.172.27"],
   },
   env: {
     URL_API: process.env.URL_API,
