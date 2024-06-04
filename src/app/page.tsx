@@ -22,6 +22,8 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
+console.log(searchParams);
+
 async function fetchData() {
   try {
     const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
@@ -92,7 +94,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = async () => {
   const dataHome = await fetchData();
-  console.log(dataHome);
+
   const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
     ?.attributes?.banner;
   return (
