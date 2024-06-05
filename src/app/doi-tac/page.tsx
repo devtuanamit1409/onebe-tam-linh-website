@@ -1,3 +1,4 @@
+"use server";
 import Image from "next/image";
 import cong_ty_thanh_vien from "../../../public/images/ve-chung-toi/doi-tac-lien-ket.png";
 import "../../styles/pages/home.css";
@@ -6,12 +7,10 @@ import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
-import { useState } from "react";
 import ListMember from "@/components/ListMember";
 
 const searchData = {
   populate: [
-    "description",
     "banner.urlImage",
     "seo.thumbnail",
     "cardThanhVien.logo",
@@ -124,57 +123,6 @@ const page: React.FC = async () => {
     }
   )?.data?.attributes?.cardThanhVien;
 
-  const member = [
-    {
-      name: "Irritec",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-1.png",
-      width: 194,
-      height: 44,
-    },
-    {
-      name: "Tata Garden",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-2.png",
-      width: 103,
-      height: 103,
-    },
-    {
-      name: "Irricons",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-3.png",
-      width: 190,
-      height: 45,
-    },
-    {
-      name: "Irritec",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-1.png",
-      width: 194,
-      height: 44,
-    },
-    {
-      name: "Tata Garden",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-2.png",
-      width: 103,
-      height: 103,
-    },
-    {
-      name: "Irricons",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlLogo: "/images/ve-chung-toi/doi-tac-3.png",
-      width: 190,
-      height: 45,
-    },
-  ];
-
   return (
     <>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
@@ -196,7 +144,7 @@ const page: React.FC = async () => {
           <p>{description && description}</p>
         </div>
       </div>
-      <ListMember listMember={listMember} />
+      <ListMember url={ENDPOINT.GET_DOITAC} />
     </>
   );
 };
