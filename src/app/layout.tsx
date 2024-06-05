@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "NTS",
   description: "NTSe",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
