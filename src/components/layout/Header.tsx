@@ -12,13 +12,43 @@ import IconMenu from "../icons/IconMenu";
 
 import MobileMenu from "./MobileMenu";
 import MegaMenu from "../MegaMenu";
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
+
+interface ResponseData {
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      slug: string;
+      description: string;
+    };
+  }[];
+}
 
 const Header: React.FC = () => {
-  // const { t } = useTranslation();
+  const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
+  const searchData = {
+    populate: ["danh_muc_cons.bai_viets", "bai_viets.seo"].toString(),
+  };
+  const searchParams = new URLSearchParams(searchData).toString();
+  const fetchData = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}`;
+      const response = await apiService.get<ResponseData>(endpoint);
+      setDataHeader(response.data);
+      console.log("response", response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const menuItems = useMemo(
     () => [
       {
@@ -108,7 +138,6 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    console.log("Menu clicked");
   };
   return (
     <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
@@ -167,7 +196,11 @@ const Header: React.FC = () => {
             <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
           </div>
         </div>
-        <MegaMenu activeKey={activeKey} isMenuOpen={isMenuOpen} />
+        <MegaMenu
+          data={dataHeader ? dataHeader : []}
+          activeKey={activeKey}
+          isMenuOpen={isMenuOpen}
+        />
       </div>
     </header>
   );

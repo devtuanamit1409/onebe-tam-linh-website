@@ -9,6 +9,7 @@ import demo_tin_tuc from "../../../public/images/tin-tuc/demo-tin-tuc.jpg";
 import { Swiper as SwiperClass } from "swiper";
 import IconNextCricle from "../icons/IconNextCricle";
 import IconPrevCricle from "../icons/IconPrevCricle";
+import Link from "next/link";
 interface TintucNoibatProps {
   name: string;
   data: any;
@@ -25,7 +26,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
   const onNext = (): void => {
     swiperRef.current?.slideNext();
   };
-
+  const baseUrl = process.env.URL_API;
   return (
     <>
       <h2 className="font-bold text-[32px]">{name}</h2>
@@ -41,20 +42,22 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
         }}>
         {data.map((item: any, key: any) => {
           return (
-            <SwiperSlide key={key}>
+            <SwiperSlide key={item.id}>
               <div>
-                <div className="py-[16px] relative overflow-hidden">
+                <div className="py-[16px] relative overflow-hidden desktop:h-full aspect-[3/2] max-h-[400px]">
                   <Image
-                    src={item.image}
-                    layout="responsive"
-                    width={100}
-                    height={100}
+                    src={`${baseUrl}${item?.seo.thumbnail.data.attributes.url}`}
+                    layout="fill"
+                    // width={100}
+                    // height={100}
+                    objectFit="cover"
                     alt="tin-tuc-tieu-diem"
-                    className="mobile:rounded-xl desktop:rounded-none"
+                    className="mobile:rounded-xl desktop:rounded-none desktop:w-full "
                   />
                   <div className="absolute top-[15%] left-[5%]">
                     <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-bold">
-                      Mới đây
+                      {item?.danh_muc_bai_viets.data[0].attributes.name ||
+                        "Mới đây"}
                     </span>
                   </div>
                 </div>
@@ -62,10 +65,12 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                   {item.title}
                 </h1>
                 <p className="py-[24px] desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] mobile:text-black">
-                  {item.describe}
+                  {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">
-                  <span className="mr-[10px]">Xem chi tiết</span>
+                  <Link href={`/${item.slug}}`} className="mr-[10px]">
+                    Xem chi tiết
+                  </Link>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="9"
