@@ -22,7 +22,8 @@ interface listMember {
 }
 
 const ListMember = (listMember: listMember) => {
-  console.log(listMember);
+ 
+
   const baseUrl = process.env.URL_API;
   let numberItem = 6;
 

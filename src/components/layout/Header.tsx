@@ -108,7 +108,7 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    console.log("Menu clicked");
+
   };
   return (
     <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">

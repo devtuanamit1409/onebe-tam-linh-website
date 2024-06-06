@@ -24,7 +24,7 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-console.log(searchParams);
+
 
 async function fetchData() {
   try {
@@ -82,7 +82,7 @@ const Footer = async () => {
       };
     }
   )?.data?.attributes.icon;
-  console.log("icon", icon);
+ 
 
   const mapSrc =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9277600307532!2d106.77582227570356!3d10.816840358445626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317526f09a002519%3A0x5490599bcffafcdb!2zMTUgxJAuIFPhu5EgMywgS2h1IGTDom4gY8awIEdpYSBIb8OgLCBRdeG6rW4gOSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oIDcwMDAwMCwgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1716304643844!5m2!1sen!2s";

@@ -27,9 +27,9 @@ interface BannerItem {
 const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const labels = banner?.map((item) => item.name);
-  // console.log(banner);
+ 
   const baseUrl = process.env.URL_API;
-  // console.log(baseUrl);
+
   return (
     <>
       <Swiper

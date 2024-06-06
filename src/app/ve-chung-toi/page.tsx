@@ -6,8 +6,91 @@ import imageOne from "../../../public/images/ve-chung-toi/01.png";
 import imageTwo from "../../../public/images/ve-chung-toi/02.png";
 import imageThree from "../../../public/images/ve-chung-toi/03.png";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
+import { Metadata } from "next";
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
 
-const page = () => {
+const searchData = {
+  populate: [
+    "seo.thumbnail",
+    "videoAbout",
+    "boxAbout",
+    "cacTongThau",
+    "cacDoiTacNuocNgoai",
+    "cacChuDauTuNuocNgoai",
+    "cacCongTyVaTapDoan",
+  ].toString(),
+};
+
+const searchParams = new URLSearchParams(searchData).toString();
+
+export async function generateMetadata(): Promise<Metadata> {
+  const dataVeChungToi = await fetchData();
+  const seo =
+    (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
+
+  const baseUrl = process.env.URL_API;
+
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/home`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle ||
+        seo.title ||
+        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
+async function fetchData() {
+  try {
+    const data = await apiService.get(
+      `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}`
+    );
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+const page = async () => {
   const data_tin_tuc = [
     {
       url: "/images/tin-tuc/tin-tuc-1.jpg",
@@ -46,6 +129,73 @@ const page = () => {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
   ];
+
+  const dataVeChungToi = await fetchData();
+  const baseUrl = process.env.URL_API;
+  const contentFirst = (
+    dataVeChungToi as { data: { attributes: { contentFirst: string } } }
+  )?.data?.attributes?.contentFirst;
+  const contentEnd = (
+    dataVeChungToi as { data: { attributes: { contentEnd: string } } }
+  )?.data?.attributes?.contentEnd;
+  const boxAbout = (
+    dataVeChungToi as {
+      data: {
+        attributes: {
+          boxAbout: { id: number; title: string; description: string }[];
+        };
+      };
+    }
+  )?.data?.attributes?.boxAbout;
+
+  const videoAbout = (
+    dataVeChungToi as {
+      data: {
+        attributes: {
+          videoAbout: {
+            data: {
+              attributes: {
+                width: number;
+                height: number;
+                url: string;
+                ext: string;
+              };
+            };
+          };
+        };
+      };
+    }
+  )?.data?.attributes?.videoAbout?.data?.attributes;
+  const cacTongThau = (
+    dataVeChungToi as {
+      data: { attributes: { cacTongThau: { id: number; item: string }[] } };
+    }
+  )?.data?.attributes?.cacTongThau;
+  const cacDoiTacNuocNgoai = (
+    dataVeChungToi as {
+      data: {
+        attributes: { cacDoiTacNuocNgoai: { id: number; item: string }[] };
+      };
+    }
+  )?.data?.attributes?.cacDoiTacNuocNgoai;
+  const cacChuDauTuNuocNgoai = (
+    dataVeChungToi as {
+      data: {
+        attributes: { cacChuDauTuNuocNgoai: { id: number; item: string }[] };
+      };
+    }
+  )?.data?.attributes?.cacChuDauTuNuocNgoai;
+  const cacCongTyVaTapDoan = (
+    dataVeChungToi as {
+      data: {
+        attributes: { cacCongTyVaTapDoan: { id: number; item: string }[] };
+      };
+    }
+  )?.data?.attributes?.cacCongTyVaTapDoan;
+
+  const supportedVideoExtensions = [".mp4", ".mov", ".avi"];
+  const supportedImageExtensions = [".png", ".jpg", ".jpeg", ".gif"];
+
   return (
     <>
       <div className="flex justify-center ">
@@ -61,24 +211,47 @@ const page = () => {
           <div className="flex justify-center pt-[40px] overflow-hidden">
             <div className="max-w-[1000px]">
               <p className="text-[20px] font-medium">
-                Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định hướng trở
+                {/* Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định hướng trở
                 thành nhà cung cấp hàng đầu cho các giải pháp kỹ thuật công
                 trình. Tất cả đều hướng đến trọng tâm là phục vụ tiện ích cho
                 cuộc sống một cách bền vững và lâu dài. Theo đó những lĩnh vực
                 chính mà NTS theo đuổi một cách tâm huyết ngay từ những ngày đầu
                 là: Tư vấn cơ điện, Xử lý nước, Tái sử dụng nước; Cung cấp thiết
                 bị sân vườn, thiết bị tưới cây; Thiết bị thu hồi nước mưa và các
-                tiện ích khác…
+                tiện ích khác… */}
+                {contentFirst || "description "}
               </p>
-              <div className="pt-[40px] rounded-[32px] overflow-hidden relative">
-                <Image
+              <div className="pt-[40px] overflow-hidden relative">
+                {(videoAbout &&
+                  supportedVideoExtensions.includes(videoAbout.ext) && (
+                    <video controls>
+                      <source
+                        src={`${baseUrl}${videoAbout.url}`}
+                        width={1920}
+                        height={1080}
+                        type={`video/${videoAbout.ext.slice(1)}`}
+                      />
+                    </video>
+                  )) ||
+                  (videoAbout &&
+                    supportedImageExtensions.includes(videoAbout.ext) && (
+                      <Image
+                        src={`${baseUrl}${videoAbout.url}`}
+                        layout="responsive"
+                        width={1920}
+                        height={1080}
+                        alt="Về chúng tôi"
+                        className="rounded-[32px]"
+                      />
+                    ))}
+                {/* <Image
                   src="/images/ve-chung-toi/banner-ve-chung-toi.jpg"
                   layout="responsive"
                   width={1920}
                   height={1080}
                   alt="Về chúng tôi"
                   className="rounded-[32px]"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -94,15 +267,16 @@ const page = () => {
                     height={91}
                   />
                   <h5 className="text-[#3B559E] font-bold text-[30px]">
-                    Nền tảng con người
+                    {boxAbout && boxAbout[0].title}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px]">
-                    Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
+                    {/* Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
                     Đại học, Cao đẳng chuyên ngành hàng đầu Việt Nam, cùng với
                     sự cố vấn đồng hành của các chuyên gia hàng đầu ngành kỹ
                     thuật nước và môi trường từng học tập, nghiên cứu và công
                     tác tại Đại học Bách Khoa TP.HCM, Đại học Khoa học Tự nhiên,
-                    Cao đẳng Xây dựng TP.HCM.
+                    Cao đẳng Xây dựng TP.HCM. */}
+                    {boxAbout && boxAbout[0].description}
                   </p>
                 </div>
               </div>
@@ -117,16 +291,18 @@ const page = () => {
                   />
 
                   <h5 className="text-[#3B559E] font-bold text-[30px]">
-                    Nhu cầu thị trường
+                    {/* Nhu cầu thị trường */}
+                    {boxAbout && boxAbout[1].title}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px]">
-                    Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
+                    {/* Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
                     mẽ. Tuy nhiên thị trường chỉ ưu tiên phát triển số lượng
                     công trình mà chưa tập trung vào chất lượng tiện ích đi kèm.
                     Các kỹ thuật cơ bản như thiết kế cơ điện; điện nước, điều
                     hòa không khí, PCCC, hệ thống điều khiển tòa nhà thông minh
                     (iBMS)… chưa được chú trọng và do đó bị bỏ xa so với xu
-                    hướng của thế giới.
+                    hướng của thế giới. */}
+                    {boxAbout && boxAbout[1].description}
                   </p>
                 </div>
               </div>
@@ -141,13 +317,15 @@ const page = () => {
                   />
 
                   <h5 className="text-[#3B559E] font-bold text-[30px]">
-                    Ý chí và đam mê của người sáng lập cùng các đối tác
+                    {/* Ý chí và đam mê của người sáng lập cùng các đối tác */}
+                    {boxAbout && boxAbout[2].title}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px]">
-                    Dựa trên nền tảng chuyên môn kỹ thuật được đào tạo, qua quá
+                    {/* Dựa trên nền tảng chuyên môn kỹ thuật được đào tạo, qua quá
                     trình làm nghề cộng với sự hỗ trợ, chắt lọc từ thế hệ chuyên
                     gia đi trước, NTS khao khát mang tới cuộc sống tốt hơn cho
-                    cộng đồng.
+                    cộng đồng. */}
+                    {boxAbout && boxAbout[2].description}
                   </p>
                 </div>
               </div>
@@ -161,12 +339,18 @@ const page = () => {
                     Các tổng thầu
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
-                    <li className="text-[20px] font-medium">
+                    {cacTongThau &&
+                      cacTongThau.map((item) => (
+                        <li key={item.id} className="text-[20px] font-medium">
+                          {item.item}
+                        </li>
+                      ))}
+                    {/* <li className="text-[20px] font-medium">
                       Công ty TNHH Xây dựng Lưu Nguyễn
                     </li>
                     <li className="text-[20px] font-medium">
                       Công ty Cổ phần xây dựng Kỹ Thuật Việt Viteccons
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
@@ -174,13 +358,19 @@ const page = () => {
                     Các đối tác nước ngoài
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
-                    <li className="text-[20px] font-medium">
+                    {cacDoiTacNuocNgoai &&
+                      cacDoiTacNuocNgoai.map((item) => (
+                        <li key={item.id} className="text-[20px] font-medium">
+                          {item.item}
+                        </li>
+                      ))}
+                    {/* <li className="text-[20px] font-medium">
                       Claber Spa Italy
                     </li>
                     <li className="text-[20px] font-medium">Ecopa Spa Italy</li>
                     <li className="text-[20px] font-medium">
                       Solveit Vina Korea
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
@@ -188,14 +378,21 @@ const page = () => {
                     Các chủ đầu tư nước ngoài:
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
-                    <li className="text-[20px] font-medium">
+                    {cacChuDauTuNuocNgoai &&
+                      cacChuDauTuNuocNgoai.map((item) => (
+                        <li key={item.id} className="text-[20px] font-medium">
+                          {item.item}
+                        </li>
+                      ))}
+
+                    {/* <li className="text-[20px] font-medium">
                       Hệ thống phòng khám Gia Đình (Family Medical Practice –
                       Israel) Care1, Diamond, Thao Dien FMP.
                     </li>
                     <li className="text-[20px] font-medium">
                       Hệ thống 30 rạp chiếu phim Lotte Cinema (Hàn Quốc) trên
                       toàn quốc.
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
@@ -203,7 +400,13 @@ const page = () => {
                     Các công ty và tập đoàn
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
-                    <li className="text-[20px] font-medium">
+                    {cacCongTyVaTapDoan &&
+                      cacCongTyVaTapDoan.map((item) => (
+                        <li key={item.id} className="text-[20px] font-medium">
+                          {item.item}
+                        </li>
+                      ))}
+                    {/* <li className="text-[20px] font-medium">
                       Công ty TNHH Phần mềm FPT TPHCM;
                     </li>
                     <li className="text-[20px] font-medium">
@@ -212,17 +415,18 @@ const page = () => {
                     </li>
                     <li className="text-[20px] font-medium">
                       Công ty Cổ phần An Phú
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
               <p className="text-[20px] font-medium laptop:mt-[40px] tablet:mt-[32px] mobile:mt-4">
-                Đội ngũ NTS luôn tận lực để mang lại sự hài lòng, niềm tin hay
+                {/* Đội ngũ NTS luôn tận lực để mang lại sự hài lòng, niềm tin hay
                 xa hơn là mang tới hạnh phúc cho khách hàng bằng những giá trị
                 thật sự từ trí tuệ. Chúng tôi mong muốn được mở rộng gặp gỡ và
                 hợp tác với các khách hàng, bạn hàng hiểu được những giá trị mà
                 chúng tôi xây dựng. Hãy cùng tạo ra một môi trường kinh doanh
-                lành mạnh và đóng góp chung vào sự phát triển của đất nước.
+                lành mạnh và đóng góp chung vào sự phát triển của đất nước. */}
+                {contentEnd || "description "}
               </p>
             </div>
           </div>

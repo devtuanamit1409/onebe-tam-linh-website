@@ -19,7 +19,6 @@ interface boxService {
 }
 
 const AboutUsSlider = (dataBoxService: boxService) => {
-  console.log(dataBoxService.dataBoxService);
   const data = [
     {
       image: {
