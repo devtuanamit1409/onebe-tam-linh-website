@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Attributes } from "react";
 import Image from "next/image";
 import "../../styles/pages/tin-tuc.css";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
@@ -9,7 +9,120 @@ import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 
 import demo_goc_chuyen_gia from "../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
-const page = () => {
+import { apiService } from "@/services/api.service";
+import { ENDPOINT } from "@/enums/endpoint.enum";
+import { Metadata } from "next";
+import Link from "next/link";
+
+const searchData = {
+  populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
+};
+
+const searchParams = new URLSearchParams(searchData).toString();
+
+export async function generateMetadata(): Promise<Metadata> {
+  const dataBaiViet = await fetchData();
+  const seo =
+    (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
+
+  const baseUrl = process.env.URL_API;
+
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/tin-tuc`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
+async function fetchData() {
+  try {
+    const data = await apiService.get(
+      `${ENDPOINT.GET_BAIVIET}?${searchParams}`
+    );
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+const page = async () => {
+  const dataTinTuc = await fetchData();
+  const baseUrl = process.env.URL_API;
+  const baiViet = dataTinTuc as {
+    data: {
+      attributes: {
+        id: number;
+        title: string;
+        slug: string;
+        type: string;
+        bai_viet_tieu_diem: boolean;
+        danh_muc_bai_viets: {
+          data: {
+            attributes: {
+              name: string;
+            };
+          }[];
+        };
+        seo: {
+          description: string;
+          thumbnail: {
+            data: {
+              attributes: {
+                url: string;
+              };
+            };
+          };
+        };
+      };
+    }[];
+  };
+
+  const tintuc = baiViet.data
+    .filter((item) => item?.attributes?.type === "Tin tức")
+    .map((item) => item.attributes);
+  const baiVietTieuDiem = tintuc
+    .filter((item) => item?.bai_viet_tieu_diem === true)
+    .map((item) => item);
+
   const tin_tuc_noi_bat = [
     {
       category: "Xử lý nước",
@@ -98,52 +211,55 @@ const page = () => {
     <>
       <div className="container py-[32px] desktop:py-[50px]">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 desktop:col-span-6">
-            <TintucNoibat data={data_detail} name="Tin tức nổi bật" />
+          <div className="col-span-12 laptop:col-span-6">
+            <TintucNoibat data={baiVietTieuDiem} name="Bài viết nổi bật" />
           </div>
-          <div className="col-span-12 desktop:col-span-6">
+          <div className="col-span-12 laptop:col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
               Tin mới lên
             </h2>
-            {tin_tuc_noi_bat.map((item, key) => {
-              return (
-                <div key={key} className="py-[16px]">
-                  <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                    <div className="col-span-7">
-                      <div className="flex flex-col gap-[16px]">
-                        <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                          <div className="text-indigo-800 text-base font-normal leading-normal">
-                            {item.category}
+            {tintuc &&
+              tintuc.map((item) => {
+                return (
+                  <div key={item.id} className="py-[16px]">
+                    <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
+                      <div className="col-span-7">
+                        <div className="flex flex-col gap-[16px]">
+                          <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                            <div className="text-indigo-800 text-base font-normal leading-normal">
+                              Mới đây
+                            </div>
+                          </div>
+                          <h3 className="text-[20px] text-[#374151] font-[500]">
+                            {item.title}
+                          </h3>
+                          <p className="text-[18px] text-[#8899A8]">
+                            {item.seo.description}
+                          </p>
+                          <div className="flex justify-start">
+                            <Link
+                              href={`/${item.slug}`}
+                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                              Đọc ngay
+                            </Link>
                           </div>
                         </div>
-                        <h3 className="text-[20px] text-[#374151] font-[500]">
-                          {item.title}
-                        </h3>
-                        <p className="text-[18px] text-[#8899A8]">
-                          {item.description}
-                        </p>
-                        <div className="flex justify-start">
-                          <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
-                            Đọc ngay
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                    <div className="col-span-5">
-                      <div className="">
-                        <Image
-                          height={196}
-                          width={196}
-                          src={demo_tin_tuc_2}
-                          layout="responsive"
-                          alt="tin-tuc-moi-len"
-                        />
+                      <div className="col-span-5">
+                        <div className="">
+                          <Image
+                            height={196}
+                            width={196}
+                            src={`${baseUrl}${item.seo.thumbnail.data.attributes.url}`}
+                            layout="responsive"
+                            alt="tin-tuc-moi-len"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
         <div className="py-[40px]">
@@ -182,7 +298,7 @@ const page = () => {
           </div>
         </div>
 
-        <BoxTinTuc data={data_tin_tuc} />
+        <BoxTinTuc data={tintuc} />
         <div className="py-[40px] flex justify-center">
           <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
             Tải thêm bài viết

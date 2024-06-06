@@ -33,7 +33,7 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-console.log(searchParams);
+
 
 async function fetchData() {
   try {
@@ -109,7 +109,7 @@ const Home: React.FC<HomeProps> = async () => {
   const listlogo =
     (dataHome as { data: { attributes: { listlogo: any } } })?.data?.attributes
       ?.listlogo || [];
-  console.log("dataHome", dataHome);
+  
 
   const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
     ?.attributes?.banner;
