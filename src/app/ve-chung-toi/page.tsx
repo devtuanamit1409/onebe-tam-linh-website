@@ -25,7 +25,7 @@ const searchData = {
 const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dataVeChungToi = await fetchData();
+  const dataVeChungToi = await fetchData(ENDPOINT.GET_VECHUNGTOI, true);
   const seo =
     (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
@@ -79,10 +79,14 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-async function fetchData() {
+async function fetchData(endpoint: string, isVeChungToi: boolean) {
   try {
     const data = await apiService.get(
-      `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}`
+      `${endpoint}?${
+        isVeChungToi
+          ? searchParams
+          : `populate=seo.thumbnail,danh_muc_bai_viets`
+      }`
     );
     return data;
   } catch (error) {
@@ -130,7 +134,44 @@ const page = async () => {
     },
   ];
 
-  const dataVeChungToi = await fetchData();
+  const dataVeChungToi = await fetchData(ENDPOINT.GET_VECHUNGTOI, true);
+
+  const dataTinTuc = await fetchData(ENDPOINT.GET_BAIVIET, false);
+
+  const baiViet = dataTinTuc as {
+    data: {
+      attributes: {
+        id: number;
+        title: string;
+        slug: string;
+        type: string;
+        bai_viet_tieu_diem: boolean;
+        danh_muc_bai_viets: {
+          data: {
+            attributes: {
+              name: string;
+            };
+          }[];
+        };
+        seo: {
+          description: string;
+          thumbnail: {
+            data: {
+              attributes: {
+                url: string;
+              };
+            };
+          };
+        };
+      };
+    }[];
+  };
+  console.log();
+
+  const tintuc = baiViet?.data
+    .filter((item) => item?.attributes?.type === "Tin tức")
+    .map((item) => item.attributes);
+
   const baseUrl = process.env.URL_API;
   const contentFirst = (
     dataVeChungToi as { data: { attributes: { contentFirst: string } } }
@@ -433,7 +474,7 @@ const page = async () => {
         </div>
       </div>
       <div className="container">
-        <BoxTinTuc data={data_tin_tuc.slice(0, 3)} />
+        <BoxTinTuc data={tintuc.slice(0, 3)} />
         <ContactEnd />
       </div>
     </>
