@@ -10,7 +10,7 @@ import LanguageSwitch from "../LanguageSwitch";
 import { GetServerSideProps } from "next";
 import IconMenu from "../icons/IconMenu";
 
-import MobileMenu from "./MobileMenu";
+import MobileMenu from "../MobileMenu";
 import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
@@ -151,8 +151,7 @@ const Header: React.FC = () => {
                 <li
                   key={item.key}
                   className={`border-b-2 border-transparent flex items-center
-                 `}
-                >
+                 `}>
                   <div
                     onClick={(event) => {
                       event.stopPropagation();
@@ -162,8 +161,7 @@ const Header: React.FC = () => {
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
                   }
-                  `}
-                  >
+                  `}>
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -181,21 +179,20 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div className=" mobile:flex desktop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
-          <Image
-            className="w-[60px] h-10"
-            src={NTSLogo.src}
-            alt="logo"
-            width={60}
-            height={40}
-          />
+          <Link href="/">
+            <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
+          </Link>
           <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}
-            >
+              onClick={toggleMenu}>
               <IconMenu />
             </button>
-            <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+            <MobileMenu
+              data={dataHeader ? dataHeader : []}
+              isOpen={isOpen}
+              toggleMenu={toggleMenu}
+            />
           </div>
         </div>
         <MegaMenu
