@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import chuyen_gia_1 from "../../../public/images/goc-chuyen-gia/Rectangle 4338.png";
 import chuyen_gia_2 from "../../../public/images/goc-chuyen-gia/Rectangle 4338 (1).png";
@@ -19,8 +19,58 @@ import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import IconSearch from "@/components/icons/IconSearch";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
+import { apiService } from "@/services/api.service";
+interface tintuc {
+  id: number;
+  attributes: {
+    title: string;
+    slug: string;
+    type: string;
+    bai_viet_tieu_diem: boolean;
+    seo: {
+      description: string;
+      thumbnail: {
+        data: {
+          attributes: {
+            url: string;
+          };
+        };
+      };
+    };
+    danh_muc_bai_viets: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+  };
+}
+interface ResponseData {
+  data: tintuc[];
+}
 
 const Page: React.FC = () => {
+  const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const searchData = {
+    populate: ["danh_muc_bai_viets", "seo.thumbnail"].toString(),
+  };
+  const searchParams = new URLSearchParams(searchData).toString();
+  const fetchData = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}`;
+      const response = await apiService.get<ResponseData>(endpoint);
+      setTintuc(response.data);
+      // console.log("response.data", response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
   const swiperRef = useRef<SwiperClass | null>();
@@ -247,7 +297,14 @@ const Page: React.FC = () => {
         <h3 className="text-[35px] font-bold">Góc chuyên gia</h3>
         <div className="grid grid-cols-12 gap-4">
           <div className="mobile:col-span-12 tablet:col-span-6 ">
-            <TintucNoibat data={data_detail} name="" />
+            <TintucNoibat
+              data={tintuc
+                .filter((item: tintuc) => item.attributes.type === "Tin tức")
+                .map((item: tintuc) => item.attributes)
+                .filter((item) => item?.bai_viet_tieu_diem === true)
+                .map((item) => item)}
+              name=""
+            />
           </div>
           <div className="mobile:col-span-12 tablet:col-span-6">
             {tin_tuc_noi_bat.map((item, key) => {
@@ -330,7 +387,11 @@ const Page: React.FC = () => {
           </div>
         </div>
 
-        <BoxTinTuc data={data_tin_tuc} />
+        <BoxTinTuc
+          data={tintuc
+            .filter((item: tintuc) => item.attributes.type === "Tin tức")
+            .map((item: tintuc) => item.attributes)}
+        />
         <div className="py-[40px] flex justify-center">
           <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
             Tải thêm bài viết

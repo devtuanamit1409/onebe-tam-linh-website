@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo =
     (dataDoiTac as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
-  console.log("seo", seo);
+
   const baseUrl = process.env.URL_API;
 
   return {

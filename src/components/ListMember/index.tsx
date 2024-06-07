@@ -83,8 +83,7 @@ const ListMember = ({ url }: UrlProps) => {
           {dataThanhVien.map((item) => (
             <div
               key={item.id}
-              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]"
-            >
+              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]">
               <div className="border border-[#DFE4EA]">
                 <div className="px-[24px] pb-[24px] pt-[100px]">
                   <div className="flex flex-col gap-[24px]">
@@ -125,8 +124,7 @@ const ListMember = ({ url }: UrlProps) => {
         <div className="flex justify-center pt-[40px]">
           <button
             onClick={handleLoadMore}
-            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
-          >
+            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
             Xem thêm
           </button>
         </div>

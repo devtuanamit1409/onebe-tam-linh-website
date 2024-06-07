@@ -110,8 +110,7 @@ const Footer = async () => {
                   <a
                     href={`tel:${phoneNumber}}`}
                     target="_blank"
-                    className="text-white text-sm font-medium  leading-snug"
-                  >
+                    className="text-white text-sm font-medium  leading-snug">
                     {phoneNumber}
                   </a>
                 </div>
@@ -120,8 +119,7 @@ const Footer = async () => {
                     <div className=" relative">
                       <a
                         href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
-                        target="_blank"
-                      >
+                        target="_blank">
                         <IconLocation />
                       </a>
                     </div>
@@ -129,8 +127,7 @@ const Footer = async () => {
                   <a
                     href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
                     target="_blank"
-                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full"
-                  >
+                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full">
                     {address}
                   </a>
                 </div>
@@ -171,8 +168,7 @@ const Footer = async () => {
                         <Link
                           key={item?.id}
                           href={item?.path}
-                          className="text-white text-base font-normal  leading-normal"
-                        >
+                          className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
                       );
@@ -217,8 +213,7 @@ const Footer = async () => {
                         <Link
                           key={item?.id}
                           href={item?.path}
-                          className="text-white text-base font-normal  leading-normal"
-                        >
+                          className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
                       );
@@ -258,8 +253,7 @@ const Footer = async () => {
                         <Link
                           key={item?.id}
                           href={item?.path}
-                          className="text-white text-base font-normal  leading-normal"
-                        >
+                          className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
                       );
