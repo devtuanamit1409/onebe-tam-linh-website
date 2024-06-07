@@ -474,7 +474,7 @@ const page = async () => {
         </div>
       </div>
       <div className="container">
-        <BoxTinTuc data={tintuc.slice(0, 3)} />
+        <BoxTinTuc data={tintuc ? tintuc.slice(0, 3) : []} />
         <ContactEnd />
       </div>
     </>
