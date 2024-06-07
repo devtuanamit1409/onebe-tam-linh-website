@@ -165,9 +165,9 @@ const Header: React.FC = () => {
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
-                        <IconAngleUp />
+                        <IconAngleUp width="12" height="12" />
                       ) : (
-                        <IconAngleDown />
+                        <IconAngleDown width="12" height="12" />
                       ))}
                   </div>
                 </li>
