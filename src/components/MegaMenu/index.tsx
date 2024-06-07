@@ -47,7 +47,6 @@ const MegaMenu = ({
       setMegaMenu(newMegaMenu); // Cập nhật state một lần
     }
   }, [data]);
-  console.log("header", data);
 
   // const megaMenuItem = [
   //   {
@@ -344,7 +343,8 @@ const MegaMenu = ({
             isMenuOpen
               ? "top-[100px] opacity-100"
               : "-translate-y-full top-[0px] opacity-0"
-          }`}>
+          }`}
+        >
           {activeItem && (
             <div className="flex justify-between gap-[32.5px]">
               <div className="w-[300px]  flex-col justify-start items-start gap-8 inline-flex">
@@ -356,7 +356,8 @@ const MegaMenu = ({
                 </p>
                 <Link
                   href={activeItem.url}
-                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-indigo-800 border border-indigo-800 hover:bg-[#fff] hover:border-indigo-800  text-white hover:text-indigo-800  transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex ">
+                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-indigo-800 border border-indigo-800 hover:bg-[#fff] hover:border-indigo-800  text-white hover:text-indigo-800  transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex "
+                >
                   Xem thêm
                 </Link>
               </div>
@@ -370,7 +371,8 @@ const MegaMenu = ({
                             <Link
                               href={item.url}
                               key={index}
-                              className=" text-black text-lg font-semibold  leading-relaxed flex items-center justify-between">
+                              className=" text-black text-lg font-semibold  leading-relaxed flex items-center justify-between"
+                            >
                               {item.title} {item.icon !== null ? item.icon : ""}
                             </Link>
                             {item.description && (
@@ -390,7 +392,8 @@ const MegaMenu = ({
                             <div className="w-full h-[175px]">
                               <h4
                                 key={index}
-                                className=" text-black text-lg font-semibold  leading-relaxed flex items-center justify-between">
+                                className=" text-black text-lg font-semibold  leading-relaxed flex items-center justify-between"
+                              >
                                 {item.title}{" "}
                                 {item.icon !== null ? item.icon : ""}
                               </h4>
@@ -406,10 +409,12 @@ const MegaMenu = ({
                                 (child: any, childIndex: any) => (
                                   <div
                                     key={childIndex}
-                                    className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full ">
+                                    className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full "
+                                  >
                                     <Link
                                       href={child.url}
-                                      className="flex items-center justify-between mb-4 ">
+                                      className="flex items-center justify-between mb-4 "
+                                    >
                                       {child.title}
                                       {child.icon}
                                     </Link>
