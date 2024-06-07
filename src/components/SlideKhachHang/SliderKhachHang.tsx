@@ -66,11 +66,13 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
           },
         }}
         modules={[Autoplay]}
-        className="mySwiper">
+        className="mySwiper"
+      >
         {listlogo.listlogo?.map((item: any) => (
           <SwiperSlide
             key={item?.id}
-            className="!flex items-center justify-center min-h-[50px]">
+            className="!flex items-center justify-center min-h-[50px]"
+          >
             <img
               src={`${baseUrl}${item?.urlImage?.data?.attributes?.url}`}
               alt="logo"

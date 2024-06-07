@@ -33,8 +33,6 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-
-
 async function fetchData() {
   try {
     const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
@@ -44,6 +42,7 @@ async function fetchData() {
     return null;
   }
 }
+
 export async function generateMetadata(): Promise<Metadata> {
   const dataHome = await fetchData();
   const seo =
@@ -105,14 +104,15 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = async () => {
   const dataHome = await fetchData();
+
   const baseUrl = process.env.URL_API;
   const listlogo =
     (dataHome as { data: { attributes: { listlogo: any } } })?.data?.attributes
       ?.listlogo || [];
-  
 
   const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
     ?.attributes?.banner;
+
   const gioiThieu = (dataHome as { data: { attributes: { gioiThieu: any } } })
     ?.data?.attributes?.gioiThieu;
   const gioiThieuImage1 = (
@@ -209,7 +209,8 @@ const Home: React.FC<HomeProps> = async () => {
                     <div className="inline-flex justify-center w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         Về chúng tôi
                       </Link>
                     </div>
@@ -245,7 +246,8 @@ const Home: React.FC<HomeProps> = async () => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] ">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] "
+                      >
                         Xem thêm
                       </Link>
                     </div>

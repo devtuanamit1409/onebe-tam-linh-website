@@ -6,7 +6,12 @@ const nextConfig = {
     localeDetection: false,
   },
   images: {
-    domains: ["localhost", "165.232.172.27"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   env: {
     URL_API: process.env.URL_API,
