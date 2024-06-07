@@ -6,7 +6,9 @@ import IconArrowRight from "@/components/icons/IconArrowRight";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { apiService } from "@/services/api.service";
 import { Breadcrumb } from "antd";
+import notFoundBanner from "../../../public/images/banner/404Banner.png";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 interface baiviet {}
@@ -96,7 +98,7 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
     }
   }
   const resBaiViet: any = await fetchDataBaiViet();
-  const dataBaiViet = resBaiViet.data[0].attributes.content;
+  const dataBaiViet = resBaiViet?.data[0]?.attributes?.content;
 
   console.log("dataBaiViet2", dataBaiViet);
 
@@ -175,10 +177,11 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
   ];
   return (
     <>
-      <p>{params.slug}</p>
-      <div className=" bg-gray-50 ">
-        <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
-          {/* <Breadcrumb separator="/">
+      {resBaiViet?.data[0] ? (
+        <>
+          <div className=" bg-gray-50 ">
+            <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
+              {/* <Breadcrumb separator="/">
             <Breadcrumb.Item>
               <Link className="hover:bg-transparent !bg-transparent" href="/">
                 Trang chủ
@@ -200,23 +203,51 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
             </Breadcrumb.Item>
             <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
           </Breadcrumb> */}
-        </div>
-      </div>
-      <div className="container">
-        <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:mb-6 mobile:mb-4">
-          SẢN PHẨM
-        </p>
-        <h2>{resBaiViet.data[0].attributes.title}</h2>
+            </div>
+          </div>
+          <div className="container">
+            <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
+              SẢN PHẨM
+            </p>
+            <h2 className="text-gray-800 text-5xl font-bold leading-normal text-center">
+              {resBaiViet?.data[0]?.attributes?.title}
+            </h2>
 
-        <div
-          className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
-          dangerouslySetInnerHTML={{
-            __html: dataBaiViet ? dataBaiViet : "",
-          }}
-        />
+            <div
+              className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
+              dangerouslySetInnerHTML={{
+                __html: dataBaiViet ? dataBaiViet : "",
+              }}
+            />
 
-        <ContactEnd />
-      </div>
+            <ContactEnd />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative h-[80vh] min-h-[400px]">
+            <Image src={notFoundBanner.src} alt="" layout="fill" />
+            <div className="w-full h-full absolute flex flex-col justify-center items-center gap-[35px]">
+              <h2 className="text-center text-white text-[100px] font-bold leading-[130px]">
+                404
+              </h2>
+              <p className="text-center text-white text-[22px] font-semibold leading-normal">
+                Oops! That page can’t be found
+              </p>
+              <p className="text-center text-white text-base font-normal leading-normal">
+                The page you are looking for it maybe deleted
+              </p>
+
+              <Link
+                href="/"
+                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                Quay lại trang chủ
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
+
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
