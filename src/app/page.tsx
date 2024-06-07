@@ -98,11 +98,29 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
 interface HomeProps {
-  banner: any;
+  banner: {
+    urlImage: string;
+    [key: string]: any;
+  }[];
+  listlogo: {
+    urlImage: string;
+    [key: string]: any;
+  }[];
+  gioiThieu: {
+    description: string;
+    image1: { url: string };
+    image2: { url: string };
+    image3: { url: string };
+    [key: string]: any;
+  };
+  boxService: any[];
+  descriptionThanhVien: string;
+  cardThanhVien: any[];
 }
 
-const Home: React.FC<HomeProps> = async () => {
+const Home: React.FC = async () => {
   const dataHome = await fetchData();
 
   const baseUrl = process.env.URL_API;
@@ -156,9 +174,9 @@ const Home: React.FC<HomeProps> = async () => {
   return (
     <main>
       <SlideHome banner={banner} />
-      <div className="flex justify-center  ">
+      <div className="flex justify-center">
         <div className="container">
-          <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px] ">
+          <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">
             <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
@@ -169,7 +187,7 @@ const Home: React.FC<HomeProps> = async () => {
             <div className="container z-40">
               <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
                 <div className="col-span-1 grid grid-cols-2 gap-[25px]">
-                  <div className="relative h-full   desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden -translate-y-[-50%]">
+                  <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden">
                     <Image
                       src={`${baseUrl}${gioiThieuImage1}`}
                       alt="Image 1"
@@ -177,9 +195,8 @@ const Home: React.FC<HomeProps> = async () => {
                       objectFit="cover"
                     />
                   </div>
-
                   <div className="flex flex-col justify-center gap-[25px]">
-                    <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
+                    <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
                         src={`${baseUrl}${gioiThieuImage2}`}
                         alt="Image 1"
@@ -187,7 +204,7 @@ const Home: React.FC<HomeProps> = async () => {
                         objectFit="cover"
                       />
                     </div>
-                    <div className="flex-1 relative   desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
+                    <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
                         src={`${baseUrl}${gioiThieuImage3}`}
                         alt="Image 1"
@@ -197,13 +214,12 @@ const Home: React.FC<HomeProps> = async () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="col-span-1 flex items-center">
                   <div className="gap-6">
-                    <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px mobile:text-center">
+                    <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center">
                       Giới thiệu về chúng tôi
                     </h4>
-                    <div className=" text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 mobile:text-center">
+                    <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 mobile:text-center">
                       {gioiThieu && gioiThieu?.description}
                     </div>
                     <div className="inline-flex justify-center w-full">
@@ -217,7 +233,6 @@ const Home: React.FC<HomeProps> = async () => {
                   </div>
                 </div>
               </div>
-
               <AboutUsSlider dataBoxService={boxService} />
             </div>
           </div>
@@ -234,7 +249,7 @@ const Home: React.FC<HomeProps> = async () => {
         <div className="flex justify-center">
           <div className="container">
             <div className="grid grid-cols-12 gap-6 pt-[5%]">
-              <div className="col-span-12 ">
+              <div className="col-span-12">
                 <div className="flex justify-center">
                   <div>
                     <h2 className="font-bold laptop:text-[48px] tablet:text-[40px] mobile:text-[28px] text-center">
@@ -246,7 +261,7 @@ const Home: React.FC<HomeProps> = async () => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] "
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
                       >
                         Xem thêm
                       </Link>
@@ -254,7 +269,7 @@ const Home: React.FC<HomeProps> = async () => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-12  relativ flex justify-center">
+              <div className="col-span-12 relativ flex justify-center">
                 <div className="h-[417px] w-[356px] card-member relative z-40">
                   <SlideMember cardThanhVien={cardThanhVien} />
                 </div>
@@ -273,8 +288,8 @@ const Home: React.FC<HomeProps> = async () => {
               </h2>
               <div className="flex justify-center">
                 <p className="text-[#637381] text-[20px] laptop:w-[572px]">
-                  This is a short description about this content.This is a short
-                  description about this content.
+                  This is a short description about this content. This is a
+                  short description about this content.
                 </p>
               </div>
             </div>
@@ -285,7 +300,6 @@ const Home: React.FC<HomeProps> = async () => {
             <div className="pt-[40px]">
               <Construction />
             </div>
-
             <ContactEnd />
           </div>
         </div>
