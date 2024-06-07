@@ -45,7 +45,7 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                       Xem tất cả
                     </div>
                     <div className="text-indigo-800">
-                      <IconAngleRight />
+                      <IconAngleRight width="16" height="16" />
                     </div>
                   </Link>
                 </div>
@@ -102,7 +102,7 @@ const PageMenu = ({ menu }: { menu: MenuItemProps[] }) => {
                     Xem tất cả
                   </div>
                   <div className="text-indigo-800">
-                    <IconAngleRight />
+                    <IconAngleRight width="16" height="16" />
                   </div>
                 </Link>
               )}

@@ -11,6 +11,8 @@ interface MenuItem {
   name?: string;
   url: string;
   children: MenuItem[];
+  content?: MenuItem[];
+  baiViet?: MenuItem[];
   title?: string; // Thêm thuộc tính title (optional)
 }
 
@@ -34,16 +36,21 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         key: item.attributes.slug,
         title: item.attributes.name,
         description: item.attributes.description,
-        url: `/${item.attributes.slug}`, // Hoặc điều chỉnh đường dẫn tùy ý
-        children: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
+        url: `/${item.attributes.slug}`,
+        baiViet: item.attributes.bai_viets.data.map((baiViet: any) => ({
+          title: baiViet.attributes.title,
+          url: `/${baiViet.attributes.slug}`,
+          icon: <IconAngleRight width={"16"} height={"16"} />,
+        })),
+        content: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
           title: subItem.attributes.name,
           description: subItem.attributes.description,
-          url: `/danh-muc-con/${subItem.attributes.slug}`, // Hoặc điều chỉnh đường dẫn tùy ý
+          url: `${subItem.attributes.slug}`, // Hoặc điều chỉnh đường dẫn tùy ý
           icon: <IconAngleRightColorFull />,
-          children: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
+          baiViet: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
             title: baiViet.attributes.title,
-            url: `/bai-viet/${baiViet.attributes.slug}`,
-            icon: <IconAngleRight />,
+            url: `/${baiViet.attributes.slug}`,
+            icon: <IconAngleRight width={"16"} height={"16"} />,
           })),
         })),
       }));
@@ -59,10 +66,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
   const [currentMenu, setCurrentMenu] = useState<MenuItem[]>([]);
   const [breadcrumb, setBreadcrumb] = useState<MenuItem[]>([]);
+  const [previousMenu, setPreviousMenu] = useState<MenuItem[]>([]);
   const [menuTransition, setMenuTransition] = useState<string>("enter");
 
   useEffect(() => {
-    // Cập nhật currentMenu và breadcrumb khi mobileMenu thay đổi
     if (mobileMenu.length > 0) {
       setCurrentMenu(mobileMenu);
       setBreadcrumb([{ title: "Menu", children: mobileMenu, url: "/" }]);
@@ -70,29 +77,43 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   }, [mobileMenu]);
 
   const handleMenuItemClick = (item: any) => {
-    if (item.children && item.children.length > 0) {
-      setMenuTransition("exit");
-      setTimeout(() => {
-        setCurrentMenu(item.children);
-        setBreadcrumb([...breadcrumb, item]);
-        setMenuTransition("enter");
-      }, 300);
-    } else if (item.url) {
-      window.location.href = item.url;
-    }
+    setMenuTransition("exit");
+    setTimeout(() => {
+      if (item.baiViet && item.baiViet.length > 0) {
+        setCurrentMenu(item.baiViet);
+      } else if (item.content && item.content.length > 0) {
+        setCurrentMenu(item.content);
+      } else {
+        window.location.href = item.url;
+        return;
+      }
+      setBreadcrumb([...breadcrumb, item]);
+      setMenuTransition("enter");
+    }, 300);
   };
-
   const handleBack = () => {
     if (breadcrumb.length > 1) {
       setMenuTransition("exit");
       setTimeout(() => {
-        breadcrumb.pop();
-        setCurrentMenu(breadcrumb[breadcrumb.length - 1].children);
+        const newBreadcrumb = [...breadcrumb];
+        newBreadcrumb.pop();
+        const prevLevel = newBreadcrumb[newBreadcrumb.length - 1];
+        console.log(prevLevel);
+
+        setCurrentMenu(prevLevel.content || prevLevel.children);
+
+        setBreadcrumb(newBreadcrumb);
         setMenuTransition("enter");
+        console.log("Current menu", currentMenu);
       }, 300);
+    } else {
+      console.log("No more levels to go back.");
     }
   };
 
+  useEffect(() => {
+    console.log("currentMenu", currentMenu);
+  }, [currentMenu]);
   return (
     <>
       {!isLoading && (
@@ -113,13 +134,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 </button>
               )}
               <p className="w-full text-black text-lg font-bold text-center">
-                {breadcrumb.length > 1 &&
-                  breadcrumb[breadcrumb.length - 1].title}
+                {breadcrumb.length > 1
+                  ? breadcrumb[breadcrumb.length - 1].title
+                  : "Menu"}
               </p>
               <button
                 onClick={toggleMenu}
                 className="text-black absolute top-4 right-4">
-                {breadcrumb.length <= 1 && <IconClose />}
+                <IconClose />
               </button>
             </div>
             <ul
@@ -128,41 +150,32 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   ? "translate-x-0"
                   : "translate-x-full"
               }`}>
-              {/* Render menu items */}
               {currentMenu.map((item, index) => (
-                <React.Fragment key={index}>
-                  <li
-                    onClick={() => handleMenuItemClick(item)}
-                    className="text-black text-lg font-semibold  leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center ">
-                    {item.title}
-                    {item.children && item.children.length > 0 ? (
-                      <IconAngleRight />
-                    ) : item.url ? (
-                      <IconAngleRight />
-                    ) : (
-                      <IconAngleRightColorFull />
-                    )}
-                  </li>
-                </React.Fragment>
+                <li
+                  key={index}
+                  onClick={() => handleMenuItemClick(item)}
+                  className="text-black text-lg font-semibold leading-relaxed cursor-pointer hover:bg-gray-100 p-2 w-full text-left flex justify-between items-center">
+                  {item.title}
+                  <IconAngleRight width={"16"} height={"16"} />
+                </li>
               ))}
             </ul>
-            <div className="w-full h-[50px] px-4 my-2   justify-between items-center inline-flex">
+            <div className="w-full h-[50px] px-4 my-2 justify-between items-center inline-flex">
               {breadcrumb.length <= 1 ? (
-                <button className="w-full h-[50px] px-4  items-center gap-1 flex rounded-lg border-indigo-800 shadow border justify-center text-indigo-800">
+                <button className="w-full h-[50px] px-4 items-center gap-1 flex rounded-lg border-indigo-800 shadow border justify-center text-indigo-800">
                   <IconGlobe />
-                  <p className="text-black text-lg font-medium  leading-relaxed">
+                  <p className="text-black text-lg font-medium leading-relaxed">
                     VN
                   </p>
                 </button>
               ) : (
                 <div className="w-full h-[52px] px-6 py-3.5 rounded-lg shadow border border-indigo-800 justify-between items-center inline-flex">
-                  {/* Chỉ hiển thị liên kết tới menu cha (cấp 1) */}
-                  <Link href={breadcrumb[1].url} className="">
-                    <p className="text-indigo-800 text-base font-medium  leading-normal text-left flex justify-between ">
+                  <Link href={breadcrumb[1].url}>
+                    <p className="text-indigo-800 text-base font-medium leading-normal text-left flex justify-between">
                       Tới trang {breadcrumb[1].title}
                     </p>
                   </Link>
-                  <div className="w-6 h-6 relative text-indigo-800 ">
+                  <div className="w-6 h-6 relative text-indigo-800">
                     <IconArrowRight />
                   </div>
                 </div>
