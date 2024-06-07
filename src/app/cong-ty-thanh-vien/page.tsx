@@ -82,8 +82,7 @@ const page = () => {
               return (
                 <div
                   key={index}
-                  className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] "
-                >
+                  className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] ">
                   <div className="border border-[#DFE4EA]">
                     <div className="px-[24px] pb-[24px] pt-[100px]">
                       <div className="flex flex-col gap-[24px]">
@@ -110,7 +109,7 @@ const page = () => {
                         <div className="py-[24px] flex justify-center">
                           <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
                             <span className="mr-[8px]">Truy cập website</span>
-                            <IconAngleRight />
+                            <IconAngleRight width="16" height="16" />
                           </button>
                         </div>
                       </div>
