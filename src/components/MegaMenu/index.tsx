@@ -34,7 +34,7 @@ const MegaMenu = ({
         content: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
           title: subItem.attributes.name,
           Descriptions: subItem.attributes.description,
-          url: null,
+          url: subItem.attributes.slug,
           icon: <IconAngleRightColorFull />,
           children: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
             title: baiViet.attributes.title,
@@ -390,13 +390,14 @@ const MegaMenu = ({
                         <>
                           <div className="flex flex-col  items-start">
                             <div className="w-full h-[175px]">
-                              <h4
+                              <Link
+                                href={item.url}
                                 key={index}
                                 className=" text-black text-lg font-semibold  leading-relaxed flex items-center justify-between"
                               >
                                 {item.title}{" "}
                                 {item.icon !== null ? item.icon : ""}
-                              </h4>
+                              </Link>
                               {item.Descriptions && (
                                 <p className=" text-slate-400 text-xs font-normal leading-snug">
                                   {" "}
