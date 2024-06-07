@@ -45,15 +45,18 @@ interface ResponseData {
 
 const ListMember = ({ url }: UrlProps) => {
   const baseUrl = process.env.URL_API || "";
+
   const [dataThanhVien, setDataThanhVien] = useState<Member[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const isInitialMount = useRef(true);
+  console.log(`${url}/1/card-thanh-vien?page=${page}&pageSize=6`);
 
   const fetchData = async (page: number) => {
     try {
       const endpoint = `${url}/1/card-thanh-vien?page=${page}&pageSize=6`;
       const response = await apiService.get<ResponseData>(endpoint);
+      console.log("API Response:", response); // Kiểm tra cấu trúc dữ liệu trả về
       setDataThanhVien((prevMembers) => [...prevMembers, ...response.data]);
       setTotalPages(response.meta.pagination.pageCount);
     } catch (error) {
@@ -63,10 +66,10 @@ const ListMember = ({ url }: UrlProps) => {
 
   useEffect(() => {
     if (isInitialMount.current) {
-      isInitialMount.current = false;
       fetchData(page);
+      isInitialMount.current = false;
     }
-  }, []);
+  }, [page]);
 
   const handleLoadMore = async () => {
     const nextPage = page + 1;
@@ -75,7 +78,9 @@ const ListMember = ({ url }: UrlProps) => {
   };
 
   console.log("dataThanhVien", dataThanhVien);
-
+  if (!dataThanhVien.length) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="pb-[80px]">
       <div className="container">
@@ -83,7 +88,8 @@ const ListMember = ({ url }: UrlProps) => {
           {dataThanhVien.map((item) => (
             <div
               key={item.id}
-              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]">
+              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]"
+            >
               <div className="border border-[#DFE4EA]">
                 <div className="px-[24px] pb-[24px] pt-[100px]">
                   <div className="flex flex-col gap-[24px]">
@@ -91,10 +97,10 @@ const ListMember = ({ url }: UrlProps) => {
                       <div className="max-w-[190px] max-h-[103px]">
                         <div className="max-w-[190px] max-h-[103px] overflow-hidden">
                           <Image
-                            src={baseUrl + item.logo.url}
-                            alt="logo"
-                            width={item.logo.width}
-                            height={item.logo.height}
+                            src={item.logo ? baseUrl + item.logo.url : ""}
+                            alt={item.title}
+                            width={item.logo ? item.logo.width : 0}
+                            height={item.logo ? item.logo.height : 0}
                             layout="responsive"
                           />
                         </div>
@@ -124,7 +130,8 @@ const ListMember = ({ url }: UrlProps) => {
         <div className="flex justify-center pt-[40px]">
           <button
             onClick={handleLoadMore}
-            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+          >
             Xem thêm
           </button>
         </div>

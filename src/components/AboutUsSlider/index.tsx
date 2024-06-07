@@ -91,11 +91,13 @@ const AboutUsSlider = (dataBoxService: boxService) => {
           },
         }}
         modules={[Autoplay, Navigation]}
-        className="mySwiper">
+        className="mySwiper"
+      >
         {data?.map((item, index) => (
           <SwiperSlide
             className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px]`}
-            key={index}>
+            key={index}
+          >
             <div className="overflow-hidden tablet:h-[437px] ">
               <div className="p-[32px] ">
                 <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
@@ -115,7 +117,8 @@ const AboutUsSlider = (dataBoxService: boxService) => {
                 <div className="pt-[16px]">
                   <Link
                     href={item.url}
-                    className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
+                    className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] "
+                  >
                     Xem thêm
                   </Link>
                 </div>
