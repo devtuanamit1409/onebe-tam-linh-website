@@ -86,6 +86,7 @@ async function fetchData() {
 
 const page: React.FC = async () => {
   const dataDoiTac = await fetchData();
+
   const baseUrl = process.env.URL_API;
   const description = (
     dataDoiTac as { data: { attributes: { description: string } } }
