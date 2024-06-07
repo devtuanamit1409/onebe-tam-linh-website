@@ -98,7 +98,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
                     <Link href={item.path} className="mr-[8px]">
                       Truy cập trang web
                     </Link>
-                    <IconAngleRight />
+                    <IconAngleRight width="16" height="16" />
                   </button>
                 </div>
               </div>
