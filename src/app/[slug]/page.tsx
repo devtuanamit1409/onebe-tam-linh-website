@@ -206,10 +206,12 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
           <div className="container">
-            <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:mb-6 mobile:mb-4">
+            <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
               SẢN PHẨM
             </p>
-            <h2>{resBaiViet?.data[0]?.attributes?.title}</h2>
+            <h2 className="text-gray-800 text-5xl font-bold leading-normal text-center">
+              {resBaiViet?.data[0]?.attributes?.title}
+            </h2>
 
             <div
               className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
