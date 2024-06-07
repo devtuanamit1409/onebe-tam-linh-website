@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+
 import {
   RequestInterceptorFulfilled,
   RequestInterceptorRejected,
@@ -12,6 +13,8 @@ class ApiService {
   private axios: AxiosInstance;
   constructor() {
     const token = process.env.DEV_TOKEN;
+    // console.log(token);
+
     this.axios = axios.create({
       headers: {
         "Content-Type": "application/json",

@@ -27,9 +27,10 @@ interface BannerItem {
 const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const labels = banner?.map((item) => item.name);
-  // console.log(banner);
+
   const baseUrl = process.env.URL_API;
-  // console.log(baseUrl);
+  console.log(baseUrl);
+  console.log(banner);
   return (
     <>
       <Swiper
@@ -41,7 +42,8 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
+        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+      >
         {banner?.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="image-container">
@@ -53,7 +55,8 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                 height={1000}
               />
               <div
-                className={`content-baner-${item.id} flex justify-center desktop:items-center mobile:pt-[60px]`}>
+                className={`content-baner-${item.id} flex justify-center desktop:items-center mobile:pt-[60px]`}
+              >
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
