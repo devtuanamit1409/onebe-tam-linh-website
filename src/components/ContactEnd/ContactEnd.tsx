@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import CTE_Desktop from "../../../public/images/banner/CTA_Desktop.png";
-import CTE_Mobile from "../../../public/images/banner/CTA_Mobile.png";
-import CTE_Tablet from "../../../public/images/banner/CTA_Tablet.png";
+import CTE_Mobile from "../../../public/images/banner/CTA_MOBILE.png";
+import CTE_Tablet from "../../../public/images/banner/CTA_TABLET.png";
 
 const ContactEnd = () => {
   return (
