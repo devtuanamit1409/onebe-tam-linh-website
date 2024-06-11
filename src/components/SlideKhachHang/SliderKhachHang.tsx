@@ -38,15 +38,17 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
     "images/logoDoiTac/logo6.png",
   ];
   return (
-    <>
+    <div className="sliderContainer ">
       <Swiper
-        slidesPerView={1}
-        spaceBetween={10}
+        // slidesPerView={1}
+        slidesPerView={"auto"}
+        loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 0,
           disableOnInteraction: false,
         }}
-        loop={true}
+        speed={2000}
+        freeMode={true}
         breakpoints={{
           400: {
             slidesPerView: 2,
@@ -65,14 +67,12 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
             spaceBetween: 50,
           },
         }}
-        modules={[Autoplay]}
-        className="mySwiper"
-      >
+        // modules={[Autoplay]}
+        className="mySwiper branding-slider">
         {listlogo.listlogo?.map((item: any) => (
           <SwiperSlide
             key={item?.id}
-            className="!flex items-center justify-center min-h-[50px]"
-          >
+            className="!flex items-center justify-center min-h-[50px] branding-slide">
             <img
               src={`${baseUrl}${item?.urlImage?.data?.attributes?.url}`}
               alt="logo"
@@ -81,7 +81,7 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 

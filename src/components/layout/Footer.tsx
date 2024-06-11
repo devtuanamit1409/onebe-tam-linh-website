@@ -142,26 +142,11 @@ const Footer = async () => {
           </div>
           <div className="mobile:col-span-12 laptop:col-start-4 laptop:col-end-13 desktop:pl-[40px] laptop:pl-[24px] desktop:flex justify-between mobile:grid mobile:grid-cols-2 gap-4">
             <div className="mobile:col-span-1 flex-1 ">
-              <div className="flex-col">
+              <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Sản phẩm
                 </p>
                 <div className=" h-24 flex-col justify-start items-start gap-3 inline-flex">
-                  {/* <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Vật liệu mới, thiết bị plastic ngành nước
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Thiết bị xử lý nước
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Thiết bị tưới cây, tưới cây tự động
-                  </Link> */}
                   {sanpham &&
                     sanpham?.map((item) => {
                       return (
@@ -177,36 +162,11 @@ const Footer = async () => {
               </div>
             </div>
             <div className="mobile:col-span-1 flex-1 ">
-              <div className="flex-col">
+              <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Dịch vụ
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
-                  {/* <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Tư vấn kỹ thuật nước
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Tư vấn giải pháp tái sử dụng nước
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Thi công, chuyển giao công nghệ
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Bảo hành, bảo trì chuyên nghiệp
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Đào tạo nghề ngành nước
-                  </Link> */}
                   {dichvu &&
                     dichvu?.map((item) => {
                       return (
@@ -222,31 +182,11 @@ const Footer = async () => {
               </div>
             </div>
             <div className="mobile:col-span-1 flex-1 ">
-              <div className="flex-col">
+              <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Công ty Kỹ thuật NTS
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
-                  {/* <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Về chúng tôi
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Công ty thành viên
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Góc chuyên gia
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-white text-base font-normal  leading-normal">
-                    Chương trình cộng đồng
-                  </Link> */}
                   {congty &&
                     congty?.map((item) => {
                       return (
@@ -262,7 +202,7 @@ const Footer = async () => {
               </div>
             </div>
             <div className="mobile:col-span-1 flex-1 ">
-              <div className="flex-col">
+              <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
                   Theo dõi chúng tôi trên
                 </p>
