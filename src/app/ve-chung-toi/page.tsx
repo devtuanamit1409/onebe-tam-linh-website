@@ -302,14 +302,14 @@ const page = async () => {
                   <Image
                     src={imageOne.src}
                     alt="01"
-                    className="absolute bottom-0 right-4"
-                    width={139}
-                    height={91}
+                    className="absolute bottom-0 right-4 z-0"
+                    width={174}
+                    height={114}
                   />
-                  <h5 className="text-[#3B559E] font-bold text-[30px]">
+                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
                     {boxAbout && boxAbout[0].title}
                   </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px]">
+                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
                     {/* Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
                     Đại học, Cao đẳng chuyên ngành hàng đầu Việt Nam, cùng với
                     sự cố vấn đồng hành của các chuyên gia hàng đầu ngành kỹ
@@ -325,16 +325,16 @@ const page = async () => {
                   <Image
                     src={imageTwo.src}
                     alt="02"
-                    className="absolute bottom-0 right-4"
-                    width={139}
-                    height={91}
+                    className="absolute bottom-0 right-4 z-0"
+                    width={186}
+                    height={114}
                   />
 
-                  <h5 className="text-[#3B559E] font-bold text-[30px]">
+                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
                     {/* Nhu cầu thị trường */}
                     {boxAbout && boxAbout[1].title}
                   </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px]">
+                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
                     {/* Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
                     mẽ. Tuy nhiên thị trường chỉ ưu tiên phát triển số lượng
                     công trình mà chưa tập trung vào chất lượng tiện ích đi kèm.
@@ -351,20 +351,15 @@ const page = async () => {
                   <Image
                     src={imageThree.src}
                     alt="03"
-                    className="absolute bottom-0 right-4"
-                    width={139}
-                    height={91}
+                    className="absolute bottom-0 right-4 z-0"
+                    width={186}
+                    height={114}
                   />
 
-                  <h5 className="text-[#3B559E] font-bold text-[30px]">
-                    {/* Ý chí và đam mê của người sáng lập cùng các đối tác */}
+                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
                     {boxAbout && boxAbout[2].title}
                   </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px]">
-                    {/* Dựa trên nền tảng chuyên môn kỹ thuật được đào tạo, qua quá
-                    trình làm nghề cộng với sự hỗ trợ, chắt lọc từ thế hệ chuyên
-                    gia đi trước, NTS khao khát mang tới cuộc sống tốt hơn cho
-                    cộng đồng. */}
+                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
                     {boxAbout && boxAbout[2].description}
                   </p>
                 </div>
@@ -374,7 +369,7 @@ const page = async () => {
           <div className="flex justify-center">
             <div className="max-w-[1000px] pb-[40px]">
               <div className="grid grid-cols-12 gap-4 tablet:gap-8 mobile:gap-4">
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
+                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
                     Các tổng thầu
                   </h4>
@@ -393,7 +388,7 @@ const page = async () => {
                     </li> */}
                   </ul>
                 </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
+                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
                     Các đối tác nước ngoài
                   </h4>
@@ -413,7 +408,7 @@ const page = async () => {
                     </li> */}
                   </ul>
                 </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
+                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
                     Các chủ đầu tư nước ngoài:
                   </h4>
@@ -424,18 +419,9 @@ const page = async () => {
                           {item.item}
                         </li>
                       ))}
-
-                    {/* <li className="text-[20px] font-medium">
-                      Hệ thống phòng khám Gia Đình (Family Medical Practice –
-                      Israel) Care1, Diamond, Thao Dien FMP.
-                    </li>
-                    <li className="text-[20px] font-medium">
-                      Hệ thống 30 rạp chiếu phim Lotte Cinema (Hàn Quốc) trên
-                      toàn quốc.
-                    </li> */}
                   </ul>
                 </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[210px]">
+                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
                     Các công ty và tập đoàn
                   </h4>
@@ -446,26 +432,10 @@ const page = async () => {
                           {item.item}
                         </li>
                       ))}
-                    {/* <li className="text-[20px] font-medium">
-                      Công ty TNHH Phần mềm FPT TPHCM;
-                    </li>
-                    <li className="text-[20px] font-medium">
-                      Công ty TNHH Đầu tư Khu đô thị Việt Hưng Ecopark
-                      (VIHAJICO)
-                    </li>
-                    <li className="text-[20px] font-medium">
-                      Công ty Cổ phần An Phú
-                    </li> */}
                   </ul>
                 </div>
               </div>
               <p className="text-[20px] font-medium laptop:mt-[40px] tablet:mt-[32px] mobile:mt-4">
-                {/* Đội ngũ NTS luôn tận lực để mang lại sự hài lòng, niềm tin hay
-                xa hơn là mang tới hạnh phúc cho khách hàng bằng những giá trị
-                thật sự từ trí tuệ. Chúng tôi mong muốn được mở rộng gặp gỡ và
-                hợp tác với các khách hàng, bạn hàng hiểu được những giá trị mà
-                chúng tôi xây dựng. Hãy cùng tạo ra một môi trường kinh doanh
-                lành mạnh và đóng góp chung vào sự phát triển của đất nước. */}
                 {contentEnd || "description "}
               </p>
             </div>

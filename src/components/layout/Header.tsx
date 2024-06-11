@@ -122,6 +122,17 @@ const Header: React.FC = () => {
       setActiveKey(key);
     }
   };
+  const handleMouseEnter = (key: string, condition: boolean) => {
+    if (condition) {
+      setActiveKey(key);
+      setIsMenuOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setActiveKey(null);
+    setIsMenuOpen(false);
+  };
 
   useEffect(() => {
     const foundItem = menuItems.find((item) =>
@@ -139,7 +150,7 @@ const Header: React.FC = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
+    <header className=" flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
       <div className="container">
         <div className="hidden laptop:flex w-full max-w-full h-auto p-0 px-4  my-[30px] mx-auto justify-between">
           <div className="flex w-full">

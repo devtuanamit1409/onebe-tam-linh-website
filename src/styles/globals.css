@@ -6,10 +6,10 @@ body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
 }
-.section-contact {
+/* .section-contact {
   background-image: url("../../public/images/home/bg-section-contact.png");
-  background-size: cover;
-}
+  background-size: cover; */
+/* } */
 .btn-view {
   box-shadow: 0px 1px 1px 0px rgba(166, 175, 195, 0.3);
 }
@@ -82,5 +82,31 @@ body {
   .swiper-home > .swiper-wrapper {
     border-radius: 0 0 24px 24px;
     overflow: hidden;
+  }
+}
+
+/* components/BrandingSlider.module.css */
+.sliderContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.branding-slider {
+  display: flex;
+  width: calc(2 * 100%);
+  animation: slide 10s linear infinite;
+}
+
+.branding-slide {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
