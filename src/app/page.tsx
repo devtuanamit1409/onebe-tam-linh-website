@@ -187,7 +187,7 @@ const Home: React.FC = async () => {
             <div className="container z-40">
               <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
                 <div className="col-span-1 grid grid-cols-2 gap-[25px]">
-                  <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden">
+                  <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
                     <Image
                       src={`${baseUrl}${gioiThieuImage1}`}
                       alt="Image 1"
@@ -225,8 +225,7 @@ const Home: React.FC = async () => {
                     <div className="inline-flex justify-center w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
-                      >
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
                         Về chúng tôi
                       </Link>
                     </div>
@@ -261,8 +260,7 @@ const Home: React.FC = async () => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
-                      >
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
                         Xem thêm
                       </Link>
                     </div>

@@ -17,6 +17,11 @@ import { Metadata } from "next";
 const searchData = {
   populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
 };
+const searchDataDanhMuc = {
+  populate: ["bai_viets.seo", "danh_muc_cons.bai_viets.seo "].toString(),
+};
+
+const searchParamsSanPham = new URLSearchParams(searchDataDanhMuc).toString();
 
 const searchParams = new URLSearchParams(searchData).toString();
 
@@ -73,6 +78,17 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+async function fetchDataDanhMuc() {
+  try {
+    const data = await apiService.get(
+      `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}`
+    );
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
 async function fetchData() {
   try {
     const data = await apiService.get(
@@ -87,6 +103,63 @@ async function fetchData() {
 
 const page = async () => {
   const dataTinTuc = await fetchData();
+
+  const dataDanhMuc = await fetchDataDanhMuc();
+  const danhMuc = (
+    dataDanhMuc as {
+      data: {
+        attributes: {
+          name: string;
+          slug: string;
+          description: string;
+          danh_muc_cons: {
+            data: {
+              attributes: {
+                name: string;
+                slug: string;
+                description: string;
+                bai_viets: {
+                  data: {
+                    attributes: {
+                      title: string;
+                      slug: string;
+                      content: string;
+                      type: string;
+                      bai_viet_tieu_diem: boolean;
+                      seo: {
+                        title: string;
+                        description: string;
+                        keyword: string;
+                      };
+                    };
+                  }[];
+                };
+              };
+            }[];
+          };
+
+          bai_viets: {
+            data: {
+              attributes: {
+                title: string;
+                slug: string;
+                content: string;
+                type: string;
+                bai_viet_tieu_diem: boolean;
+                seo: {
+                  title: string;
+                  description: string;
+                  keyword: string;
+                };
+              };
+            }[];
+          };
+        };
+      }[];
+    }
+  )?.data;
+
+  const duAn = danhMuc.filter((item) => item.attributes.slug === "du-an");
 
   const baiViet = dataTinTuc as {
     data: {
@@ -259,7 +332,7 @@ const page = async () => {
             This is a short discription about this content
           </p>
         </div>
-        <PageMenu menu={menuItem} />
+        <PageMenu menu={duAn[0]} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

@@ -166,7 +166,6 @@ const page = async () => {
       };
     }[];
   };
-  console.log();
 
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")

@@ -100,8 +100,6 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
   const resBaiViet: any = await fetchDataBaiViet();
   const dataBaiViet = resBaiViet?.data[0]?.attributes?.content;
 
-  console.log("dataBaiViet2", dataBaiViet);
-
   const baiViet = dataTinTuc as {
     data: {
       attributes: {
