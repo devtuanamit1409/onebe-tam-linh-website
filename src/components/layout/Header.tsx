@@ -141,12 +141,12 @@ const Header: React.FC = () => {
   return (
     <header className=" flex desktop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
       <div className="container">
-        <div className="hidden desktop:flex w-full max-w-full h-auto p-0 px-4  my-[30px] mx-auto justify-between">
+        <div className="hidden laptop:flex w-full max-w-full h-auto p-0 px-4  my-[30px] mx-auto justify-between">
           <div className="flex w-full">
             <Link href="/">
               <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
             </Link>
-            <ul className="hidden desktop:flex bg-transparent w-full  justify-between mx-8">
+            <ul className="hidden laptop:flex bg-transparent w-full  justify-between mx-8">
               {menuItems.map((item) => (
                 <li
                   key={item.key}
@@ -173,12 +173,12 @@ const Header: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="hidden desktop:flex">
+            <div className="hidden laptop:flex">
               <LanguageSwitch />
             </div>
           </div>
         </div>
-        <div className=" mobile:flex desktop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
+        <div className=" mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
           <Link href="/">
             <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
           </Link>

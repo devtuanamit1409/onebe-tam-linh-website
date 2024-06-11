@@ -50,13 +50,12 @@ const ListMember = ({ url }: UrlProps) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const isInitialMount = useRef(true);
-  console.log(`${url}/1/card-thanh-vien?page=${page}&pageSize=6`);
+  // console.log(`${url}/1/card-thanh-vien?page=${page}&pageSize=6`);
 
   const fetchData = async (page: number) => {
     try {
       const endpoint = `${url}/1/card-thanh-vien?page=${page}&pageSize=6`;
       const response = await apiService.get<ResponseData>(endpoint);
-      console.log("API Response:", response); // Kiểm tra cấu trúc dữ liệu trả về
       setDataThanhVien((prevMembers) => [...prevMembers, ...response.data]);
       setTotalPages(response.meta.pagination.pageCount);
     } catch (error) {
@@ -77,7 +76,6 @@ const ListMember = ({ url }: UrlProps) => {
     await fetchData(nextPage);
   };
 
-  console.log("dataThanhVien", dataThanhVien);
   if (!dataThanhVien.length) {
     return <div>Loading...</div>;
   }
