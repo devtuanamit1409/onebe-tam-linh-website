@@ -1,11 +1,36 @@
+import Image from "next/image";
 import React from "react";
+import CTE_Desktop from "../../../public/images/banner/CTA_Desktop.png";
+import CTE_Mobile from "../../../public/images/banner/CTA_Mobile.png";
+import CTE_Tablet from "../../../public/images/banner/CTA_Tablet.png";
 
 const ContactEnd = () => {
   return (
     <>
-      <div className="py-[80px]">
-        <div className="w-full tablet:h-[256px] mobile:h-[362px] flex mobile:flex-col tablet:flex-row  items-center laptop:px-[78px] tablet:px-[42px] mobile:gap-[80px] mobile:py-[40px] mobile:px-8  justify-between section-contact">
-          <div>
+      <div className="py-[80px] relative overflow-hidden">
+        <div className="w-full relative tablet:h-[256px] mobile:h-[362px] flex mobile:flex-col tablet:flex-row  items-center laptop:px-[78px] tablet:px-[42px] mobile:gap-[80px] mobile:py-[40px] mobile:px-8  justify-between section-contact">
+          <Image
+            src={CTE_Desktop.src}
+            className="hidden laptop:block z-0"
+            alt="banner"
+            layout="fill"
+            objectFit="cover"
+          />
+          <Image
+            src={CTE_Tablet.src}
+            className="mobile:hidden tablet:block laptop:hidden z-0"
+            alt="banner"
+            layout="fill"
+            objectFit="cover"
+          />
+          <Image
+            src={CTE_Mobile.src}
+            className="tablet:hidden mobile:block z-0"
+            alt="banner"
+            layout="fill"
+            objectFit="cover"
+          />
+          <div className="relative z-1">
             <p className="font-medium  text-[#fff] mobile:hidden laptop:block">
               Khởi đầu dự án của bạn ngay thôi
             </p>
@@ -19,8 +44,10 @@ const ContactEnd = () => {
               Liên hệ với chúng tôi để bắt đầu dự án của bạn
             </h2>
           </div>
-          <div>
-            <button className="flex items-center laptop:bg-[#28A645] mobile:bg-transparent hover:bg-[#28A645] mobile:border mobile:border-white justify-center rounded-[32px] py-[12px] px-[24px]">
+          <div className="relative z-1">
+            <a
+              href="tel:0888167247"
+              className="flex items-center bg-[#28A645] justify-center rounded-[32px] py-[12px] px-[24px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -35,7 +62,7 @@ const ContactEnd = () => {
               <span className="mx-[8px] text-[#fff]">
                 Gọi ngay 0888 167 247
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

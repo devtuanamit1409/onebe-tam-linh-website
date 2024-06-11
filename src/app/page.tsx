@@ -186,7 +186,7 @@ const Home: React.FC = async () => {
           <div className="flex justify-center">
             <div className="container z-40">
               <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
-                <div className="col-span-1 grid grid-cols-2 gap-[25px]">
+                <div className="col-span-1 grid grid-cols-2 tablet:gap-[25px] mobile:gap-4">
                   <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
                     <Image
                       src={`${baseUrl}${gioiThieuImage1}`}
@@ -219,7 +219,7 @@ const Home: React.FC = async () => {
                     <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center">
                       Giới thiệu về chúng tôi
                     </h4>
-                    <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 mobile:text-center">
+                    <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 text-left">
                       {gioiThieu && gioiThieu?.description}
                     </div>
                     <div className="inline-flex justify-center w-full">
