@@ -26,7 +26,7 @@ export default function RootLayout({
   const language = cookieStore.get("language")?.value || "vi";
 
   return (
-    <html lang={language}>
+    <html lang="vi">
       <body className={inter.className}>
         <NextTopLoader
           color="#28A645"
@@ -43,8 +43,7 @@ export default function RootLayout({
           <Header />
           <div
             id="top-content"
-            className="desktop:mt-[100px] mobile:mt-[72px]"
-          ></div>
+            className="desktop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
           <Footer />
         </LanguageProvider>

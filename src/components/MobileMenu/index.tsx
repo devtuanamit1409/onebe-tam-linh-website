@@ -60,9 +60,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log("mobileMenu", mobileMenu);
-  }, [mobileMenu]);
+  // useEffect(() => {
+  //   console.log("mobileMenu", mobileMenu);
+  // }, [mobileMenu]);
 
   const [currentMenu, setCurrentMenu] = useState<MenuItem[]>([]);
   const [breadcrumb, setBreadcrumb] = useState<MenuItem[]>([]);
@@ -98,22 +98,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         const newBreadcrumb = [...breadcrumb];
         newBreadcrumb.pop();
         const prevLevel = newBreadcrumb[newBreadcrumb.length - 1];
-        console.log(prevLevel);
 
         setCurrentMenu(prevLevel.content || prevLevel.children);
 
         setBreadcrumb(newBreadcrumb);
         setMenuTransition("enter");
-        console.log("Current menu", currentMenu);
       }, 300);
     } else {
-      console.log("No more levels to go back.");
     }
   };
 
-  useEffect(() => {
-    console.log("currentMenu", currentMenu);
-  }, [currentMenu]);
   return (
     <>
       {!isLoading && (
