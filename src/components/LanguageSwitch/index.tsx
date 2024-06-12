@@ -1,32 +1,32 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Dropdown, Space } from "antd";
-import i18n from "../../config/i18n";
+
 import IconGlobe from "../icons/IconGlobe";
-import { LanguageContext } from "../../context/LanguageContext";
+import { type Locale } from "../../locales";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 
 interface LanguageSwitchProps {
   initialLanguage: string;
 }
 
 const LanguageSwitch: React.FC = () => {
-  const contextValue = useContext(LanguageContext);
+  const locale = useLocale() as Locale;
+  const router = useRouter();
 
-  if (!contextValue) {
-    return <div>Language context is not available.</div>;
+  console.log("locale", locale);
+  function handleLocaleChange(newLocale: Locale): void {
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    router.refresh();
   }
-
-  const { language, changeLanguage } = contextValue;
-  const handleMenuClick = (e: any) => {
-    changeLanguage(e.key);
-  };
 
   const menu = (
     <Menu>
-      <Menu.Item key="en" onClick={() => changeLanguage("en")}>
+      <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
         English
       </Menu.Item>
-      <Menu.Item key="vi" onClick={() => changeLanguage("vi")}>
+      <Menu.Item key="vi" onClick={() => handleLocaleChange("vi")}>
         Tiếng Việt
       </Menu.Item>
     </Menu>
@@ -35,8 +35,8 @@ const LanguageSwitch: React.FC = () => {
   return (
     <Dropdown overlay={menu} placement="bottom">
       <Space className="text-blue-600 font-medium py-2 px-4 rounded inline-flex items-center">
-        <IconGlobe /> {/* Sử dụng icon từ Ant Design 5 */}
-        <span>{language.toUpperCase()}</span>
+        <IconGlobe />
+        {/* <span>{language.toUpperCase()}</span> */}
       </Space>
     </Dropdown>
   );

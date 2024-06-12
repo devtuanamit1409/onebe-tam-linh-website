@@ -123,7 +123,8 @@ interface HomeProps {
   cardThanhVien: any[];
 }
 
-const Home: React.FC = async () => {
+const Home: React.FC = async (params: any) => {
+  console.log("params", params.params.locale);
   const dataHome = await fetchData();
 
   const baseUrl = process.env.URL_API;
@@ -186,7 +187,7 @@ const Home: React.FC = async () => {
             <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
-      </div> 
+      </div>
       {/* <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
