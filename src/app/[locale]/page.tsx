@@ -36,9 +36,9 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData() {
+async function fetchData(endopoint: string) {
   try {
-    const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
+    const data = await apiService.get(endopoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -47,7 +47,7 @@ async function fetchData() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dataHome = await fetchData();
+  const dataHome = await fetchData(`${ENDPOINT.GET_HOME}?${searchParams}`);
   const seo =
     (dataHome as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
@@ -124,8 +124,11 @@ interface HomeProps {
 }
 
 const Home: React.FC = async (params: any) => {
-  console.log("params", params.params.locale);
-  const dataHome = await fetchData();
+  const locale = params.params.locale;
+
+  const dataHome = await fetchData(
+    `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale}`
+  );
 
   const baseUrl = process.env.URL_API;
   const listlogo =
