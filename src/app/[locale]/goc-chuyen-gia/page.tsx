@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import chuyen_gia_1 from "../../../public/images/goc-chuyen-gia/Rectangle 4338.png";
-import chuyen_gia_2 from "../../../public/images/goc-chuyen-gia/Rectangle 4338 (1).png";
-import chuyen_gia_3 from "../../../public/images/goc-chuyen-gia/Rectangle 4338 (2).png";
-import chuyen_gia_4 from "../../../public/images/goc-chuyen-gia/Rectangle 4338 (3).png";
+import chuyen_gia_1 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338.png";
+import chuyen_gia_2 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338 (1).png";
+import chuyen_gia_3 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338 (2).png";
+import chuyen_gia_4 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338 (3).png";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
@@ -13,8 +13,8 @@ import Image from "next/image";
 import IconPrevCricle from "@/components/icons/IconPrevCricle";
 import IconNextCricle from "@/components/icons/IconNextCricle";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
-import demo_goc_chuyen_gia from "../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
-import demo_tin_tuc_2 from "../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
+import demo_goc_chuyen_gia from "../../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
+import demo_tin_tuc_2 from "../../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
 import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import IconSearch from "@/components/icons/IconSearch";
@@ -249,8 +249,7 @@ const Page: React.FC = () => {
                 }}
                 onSlideChange={(swiper) => {
                   setCurrentIndex(swiper.realIndex);
-                }}
-              >
+                }}>
                 {data.map((item, key) => {
                   return (
                     <SwiperSlide key={key}>
@@ -322,8 +321,7 @@ const Page: React.FC = () => {
                         </div>
                         <h3
                           className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                          title={item.title}
-                        >
+                          title={item.title}>
                           {item.title}
                         </h3>
                         <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">

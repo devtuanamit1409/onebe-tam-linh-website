@@ -5,7 +5,7 @@ import { Menu, Dropdown, Space } from "antd";
 import IconGlobe from "../icons/IconGlobe";
 import { type Locale } from "../../locales";
 import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface LanguageSwitchProps {
   initialLanguage: string;
@@ -14,13 +14,21 @@ interface LanguageSwitchProps {
 const LanguageSwitch: React.FC = () => {
   const locale = useLocale() as Locale;
   const router = useRouter();
+  const pathname = usePathname();
 
   console.log("locale", locale);
+
   function handleLocaleChange(newLocale: Locale): void {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    router.refresh();
-  }
 
+    let newUrl;
+    if (newLocale === "vi") {
+      newUrl = pathname.replace(/^\/en/, "") || "/";
+    } else {
+      newUrl = `/${newLocale}${pathname === "/" ? "" : pathname}`;
+    }
+    router.push(newUrl);
+  }
   const menu = (
     <Menu>
       <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
