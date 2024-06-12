@@ -15,6 +15,7 @@ import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
+
 import type { Metadata } from "next";
 
 const searchData = {
@@ -174,14 +175,14 @@ const Home: React.FC = async () => {
   return (
     <main>
       <SlideHome banner={banner} />
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">
             <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
-      </div>
-      <div className="section-gioi-thieu py-6">
+      </div> */}
+      {/* <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
             <div className="container z-40">
@@ -301,7 +302,7 @@ const Home: React.FC = async () => {
             <ContactEnd />
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };
