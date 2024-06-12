@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { useTranslations } from "next-intl";
 
 interface BannerItem {
   id: string;
@@ -25,6 +26,8 @@ interface BannerItem {
 }
 
 const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
+  const t = useTranslations("Index");
+
   console.log(banner);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const labels = banner?.map((item) => item.name);
@@ -42,8 +45,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
-      >
+        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
         {banner?.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="image-container">
@@ -55,8 +57,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                 height={1000}
               />
               <div
-                className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}
-              >
+                className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}>
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
@@ -76,7 +77,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                     </div>
                     <div className="col-span-1">
                       <button className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent">
-                        Xem thêm
+                        {t("title")}
                       </button>
                     </div>
                   </div>

@@ -1,6 +1,6 @@
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { Pagination } from "antd";
-import "../../styles/pages/luat-bao-ve-moi-truong.css";
+import "../../../styles/pages/luat-bao-ve-moi-truong.css";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import demo_thong_tu_nghi_quyet from "../../../public/images/thong-tu-nghi-quyet/demo-thong-tu-nghi-quyet.png";
+import demo_thong_tu_nghi_quyet from "../../../../public/images/thong-tu-nghi-quyet/demo-thong-tu-nghi-quyet.png";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import Link from "next/link";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";

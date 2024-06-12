@@ -1,6 +1,6 @@
 import Image from "next/image";
-import cong_ty_thanh_vien from "../../../public/images/ve-chung-toi/cong-ty-thanh-vien.png";
-import "../../styles/pages/home.css";
+import cong_ty_thanh_vien from "../../../../public/images/ve-chung-toi/cong-ty-thanh-vien.png";
+import "../../../styles/pages/home.css";
 import IconAngleRight from "@/components/icons/IconAngleRight";
 
 const page = () => {
