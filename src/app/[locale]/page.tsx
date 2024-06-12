@@ -2,7 +2,7 @@
 import Head from "next/head";
 import SlideHome from "@/components/Slidehome/SlideHome";
 import SliderKhachHang from "@/components/SlideKhachHang/SliderKhachHang";
-import "../styles/pages/home.css";
+import "../../styles/pages/home.css";
 import Image from "next/image";
 import SlideMember from "@/components/SlideMember/SlideMember";
 import Construction from "@/components/Construction/Construction";
@@ -10,13 +10,15 @@ import ContactEnd from "@/components/ContactEnd/ContactEnd";
 import imageBannerVeChungToi1 from "../../public/images/bannerHome/banner-ve-chung-toi-1.jpg";
 import imageBannerVeChungToi2 from "../../public/images/bannerHome/banner-ve-chung-toi-2.jpg";
 import imageBannerVeChungToi3 from "../../public/images/bannerHome/banner-ve-chung-toi-3.jpg";
-import bannerMember from "../../public/images/bannerHome/banner-member.png";
+import bannerMember from "../../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -172,16 +174,19 @@ const Home: React.FC = async () => {
     dataHome as { data: { attributes: { cardThanhVien: any } } }
   )?.data?.attributes?.cardThanhVien;
 
+  const t = await getTranslations("Index");
+
   return (
     <main>
       <SlideHome banner={banner} />
-      {/* <div className="flex justify-center">
+      <h1>{t("title")}</h1>
+      <div className="flex justify-center">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">
             <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
-      </div> */}
+      </div> 
       {/* <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
