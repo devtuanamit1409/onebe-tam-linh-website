@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,6 +8,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 interface BannerItem {
   id: string;
@@ -25,11 +27,11 @@ interface BannerItem {
 }
 
 const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
-  console.log(banner);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const labels = banner?.map((item) => item.name);
 
   const baseUrl = process.env.URL_API;
+  const t = useTranslations("Home");
 
   return (
     <>
@@ -75,9 +77,12 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                       </p>
                     </div>
                     <div className="col-span-1">
-                      <button className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent">
-                        Xem thêm
-                      </button>
+                      <Link
+                        href={item.path}
+                        className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent"
+                      >
+                        {t("See_More")}
+                      </Link>
                     </div>
                   </div>
                 </div>
