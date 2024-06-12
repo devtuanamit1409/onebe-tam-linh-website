@@ -1,7 +1,7 @@
 "use server";
 import Image from "next/image";
 import cong_ty_thanh_vien from "../../../public/images/ve-chung-toi/doi-tac-lien-ket.png";
-import "../../styles/pages/home.css";
+import "../../../styles/pages/home.css";
 import IconAngleRight from "@/components/icons/IconAngleRight";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";

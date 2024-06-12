@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
+import "../../styles/globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { cookies } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import NextTopLoader from "nextjs-toploader";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +19,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
-  const cookieStore = cookies();
-  const language = cookieStore.get("language")?.value || "vi";
+  const messages = await getMessages();
 
   return (
     <html lang="vi">
@@ -39,14 +42,14 @@ export default function RootLayout({
           speed={200}
           shadow="0 0 10px #28A645,0 0 5px #28A645"
         />
-        <LanguageProvider initialLanguage={language}>
+        <NextIntlClientProvider messages={messages}>
           <Header />
           <div
             id="top-content"
             className="desktop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
           <Footer />
-        </LanguageProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

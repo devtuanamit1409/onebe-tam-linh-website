@@ -62,7 +62,7 @@ const MegaMenu = ({
           onMouseEnter={() => setIsMenuOpen(true)}
           onMouseLeave={handleMouseLeave}>
           {activeItem && (
-            <div className="flex justify-between gap-[32.5px]">
+            <div className="flex justify-between gap-[32.5px] ">
               <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
                 <h2 className="self-stretch text-indigo-800 text-[40px] font-bold leading-[64px]">
                   {activeItem.title}
