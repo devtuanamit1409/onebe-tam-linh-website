@@ -43,12 +43,13 @@ export default async function RootLayout({
           shadow="0 0 10px #28A645,0 0 5px #28A645"
         />
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          {/* <Header /> */}
           <div
             id="top-content"
-            className="desktop:mt-[100px] mobile:mt-[72px]"></div>
+            className="desktop:mt-[100px] mobile:mt-[72px]"
+          ></div>
           <main>{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </NextIntlClientProvider>
       </body>
     </html>
