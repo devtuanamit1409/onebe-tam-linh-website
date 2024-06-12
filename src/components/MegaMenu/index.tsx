@@ -29,7 +29,7 @@ const MegaMenu = ({
           title: baiViet.attributes.title,
           description: baiViet.attributes.seo.description,
           url: `/${baiViet.attributes.slug}`,
-          icon: <IconAngleRight width="16" height="16" />,
+          icon: <IconAngleRightColorFull />,
         })),
         content: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
           title: subItem.attributes.name,
