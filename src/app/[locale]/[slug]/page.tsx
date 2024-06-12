@@ -238,7 +238,8 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
 
               <Link
                 href="/"
-                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+              >
                 Quay lại trang chủ
               </Link>
             </div>
@@ -254,7 +255,8 @@ const DetailPage = async ({ params }: { params: { slug: string } }) => {
             </h2>
             <Link
               href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
+            >
               Tới trang tin tức <IconArrowRight width={20} height={20} />
             </Link>
           </div>

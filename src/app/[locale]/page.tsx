@@ -15,6 +15,7 @@ import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
+
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -185,8 +186,8 @@ const Home: React.FC = async () => {
             <SliderKhachHang listlogo={listlogo} />
           </div>
         </div>
-      </div>
-      <div className="section-gioi-thieu py-6">
+      </div> 
+      {/* <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
             <div className="container z-40">
@@ -306,7 +307,7 @@ const Home: React.FC = async () => {
             <ContactEnd />
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };
