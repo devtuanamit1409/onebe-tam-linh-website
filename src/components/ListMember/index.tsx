@@ -86,8 +86,9 @@ const ListMember = ({ url }: UrlProps) => {
           {dataThanhVien.map((item) => (
             <div
               key={item.id}
-              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px]">
-              <div className="border border-[#DFE4EA]">
+              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] "
+            >
+              <div className="border border-[#DFE4EA] desktop:h-[450px]  mobile:h-[400px]">
                 <div className="px-[24px] pb-[24px] pt-[100px]">
                   <div className="flex flex-col gap-[24px]">
                     <div className="flex justify-center">
@@ -103,13 +104,13 @@ const ListMember = ({ url }: UrlProps) => {
                         </div>
                       </div>
                     </div>
-                    <h2 className="text-center font-semibold text-[28px]">
+                    <h2 className="text-center font-semibold text-[28px] h-[50px]">
                       {item.title}
                     </h2>
-                    <p className="text-[#6B7280] text-[18px]">
+                    <p className="text-[#6B7280] text-[18px] h-[87px] overflow-y-hidden line-clamp-3">
                       {item.description}
                     </p>
-                    <div className="py-[24px] flex justify-center">
+                    <div className="mt-auto flex justify-center">
                       <button className="py-[16px] flex items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
                         <Link href={item.path} className="mr-[8px]">
                           Truy cập website
@@ -127,7 +128,8 @@ const ListMember = ({ url }: UrlProps) => {
         <div className="flex justify-center pt-[40px]">
           <button
             onClick={handleLoadMore}
-            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+            className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+          >
             Xem thêm
           </button>
         </div>

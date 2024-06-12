@@ -9,11 +9,9 @@ import IconAngleUp from "../icons/IconAngleUp";
 import LanguageSwitch from "../LanguageSwitch";
 import { GetServerSideProps } from "next";
 import IconMenu from "../icons/IconMenu";
-
 import MobileMenu from "../MobileMenu";
 import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
-import { ENDPOINT } from "@/enums/endpoint.enum";
 
 interface ResponseData {
   data: {
@@ -105,23 +103,6 @@ const Header: React.FC = () => {
     setActiveKey(pathname);
   }, [pathname]);
 
-  const handleToggleMegaMenu = (key: string, condition: boolean) => {
-    if (!condition) {
-      return;
-    }
-
-    if (isMenuOpen) {
-      if (activeKey === key) {
-        setActiveKey(null);
-        setIsMenuOpen(false);
-      } else {
-        setActiveKey(key);
-      }
-    } else {
-      setIsMenuOpen(true);
-      setActiveKey(key);
-    }
-  };
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
       setActiveKey(key);
@@ -129,9 +110,16 @@ const Header: React.FC = () => {
     }
   };
 
-  const handleMouseLeave = () => {
-    setActiveKey(null);
-    setIsMenuOpen(false);
+  const handleMouseLeave = (event: React.MouseEvent) => {
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
+    if (
+      relatedTarget &&
+      relatedTarget instanceof HTMLElement &&
+      !relatedTarget.closest(".mega-menu-container")
+    ) {
+      setActiveKey(null);
+      setIsMenuOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -149,30 +137,29 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
-    <header className=" flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen  mobile:shadow desktop:shadow-none">
+    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow desktop:shadow-none">
       <div className="container">
-        <div className="hidden laptop:flex w-full max-w-full h-auto p-0 px-4  my-[30px] mx-auto justify-between">
+        <div className="hidden laptop:flex w-full max-w-full  p-0 px-4 h-[100px] mx-auto justify-between">
           <div className="flex w-full">
-            <Link href="/">
+            <Link href="/" className="my-auto">
               <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
             </Link>
-            <ul className="hidden laptop:flex bg-transparent w-full  justify-between mx-8">
+            <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
               {menuItems.map((item) => (
                 <li
                   key={item.key}
-                  className={`border-b-2 border-transparent flex items-center
-                 `}>
+                  className={`border-b-2 border-transparent flex items-center`}
+                  onMouseEnter={() => {
+                    handleMouseEnter(item.key, item.showIcon);
+                  }}
+                  onMouseLeave={handleMouseLeave}>
                   <div
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleToggleMegaMenu(item.key, item.showIcon);
-                    }}
-                    className={`font-inter text-base font-medium leading-6 text-left  flex items-center gap-3 cursor-pointer 
+                    className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }
-                  `}>
+                  }`}>
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -189,11 +176,11 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className=" mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
+        <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
           <Link href="/">
             <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
           </Link>
-          <div className=" w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center ">
+          <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
               onClick={toggleMenu}>
@@ -210,11 +197,14 @@ const Header: React.FC = () => {
           data={dataHeader ? dataHeader : []}
           activeKey={activeKey}
           isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          handleMouseLeave={handleMouseLeave}
         />
       </div>
     </header>
   );
 };
+
 export default Header;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {

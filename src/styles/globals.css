@@ -101,7 +101,12 @@ body {
   width: auto;
   flex: 0 0 auto;
 }
-
+.test-des {
+  height: 87px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @keyframes slide {
   0% {
     transform: translateX(0%);
