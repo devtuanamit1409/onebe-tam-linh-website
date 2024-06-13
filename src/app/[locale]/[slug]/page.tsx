@@ -1,5 +1,4 @@
-// app/[id]/page.tsx
-"use sever";
+"use server";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
 import IconArrowRight from "@/components/icons/IconArrowRight";
@@ -14,7 +13,7 @@ import Link from "next/link";
 interface baiviet {}
 
 const searchData = {
-  populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
+  populate: ["seo.thumbnail", "danh_muc_bai_viets"].toString(),
 };
 
 const searchParams = new URLSearchParams(searchData).toString();
@@ -98,6 +97,7 @@ const DetailPage = async ({ params }: { params: any }) => {
       return null;
     }
   }
+
   const resBaiViet: any = await fetchDataBaiViet();
 
   const dataBaiViet =
@@ -231,4 +231,5 @@ const DetailPage = async ({ params }: { params: any }) => {
     </>
   );
 };
+
 export default DetailPage;
