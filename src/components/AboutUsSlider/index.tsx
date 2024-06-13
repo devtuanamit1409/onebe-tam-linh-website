@@ -19,6 +19,8 @@ interface boxService {
 }
 
 const AboutUsSlider = (dataBoxService: boxService) => {
+  console.log("dataBoxService", dataBoxService);
+
   const data = [
     {
       image: {
@@ -27,9 +29,10 @@ const AboutUsSlider = (dataBoxService: boxService) => {
         width: 32,
         height: 32,
       },
-      title: dataBoxService.dataBoxService[0].title,
-      description: dataBoxService.dataBoxService[0].description,
-      url: dataBoxService.dataBoxService[0].path,
+      title: dataBoxService.dataBoxService[0]?.title || "english title",
+      description:
+        dataBoxService.dataBoxService[0]?.description || "english description",
+      url: dataBoxService.dataBoxService[0]?.path || "/san-pham",
     },
     {
       image: {
@@ -38,9 +41,10 @@ const AboutUsSlider = (dataBoxService: boxService) => {
         width: 32,
         height: 32,
       },
-      title: dataBoxService.dataBoxService[1].title,
-      description: dataBoxService.dataBoxService[1].description,
-      url: dataBoxService.dataBoxService[1].path,
+      title: dataBoxService.dataBoxService[1]?.title || "english title",
+      description:
+        dataBoxService.dataBoxService[1]?.description || "English description",
+      url: dataBoxService.dataBoxService[1]?.path || "/dich-vu",
     },
     {
       image: {
@@ -49,11 +53,13 @@ const AboutUsSlider = (dataBoxService: boxService) => {
         width: 32,
         height: 32,
       },
-      title: dataBoxService.dataBoxService[2].title,
-      description: dataBoxService.dataBoxService[2].description,
-      url: dataBoxService.dataBoxService[2].path,
+      title: dataBoxService.dataBoxService[2]?.title || "english title",
+      description:
+        dataBoxService.dataBoxService[2]?.description || "english description",
+      url: dataBoxService.dataBoxService[2]?.path || "/du-an",
     },
   ];
+
   return (
     <div className=" gap-[24px] mt-[112px] desktop:overflow-hidden ">
       <Swiper
@@ -91,41 +97,39 @@ const AboutUsSlider = (dataBoxService: boxService) => {
           },
         }}
         modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
-        {data?.map((item, index) => (
-          <SwiperSlide
-            className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px]`}
-            key={index}
-          >
-            <div className="overflow-hidden tablet:h-[437px] ">
-              <div className="p-[32px] ">
-                <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
-                  <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    width={item.image.width}
-                    height={item.image.height}
-                  />
-                </div>
-                <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
-                  {item.title}
-                </h4>
-                <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
-                  {item.description}
-                </p>
-                <div className="pt-[16px]">
-                  <Link
-                    href={item.url}
-                    className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] "
-                  >
-                    Xem thêm
-                  </Link>
+        className="mySwiper">
+        {dataBoxService &&
+          data?.map((item, index) => (
+            <SwiperSlide
+              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px]`}
+              key={index}>
+              <div className="overflow-hidden tablet:h-[437px] ">
+                <div className="p-[32px] ">
+                  <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
+                    <Image
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      width={item.image.width}
+                      height={item.image.height}
+                    />
+                  </div>
+                  <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
+                    {item.title}
+                  </h4>
+                  <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
+                    {item.description}
+                  </p>
+                  <div className="pt-[16px]">
+                    <Link
+                      href={item.url}
+                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
+                      Xem thêm
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))}
       </Swiper>
       <div className="controll-block mobile:flex laptop:hidden justify-center gap-6 mt-4 ">
         <div className="slider-prev text-[#3B559E]">

@@ -17,10 +17,12 @@ const LanguageSwitch: React.FC = () => {
   const pathname = usePathname();
 
   const slugMap: { [key: string]: string } = {
-    "/en": "/",
-    "/": "/en",
-    "/en/neww-post": "/vi/bai-viet",
-    "/vi/bai-viet": "/en/neww-post",
+    "/en": "/vi",
+    "/vi": "/en",
+    "/en/ve-chung-toi": "/vi/ve-chung-toi",
+    "/vi/ve-chung-toi": "/en/ve-chung-toi",
+    "/en/neww-post": "/vi/bai-viet", // Đường dẫn tiếng Anh đến tiếng Việt
+    "/vi/bai-viet": "/en/neww-post", // Đường dẫn tiếng Việt đến tiếng Anh
   };
 
   function handleLocaleChange(newLocale: Locale): void {
@@ -56,7 +58,8 @@ const LanguageSwitch: React.FC = () => {
 
   return (
     <Dropdown overlay={menu} placement="bottom">
-      <Space className="text-blue-600 font-medium py-2 px-4 rounded inline-flex items-center">
+      <Space className="text-[#3B559E] font-medium py-2 px-4 rounded flex  items-center">
+        <span>{locale.toUpperCase()}</span>
         <IconGlobe />
       </Space>
     </Dropdown>

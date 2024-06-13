@@ -25,7 +25,9 @@ const searchData = {
 const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dataVeChungToi = await fetchData(ENDPOINT.GET_VECHUNGTOI, true);
+  const dataVeChungToi = await fetchData(
+    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}}`
+  );
   const seo =
     (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
@@ -79,64 +81,25 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-async function fetchData(endpoint: string, isVeChungToi: boolean) {
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(
-      `${endpoint}?${
-        isVeChungToi
-          ? searchParams
-          : `populate=seo.thumbnail,danh_muc_bai_viets`
-      }`
-    );
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const page = async () => {
-  const data_tin_tuc = [
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ];
+const page = async (params: any) => {
+  let locale = params.params.locale;
+  const dataVeChungToi = await fetchData(
+    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}&locale=${locale}`
+  );
 
-  const dataVeChungToi = await fetchData(ENDPOINT.GET_VECHUNGTOI, true);
-
-  const dataTinTuc = await fetchData(ENDPOINT.GET_BAIVIET, false);
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
+  );
+  console.log("dataTinTuc", dataTinTuc);
 
   const baiViet = dataTinTuc as {
     data: {
@@ -170,6 +133,7 @@ const page = async () => {
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
+  console.log("tintuc", tintuc);
 
   const baseUrl = process.env.URL_API;
   const contentFirst = (
@@ -307,7 +271,7 @@ const page = async () => {
                     height={114}
                   />
                   <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
-                    {boxAbout && boxAbout[0].title}
+                    {(boxAbout && boxAbout[0]?.title) || "title"}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
                     {/* Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
@@ -316,7 +280,7 @@ const page = async () => {
                     thuật nước và môi trường từng học tập, nghiên cứu và công
                     tác tại Đại học Bách Khoa TP.HCM, Đại học Khoa học Tự nhiên,
                     Cao đẳng Xây dựng TP.HCM. */}
-                    {boxAbout && boxAbout[0].description}
+                    {(boxAbout && boxAbout[0]?.description) || "title"}
                   </p>
                 </div>
               </div>
@@ -332,7 +296,7 @@ const page = async () => {
 
                   <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
                     {/* Nhu cầu thị trường */}
-                    {boxAbout && boxAbout[1].title}
+                    {(boxAbout && boxAbout[1]?.title) || "title"}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
                     {/* Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
@@ -342,7 +306,7 @@ const page = async () => {
                     hòa không khí, PCCC, hệ thống điều khiển tòa nhà thông minh
                     (iBMS)… chưa được chú trọng và do đó bị bỏ xa so với xu
                     hướng của thế giới. */}
-                    {boxAbout && boxAbout[1].description}
+                    {(boxAbout && boxAbout[1]?.description) || "title"}
                   </p>
                 </div>
               </div>
@@ -357,10 +321,10 @@ const page = async () => {
                   />
 
                   <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
-                    {boxAbout && boxAbout[2].title}
+                    {(boxAbout && boxAbout[2]?.title) || "title"}
                   </h5>
                   <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
-                    {boxAbout && boxAbout[2].description}
+                    {(boxAbout && boxAbout[2]?.description) || "title"}
                   </p>
                 </div>
               </div>
