@@ -36,9 +36,9 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData(endopoint: string) {
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(endopoint);
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -173,12 +173,16 @@ const Home: React.FC = async (params: any) => {
   const descriptionThanhVien =
     (dataHome as { data: { attributes: { descriptionThanhVien: any } } })?.data
       ?.attributes?.descriptionThanhVien || [];
+  const descriptionDuAn =
+    (dataHome as { data: { attributes: { descriptionDuAn: any } } })?.data
+      ?.attributes?.descriptionDuAn || [];
 
   const cardThanhVien = (
     dataHome as { data: { attributes: { cardThanhVien: any } } }
   )?.data?.attributes?.cardThanhVien;
 
   const t = await getTranslations("Home");
+  console.log("dataHome", dataHome);
 
   return (
     <main>
@@ -191,7 +195,7 @@ const Home: React.FC = async (params: any) => {
           </div>
         </div>
       </div>
-      {/* <div className="section-gioi-thieu py-6">
+      <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
             <div className="container z-40">
@@ -296,8 +300,8 @@ const Home: React.FC = async (params: any) => {
               </h2>
               <div className="flex justify-center">
                 <p className="text-[#637381] text-[20px] laptop:w-[572px]">
-                  This is a short description about this content. This is a
-                  short description about this content.
+                  {(descriptionDuAn && descriptionDuAn) ||
+                    "no content description"}
                 </p>
               </div>
             </div>
@@ -311,7 +315,7 @@ const Home: React.FC = async (params: any) => {
             <ContactEnd />
           </div>
         </div>
-      </div> */}
+      </div>
     </main>
   );
 };
