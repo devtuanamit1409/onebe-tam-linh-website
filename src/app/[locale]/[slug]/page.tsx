@@ -18,69 +18,62 @@ const searchData = {
 
 const searchParams = new URLSearchParams(searchData).toString();
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string; slug: string };
-}): Promise<Metadata> {
-  const dataBaiViet = await fetchData(params.locale);
-  const seo =
-    (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
-      ?.seo || {};
+// export async function generateMetadata(): Promise<Metadata> {
+//   const dataBaiViet = await fetchData();
+//   const seo =
+//     (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
+//       ?.seo || {};
 
-  const baseUrl = process.env.URL_API;
+//   const baseUrl = process.env.URL_API;
 
-  return {
-    metadataBase: new URL(baseUrl || ""),
-    title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-    description:
-      seo.description ||
-      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-    keywords:
-      seo.keywords ||
-      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
-    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
-    openGraph: {
-      title:
-        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-      description:
-        seo.ogDescription ||
-        seo.description ||
-        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-      url: `${baseUrl}/tin-tuc`,
-      images: [
-        {
-          url: seo.thumbnail?.data?.attributes?.url
-            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-            : "/path/to/default-image.jpg",
-          width: 800,
-          height: 600,
-          alt: "Image description",
-        },
-      ],
-    },
-    twitter: {
-      title:
-        seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-      description:
-        seo.twitterDescription ||
-        seo.description ||
-        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-      images: [
-        seo.twitterImage
-          ? `${baseUrl}${seo.twitterImage}`
-          : "/path/to/default-image.jpg",
-      ],
-      card: "summary_large_image",
-    },
-  };
-}
-
-async function fetchData(locale: string) {
+//   return {
+//     metadataBase: new URL(baseUrl || ""),
+//     title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+//     description:
+//       seo.description ||
+//       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//     keywords:
+//       seo.keywords ||
+//       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+//     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+//     openGraph: {
+//       title:
+//         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+//       description:
+//         seo.ogDescription ||
+//         seo.description ||
+//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//       url: `${baseUrl}/tin-tuc`,
+//       images: [
+//         {
+//           url: seo.thumbnail?.data?.attributes?.url
+//             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+//             : "/path/to/default-image.jpg",
+//           width: 800,
+//           height: 600,
+//           alt: "Image description",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       title:
+//         seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+//       description:
+//         seo.twitterDescription ||
+//         seo.description ||
+//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//       images: [
+//         seo.twitterImage
+//           ? `${baseUrl}${seo.twitterImage}`
+//           : "/path/to/default-image.jpg",
+//       ],
+//       card: "summary_large_image",
+//     },
+//   };
+// }
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_BAIVIET}?locale=${locale}&${searchParams}`
-    );
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -88,20 +81,16 @@ async function fetchData(locale: string) {
   }
 }
 
-const DetailPage = async ({
-  params,
-}: {
-  params: { locale: string; slug: string };
-}) => {
-  const { locale, slug } = params;
-  const dataTinTuc = await fetchData(locale);
-  console.log(`locale: ${locale}, slug: ${slug}`);
+const DetailPage = async ({ params }: { params: any }) => {
+  let locale = params.locale;
 
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
+  );
+  const detailEndpoint = `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localizations&locale=${locale}`;
   async function fetchDataBaiViet() {
     try {
-      const data = await apiService.get(
-        `${ENDPOINT.GET_BAIVIET}?filters[slug]=${slug}&locale=${locale}`
-      );
+      const data = await apiService.get(detailEndpoint);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -110,7 +99,12 @@ const DetailPage = async ({
   }
 
   const resBaiViet: any = await fetchDataBaiViet();
-  const dataBaiViet = resBaiViet?.data[0]?.attributes?.content;
+
+  const dataBaiViet =
+    locale === "vi"
+      ? resBaiViet?.data[0]?.attributes?.content
+      : resBaiViet?.data[0]?.attributes?.localizations.data[0].attributes
+          .content;
 
   const baiViet = dataTinTuc as {
     data: {
@@ -144,7 +138,6 @@ const DetailPage = async ({
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
-
   return (
     <>
       {resBaiViet?.data[0] ? (
@@ -210,7 +203,8 @@ const DetailPage = async ({
 
               <Link
                 href="/"
-                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+              >
                 Quay lại trang chủ
               </Link>
             </div>
@@ -226,7 +220,8 @@ const DetailPage = async ({
             </h2>
             <Link
               href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
+            >
               Tới trang tin tức <IconArrowRight width={20} height={20} />
             </Link>
           </div>
