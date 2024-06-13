@@ -16,6 +16,13 @@ const LanguageSwitch: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  // Cập nhật bảng ánh xạ slug giữa các ngôn ngữ để bao gồm cả hai hướng
+  const slugMap: { [key: string]: string } = {
+    "/en": "/",
+    "/en/neww-post": "/bai-viet", // Đường dẫn tiếng Anh đến tiếng Việt
+    "/bai-viet": "/en/neww-post", // Đường dẫn tiếng Việt đến tiếng Anh
+  };
+
   function handleLocaleChange(newLocale: Locale): void {
     if (newLocale === locale) {
       return;
@@ -23,12 +30,8 @@ const LanguageSwitch: React.FC = () => {
 
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
-    let newUrl;
-    if (newLocale === "vi") {
-      newUrl = pathname.replace(/^\/en/, "") || "/";
-    } else {
-      newUrl = `/${newLocale}${pathname === "/" ? "" : pathname}`;
-    }
+    // Sử dụng bảng ánh xạ để tìm URL mới
+    const newUrl = slugMap[pathname] || pathname; // Nếu không tìm thấy ánh xạ, giữ nguyên pathname
     router.push(newUrl);
   }
 
