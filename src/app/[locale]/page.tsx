@@ -47,7 +47,7 @@ async function fetchData(endopoint: string) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dataHome = await fetchData(`${ENDPOINT.GET_HOME}?${searchParams}`);
+  const dataHome = await fetchData(`${ENDPOINT.GET_HOME}?${searchParams}}`);
   const seo =
     (dataHome as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
@@ -124,7 +124,7 @@ interface HomeProps {
 }
 
 const Home: React.FC = async (params: any) => {
-  const locale = params.params.locale;
+  let locale = params.params.locale;
 
   const dataHome = await fetchData(
     `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale}`
@@ -178,12 +178,12 @@ const Home: React.FC = async (params: any) => {
     dataHome as { data: { attributes: { cardThanhVien: any } } }
   )?.data?.attributes?.cardThanhVien;
 
-  const t = await getTranslations("Index");
+  const t = await getTranslations("Home");
 
   return (
     <main>
       <SlideHome banner={banner} />
-      <h1>{t("title")}</h1>
+
       <div className="flex justify-center">
         <div className="container">
           <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">

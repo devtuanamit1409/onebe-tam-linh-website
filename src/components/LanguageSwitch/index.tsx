@@ -16,19 +16,25 @@ const LanguageSwitch: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log("locale", locale);
+  // Cập nhật bảng ánh xạ slug giữa các ngôn ngữ để bao gồm cả hai hướng
+  const slugMap: { [key: string]: string } = {
+    "/en": "/",
+    "/en/neww-post": "/bai-viet", // Đường dẫn tiếng Anh đến tiếng Việt
+    "/bai-viet": "/en/neww-post", // Đường dẫn tiếng Việt đến tiếng Anh
+  };
 
   function handleLocaleChange(newLocale: Locale): void {
+    if (newLocale === locale) {
+      return;
+    }
+
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
-    let newUrl;
-    if (newLocale === "vi") {
-      newUrl = pathname.replace(/^\/en/, "") || "/";
-    } else {
-      newUrl = `/${newLocale}${pathname === "/" ? "" : pathname}`;
-    }
+    // Sử dụng bảng ánh xạ để tìm URL mới
+    const newUrl = slugMap[pathname] || pathname; // Nếu không tìm thấy ánh xạ, giữ nguyên pathname
     router.push(newUrl);
   }
+
   const menu = (
     <Menu>
       <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
@@ -44,7 +50,6 @@ const LanguageSwitch: React.FC = () => {
     <Dropdown overlay={menu} placement="bottom">
       <Space className="text-blue-600 font-medium py-2 px-4 rounded inline-flex items-center">
         <IconGlobe />
-        {/* <span>{language.toUpperCase()}</span> */}
       </Space>
     </Dropdown>
   );
