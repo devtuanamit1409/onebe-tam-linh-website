@@ -9,7 +9,13 @@ const nextIntlMiddleware = createMiddleware({
 });
 
 export default function (req: NextRequest): NextResponse {
-  return nextIntlMiddleware(req);
+  let locale = req.cookies.get("NEXT_LOCALE")?.value || "vi";
+  if (!locales.includes(locale as Locale)) {
+    locale = "vi";
+  }
+  req.cookies.set("NEXT_LOCALE", locale);
+  const response = nextIntlMiddleware(req);
+  return response;
 }
 
 export const config = {

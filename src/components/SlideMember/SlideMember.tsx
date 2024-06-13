@@ -88,7 +88,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
                   <h5 className="text-center text-[#000] font-bold text-[20px]">
                     {item.title}
                   </h5>
-                  <p className="text-[#6B7280] text-[18px]">
+                  <p className="text-[#6B7280] text-[18px] line-clamp-4">
                     {item.description}
                   </p>
                 </div>
