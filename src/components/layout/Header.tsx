@@ -24,7 +24,7 @@ interface ResponseData {
   }[];
 }
 
-const Header: React.FC = () => {
+const Header = (locale: any) => {
   const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
   const searchData = {
     populate: ["danh_muc_cons.bai_viets", "bai_viets.seo"].toString(),
@@ -153,14 +153,12 @@ const Header: React.FC = () => {
                   onMouseEnter={() => {
                     handleMouseEnter(item.key, item.showIcon);
                   }}
-                  onMouseLeave={handleMouseLeave}
-                >
+                  onMouseLeave={handleMouseLeave}>
                   <div
                     className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }`}
-                  >
+                  }`}>
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -184,8 +182,7 @@ const Header: React.FC = () => {
           <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}
-            >
+              onClick={toggleMenu}>
               <IconMenu />
             </button>
             <MobileMenu

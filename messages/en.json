@@ -1,5 +1,16 @@
 {
-  "Home": {
-    "See_More": "See More"
+  "home": {
+    "see_more": "See More",
+    "member_company": "Member Company",
+    "introduce_about_us": "Introduce About Us",
+    "visit_our_website": "Visit our website",
+    "about_us": "About us",
+    "project": "Project",
+    "our_project": "Our Projects "
+  },
+  "contact_end": {
+    "introduce": "Start your project now",
+    "contact_us": "Contact us",
+    "call_now": "Call Now"
   }
 }

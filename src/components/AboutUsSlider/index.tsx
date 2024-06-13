@@ -8,6 +8,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import IconArrowRight from "../icons/IconArrowRight";
 import IconCircleArrowLeft from "../icons/IconCircleArrowLeft";
 import IconCircleArrowRight from "../icons/IconCircleArrowRight";
+import { useTranslations } from "next-intl";
 interface boxServiceProps {
   id: number;
   title?: string;
@@ -19,7 +20,7 @@ interface boxService {
 }
 
 const AboutUsSlider = (dataBoxService: boxService) => {
-  console.log("dataBoxService", dataBoxService);
+  const t = useTranslations("home");
 
   const data = [
     {
@@ -123,7 +124,7 @@ const AboutUsSlider = (dataBoxService: boxService) => {
                     <Link
                       href={item.url}
                       className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
-                      Xem thêm
+                      {t("see_more")}
                     </Link>
                   </div>
                 </div>

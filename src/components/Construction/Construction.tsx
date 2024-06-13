@@ -53,7 +53,7 @@ const Construction = async () => {
     }
   )?.data?.attributes?.bai_viets?.data;
 
-  console.log("baiviet", baiviet);
+  // console.log("baiviet", baiviet);
 
   const construction = [
     {
