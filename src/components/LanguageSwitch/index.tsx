@@ -6,33 +6,29 @@ import IconGlobe from "../icons/IconGlobe";
 import { type Locale } from "../../locales";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
+import CustomLink from "../CustomLink/CustomLink";
 
 interface LanguageSwitchProps {
   initialLanguage: string;
 }
-
 const LanguageSwitch: React.FC = () => {
   const locale = useLocale() as Locale;
   const router = useRouter();
   const pathname = usePathname();
 
-  // Cập nhật bảng ánh xạ slug giữa các ngôn ngữ để bao gồm cả hai hướng
   const slugMap: { [key: string]: string } = {
-    "/en": "/",
-    "/en/neww-post": "/bai-viet", // Đường dẫn tiếng Anh đến tiếng Việt
-    "/bai-viet": "/en/neww-post", // Đường dẫn tiếng Việt đến tiếng Anh
+    "/en": "/vi",
+    "/vi": "/en",
+    "/en/neww-post": "/vi/bai-viet",
+    "/vi/bai-viet": "/en/neww-post",
   };
-
   function handleLocaleChange(newLocale: Locale): void {
     if (newLocale === locale) {
       return;
     }
-
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-
-    // Sử dụng bảng ánh xạ để tìm URL mới
-    const newUrl = slugMap[pathname] || pathname; // Nếu không tìm thấy ánh xạ, giữ nguyên pathname
-    router.push(newUrl);
+    const newUrl = slugMap[pathname] || pathname;
+    router.replace(newUrl);
   }
 
   const menu = (
