@@ -99,7 +99,6 @@ const page = async (params: any) => {
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
   );
-  console.log("dataTinTuc", dataTinTuc);
 
   const baiViet = dataTinTuc as {
     data: {
@@ -133,7 +132,6 @@ const page = async (params: any) => {
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
-  console.log("tintuc", tintuc);
 
   const baseUrl = process.env.URL_API;
   const contentFirst = (
