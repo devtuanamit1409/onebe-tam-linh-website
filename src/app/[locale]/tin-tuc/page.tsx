@@ -1,14 +1,14 @@
 import React, { Attributes } from "react";
 import Image from "next/image";
-import "../../styles/pages/tin-tuc.css";
+import "../../../styles/pages/tin-tuc.css";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
-import demo_tin_tuc_2 from "../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
+import demo_tin_tuc_2 from "../../../../public/images/tin-tuc/demo-tin-tuc-2.jpg";
 import IconSearch from "@/components/icons/IconSearch";
 import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 
-import demo_goc_chuyen_gia from "../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
+import demo_goc_chuyen_gia from "../../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";

@@ -1,5 +1,5 @@
 import IconAngleRightColorFull from "@/components/icons/IconAngleRightColorFull";
-import bannerDuAn from "../../../public/images/banner/banner-du-an.png";
+import bannerDuAn from "../../../../public/images/banner/banner-du-an.png";
 import Image from "next/image";
 import Link from "next/link";
 

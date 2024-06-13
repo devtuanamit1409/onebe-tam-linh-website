@@ -1,5 +1,5 @@
 import IconAngleRightColorFull from "@/components/icons/IconAngleRightColorFull";
-import bannerSanPham from "../../../public/images/banner/banner-san-pham.png";
+import bannerSanPham from "../../../../public/images/banner/banner-san-pham.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Collapse, Descriptions } from "antd";
