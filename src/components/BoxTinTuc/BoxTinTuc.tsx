@@ -3,9 +3,10 @@ import Image from "next/image";
 
 interface BoxTinTucProps {
   data: Array<any>;
+  late: string;
 }
 
-const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
+const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, late }) => {
   const baseUrl = process.env.URL_API;
 
   return (
@@ -33,8 +34,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 </div>
                 <div className="absolute top-[10%] left-[5%]">
                   <span className="text-[18px] p-[10px] time-up font-bold">
-                    {item.danh_muc_bai_viets?.data[0]?.attributes?.name ||
-                      "Mới đây"}
+                    {late}
                   </span>
                 </div>
               </div>
