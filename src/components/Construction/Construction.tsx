@@ -3,6 +3,7 @@ import Image from "next/image";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 const searchData = {
   populate: ["bai_viets.seo.thumbnail"].toString(),
 };
@@ -18,6 +19,7 @@ async function fetchData(endpoint: any) {
   }
 }
 const Construction = async (locale: any) => {
+  const t = await getTranslations("home");
   console.log("locale:", locale);
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale.locale}`
@@ -86,8 +88,7 @@ const Construction = async (locale: any) => {
               return (
                 <div
                   key={key}
-                  className="flex mobile:flex-col tablet:flex-row items-stretch"
-                >
+                  className="flex mobile:flex-col tablet:flex-row items-stretch">
                   <div className="relative  mobile:pb-[84.85%]  tablet:pb-0 tablet:min-w-[268px] desktop:min-w-[312px] tablet:h-[280px]">
                     <Image
                       src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
@@ -109,11 +110,10 @@ const Construction = async (locale: any) => {
                           {item.attributes.seo.description}
                         </p>
                         <Link
-                          href={item.attributes.slug}
-                          className="flex items-center "
-                        >
+                          href={`${locale.locale}/${item.attributes.slug}`}
+                          className="flex items-center ">
                           <span className="text-[#3B559E] font-medium mr-[10px]">
-                            Đọc ngay
+                            {t("read_now")}
                           </span>
                           <Image
                             src="/images/svg-home/arrow-right.svg"
@@ -146,19 +146,17 @@ const Construction = async (locale: any) => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={item.attributes.slug}
-                      className="flex items-center "
-                    >
+                      href={`${locale.locale}${item.attributes.slug}`}
+                      className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
-                        Đọc ngay
+                        {t("read_now")}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="21"
                         viewBox="0 0 20 21"
-                        fill="none"
-                      >
+                        fill="none">
                         <path
                           d="M18 9.69189L11.5312 3.12939C11.25 2.84814 10.8125 2.84814 10.5312 3.12939C10.25 3.41064 10.25 3.84814 10.5312 4.12939L15.7812 9.47314H2.5C2.125 9.47314 1.8125 9.78564 1.8125 10.1606C1.8125 10.5356 2.125 10.8794 2.5 10.8794H15.8437L10.5312 16.2856C10.25 16.5669 10.25 17.0044 10.5312 17.2856C10.6562 17.4106 10.8437 17.4731 11.0312 17.4731C11.2187 17.4731 11.4062 17.4106 11.5312 17.2544L18 10.6919C18.2812 10.4106 18.2812 9.97314 18 9.69189Z"
                           fill="white"
@@ -188,19 +186,17 @@ const Construction = async (locale: any) => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={item.attributes.slug}
-                      className="flex items-center "
-                    >
+                      href={`${locale.locale}/${item.attributes.slug}`}
+                      className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
-                        Đọc ngay
+                        {t("read_now")}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="21"
                         viewBox="0 0 20 21"
-                        fill="none"
-                      >
+                        fill="none">
                         <path
                           d="M18 9.69189L11.5312 3.12939C11.25 2.84814 10.8125 2.84814 10.5312 3.12939C10.25 3.41064 10.25 3.84814 10.5312 4.12939L15.7812 9.47314H2.5C2.125 9.47314 1.8125 9.78564 1.8125 10.1606C1.8125 10.5356 2.125 10.8794 2.5 10.8794H15.8437L10.5312 16.2856C10.25 16.5669 10.25 17.0044 10.5312 17.2856C10.6562 17.4106 10.8437 17.4731 11.0312 17.4731C11.2187 17.4731 11.4062 17.4106 11.5312 17.2544L18 10.6919C18.2812 10.4106 18.2812 9.97314 18 9.69189Z"
                           fill="white"

@@ -16,8 +16,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
           return (
             <div
               key={item.id}
-              className="col-span-12 desktop:col-span-4 mb-[40px]"
-            >
+              className="col-span-12 desktop:col-span-4 mb-[40px]">
               <div className="relative">
                 <div className="h-[300px] relative overflow-hidden">
                   <div className="abosolute top-0 left-0 ">
