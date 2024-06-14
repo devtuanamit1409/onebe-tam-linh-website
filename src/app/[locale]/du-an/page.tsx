@@ -101,7 +101,8 @@ async function fetchData() {
   }
 }
 
-const page = async () => {
+const page = async (params: any) => {
+  let locale = params.params.locale;
   const dataTinTuc = await fetchData();
 
   const dataDanhMuc = await fetchDataDanhMuc();
@@ -332,7 +333,7 @@ const page = async () => {
             This is a short discription about this content
           </p>
         </div>
-        <PageMenu menu={duAn[0]} />
+        <PageMenu menu={duAn[0]} locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">
