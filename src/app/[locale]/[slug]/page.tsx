@@ -9,6 +9,7 @@ import notFoundBanner from "../../../../public/images/banner/404Banner.png";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 interface baiviet {}
 
@@ -82,6 +83,8 @@ async function fetchData(endpoint: string) {
 }
 
 const DetailPage = async ({ params }: { params: any }) => {
+  const t = await getTranslations("detail_post");
+  const late = t("lastest_news");
   let locale = params.locale;
 
   const dataTinTuc = await fetchData(
@@ -170,7 +173,7 @@ const DetailPage = async ({ params }: { params: any }) => {
           </div>
           <div className="container">
             <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
-              SẢN PHẨM
+              {resBaiViet?.data[0]?.attributes?.subTitle}
             </p>
             <h2 className="text-gray-800 text-5xl font-bold leading-normal text-center">
               {resBaiViet?.data[0]?.attributes?.title}
@@ -216,16 +219,17 @@ const DetailPage = async ({ params }: { params: any }) => {
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
             <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
-              Tin Tức
+              {t("title_post")}
             </h2>
             <Link
               href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex  items-center gap-2.5"
             >
-              Tới trang tin tức <IconArrowRight width={20} height={20} />
+              {t("go_to_news_page")}
+              <IconArrowRight width={20} height={20} />
             </Link>
           </div>
-          <BoxTinTuc data={tintuc.slice(0, 3)} />
+          <BoxTinTuc data={tintuc.slice(0, 3)} late={late} />
         </div>
       </div>
     </>
