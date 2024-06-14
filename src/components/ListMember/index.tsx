@@ -50,7 +50,6 @@ const ListMember = ({ url }: UrlProps) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const isInitialMount = useRef(true);
-  // console.log(`${url}/1/card-thanh-vien?page=${page}&pageSize=6`);
 
   const fetchData = async (page: number) => {
     try {

@@ -7,15 +7,17 @@ interface BoxTinTucProps {
 
 const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
   const baseUrl = process.env.URL_API;
-  console.log("data tin tuc", data);
+
   return (
     <>
       <div className="grid grid-cols-12 gap-8 overflow-hidden">
         {data.map((item) => {
+          if (!item.seo) return null;
           return (
             <div
               key={item.id}
-              className="col-span-12 desktop:col-span-4 mb-[40px]">
+              className="col-span-12 desktop:col-span-4 mb-[40px]"
+            >
               <div className="relative">
                 <div className="h-[300px] relative overflow-hidden">
                   <div className="abosolute top-0 left-0 ">
