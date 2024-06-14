@@ -148,27 +148,32 @@ const DetailPage = async ({ params }: { params: any }) => {
           <div className=" bg-gray-50 ">
             <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
               {/* <Breadcrumb separator="/">
-            <Breadcrumb.Item>
-              <Link className="hover:bg-transparent !bg-transparent" href="/">
-                Trang chủ
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link
-                className="hover:bg-transparent !bg-transparent"
-                href="/san-pham">
-                Sản phẩm
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link
-                className="hover:bg-transparent !bg-transparent"
-                href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc">
-                Vật liệu mới, thiết bị plastic ngành nước
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
-          </Breadcrumb> */}
+                <Breadcrumb.Item>
+                  <Link
+                    className="hover:bg-transparent !bg-transparent"
+                    href="/"
+                  >
+                    Trang chủ
+                  </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link
+                    className="hover:bg-transparent !bg-transparent"
+                    href="/san-pham"
+                  >
+                    Sản phẩm
+                  </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link
+                    className="hover:bg-transparent !bg-transparent"
+                    href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
+                  >
+                    Vật liệu mới, thiết bị plastic ngành nước
+                  </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
+              </Breadcrumb> */}
             </div>
           </div>
           <div className="container">
@@ -229,7 +234,7 @@ const DetailPage = async ({ params }: { params: any }) => {
               <IconArrowRight width={20} height={20} />
             </Link>
           </div>
-          <BoxTinTuc data={tintuc.slice(0, 3)} late={late} />
+          <BoxTinTuc data={tintuc.slice(0, 3)} />
         </div>
       </div>
     </>

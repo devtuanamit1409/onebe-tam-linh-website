@@ -1,14 +1,13 @@
 import React from "react";
 import Image from "next/image";
-
+import { useTranslations } from "next-intl";
 interface BoxTinTucProps {
   data: Array<any>;
-  late: string;
 }
 
-const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, late }) => {
+const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
   const baseUrl = process.env.URL_API;
-
+  const t = useTranslations("detail_post");
   return (
     <>
       <div className="grid grid-cols-12 gap-8 overflow-hidden">
@@ -34,7 +33,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, late }) => {
                 </div>
                 <div className="absolute top-[10%] left-[5%]">
                   <span className="text-[18px] p-[10px] time-up font-bold">
-                    {late}
+                    {t("lastest_news")}
                   </span>
                 </div>
               </div>
