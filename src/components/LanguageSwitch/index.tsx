@@ -61,7 +61,6 @@ const LanguageSwitch: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(slugMap);
 
   const locale = useLocale() as Locale;
 

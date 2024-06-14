@@ -144,7 +144,7 @@ const Header = (locale: any) => {
       <div className="container">
         <div className="hidden laptop:flex w-full max-w-full  p-0 px-4 h-[100px] mx-auto justify-between">
           <div className="flex w-full">
-            <Link href="/" className="my-auto">
+            <Link href={`/${locale.locale}`} className="my-auto">
               <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
             </Link>
             <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
@@ -155,12 +155,14 @@ const Header = (locale: any) => {
                   onMouseEnter={() => {
                     handleMouseEnter(item.key, item.showIcon);
                   }}
-                  onMouseLeave={handleMouseLeave}>
+                  onMouseLeave={handleMouseLeave}
+                >
                   <div
                     className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }`}>
+                  }`}
+                  >
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -184,7 +186,8 @@ const Header = (locale: any) => {
           <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}>
+              onClick={toggleMenu}
+            >
               <IconMenu />
             </button>
             <MobileMenu
