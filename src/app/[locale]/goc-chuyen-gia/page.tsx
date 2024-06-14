@@ -62,7 +62,6 @@ const Page: React.FC = () => {
       const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}`;
       const response = await apiService.get<ResponseData>(endpoint);
       setTintuc(response.data);
-      // console.log("response.data", response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -249,7 +248,8 @@ const Page: React.FC = () => {
                 }}
                 onSlideChange={(swiper) => {
                   setCurrentIndex(swiper.realIndex);
-                }}>
+                }}
+              >
                 {data.map((item, key) => {
                   return (
                     <SwiperSlide key={key}>
@@ -321,7 +321,8 @@ const Page: React.FC = () => {
                         </div>
                         <h3
                           className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                          title={item.title}>
+                          title={item.title}
+                        >
                           {item.title}
                         </h3>
                         <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">

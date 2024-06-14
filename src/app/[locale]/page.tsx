@@ -182,7 +182,6 @@ const Home: React.FC = async (params: any) => {
   )?.data?.attributes?.cardThanhVien;
 
   const t = await getTranslations("Home");
-  console.log("dataHome", dataHome);
 
   return (
     <main>
@@ -239,7 +238,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="inline-flex justify-center w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         Về chúng tôi
                       </Link>
                     </div>
@@ -274,7 +274,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+                      >
                         Xem thêm
                       </Link>
                     </div>
