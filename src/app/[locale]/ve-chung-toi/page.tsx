@@ -24,13 +24,16 @@ const searchData = {
 
 const searchParams = new URLSearchParams(searchData).toString();
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(params: any): Promise<Metadata> {
   const dataVeChungToi = await fetchData(
-    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}}`
+    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}}&locale=${params.params.locale}`
   );
   const seo =
     (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
+  console.log(
+    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}}&locale=${params.params.locale}`
+  );
 
   const baseUrl = process.env.URL_API;
 
