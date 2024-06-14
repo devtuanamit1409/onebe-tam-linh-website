@@ -12,5 +12,14 @@
     "introduce": "Khởi đầu dự án của bạn ngay thôi",
     "contact_us": "Liên hệ với chúng tôi",
     "call_now": "Gọi ngay"
+  },
+  "menu": {
+    "products": "Sản Phẩm",
+    "services": "Dịch Vụ",
+    "projects": "Dự Án",
+    "partners": "Đối Tác",
+    "about_us": "Về Chúng Tôi",
+    "news": "Tin Tức",
+    "circular_decree": "Thông tư - Nghị định"
   }
 }

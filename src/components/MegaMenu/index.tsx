@@ -54,7 +54,7 @@ const MegaMenu = ({
     <>
       {activeKey === "doi-tac" || activeKey === "tin-tuc" ? null : (
         <div
-          className={`hidden laptop:block px-[92px] py-[37.5px] border-t-2 border-[#28A645] absolute left-0 w-full bg-white z-40 mega-menu-container ${
+          className={`hidden laptop:block px-[92px] py-[37.5px] shadow absolute left-0 w-full bg-white z-40 mega-menu-container shadow-top ${
             isMenuOpen
               ? "top-[100px] opacity-100"
               : "-translate-y-full top-[0px] opacity-0"

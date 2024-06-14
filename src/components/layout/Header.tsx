@@ -12,6 +12,7 @@ import IconMenu from "../icons/IconMenu";
 import MobileMenu from "../MobileMenu";
 import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
+import { useTranslations } from "next-intl";
 
 interface ResponseData {
   data: {
@@ -32,7 +33,7 @@ const Header = (locale: any) => {
   const searchParams = new URLSearchParams(searchData).toString();
   const fetchData = async () => {
     try {
-      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}`;
+      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}&locale=${locale.locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
       setDataHeader(response.data);
     } catch (error) {
@@ -46,42 +47,43 @@ const Header = (locale: any) => {
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useTranslations("menu");
   const menuItems = useMemo(
     () => [
       {
         key: "san-pham",
-        label: <div className="flex items-center gap-3">Sản phẩm </div>,
+        label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
         key: "dich-vu",
-        label: <div className="flex items-center gap-3">Dịch vụ </div>,
+        label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
         key: "du-an",
-        label: <div className="flex items-center gap-3">Dự án</div>,
+        label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
         key: "doi-tac",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
-            Đối tác
+            {t("partners")}
           </Link>
         ),
         showIcon: false,
       },
       {
         key: "ve-chung-toi",
-        label: <div className="flex items-center gap-3">Về chúng tôi </div>,
+        label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
         key: "tin-tuc",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
-            Tin tức
+            {t("news")}
           </Link>
         ),
         showIcon: false,
@@ -89,7 +91,7 @@ const Header = (locale: any) => {
       {
         key: "thong-tu-nghi-dinh",
         label: (
-          <div className="flex items-center gap-3">Thông tư - Nghị định </div>
+          <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
         showIcon: true,
       },
@@ -138,7 +140,7 @@ const Header = (locale: any) => {
   };
 
   return (
-    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow desktop:shadow-none">
+    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow ">
       <div className="container">
         <div className="hidden laptop:flex w-full max-w-full  p-0 px-4 h-[100px] mx-auto justify-between">
           <div className="flex w-full">

@@ -8,17 +8,20 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData() {
+async function fetchData(endpoint: any) {
   try {
-    const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const Construction = async () => {
-  const dataTinTuc = await fetchData();
+const Construction = async (locale: any) => {
+  console.log("locale:", locale);
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale.locale}`
+  );
   const baseUrl = process.env.URL_API;
 
   const baiviet = (
@@ -53,7 +56,7 @@ const Construction = async () => {
     }
   )?.data?.attributes?.bai_viets?.data;
 
-  // console.log("baiviet", baiviet);
+  console.log("baiviet", baiviet);
 
   const construction = [
     {
@@ -81,7 +84,7 @@ const Construction = async () => {
       <div className="grid grid-cols-12 gap-4 items-stretch">
         <div className="col-span-12 laptop:col-span-8">
           <div className="flex flex-col gap-[24px]">
-            {baiviet.slice(0, 2).map((item, key) => {
+            {baiviet?.slice(0, 2)?.map((item, key) => {
               return (
                 <div
                   key={key}
@@ -129,7 +132,7 @@ const Construction = async () => {
         </div>
         <div className="col-span-12 laptop:col-span-4 mobile:hidden laptop:block">
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
-            {baiviet.slice(2, 3).map((item, key) => {
+            {baiviet?.slice(2, 3)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[6px]">
@@ -169,7 +172,7 @@ const Construction = async () => {
             <hr />
           </div>
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
-            {baiviet.slice(3, 4).map((item, key) => {
+            {baiviet?.slice(3, 4)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[6px]">
