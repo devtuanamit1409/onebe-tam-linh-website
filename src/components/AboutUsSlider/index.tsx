@@ -8,6 +8,8 @@ import { Autoplay, Navigation } from "swiper/modules";
 import IconArrowRight from "../icons/IconArrowRight";
 import IconCircleArrowLeft from "../icons/IconCircleArrowLeft";
 import IconCircleArrowRight from "../icons/IconCircleArrowRight";
+import { useTranslations } from "next-intl";
+import sp from "../../../public/images/home/sp.png";
 interface boxServiceProps {
   id: number;
   title?: string;
@@ -19,6 +21,8 @@ interface boxService {
 }
 
 const AboutUsSlider = (dataBoxService: boxService) => {
+  const t = useTranslations("home");
+
   const data = [
     {
       image: {
@@ -95,15 +99,14 @@ const AboutUsSlider = (dataBoxService: boxService) => {
           },
         }}
         modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
+        className="mySwiper">
         {dataBoxService &&
           data?.map((item, index) => (
             <SwiperSlide
-              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px]`}
-              key={index}
-            >
+              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px] max-w-[330px] relative`}
+              key={index}>
               <div className="overflow-hidden tablet:h-[437px] ">
+                {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
                 <div className="p-[32px] ">
                   <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                     <Image
@@ -122,9 +125,8 @@ const AboutUsSlider = (dataBoxService: boxService) => {
                   <div className="pt-[16px]">
                     <Link
                       href={item.url}
-                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] "
-                    >
-                      Xem thêm
+                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
+                      {t("see_more")}
                     </Link>
                   </div>
                 </div>

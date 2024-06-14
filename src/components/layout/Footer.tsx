@@ -1,5 +1,4 @@
 "use server";
-
 import logoFullWidth from "../../../public/images/logo/logo-fullwidth.png";
 import LogoBoCongThuong from "../../../public/images/logo/logoBoCongThuong.png";
 import IconPhone from "../icons/IconPhone";
@@ -7,8 +6,6 @@ import IconLocation from "../icons/IconLocation";
 import Map from "../Map";
 import Image from "next/image";
 import Link from "next/link";
-import IconFacebookRounded from "../icons/IconFacebookRounded";
-import IconYoutubeRounded from "../icons/IconYoutubeRounded";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 
@@ -24,17 +21,20 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData() {
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(`${ENDPOINT.GET_FOOTER}?${searchParams}`);
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const Footer = async () => {
-  const dataFooter = await fetchData();
+const Footer = async (locale: any) => {
+  console.log("locale footer", locale);
+  const dataFooter = await fetchData(
+    `${ENDPOINT.GET_FOOTER}?${searchParams}&locale=${locale.locale}`
+  );
   const baseUrl = process.env.URL_API;
 
   const phoneNumber = (dataFooter as { data: { attributes: { phone: any } } })

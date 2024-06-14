@@ -10,6 +10,7 @@ import Image from "next/image";
 import IconArrowRight from "../icons/IconArrowRight";
 import IconAngleRight from "../icons/IconAngleRight";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 interface cardThanhVienProps {
   cardThanhVien: cardThanhVien[];
 }
@@ -30,6 +31,7 @@ interface cardThanhVien {
 }
 const Slidemember = (cardThanhVien: cardThanhVienProps) => {
   const baseUrl = process.env.URL_API;
+  const t = useTranslations("home");
 
   // const member = [
   //   {
@@ -96,7 +98,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
                 <div className="py-[24px] flex justify-center">
                   <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
                     <Link href={item.path} className="mr-[8px]">
-                      Truy cập trang web
+                      {t("visit_our_website")}
                     </Link>
                     <IconAngleRight width="16" height="16" />
                   </button>

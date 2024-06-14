@@ -12,6 +12,7 @@ import IconMenu from "../icons/IconMenu";
 import MobileMenu from "../MobileMenu";
 import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
+import { useTranslations } from "next-intl";
 
 interface ResponseData {
   data: {
@@ -24,7 +25,7 @@ interface ResponseData {
   }[];
 }
 
-const Header: React.FC = () => {
+const Header = (locale: any) => {
   const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
   const searchData = {
     populate: ["danh_muc_cons.bai_viets", "bai_viets.seo"].toString(),
@@ -32,7 +33,7 @@ const Header: React.FC = () => {
   const searchParams = new URLSearchParams(searchData).toString();
   const fetchData = async () => {
     try {
-      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}`;
+      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}&locale=${locale.locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
       setDataHeader(response.data);
     } catch (error) {
@@ -46,42 +47,43 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useTranslations("menu");
   const menuItems = useMemo(
     () => [
       {
         key: "san-pham",
-        label: <div className="flex items-center gap-3">Sản phẩm </div>,
+        label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
         key: "dich-vu",
-        label: <div className="flex items-center gap-3">Dịch vụ </div>,
+        label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
         key: "du-an",
-        label: <div className="flex items-center gap-3">Dự án</div>,
+        label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
         key: "doi-tac",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
-            Đối tác
+            {t("partners")}
           </Link>
         ),
         showIcon: false,
       },
       {
         key: "ve-chung-toi",
-        label: <div className="flex items-center gap-3">Về chúng tôi </div>,
+        label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
         key: "tin-tuc",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
-            Tin tức
+            {t("news")}
           </Link>
         ),
         showIcon: false,
@@ -89,7 +91,7 @@ const Header: React.FC = () => {
       {
         key: "thong-tu-nghi-dinh",
         label: (
-          <div className="flex items-center gap-3">Thông tư - Nghị định </div>
+          <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
         showIcon: true,
       },
@@ -138,7 +140,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow desktop:shadow-none">
+    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow ">
       <div className="container">
         <div className="hidden laptop:flex w-full max-w-full  p-0 px-4 h-[100px] mx-auto justify-between">
           <div className="flex w-full">
@@ -153,14 +155,12 @@ const Header: React.FC = () => {
                   onMouseEnter={() => {
                     handleMouseEnter(item.key, item.showIcon);
                   }}
-                  onMouseLeave={handleMouseLeave}
-                >
+                  onMouseLeave={handleMouseLeave}>
                   <div
                     className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }`}
-                  >
+                  }`}>
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -184,8 +184,7 @@ const Header: React.FC = () => {
           <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}
-            >
+              onClick={toggleMenu}>
               <IconMenu />
             </button>
             <MobileMenu

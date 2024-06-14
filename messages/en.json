@@ -1,6 +1,26 @@
 {
-  "Home": {
-    "See_More": "See More"
+  "home": {
+    "see_more": "See More",
+    "member_company": "Partners",
+    "introduce_about_us": "Introduce About Us",
+    "visit_our_website": "Visit our website",
+    "about_us": "About us",
+    "project": "Project",
+    "our_project": "Our Projects "
+  },
+  "contact_end": {
+    "introduce": "Start your project now",
+    "contact_us": "Contact us",
+    "call_now": "Call Now"
+  },
+  "menu": {
+    "products": "Products",
+    "services": "Services",
+    "projects": "Projects",
+    "partners": "Partners",
+    "about_us": "About Us",
+    "news": "News",
+    "circular_decree": "Circular - Decree"
   },
   "detail_post": {
     "title_post": "News",

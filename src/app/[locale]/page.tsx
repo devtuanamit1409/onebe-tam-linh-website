@@ -181,7 +181,7 @@ const Home: React.FC = async (params: any) => {
     dataHome as { data: { attributes: { cardThanhVien: any } } }
   )?.data?.attributes?.cardThanhVien;
 
-  const t = await getTranslations("Home");
+  const t = await getTranslations("home");
 
   return (
     <main>
@@ -229,18 +229,17 @@ const Home: React.FC = async (params: any) => {
                 </div>
                 <div className="col-span-1 flex items-center">
                   <div className="gap-6">
-                    <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center">
-                      Giới thiệu về chúng tôi
+                    <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center laptop:text-left">
+                      {t("introduce_about_us")}
                     </h4>
                     <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 text-left">
                       {gioiThieu && gioiThieu?.description}
                     </div>
-                    <div className="inline-flex justify-center w-full">
+                    <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
                         href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
-                      >
-                        Về chúng tôi
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        {t("about_us")}
                       </Link>
                     </div>
                   </div>
@@ -258,6 +257,7 @@ const Home: React.FC = async (params: any) => {
           alt="banner"
           layout="fill"
           objectFit="cover"
+          className="-z-10"
         />
         <div className="flex justify-center">
           <div className="container">
@@ -266,7 +266,7 @@ const Home: React.FC = async (params: any) => {
                 <div className="flex justify-center">
                   <div>
                     <h2 className="font-bold laptop:text-[48px] tablet:text-[40px] mobile:text-[28px] text-center">
-                      Các Công Ty Thành Viên
+                      {t("member_company")}
                     </h2>
                     <p className="pt-[24px] text-[18px] max-w-[572px] font-medium text-center">
                       {descriptionThanhVien && descriptionThanhVien}
@@ -274,9 +274,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
-                      >
-                        Xem thêm
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        {t("see_more")}
                       </Link>
                     </div>
                   </div>
@@ -295,9 +294,11 @@ const Home: React.FC = async (params: any) => {
         <div className="flex justify-center">
           <div className="laptop:w-[1038px]">
             <div className="text-center">
-              <h3 className="text-[#28A645] text-[20px] font-bold">DỰ ÁN</h3>
+              <h3 className="text-[#28A645] text-[20px] font-bold">
+                {t("project")}
+              </h3>
               <h2 className="text-[#111928] text-[40px] font-bold py-[16px]">
-                Công Trình Đã Thực Hiện
+                {t("our_project")}
               </h2>
               <div className="flex justify-center">
                 <p className="text-[#637381] text-[20px] laptop:w-[572px]">
@@ -311,7 +312,7 @@ const Home: React.FC = async (params: any) => {
         <div className="flex justify-center">
           <div className="container">
             <div className="pt-[40px]">
-              <Construction />
+              <Construction locale={locale} />
             </div>
             <ContactEnd />
           </div>
