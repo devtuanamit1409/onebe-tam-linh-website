@@ -21,5 +21,10 @@
     "about_us": "Về Chúng Tôi",
     "news": "Tin Tức",
     "circular_decree": "Thông tư - Nghị định"
+  },
+  "detail_post": {
+    "title_post": "Tin Tức",
+    "go_to_news_page": "Tới trang tin tức",
+    "lastest_news": "Mới đây"
   }
 }

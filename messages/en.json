@@ -21,5 +21,10 @@
     "about_us": "About Us",
     "news": "News",
     "circular_decree": "Circular - Decree"
+  },
+  "detail_post": {
+    "title_post": "News",
+    "go_to_news_page": "Go to news page",
+    "lastest_news": "Recently"
   }
 }
