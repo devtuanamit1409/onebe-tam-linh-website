@@ -46,8 +46,10 @@ async function fetchData(endpoint: string) {
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dataHome = await fetchData(`${ENDPOINT.GET_HOME}?${searchParams}}`);
+export async function generateMetadata(params: any): Promise<Metadata> {
+  const dataHome = await fetchData(
+    `${ENDPOINT.GET_HOME}?${searchParams}}&locale=${params.params.locale}`
+  );
   const seo =
     (dataHome as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
@@ -237,15 +239,16 @@ const Home: React.FC = async (params: any) => {
                     </div>
                     <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
-                        href="/ve-chung-toi"
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        href={`/${locale}/ve-chung-toi`}
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         {t("about_us")}
                       </Link>
                     </div>
                   </div>
                 </div>
               </div>
-              <AboutUsSlider dataBoxService={boxService} />
+              <AboutUsSlider dataBoxService={boxService} locale={locale} />
             </div>
           </div>
         </div>
@@ -274,7 +277,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+                      >
                         {t("see_more")}
                       </Link>
                     </div>

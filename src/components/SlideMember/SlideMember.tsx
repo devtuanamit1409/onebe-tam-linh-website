@@ -73,7 +73,8 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
           clickable: true,
         }}
         modules={[EffectFade, Pagination, Autoplay]}
-        className="slider-member swiper-container">
+        className="slider-member swiper-container"
+      >
         {cardThanhVien &&
           cardThanhVien.cardThanhVien.map((item, key) => (
             <SwiperSlide key={key}>
@@ -90,7 +91,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
                   <h5 className="text-center text-[#000] font-bold text-[20px]">
                     {item.title}
                   </h5>
-                  <p className="text-[#6B7280] text-[18px] line-clamp-4">
+                  <p className="text-[#6B7280] text-[18px] line-clamp-3">
                     {item.description}
                   </p>
                 </div>
