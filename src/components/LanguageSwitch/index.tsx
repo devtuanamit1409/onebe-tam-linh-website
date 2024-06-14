@@ -19,6 +19,8 @@ const LanguageSwitch: React.FC = () => {
     "/vi": "/en",
     "/en/ve-chung-toi": "/ve-chung-toi",
     "/ve-chung-toi": "/en/ve-chung-toi",
+    "/en/san-pham": "/san-pham",
+    "/san-pham": "/en/san-pham",
   });
 
   const updateSlugMap = (data: any) => {

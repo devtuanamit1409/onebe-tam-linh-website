@@ -17,88 +17,108 @@ const searchData = {
 const searchDataDanhMuc = {
   populate: ["bai_viets.seo", "danh_muc_cons.bai_viets.seo "].toString(),
 };
-
+const searhDichVu = {
+  populate: ["main.seo.thumbnail"].toString(),
+};
+const searchParamsDichVu = new URLSearchParams(searhDichVu).toString();
 const searchParamsSanPham = new URLSearchParams(searchDataDanhMuc).toString();
 const searchParams = new URLSearchParams(searchData).toString();
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dataBaiViet = await fetchData();
-  const seo =
-    (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
-      ?.seo || {};
+// export async function generateMetadata(): Promise<Metadata> {
+//   const dataBaiViet = await fetchData();
+//   const seo =
+//     (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
+//       ?.seo || {};
 
-  const baseUrl = process.env.URL_API;
+//   const baseUrl = process.env.URL_API;
 
-  return {
-    metadataBase: new URL(baseUrl || ""),
-    title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-    description:
-      seo.description ||
-      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-    keywords:
-      seo.keywords ||
-      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
-    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
-    openGraph: {
-      title:
-        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-      description:
-        seo.ogDescription ||
-        seo.description ||
-        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-      url: `${baseUrl}/tin-tuc`,
-      images: [
-        {
-          url: seo.thumbnail?.data?.attributes?.url
-            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-            : "/path/to/default-image.jpg",
-          width: 800,
-          height: 600,
-          alt: "Image description",
-        },
-      ],
-    },
-    twitter: {
-      title:
-        seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-      description:
-        seo.twitterDescription ||
-        seo.description ||
-        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-      images: [
-        seo.twitterImage
-          ? `${baseUrl}${seo.twitterImage}`
-          : "/path/to/default-image.jpg",
-      ],
-      card: "summary_large_image",
-    },
-  };
-}
-async function fetchDataDanhMuc() {
+//   return {
+//     metadataBase: new URL(baseUrl || ""),
+//     title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+//     description:
+//       seo.description ||
+//       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//     keywords:
+//       seo.keywords ||
+//       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+//     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+//     openGraph: {
+//       title:
+//         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+//       description:
+//         seo.ogDescription ||
+//         seo.description ||
+//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//       url: `${baseUrl}/tin-tuc`,
+//       images: [
+//         {
+//           url: seo.thumbnail?.data?.attributes?.url
+//             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+//             : "/path/to/default-image.jpg",
+//           width: 800,
+//           height: 600,
+//           alt: "Image description",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       title:
+//         seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
+//       description:
+//         seo.twitterDescription ||
+//         seo.description ||
+//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+//       images: [
+//         seo.twitterImage
+//           ? `${baseUrl}${seo.twitterImage}`
+//           : "/path/to/default-image.jpg",
+//       ],
+//       card: "summary_large_image",
+//     },
+//   };
+// }
+// async function fetchDataDanhMuc() {
+//   try {
+//     const data = await apiService.get(
+//       `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}`
+//     );
+//     return data;
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return null;
+//   }
+// }
+async function fetchData(endpoint: any) {
   try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}`
-    );
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-async function fetchData() {
-  try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_BAIVIET}?${searchParams}`
-    );
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-}
 
-const page = async () => {
-  const dataTinTuc = await fetchData();
+const page = async (params: any) => {
+  const locale = params.params.locale;
+
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
+  );
+  const dataDichVu = await fetchData(
+    `${ENDPOINT.GET_DICHVU}?${searchParamsDichVu}&locale=${locale}`
+  );
+  const dichVu = (
+    dataDichVu as {
+      data: {
+        attributes: {
+          main: {
+            name: string;
+            description: string;
+          };
+        };
+      };
+    }
+  )?.data?.attributes?.main;
   const baseUrl = process.env.URL_API;
   const baiViet = dataTinTuc as {
     data: {
@@ -132,7 +152,9 @@ const page = async () => {
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
 
-  const dataDanhMuc = await fetchDataDanhMuc();
+  const dataDanhMuc = await fetchData(
+    `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}&locale=${locale}`
+  );
   const danhMuc = (
     dataDanhMuc as {
       data: {
@@ -187,7 +209,9 @@ const page = async () => {
     }
   )?.data;
 
-  const dichVu = danhMuc.filter((item) => item.attributes.slug === "dich-vu");
+  const dichVuMenu = danhMuc.filter(
+    (item) => item.attributes.slug === "dich-vu"
+  );
 
   const menuItem = [
     {
@@ -372,13 +396,13 @@ const page = async () => {
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
           <h2 className="text-black text-[54px] font-bold  capitalize leading-normal">
-            Dịch vụ
+            {dichVu?.name || "Chưa ráp CMS"}
           </h2>
           <p className="text-gray-500 text-xl font-medium  leading-normal">
-            This is a short discription about this content
+            {dichVu?.description || "Chưa ráp CMS"}
           </p>
         </div>
-        <PageMenu menu={dichVu[0]} />
+        <PageMenu menu={dichVuMenu[0]} locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

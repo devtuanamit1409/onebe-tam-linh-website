@@ -9,39 +9,24 @@ import IconAngleRight from "../icons/IconAngleRight";
 import IconChemicalBottle from "../icons/IconChemiscalBottle";
 import IconCircleDesign from "../icons/IconCircleDesign";
 import IconCircleLeaf from "../icons/IconCircleLeaf";
+import { useTranslations } from "next-intl";
 
-// interface MenuItemProps {
-//   attributes?:  attributesInterFace[]
-//   name: string;
-//   slug: string;
-//   bai_viets: {
-//     data: attributesInterFace[]
-//   };
-//   danh_muc_cons: {
-//     data: attributesInterFace[]
-//   };
-//   tagIcon?: JSX.Element;
-//   descriptions?: string;
-//   icon?: JSX.Element;
-// }
-// interface attributesInterFace {
-//   attributes?:  attributesInterFace[]
-//   name: string
-//   slug: string
-//   description: string
-//   tagIcon?: JSX.Element
-//   icon?: JSX.Element
-//   bai_viets?: attributesInterFace[]
-//   danh_muc_cons?: attributesInterFace[]
-// }
-const PageMenu = (menu: any) => {
+interface props {
+  menu: any;
+  locale: any;
+}
+const PageMenu = (props: props): JSX.Element => {
+  const t = useTranslations("home");
+  const { menu, locale } = props;
+  console.log("menu", menu);
   const [activeMenu, setActiveMenu] = useState<string | null>(null); // Khởi tạo với null
   const [isLoading, setIsLoading] = useState(true);
   const handleMenuClick = (name: string) => {
     setActiveMenu((prevActiveMenu) => (prevActiveMenu === name ? null : name));
   };
+
   useEffect(() => {
-    if (menu.menu.attributes?.slug === "du-an") {
+    if (menu?.menu?.attributes?.slug === "du-an") {
       setIsLoading(true);
       menu.menu.attributes?.danh_muc_cons?.data?.forEach(
         (item: any, index: number) => {
@@ -59,8 +44,8 @@ const PageMenu = (menu: any) => {
   return (
     <>
       <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px] desktop:px-[120px]">
-        {menu.menu.attributes?.danh_muc_cons?.data?.length > 0 && !isLoading
-          ? menu.menu.attributes.danh_muc_cons?.data?.map((item: any) => {
+        {menu?.attributes?.danh_muc_cons?.data?.length > 0 && !isLoading
+          ? menu?.attributes.danh_muc_cons?.data?.map((item: any) => {
               return (
                 <div
                   key={item.id}
@@ -74,7 +59,7 @@ const PageMenu = (menu: any) => {
                           <p>{item.attributes.name}</p>
                         </div>
                         <Link
-                          href={item.attributes.slug}
+                          href={`${locale}/${item.attributes.slug}`}
                           className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
                           <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
                             Xem tất cả
@@ -126,7 +111,7 @@ const PageMenu = (menu: any) => {
                               href={child.attributes?.slug}
                               className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                               <p className="text-center text-white text-base font-medium  leading-normal">
-                                Xem thêm
+                                {t("see_more")}
                               </p>
                               <div className="w-5 h-5 relative text-white ">
                                 <IconArrowRight width={24} height={24} />
@@ -138,7 +123,7 @@ const PageMenu = (menu: any) => {
                     })}
                     {item.tagIcon && (
                       <Link
-                        href={item.slug}
+                        href={`${locale}/${item.slug}`}
                         className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
                         <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
                           Xem tất cả
@@ -155,8 +140,8 @@ const PageMenu = (menu: any) => {
           : ""}
       </div>
       <div className=" flex-col justify-start items-start flex w-full my-[40px] desktop:px-[120px]">
-        {menu.menu.attributes?.bai_viets?.data?.length > 0 && !isLoading
-          ? menu.menu.attributes?.bai_viets?.data?.map((item: any) => {
+        {menu?.attributes?.bai_viets?.data?.length > 0 && !isLoading
+          ? menu?.attributes?.bai_viets?.data?.map((item: any) => {
               return (
                 <div
                   key={item.id}
@@ -190,7 +175,7 @@ const PageMenu = (menu: any) => {
                         </p>
 
                         <Link
-                          href={item.attributes?.slug}
+                          href={`${locale}/${item.attributes?.slug}`}
                           className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                           <p className="text-center text-white text-base font-medium  leading-normal">
                             Xem thêm

@@ -31,7 +31,6 @@ async function fetchData(endpoint: string) {
   }
 }
 const Footer = async (locale: any) => {
-  console.log("locale footer", locale);
   const dataFooter = await fetchData(
     `${ENDPOINT.GET_FOOTER}?${searchParams}&locale=${locale.locale}`
   );
