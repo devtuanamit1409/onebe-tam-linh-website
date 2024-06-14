@@ -257,6 +257,7 @@ const Home: React.FC = async (params: any) => {
           alt="banner"
           layout="fill"
           objectFit="cover"
+          className="-z-10"
         />
         <div className="flex justify-center">
           <div className="container">
@@ -274,7 +275,7 @@ const Home: React.FC = async (params: any) => {
                       <Link
                         href={"/"}
                         className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
-                        Xem thêm
+                        {t("see_more")}
                       </Link>
                     </div>
                   </div>

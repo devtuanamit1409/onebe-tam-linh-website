@@ -405,7 +405,7 @@ const page = async (params: any) => {
         </div>
       </div>
       <div className="container">
-        <BoxTinTuc data={tintuc ? tintuc.slice(0, 3) : []} />
+        {/* <BoxTinTuc data={tintuc ? tintuc.slice(0, 3) : []} /> */}
         <ContactEnd />
       </div>
     </>

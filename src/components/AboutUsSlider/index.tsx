@@ -9,6 +9,7 @@ import IconArrowRight from "../icons/IconArrowRight";
 import IconCircleArrowLeft from "../icons/IconCircleArrowLeft";
 import IconCircleArrowRight from "../icons/IconCircleArrowRight";
 import { useTranslations } from "next-intl";
+import sp from "../../../public/images/home/sp.png";
 interface boxServiceProps {
   id: number;
   title?: string;
@@ -102,9 +103,10 @@ const AboutUsSlider = (dataBoxService: boxService) => {
         {dataBoxService &&
           data?.map((item, index) => (
             <SwiperSlide
-              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px]`}
+              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px] max-w-[330px] relative`}
               key={index}>
               <div className="overflow-hidden tablet:h-[437px] ">
+                {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
                 <div className="p-[32px] ">
                   <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                     <Image
