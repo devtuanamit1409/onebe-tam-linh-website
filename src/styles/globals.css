@@ -122,9 +122,9 @@ body {
     transform: translateX(-50%);
   }
 }
-:where(.css-dev-only-do-not-override-3rel02).ant-dropdown {
+/* :where(.css-dev-only-do-not-override-3rel02).ant-dropdown {
   top: 70px !important;
-}
+} */
 
 .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow {
   display: none;
