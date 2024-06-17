@@ -94,8 +94,8 @@ const LanguageSwitch: React.FC = () => {
       <Dropdown
         overlay={menu}
         placement="bottom"
-        className="hidden laptop:block">
-        <Space className="text-[#3B559E] font-medium py-2 px-4 rounded flex  items-center">
+        className="hidden laptop:flex">
+        <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center">
           <span>{locale.toUpperCase()}</span>
           <IconGlobe />
         </Space>
