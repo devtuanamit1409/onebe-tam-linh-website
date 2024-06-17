@@ -2,6 +2,7 @@ import Link from "next/link";
 import IconAngleRight from "../icons/IconAngleRight";
 import IconAngleRightColorFull from "../icons/IconAngleRightColorFull";
 import { useEffect, useState } from "react";
+import Loading from "../Loading";
 
 const MegaMenu = ({
   data,
@@ -61,13 +62,13 @@ const MegaMenu = ({
           }`}
           onMouseEnter={() => setIsMenuOpen(true)}
           onMouseLeave={handleMouseLeave}>
-          {activeItem && (
+          {activeItem ? (
             <div className="flex justify-between gap-[32.5px] ">
               <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
                 <h2 className="self-stretch text-indigo-800 text-[40px] font-bold leading-[64px]">
                   {activeItem.title}
                 </h2>
-                <p className="w-[300px] text-gray-500 text-base font-normal leading-normal">
+                <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px]">
                   {activeItem.description}
                 </p>
                 <Link
@@ -106,7 +107,7 @@ const MegaMenu = ({
                             {item.title} {item.icon !== null ? item.icon : ""}
                           </Link>
                           {item.Descriptions && (
-                            <p className="text-slate-400 text-xs font-normal leading-snug">
+                            <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px]">
                               {item.Descriptions}
                             </p>
                           )}
@@ -128,6 +129,8 @@ const MegaMenu = ({
                     ))}
               </div>
             </div>
+          ) : (
+            <Loading />
           )}
         </div>
       )}
