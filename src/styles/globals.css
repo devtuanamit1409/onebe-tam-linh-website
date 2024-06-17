@@ -122,3 +122,6 @@ body {
     transform: translateX(-50%);
   }
 }
+:where(.css-dev-only-do-not-override-3rel02).ant-dropdown {
+  top: 70px !important;
+}
