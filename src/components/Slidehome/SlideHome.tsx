@@ -36,6 +36,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
   return (
     <>
       <Swiper
+        allowTouchMove={false}
         spaceBetween={30}
         autoplay={{
           delay: 2500,

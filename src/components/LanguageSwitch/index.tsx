@@ -80,11 +80,11 @@ const LanguageSwitch: React.FC = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
-        English
-      </Menu.Item>
       <Menu.Item key="vi" onClick={() => handleLocaleChange("vi")}>
         Tiếng Việt
+      </Menu.Item>
+      <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
+        English
       </Menu.Item>
     </Menu>
   );

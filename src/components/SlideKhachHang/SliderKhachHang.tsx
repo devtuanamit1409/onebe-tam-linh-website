@@ -40,7 +40,7 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
   return (
     <div className="sliderContainer ">
       <Swiper
-        // slidesPerView={1}
+        allowTouchMove={false}
         slidesPerView={"auto"}
         loop={true}
         autoplay={{
@@ -68,12 +68,14 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
           },
         }}
         // modules={[Autoplay]}
-        className="mySwiper branding-slider">
+        className="mySwiper branding-slider"
+      >
         {listlogo &&
           listlogo.listlogo?.map((item: any) => (
             <SwiperSlide
               key={item?.id}
-              className="!flex items-center justify-center min-h-[50px] branding-slide">
+              className="!flex items-center justify-center min-h-[50px] branding-slide"
+            >
               <img
                 src={`${baseUrl}${item?.urlImage?.data?.attributes?.url}`}
                 alt="logo"

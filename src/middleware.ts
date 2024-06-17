@@ -1,6 +1,6 @@
 import { type Locale, locales } from "./locales";
 import createMiddleware from "next-intl/middleware";
-import { type NextRequest, type NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const nextIntlMiddleware = createMiddleware({
   locales,
@@ -10,20 +10,26 @@ const nextIntlMiddleware = createMiddleware({
 
 export default function (req: NextRequest): NextResponse {
   let locale = req.cookies.get("NEXT_LOCALE")?.value || "vi";
+
+  // Check and set the locale if it's not one of the valid locales
   if (!locales.includes(locale as Locale)) {
     locale = "vi";
   }
-  req.cookies.set("NEXT_LOCALE", locale);
+
+  // Apply the middleware
   const response = nextIntlMiddleware(req);
+
+  // Set or update the NEXT_LOCALE cookie explicitly in the response
+  response.cookies.set("NEXT_LOCALE", locale, {
+    httpOnly: true,
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365, // one year for example
+    sameSite: "lax",
+  });
+
   return response;
 }
 
 export const config = {
-  // match only internationalized pathnames
-  matcher: [
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    "/((?!api|_next|_vercel|.*\\..*).*)",
-  ],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
