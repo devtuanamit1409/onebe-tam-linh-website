@@ -52,22 +52,22 @@ const Header = (locale: any) => {
   const menuItems = useMemo(
     () => [
       {
-        key: "san-pham",
+        key: locale === "vi" ? "san-pham" : "products",
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
-        key: "dich-vu",
+        key: locale === "vi" ? "dich-vu" : "services",
         label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
-        key: "du-an",
+        key: locale === "vi" ? "du-an" : "projects",
         label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
-        key: "doi-tac",
+        key: locale === "vi" ? "doi-tac" : "partners",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
             {t("partners")}
@@ -76,12 +76,12 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: "ve-chung-toi",
+        key: locale === "vi" ? "ve-chung-toi" : "about-us",
         label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
-        key: "tin-tuc",
+        key: locale === "vi" ? "tin-tuc" : "news",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
             {t("news")}
@@ -90,7 +90,7 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: "thong-tu-nghi-dinh",
+        key: locale === "vi" ? "thong-tu-nghi-dinh" : "regulations-ordinances",
         label: (
           <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
