@@ -27,5 +27,10 @@
     "title_post": "Tin Tức",
     "go_to_news_page": "Tới trang tin tức",
     "lastest_news": "Mới đây"
+  },
+  "professionalist": {
+    "title": "góc chuyên gia",
+    "sub_title": "Các chuyên gia của chúng tôi",
+    "description": "There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
   }
 }

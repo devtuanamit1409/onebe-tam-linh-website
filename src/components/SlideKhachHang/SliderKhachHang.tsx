@@ -43,16 +43,18 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
     "images/logoDoiTac/logo6.png",
   ];
   return (
-    <div className="sliderContainer overflow-hidden max-h-[100px]">
+    <div className="sliderContainer flex items-center overflow-hidden max-h-[100px]">
       <Marquee
-        velocity={80}
+        velocity={1}
         resetAfterTries={200}
         direction="rtl"
         scatterRandomly={false}
         onInit={handleInit}
         onFinish={handleFinish}>
         {listlogo.listlogo.map((logo, index) => (
-          <div key={index} className="logo-item mx-4">
+          <div
+            key={index}
+            className="logo-item mx-8 flex items-center h-[100px]">
             <Image
               src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
               alt={logo.alt}
