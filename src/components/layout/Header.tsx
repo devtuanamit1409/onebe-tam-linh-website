@@ -13,6 +13,7 @@ import MobileMenu from "../MobileMenu";
 import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
+import MobileMenuNew from "../MobileMenuNew";
 
 interface ResponseData {
   data: {
@@ -155,14 +156,12 @@ const Header = (locale: any) => {
                   onMouseEnter={() => {
                     handleMouseEnter(item.key, item.showIcon);
                   }}
-                  onMouseLeave={handleMouseLeave}
-                >
+                  onMouseLeave={handleMouseLeave}>
                   <div
                     className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
                   ${
                     activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }`}
-                  >
+                  }`}>
                     {item.label}
                     {item.showIcon &&
                       (activeKey === item.key ? (
@@ -180,18 +179,23 @@ const Header = (locale: any) => {
           </div>
         </div>
         <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
-          <Link href="/">
+          <Link href={`/${locale.locale}`}>
             <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
           </Link>
           <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}
-            >
+              onClick={toggleMenu}>
               <IconMenu />
             </button>
-            <MobileMenu
+            {/* <MobileMenu
               data={dataHeader ? dataHeader : []}
+              isOpen={isOpen}
+              toggleMenu={toggleMenu}
+            /> */}
+            <MobileMenuNew
+              data={dataHeader ? dataHeader : []}
+              locale={locale.locale}
               isOpen={isOpen}
               toggleMenu={toggleMenu}
             />
