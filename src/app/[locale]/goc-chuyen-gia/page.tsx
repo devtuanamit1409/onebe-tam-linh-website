@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useTransition } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import chuyen_gia_1 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338.png";
 import chuyen_gia_2 from "../../../../public/images/goc-chuyen-gia/Rectangle 4338 (1).png";
@@ -20,6 +20,8 @@ import IconDesign from "@/components/icons/IconDesign";
 import IconSearch from "@/components/icons/IconSearch";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { apiService } from "@/services/api.service";
+import { useTranslations } from "next-intl";
+import Loading from "@/components/Loading";
 interface tintuc {
   id: number;
   attributes: {
@@ -46,30 +48,82 @@ interface tintuc {
     };
   };
 }
-interface ResponseData {
-  data: tintuc[];
+interface chuyengia {
+  attributes: {
+    seo: {
+      description: string;
+      thumbnail: {
+        data: {
+          attributes: {
+            url: string;
+          };
+        };
+      };
+    };
+    listChuyenGia: {
+      name: string;
+      position: string;
+      avatar: {
+        data: {
+          attributes: {
+            url: string;
+            name: string;
+          };
+        };
+      };
+    }[];
+  };
 }
 
-const Page: React.FC = () => {
+interface ResponseDataTinTuc {
+  data: tintuc[];
+}
+interface ResponseData {
+  data: chuyengia;
+}
+
+const Page: React.FC = (params: any) => {
+  const locale = params.params.locale;
+  const t = useTranslations("professionalist");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const searchData = {
     populate: ["danh_muc_bai_viets", "seo.thumbnail"].toString(),
   };
+  const searchDataChuyenGia = {
+    populate: ["seo.thumbnail", "listChuyenGia.avatar"].toString(),
+  };
   const searchParams = new URLSearchParams(searchData).toString();
+  const searchParamsChuyenGia = new URLSearchParams(
+    searchDataChuyenGia
+  ).toString();
 
+  const fetchDataTinTuc = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}`;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setTintuc(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   const fetchData = async () => {
     try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}`;
+      const endpoint = `${process.env.URL_API}/api/goc-chuyen-gia?${searchParamsChuyenGia}&locale=${locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
-      setTintuc(response.data);
+      setDataChuyenGia(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
+    fetchDataTinTuc();
     fetchData();
   }, []);
+  useEffect(() => {
+    console.log("dataChuyenGia", dataChuyenGia?.attributes);
+  }, [dataChuyenGia]);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
@@ -192,26 +246,24 @@ const Page: React.FC = () => {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
   ];
+  const baseUrl = process.env.URL_API;
   return (
     <>
       <div className="container">
         <div className="pt-[40px] pb-[32px]">
           <div className="text-center leading-10">
             <h5 className="text-[#28A645] font-bold text-[18px] laptop:block mobile:hidden ">
-              GÓC CHUYÊN GIA
+              {t("title")}
             </h5>
             <h1 className="text-[#111928] font-bold text-[40px] laptop:block mobile:hidden">
-              Các chuyên gia của chúng tôi
+              {t("sub_title")}
             </h1>
             <h1 className="text-[#111928] font-bold text-[24px] laptop:hidden mobile:block">
-              Các chuyên gia nổi bật
+              {t("sub_title")}
             </h1>
             <div className="laptop:flex mobile:hidden justify-center pt-5 ">
               <div className="max-w-[40%]">
-                <p className="text-[#637381] leading-7">
-                  There are many variations of passages of Lorem Ipsum available
-                  but the majority have suffered alteration in some form.
-                </p>
+                <p className="text-[#637381] leading-7">{t("description")}</p>
               </div>
             </div>
           </div>
@@ -220,60 +272,72 @@ const Page: React.FC = () => {
               <button onClick={onPrev} className="mobile:hidden laptop:block">
                 <IconPrevCricle active={currentIndex === 0 ? false : true} />
               </button>
-              <Swiper
-                slidesPerView={1}
-                spaceBetween={10}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                  },
-                  744: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                  },
-                  920: {
-                    slidesPerView: 2,
-                    spaceBetween: 10,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                  },
-                }}
-                modules={[Navigation]}
-                onSwiper={(swiper) => {
-                  swiperRef.current = swiper;
-                  setTotalSlides(swiper.slides.length);
-                }}
-                onSlideChange={(swiper) => {
-                  setCurrentIndex(swiper.realIndex);
-                }}
-              >
-                {data.map((item, key) => {
-                  return (
-                    <SwiperSlide key={key}>
-                      <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto">
-                        <Image
-                          alt={item.name}
-                          src={item.image}
-                          width={100}
-                          height={100}
-                          layout="responsive"
-                        />
-                        <div className="px-[32px] py-[16px] bg-[#F5F3FF] text-center absolute bottom-[10%] left-1/2 transform -translate-x-1/2 w-max">
-                          <h2 className="text-[#3B559E] font-semibold">
-                            {item.name}
-                          </h2>
-                          <span className="text-[12px] text-[#637381]">
-                            {item.position}
-                          </span>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
+              {dataChuyenGia ? (
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 1,
+                      spaceBetween: 10,
+                    },
+                    744: {
+                      slidesPerView: 1,
+                      spaceBetween: 10,
+                    },
+                    920: {
+                      slidesPerView: 2,
+                      spaceBetween: 10,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                      spaceBetween: 10,
+                    },
+                  }}
+                  modules={[Navigation]}
+                  onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                    setTotalSlides(swiper.slides.length);
+                  }}
+                  onSlideChange={(swiper) => {
+                    setCurrentIndex(swiper.realIndex);
+                  }}>
+                  {dataChuyenGia &&
+                    dataChuyenGia.attributes?.listChuyenGia?.map(
+                      (item, key) => {
+                        return (
+                          <SwiperSlide key={key}>
+                            <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto">
+                              <Image
+                                src={`${baseUrl}${item.avatar?.data?.attributes?.url}`}
+                                alt={item.avatar?.data?.attributes?.name}
+                                width={100}
+                                height={100}
+                                layout="responsive"
+                              />
+                              <div className="px-[32px] py-[16px] bg-[#F5F3FF] text-center absolute bottom-[10%] left-1/2 transform -translate-x-1/2 w-max">
+                                <h2 className="text-[#3B559E] font-semibold">
+                                  {item.name}
+                                </h2>
+                                <span className="text-[12px] text-[#637381]">
+                                  {item.position}
+                                </span>
+                              </div>
+                            </div>
+                          </SwiperSlide>
+                        );
+                      }
+                    )}
+                </Swiper>
+              ) : (
+                <div className="min-h-[330px] w-full flex justify-between items-center">
+                  <Loading />
+                  <Loading />
+                  <Loading />
+                  <Loading />
+                </div>
+              )}
+
               <button onClick={onNext} className="mobile:hidden laptop:block">
                 <IconNextCricle
                   active={currentIndex === totalSlides - 1 ? false : true}
@@ -321,8 +385,7 @@ const Page: React.FC = () => {
                         </div>
                         <h3
                           className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                          title={item.title}
-                        >
+                          title={item.title}>
                           {item.title}
                         </h3>
                         <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">

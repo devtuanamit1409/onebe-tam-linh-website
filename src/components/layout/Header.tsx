@@ -110,7 +110,7 @@ const Header = (locale: any) => {
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
-      console.log("locale.locale :", locale);
+
 
       setActiveKey(key);
       setIsMenuOpen(true);
