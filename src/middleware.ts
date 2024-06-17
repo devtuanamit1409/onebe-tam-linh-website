@@ -8,28 +8,23 @@ const nextIntlMiddleware = createMiddleware({
   localePrefix: "as-needed",
 });
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (req: NextRequest): NextResponse {
   let locale = req.cookies.get("NEXT_LOCALE")?.value || "vi";
-
-  // Check and set the locale if it's not one of the valid locales
   if (!locales.includes(locale as Locale)) {
     locale = "vi";
   }
-
-  // Apply the middleware
+  req.cookies.set("NEXT_LOCALE", locale);
   const response = nextIntlMiddleware(req);
-
-  // Set or update the NEXT_LOCALE cookie explicitly in the response
-  response.cookies.set("NEXT_LOCALE", locale, {
-    httpOnly: true,
-    path: "/",
-    maxAge: 60 * 60 * 24 * 365, // one year for example
-    sameSite: "lax",
-  });
-
   return response;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  // match only internationalized pathnames
+  matcher: [
+    // Match all pathnames except for
+    // - … if they start with `/api`, `/_next` or `/_vercel`
+    // - … the ones containing a dot (e.g. `favicon.ico`)
+    "/((?!api|_next|_vercel|.*\\..*).*)",
+  ],
 };
