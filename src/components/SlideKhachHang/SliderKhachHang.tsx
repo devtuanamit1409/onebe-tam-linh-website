@@ -5,7 +5,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 import Image from "next/image";
-
+import Marquee from "react-marquee-slider";
+import Loading from "../Loading";
 interface ListLogoprops {
   listlogo: listLogo[];
 }
@@ -20,6 +21,10 @@ interface listLogo {
     };
   };
 }
+const handleInit = () => {
+  return <Loading />;
+};
+const handleFinish = () => {};
 
 const SliderKhachHang = (listlogo: ListLogoprops) => {
   const baseUrl = process.env.URL_API;
@@ -38,52 +43,27 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
     "images/logoDoiTac/logo6.png",
   ];
   return (
-    <div className="sliderContainer ">
-      <Swiper
-        allowTouchMove={false}
-        slidesPerView={"auto"}
-        loop={true}
-        autoplay={{
-          delay: 0,
-          disableOnInteraction: false,
-        }}
-        speed={1000}
-        freeMode={true}
-        breakpoints={{
-          400: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-          },
-          640: {
-            slidesPerView: 6,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 8,
-            spaceBetween: 40,
-          },
-          1024: {
-            slidesPerView: 10,
-            spaceBetween: 50,
-          },
-        }}
-        // modules={[Autoplay]}
-        className="mySwiper branding-slider"
-      >
-        {listlogo &&
-          listlogo.listlogo?.map((item: any) => (
-            <SwiperSlide
-              key={item?.id}
-              className="!flex items-center justify-center min-h-[50px] branding-slide"
-            >
-              <img
-                src={`${baseUrl}${item?.urlImage?.data?.attributes?.url}`}
-                alt="logo"
-                width="full"
-              />
-            </SwiperSlide>
-          ))}
-      </Swiper>
+    <div className="sliderContainer overflow-hidden max-h-[100px]">
+      <Marquee
+        velocity={80}
+        resetAfterTries={200}
+        direction="rtl"
+        scatterRandomly={false}
+        onInit={handleInit}
+        onFinish={handleFinish}>
+        {listlogo.listlogo.map((logo, index) => (
+          <div key={index} className="logo-item mx-4">
+            <Image
+              src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
+              alt={logo.alt}
+              layout="responsive"
+              width={100}
+              height={50}
+              // objectFit="contain"
+            />
+          </div>
+        ))}
+      </Marquee>
     </div>
   );
 };

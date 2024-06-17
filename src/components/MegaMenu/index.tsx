@@ -73,7 +73,7 @@ const MegaMenu = ({
                 </p>
                 <Link
                   href={activeItem.url}
-                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-indigo-800 border border-indigo-800 hover:bg-[#fff] hover:border-indigo-800 text-white hover:text-indigo-800 transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-indigo-800 text-white hover:text-indigo-800 transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
                   Xem thêm
                 </Link>
               </div>

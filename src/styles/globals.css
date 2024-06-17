@@ -95,11 +95,11 @@ body {
   overflow: hidden;
 }
 
-.branding-slider {
+/* .branding-slider {
   display: flex;
   width: calc(2 * 100%);
   animation: slide 20s linear infinite;
-}
+} */
 
 .branding-slide {
   width: auto;
@@ -114,14 +114,14 @@ body {
 .shadow-top {
   box-shadow: 0 -5px 5px -5px rgba(0, 0, 0, 0.1);
 }
-@keyframes slide {
+/* @keyframes slide {
   0% {
     transform: translateX(0%);
   }
   100% {
     transform: translateX(-50%);
   }
-}
+} */
 /* :where(.css-dev-only-do-not-override-3rel02).ant-dropdown {
   top: 70px !important;
 } */
