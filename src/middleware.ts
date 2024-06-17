@@ -1,6 +1,6 @@
 import { type Locale, locales } from "./locales";
 import createMiddleware from "next-intl/middleware";
-import { type NextRequest, type NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const nextIntlMiddleware = createMiddleware({
   locales,
@@ -8,6 +8,7 @@ const nextIntlMiddleware = createMiddleware({
   localePrefix: "as-needed",
 });
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (req: NextRequest): NextResponse {
   let locale = req.cookies.get("NEXT_LOCALE")?.value || "vi";
   if (!locales.includes(locale as Locale)) {

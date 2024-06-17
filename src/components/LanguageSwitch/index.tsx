@@ -75,16 +75,16 @@ const LanguageSwitch: React.FC = () => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
     const newUrl = slugMap[pathname] || pathname;
-    router.replace(newUrl);
+    window.location.href = newUrl;
   }
 
   const menu = (
     <Menu>
-      <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
-        English
-      </Menu.Item>
       <Menu.Item key="vi" onClick={() => handleLocaleChange("vi")}>
         Tiếng Việt
+      </Menu.Item>
+      <Menu.Item key="en" onClick={() => handleLocaleChange("en")}>
+        English
       </Menu.Item>
     </Menu>
   );
