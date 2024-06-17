@@ -52,22 +52,22 @@ const Header = (locale: any) => {
   const menuItems = useMemo(
     () => [
       {
-        key: locale === "vi" ? "san-pham" : "products",
+        key: locale.locale === "en" ? "products" : "san-pham",
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
-        key: locale === "vi" ? "dich-vu" : "services",
+        key: locale.locale === "en" ? "services" : "dich-vu",
         label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
-        key: locale === "vi" ? "du-an" : "projects",
+        key: locale.locale === "en" ? "projects" : "du-an",
         label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
-        key: locale === "vi" ? "doi-tac" : "partners",
+        key: locale.locale === "en" ? "partners" : "doi-tac",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
             {t("partners")}
@@ -76,12 +76,12 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: locale === "vi" ? "ve-chung-toi" : "about-us",
+        key: locale.locale === "en" ? "about-us" : "ve-chung-toi",
         label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
-        key: locale === "vi" ? "tin-tuc" : "news",
+        key: locale.locale === "en" ? "news" : "tin-tuc",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
             {t("news")}
@@ -90,7 +90,10 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: locale === "vi" ? "thong-tu-nghi-dinh" : "regulations-ordinances",
+        key:
+          locale.locale === "en"
+            ? "regulations-ordinances"
+            : "thong-tu-nghi-dinh",
         label: (
           <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
@@ -107,6 +110,8 @@ const Header = (locale: any) => {
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
+      console.log("locale.locale :", locale);
+
       setActiveKey(key);
       setIsMenuOpen(true);
     }
