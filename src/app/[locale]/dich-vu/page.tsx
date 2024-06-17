@@ -109,6 +109,7 @@ const page = async (params: any) => {
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
   );
+
   const dataDichVu = await fetchData(
     `${ENDPOINT.GET_DICHVU}?${searchParamsDichVu}&locale=${locale}`
   );
@@ -225,10 +226,11 @@ const page = async (params: any) => {
     }
   )?.data;
 
-  const dichVuMenu = danhMuc.filter(
-    (item) => item.attributes.slug === "dich-vu"
+  const dichVuMenu = danhMuc.filter((item) =>
+    locale === "vi"
+      ? item.attributes.slug === "dich-vu"
+      : item.attributes.slug === "services"
   );
-  console.log(dichVu?.banner?.urlImage?.data?.attributes?.url);
 
   return (
     <div>

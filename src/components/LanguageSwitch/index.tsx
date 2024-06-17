@@ -23,6 +23,8 @@ const LanguageSwitch: React.FC = () => {
     "/san-pham": "/en/san-pham",
     "/dich-vu": "/en/dich-vu",
     "/en/dich-vu": "/dich-vu",
+    "/en/du-an": "/du-an",
+    "/du-an": "/en/du-an",
   });
 
   const updateSlugMap = (data: any) => {
@@ -96,7 +98,8 @@ const LanguageSwitch: React.FC = () => {
       <Dropdown
         overlay={menu}
         placement="bottom"
-        className="hidden laptop:flex">
+        className="hidden laptop:flex"
+      >
         <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center">
           <span>{locale.toUpperCase()}</span>
           <IconGlobe />
@@ -110,7 +113,8 @@ const LanguageSwitch: React.FC = () => {
           <Radio.Group
             onChange={(e) => handleLocaleChange(e.target.value)}
             className="flex gap-4"
-            value={locale}>
+            value={locale}
+          >
             <Radio.Button value="vi" className="rounded-none">
               <span className="flex items-center gap-2">
                 VI <IconGlobe />
