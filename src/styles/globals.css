@@ -157,15 +157,12 @@ body {
 .ant-radio-group.ant-radio-button-wrapper {
   border-color: transparent !important;
 }
-:where(.css-dev-only-do-not-override-17seli4).ant-radio-button-wrapper:not(
-    :first-child
-  )::before {
-  display: none;
+.ant-radio-button-wrapper::before {
+  display: none !important;
 }
-:where(
-    .css-dev-only-do-not-override-17seli4
-  ).ant-radio-button-wrapper-checked:not(
-    .ant-radio-button-wrapper-disabled
-  ):first-child {
-  background-color: #e1e8ff;
+.ant-radio-button.ant-radio-button-checked {
+  background-color: #e1e8ff !important;
+}
+.ant-radio-button {
+  border-radius: 4px !important;
 }
