@@ -124,6 +124,29 @@ const LanguageSwitch: React.FC = () => {
               </span>
             </Radio.Button>
           </Radio.Group>
+
+          {/* <input
+            type="radio"
+            id="vi"
+            name="language"
+            value="vi"
+            checked={locale === "vi"}
+            onChange={() => handleLocaleChange("vi")}
+          />
+          <label htmlFor="vi" className="text-black font-medium text-base">
+            VI
+          </label>
+          <input
+            type="radio"
+            id="en"
+            name="language"
+            value="en"
+            checked={locale === "en"}
+            onChange={() => handleLocaleChange("en")}
+          />
+          <label htmlFor="en" className="text-black font-medium text-base">
+            EN
+          </label> */}
         </div>
       </div>
     </>
