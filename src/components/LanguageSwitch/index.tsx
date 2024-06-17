@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Menu, Dropdown, Space } from "antd";
+import { Menu, Dropdown, Space, Radio } from "antd";
 import IconGlobe from "../icons/IconGlobe";
 import { type Locale } from "../../locales";
 import { useLocale } from "next-intl";
@@ -92,12 +92,39 @@ const LanguageSwitch: React.FC = () => {
   );
 
   return (
-    <Dropdown overlay={menu} placement="bottom">
-      <Space className="text-[#3B559E] font-medium py-2 px-4 rounded flex  items-center">
-        <span>{locale.toUpperCase()}</span>
-        <IconGlobe />
-      </Space>
-    </Dropdown>
+    <>
+      <Dropdown
+        overlay={menu}
+        placement="bottom"
+        className="hidden laptop:flex">
+        <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center">
+          <span>{locale.toUpperCase()}</span>
+          <IconGlobe />
+        </Space>
+      </Dropdown>
+      <div className="flex justify-between laptop:hidden p-4">
+        <p className="text-gray-500 text-lg font-semibold leading-relaxed">
+          Ngôn ngữ
+        </p>
+        <div>
+          <Radio.Group
+            onChange={(e) => handleLocaleChange(e.target.value)}
+            className="flex gap-4"
+            value={locale}>
+            <Radio.Button value="vi" className="rounded-none">
+              <span className="flex items-center gap-2">
+                VI <IconGlobe />
+              </span>
+            </Radio.Button>
+            <Radio.Button value="en" className="rounded-none">
+              <span className="flex items-center gap-2">
+                EN <IconGlobe />
+              </span>
+            </Radio.Button>
+          </Radio.Group>
+        </div>
+      </div>
+    </>
   );
 };
 
