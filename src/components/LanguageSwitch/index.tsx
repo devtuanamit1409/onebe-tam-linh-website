@@ -95,7 +95,7 @@ const LanguageSwitch: React.FC = () => {
         overlay={menu}
         placement="bottom"
         className="hidden laptop:flex">
-        <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center">
+        <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center cursor-pointer">
           <span>{locale.toUpperCase()}</span>
           <IconGlobe />
         </Space>
@@ -107,15 +107,19 @@ const LanguageSwitch: React.FC = () => {
         <div>
           <Radio.Group
             onChange={(e) => handleLocaleChange(e.target.value)}
-            className="flex gap-4"
+            className="flex gap-4 items-center"
             value={locale}>
-            <Radio.Button value="vi" className="rounded-none">
-              <span className="flex items-center gap-2">
+            <Radio.Button
+              value="vi"
+              className="!rounded-[4px] !border-none flex items-center">
+              <span className="flex items-center gap-2 text-black font-medium text-base ">
                 VI <IconGlobe />
               </span>
             </Radio.Button>
-            <Radio.Button value="en" className="rounded-none">
-              <span className="flex items-center gap-2">
+            <Radio.Button
+              value="en"
+              className="!rounded-[4px] !border-none flex items-center">
+              <span className="flex items-center gap-2 text-black font-medium text-base ">
                 EN <IconGlobe />
               </span>
             </Radio.Button>
