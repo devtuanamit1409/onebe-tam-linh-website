@@ -20,11 +20,13 @@ const searchData = {
 
 const searchParams = new URLSearchParams(searchData).toString();
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dataBaiViet = await fetchData();
+export async function generateMetadata(params: any): Promise<Metadata> {
+  const dataBaiViet = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}}&locale=${params.params.locale}`
+  );
   const seo =
-    (dataBaiViet as { data: { attributes: { seo: any } } })?.data?.attributes
-      ?.seo || {};
+    (dataBaiViet as { data: { attributes: { main: { seo: any } } } })?.data
+      ?.attributes?.main?.seo || {};
 
   const baseUrl = process.env.URL_API;
 
@@ -73,19 +75,21 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-async function fetchData() {
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_BAIVIET}?${searchParams}`
-    );
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const page = async () => {
-  const dataTinTuc = await fetchData();
+const page = async (params: any) => {
+  let locale = params.params.locale;
+
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}}&locale=${params.params.locale}`
+  );
   const baseUrl = process.env.URL_API;
   const baiViet = dataTinTuc as {
     data: {
@@ -122,91 +126,8 @@ const page = async () => {
   const baiVietTieuDiem = tintuc
     .filter((item) => item?.bai_viet_tieu_diem === true)
     .map((item) => item);
+  console.log("tin tuc", baiVietTieuDiem);
 
-  const tin_tuc_noi_bat = [
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-  ];
-  const data_tin_tuc = [
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ];
-  const data_detail = [
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Công nghệ lọc sinh học nhỏ giọt - Thiết kế mới tối ưu dành cho môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-  ];
   return (
     <>
       <div className="container py-[32px] desktop:py-[50px]">
@@ -239,7 +160,8 @@ const page = async () => {
                           <div className="flex justify-start">
                             <Link
                               href={`/${item.slug}`}
-                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
+                            >
                               Đọc ngay
                             </Link>
                           </div>

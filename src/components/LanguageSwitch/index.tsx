@@ -21,6 +21,12 @@ const LanguageSwitch: React.FC = () => {
     "/ve-chung-toi": "/en/ve-chung-toi",
     "/en/san-pham": "/san-pham",
     "/san-pham": "/en/san-pham",
+    "/dich-vu": "/en/dich-vu",
+    "/en/dich-vu": "/dich-vu",
+    "/en/du-an": "/du-an",
+    "/du-an": "/en/du-an",
+    "/en/tin-tuc": "/tin-tuc",
+    "/tin-tuc": "/en/tin-tuc",
   });
 
   const updateSlugMap = (data: any) => {
@@ -94,7 +100,8 @@ const LanguageSwitch: React.FC = () => {
       <Dropdown
         overlay={menu}
         placement="bottom"
-        className="hidden laptop:flex">
+        className="hidden laptop:flex"
+      >
         <Space className="text-[#3B559E] max-h-[40px] my-auto font-medium py-2 px-4 rounded flex  items-center cursor-pointer">
           <span>{locale.toUpperCase()}</span>
           <IconGlobe />
@@ -108,17 +115,20 @@ const LanguageSwitch: React.FC = () => {
           <Radio.Group
             onChange={(e) => handleLocaleChange(e.target.value)}
             className="flex gap-4 items-center"
-            value={locale}>
+            value={locale}
+          >
             <Radio.Button
               value="vi"
-              className="!rounded-[4px] !border-none flex items-center">
+              className="!rounded-[4px] !border-none flex items-center"
+            >
               <span className="flex items-center gap-2 text-black font-medium text-base ">
                 VI <IconGlobe />
               </span>
             </Radio.Button>
             <Radio.Button
               value="en"
-              className="!rounded-[4px] !border-none flex items-center">
+              className="!rounded-[4px] !border-none flex items-center"
+            >
               <span className="flex items-center gap-2 text-black font-medium text-base ">
                 EN <IconGlobe />
               </span>

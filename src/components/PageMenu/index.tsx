@@ -50,7 +50,8 @@ const PageMenu = (props: props): JSX.Element => {
                 <div
                   key={item.id}
                   className="flex w-full
-              ">
+              "
+                >
                   <div className=" flex-col w-full gap-4">
                     {item.attributes?.tagIcon ? (
                       <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex justify-between items-center mb-8">
@@ -59,8 +60,9 @@ const PageMenu = (props: props): JSX.Element => {
                           <p>{item.attributes.name}</p>
                         </div>
                         <Link
-                          href={`${locale}/${item.attributes.slug}`}
-                          className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
+                          href={`/${locale}/${item.attributes.slug}`}
+                          className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex"
+                        >
                           <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
                             Xem tất cả
                           </div>
@@ -82,7 +84,8 @@ const PageMenu = (props: props): JSX.Element => {
                           className="text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden"
                           onClick={() =>
                             handleMenuClick(child.attributes.title)
-                          }>
+                          }
+                        >
                           <div className="flex w-full justify-between items-center">
                             {child.attributes.title}
                             <div
@@ -90,7 +93,8 @@ const PageMenu = (props: props): JSX.Element => {
                                 activeMenu === child.attributes.title
                                   ? "rotate-90"
                                   : ""
-                              }`}>
+                              }`}
+                            >
                               {child.attributes.icon || (
                                 <IconAngleRight width="16" height="16" />
                               )}
@@ -101,7 +105,8 @@ const PageMenu = (props: props): JSX.Element => {
                               activeMenu === child.attributes.title
                                 ? "max-h-96 pb-4 mt-4"
                                 : "max-h-0"
-                            }`}>
+                            }`}
+                          >
                             <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
                               {child.attributes.seo.description ||
                                 "description mac dinh"}
@@ -109,7 +114,8 @@ const PageMenu = (props: props): JSX.Element => {
 
                             <Link
                               href={child.attributes?.slug}
-                              className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                              className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex"
+                            >
                               <p className="text-center text-white text-base font-medium  leading-normal">
                                 {t("see_more")}
                               </p>
@@ -124,7 +130,8 @@ const PageMenu = (props: props): JSX.Element => {
                     {item.tagIcon && (
                       <Link
                         href={`${locale}/${item.slug}`}
-                        className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
+                        className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex"
+                      >
                         <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
                           Xem tất cả
                         </div>
@@ -146,12 +153,14 @@ const PageMenu = (props: props): JSX.Element => {
                 <div
                   key={item.id}
                   className="flex w-full
-              ">
+              "
+                >
                   <div className=" flex-col w-full gap-4">
                     <div
                       key={item.attributes.title}
                       className="text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-2  pl-2 tablet:mb-2 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden"
-                      onClick={() => handleMenuClick(item.attributes.title)}>
+                      onClick={() => handleMenuClick(item.attributes.title)}
+                    >
                       <div className="flex w-full justify-between items-center">
                         {item.attributes.title}
                         <div
@@ -159,7 +168,8 @@ const PageMenu = (props: props): JSX.Element => {
                             activeMenu === item.attributes.title
                               ? "rotate-90"
                               : ""
-                          }`}>
+                          }`}
+                        >
                           {item.attributes.icon || <IconAngleRightColorFull />}
                         </div>
                       </div>
@@ -168,15 +178,17 @@ const PageMenu = (props: props): JSX.Element => {
                           activeMenu === item.attributes.title
                             ? "max-h-96 pb-4 mt-0"
                             : "max-h-0"
-                        }`}>
+                        }`}
+                      >
                         <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
                           {item.attributes.seo.description ||
                             "description mac dinh"}
                         </p>
 
                         <Link
-                          href={`${locale}/${item.attributes?.slug}`}
-                          className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                          href={`/${locale}/${item.attributes?.slug}`}
+                          className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex"
+                        >
                           <p className="text-center text-white text-base font-medium  leading-normal">
                             Xem thêm
                           </p>
