@@ -31,9 +31,6 @@ export async function generateMetadata(params: any): Promise<Metadata> {
   const seo =
     (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
       ?.seo || {};
-  console.log(
-    `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}}&locale=${params.params.locale}`
-  );
 
   const baseUrl = process.env.URL_API;
 
