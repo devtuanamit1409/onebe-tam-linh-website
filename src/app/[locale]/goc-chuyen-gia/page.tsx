@@ -80,15 +80,15 @@ interface danhMucBaiViet {
     name: string;
   };
 }
+interface ResponseDanhMucBaiViet {
+  data: danhMucBaiViet[];
+}
 
 interface ResponseDataTinTuc {
   data: tintuc[];
 }
 interface ResponseData {
   data: chuyengia;
-}
-interface ResponseDanhMucBaiViet {
-  data: danhMucBaiViet[];
 }
 
 const Page: React.FC = (params: any) => {

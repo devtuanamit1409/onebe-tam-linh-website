@@ -1,4 +1,5 @@
-import React, { Attributes } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import "../../../styles/pages/tin-tuc.css";
 import TintucNoibat from "@/components/TintucNoibat/TintucNoibat";
@@ -14,126 +15,120 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
 
+interface danhMucBaiViet {
+  id: number;
+  attributes: {
+    name: string;
+  };
+}
+interface tintuc {
+  id: number;
+  attributes: {
+    title: string;
+    slug: string;
+    type: string;
+    bai_viet_tieu_diem: boolean;
+    seo: {
+      description: string;
+      thumbnail: {
+        data: {
+          attributes: {
+            url: string;
+          };
+        };
+      };
+    };
+    danh_muc_bai_viets: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+  };
+}
+interface ResponseDataTinTuc {
+  data: tintuc[];
+}
+interface ResponseDanhMucBaiViet {
+  data: danhMucBaiViet[];
+}
 const searchData = {
   populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
 };
 
 const searchParams = new URLSearchParams(searchData).toString();
 
-// export async function generateMetadata(params: any): Promise<Metadata> {
-//   const dataBaiViet = await fetchData(
-//     `${ENDPOINT.GET_BAIVIET}?${searchParams}}&locale=${params.params.locale}`
-//   );
-//   const seo =
-//     (dataBaiViet as { data: { attributes: { main: { seo: any } } } })?.data
-//       ?.attributes?.main?.seo || {};
-
-//   const baseUrl = process.env.URL_API;
-
-//   return {
-//     metadataBase: new URL(baseUrl || ""),
-//     title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-//     description:
-//       seo.description ||
-//       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//     keywords:
-//       seo.keywords ||
-//       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
-//     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
-//     openGraph: {
-//       title:
-//         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.ogDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       url: `${baseUrl}/tin-tuc`,
-//       images: [
-//         {
-//           url: seo.thumbnail?.data?.attributes?.url
-//             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-//             : "/path/to/default-image.jpg",
-//           width: 800,
-//           height: 600,
-//           alt: "Image description",
-//         },
-//       ],
-//     },
-//     twitter: {
-//       title:
-//         seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.twitterDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       images: [
-//         seo.twitterImage
-//           ? `${baseUrl}${seo.twitterImage}`
-//           : "/path/to/default-image.jpg",
-//       ],
-//       card: "summary_large_image",
-//     },
-//   };
-// }
-async function fetchData(endpoint: string) {
-  try {
-    const data = await apiService.get(endpoint);
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-}
-const page = async (params: any) => {
+const Page: React.FC = (params: any) => {
   let locale = params.params.locale;
+  const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
+    danhMucBaiViet[]
+  >([]);
+  const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [filterDanhMuc, setFilterDanhMuc] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
 
-  const dataTinTuc = await fetchData(
-    `${ENDPOINT.GET_BAIVIET}?${searchParams}}&locale=${params.params.locale}`
-  );
-  const baseUrl = process.env.URL_API;
-  const baiViet = dataTinTuc as {
-    data: {
-      attributes: {
-        id: number;
-        title: string;
-        slug: string;
-        type: string;
-        bai_viet_tieu_diem: boolean;
-        danh_muc_bai_viets: {
-          data: {
-            attributes: {
-              name: string;
-            };
-          }[];
-        };
-        seo: {
-          description: string;
-          thumbnail: {
-            data: {
-              attributes: {
-                url: string;
-              };
-            };
-          };
-        };
-      };
-    }[];
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearchValue(searchValue), 300);
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      console.log("Searching for:", debouncedSearchValue);
+    }
+  }, [debouncedSearchValue]);
+  const fetchDataTinTuc = async () => {
+    try {
+      setLoading(true);
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Tin tức `;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setTintuc(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataTinTucWithFilter = async () => {
+    try {
+      setLoading(true);
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setTintucWithFilter(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
-  const tintuc = baiViet.data
-    .filter((item) => item?.attributes?.type === "Tin tức")
-    .map((item) => item.attributes);
-  const baiVietTieuDiem = tintuc
-    .filter((item) => item?.bai_viet_tieu_diem === true)
-    .map((item) => item);
-  // console.log("tin tuc", baiVietTieuDiem);
+  useEffect(() => {
+    fetchDataTinTuc();
+  }, []);
+
+  const baseUrl = process.env.URL_API;
+
+  const handleSetFilterDanhMuc = (name: string) => {
+    if (filterDanhMuc === name) {
+      setFilterDanhMuc("");
+    } else {
+      setFilterDanhMuc(name);
+    }
+  };
 
   return (
     <>
       <div className="container py-[32px] desktop:py-[50px]">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 laptop:col-span-6">
-            <TintucNoibat data={baiVietTieuDiem} name="Bài viết nổi bật" />
+            <TintucNoibat
+              data={tintuc
+                .filter((item) => item?.attributes.bai_viet_tieu_diem === true)
+                .map((item) => item.attributes)}
+              name="Bài viết nổi bật"
+            />
           </div>
           <div className="col-span-12 laptop:col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
@@ -152,14 +147,14 @@ const page = async (params: any) => {
                             </div>
                           </div>
                           <h3 className="text-[20px] text-[#374151] font-[500]">
-                            {item.title}
+                            {item.attributes.seo.description}
                           </h3>
                           <p className="text-[18px] text-[#8899A8]">
-                            {item.seo.description}
+                            {item.attributes.seo.description}
                           </p>
                           <div className="flex justify-start">
                             <Link
-                              href={`/${item.slug}`}
+                              href={`/${item.attributes.slug}`}
                               className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                               Đọc ngay
                             </Link>
@@ -171,7 +166,7 @@ const page = async (params: any) => {
                           <Image
                             height={196}
                             width={196}
-                            src={`${baseUrl}${item.seo.thumbnail.data.attributes.url}`}
+                            src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
                             layout="responsive"
                             alt="tin-tuc-moi-len"
                           />
@@ -203,19 +198,32 @@ const page = async (params: any) => {
         </div>
 
         <div className="py-[50px]">
-          <div className="flex">
-            <button className="bg-[#3B559E] py-[8px] px-[10px] flex items-center rounded-[24px] border border-[#3B559E]">
-              <IconWater />
-              <span className="text-12px font-medium text-[#fff] ml-[8px]">
-                Xử lý nước
-              </span>
-            </button>
-            <button className="bg-[#fff] py-[8px] px-[10px] flex items-center rounded-[24px] ml-[8px] border  border-[#3B559E]">
-              <IconDesign />
-              <span className="text-12px font-medium text-[#3B559E] ml-[8px]">
-                Thiết kế cơ điện
-              </span>
-            </button>
+          <div className="flex gap-4">
+            {dataDanhMucBaiViet && dataDanhMucBaiViet.length > 0
+              ? dataDanhMucBaiViet.map((item: danhMucBaiViet) => {
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() =>
+                        handleSetFilterDanhMuc(item.attributes.name)
+                      }
+                      className={`${
+                        filterDanhMuc === item.attributes.name
+                          ? `bg-[#3B559E] border-[#3B559E]`
+                          : `bg-[#fff] border  border-[#3B559E]`
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      <span
+                        className={`text-12px font-medium  ${
+                          filterDanhMuc === item.attributes.name
+                            ? `text-[#fff]`
+                            : `text-[#3B559E]`
+                        }`}>
+                        {item.attributes.name}
+                      </span>
+                    </button>
+                  );
+                })
+              : "Chưa có dữ liệu"}
           </div>
         </div>
 
@@ -230,4 +238,4 @@ const page = async (params: any) => {
   );
 };
 
-export default page;
+export default Page;
