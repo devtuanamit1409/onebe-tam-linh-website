@@ -95,6 +95,7 @@ const Page: React.FC = (params: any) => {
   const locale = params.params.locale;
   const t = useTranslations("professionalist");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const [displayedCount, setDisplayedCount] = useState(3);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
@@ -159,117 +160,7 @@ const Page: React.FC = (params: any) => {
   const onNext = (): void => {
     swiperRef.current?.slideNext();
   };
-  const data = [
-    {
-      name: "Coriss Ambady",
-      image: chuyen_gia_1,
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_2,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_3,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_4,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_1,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-  ];
-  const data_detail = [
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-  ];
-  const tin_tuc_noi_bat = [
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-  ];
-  const data_tin_tuc = [
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ];
+
   const baseUrl = process.env.URL_API;
   const text = useTranslations("home");
 
@@ -279,6 +170,28 @@ const Page: React.FC = (params: any) => {
     } else {
       setFilterDanhMuc(name);
     }
+  };
+  const filteredAndLimitedArticles = tintuc
+    .filter((item: tintuc) => {
+      const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
+      if (!isExpertArticle) {
+        return false;
+      }
+
+      if (filterDanhMuc === "") {
+        return true;
+      }
+
+      return item.attributes.danh_muc_bai_viets?.data.some(
+        (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+      );
+    })
+    .slice(0, displayedCount)
+    .map((item: tintuc) => item.attributes);
+
+  const loadMoreArticles = () => {
+    const nextCount = displayedCount + 3;
+    setDisplayedCount(nextCount);
   };
   return (
     <>
@@ -334,7 +247,8 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}>
+                  }}
+                >
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -426,7 +340,8 @@ const Page: React.FC = (params: any) => {
                           </div>
                           <h3
                             className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                            title={item.attributes.title}>
+                            title={item.attributes.title}
+                          >
                             {item.attributes.title}
                           </h3>
                           <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
@@ -490,13 +405,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
+                    >
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}>
+                        }`}
+                      >
                         {item.attributes.name}
                       </span>
                     </button>
@@ -506,31 +423,18 @@ const Page: React.FC = (params: any) => {
           </div>
         </div>
 
-        <BoxTinTuc
-          data={tintuc
-            .filter((item: tintuc) => {
-              const isExpertArticle =
-                item.attributes.type === "Bài viết chuyên gia";
-              if (!isExpertArticle) {
-                return false;
-              }
+        <BoxTinTuc data={filteredAndLimitedArticles} />
 
-              if (filterDanhMuc === "") {
-                return true;
-              }
-
-              return item.attributes.danh_muc_bai_viets?.data.some(
-                (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
-              );
-            })
-            .map((item: tintuc) => item.attributes)}
-        />
-
-        <div className="py-[40px] flex justify-center">
-          <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
-            Tải thêm bài viết
-          </button>
-        </div>
+        {displayedCount < tintuc.length && (
+          <div className="py-[40px] flex justify-center">
+            <button
+              onClick={loadMoreArticles}
+              className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            >
+              Tải thêm bài viết
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
