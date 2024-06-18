@@ -97,6 +97,7 @@ const Page: React.FC = (params: any) => {
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
   const [loading, setLoading] = useState(false);
+  const [displayedCount, setDisplayedCount] = useState(3);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
@@ -123,7 +124,6 @@ const Page: React.FC = (params: any) => {
 
   useEffect(() => {
     if (debouncedSearchValue) {
-      console.log("Searching for:", debouncedSearchValue);
     }
   }, [debouncedSearchValue]);
 
@@ -141,7 +141,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTucWithFilter = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Bài viết chuyên gia&pagination[pageSize]=${displayedCount}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
@@ -167,10 +167,13 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
-
+  const loadMoreArticles = () => {
+    setDisplayedCount((prevCount) => prevCount + 3);
+  };
   useEffect(() => {
     fetchDataTinTucWithFilter();
-  }, [debouncedSearchValue]);
+  }, [debouncedSearchValue, displayedCount]);
+
   useEffect(() => {
     fetchDataTinTuc();
     fetchDataDanhMucBaiViet();
@@ -198,6 +201,24 @@ const Page: React.FC = (params: any) => {
       setFilterDanhMuc(name);
     }
   };
+  console.log(tintucWithFilter);
+
+  const filteredAndLimitedArticles = tintucWithFilter
+    .filter((item: tintuc) => {
+      // const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
+      // if (!isExpertArticle) {
+      //   return false;
+      // }
+
+      if (filterDanhMuc === "") {
+        return true;
+      }
+
+      return item.attributes.danh_muc_bai_viets?.data.some(
+        (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+      );
+    })
+    .map((item: tintuc) => item.attributes);
 
   return (
     <>
@@ -253,7 +274,8 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}>
+                  }}
+                >
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -345,7 +367,8 @@ const Page: React.FC = (params: any) => {
                           </div>
                           <h3
                             className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                            title={item.attributes.title}>
+                            title={item.attributes.title}
+                          >
                             {item.attributes.title}
                           </h3>
                           <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
@@ -410,13 +433,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
+                    >
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}>
+                        }`}
+                      >
                         {item.attributes.name}
                       </span>
                     </button>
@@ -425,32 +450,14 @@ const Page: React.FC = (params: any) => {
               : "Chưa có dữ liệu"}
           </div>
         </div>
-        {loading ? (
-          <Loading />
-        ) : (
-          <BoxTinTuc
-            data={tintucWithFilter
-              .filter((item: tintuc) => {
-                const isExpertArticle =
-                  item.attributes.type === "Bài viết chuyên gia";
-                if (!isExpertArticle) {
-                  return false;
-                }
 
-                if (filterDanhMuc === "") {
-                  return true;
-                }
-
-                return item.attributes.danh_muc_bai_viets?.data.some(
-                  (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
-                );
-              })
-              .map((item: tintuc) => item.attributes)}
-          />
-        )}
+        <BoxTinTuc data={filteredAndLimitedArticles} />
 
         <div className="py-[40px] flex justify-center">
-          <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
+          <button
+            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            onClick={loadMoreArticles}
+          >
             Tải thêm bài viết
           </button>
         </div>

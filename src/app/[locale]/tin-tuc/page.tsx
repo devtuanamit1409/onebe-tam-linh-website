@@ -14,6 +14,7 @@ import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 
 interface danhMucBaiViet {
   id: number;
@@ -64,6 +65,7 @@ const Page: React.FC = (params: any) => {
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
   >([]);
+  const [displayedCount, setDisplayedCount] = useState(3);
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
   const [loading, setLoading] = useState(false);
@@ -95,7 +97,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTucWithFilter = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Tin tức&pagination[pageSize]=${displayedCount}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
@@ -103,10 +105,23 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
+  const fetchDataDanhMucBaiViet = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/danh-muc-bai-viets?locale=${locale}`;
+      const response = await apiService.get<ResponseDanhMucBaiViet>(endpoint);
+      setDataDanhMucBaiViet(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     fetchDataTinTuc();
+    fetchDataDanhMucBaiViet();
   }, []);
+  useEffect(() => {
+    fetchDataTinTucWithFilter();
+  }, [debouncedSearchValue, displayedCount]);
 
   const baseUrl = process.env.URL_API;
 
@@ -116,6 +131,25 @@ const Page: React.FC = (params: any) => {
     } else {
       setFilterDanhMuc(name);
     }
+  };
+  const filteredAndLimitedArticles = tintucWithFilter
+    .filter((item: tintuc) => {
+      // const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
+      // if (!isExpertArticle) {
+      //   return false;
+      // }
+
+      if (filterDanhMuc === "") {
+        return true;
+      }
+
+      return item.attributes.danh_muc_bai_viets?.data.some(
+        (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+      );
+    })
+    .map((item: tintuc) => item.attributes);
+  const loadMoreArticles = () => {
+    setDisplayedCount((prevCount) => prevCount + 3);
   };
 
   return (
@@ -182,13 +216,14 @@ const Page: React.FC = (params: any) => {
           <hr />
         </div>
 
-        <div className="flex justify-between flex-wrap ">
+        <div className="flex justify-between ">
           <div>
             <h2 className="text-[35px] font-bold">Tất cả bài viết</h2>
           </div>
           <div className="relative">
             <input
               className="focus:outline-none p-[24px] rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder="Nhập từ khóa tìm kiếm"
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10%]">
@@ -227,9 +262,16 @@ const Page: React.FC = (params: any) => {
           </div>
         </div>
 
-        <BoxTinTuc data={tintuc} />
+        {loading ? (
+          <Loading />
+        ) : (
+          <BoxTinTuc data={filteredAndLimitedArticles} />
+        )}
+
         <div className="py-[40px] flex justify-center">
-          <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
+          <button
+            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            onClick={loadMoreArticles}>
             Tải thêm bài viết
           </button>
         </div>

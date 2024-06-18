@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 interface BoxTinTucProps {
   data: Array<any>;
 }
@@ -15,9 +16,11 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
           data.map((item) => {
             if (!item.seo) return null;
             return (
-              <div
+              <Link
+                href={item.slug}
                 key={item.id}
-                className="col-span-12 desktop:col-span-4 mb-[40px]">
+                className="col-span-12 desktop:col-span-4 mb-[40px]"
+              >
                 <div className="relative">
                   <div className="h-[300px] relative overflow-hidden">
                     <div className="abosolute top-0 left-0 ">
@@ -45,7 +48,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 <p className="text-[#637381] font-[400] leading-[24px]">
                   {item.seo.description}
                 </p>
-              </div>
+              </Link>
             );
           })
         ) : (
