@@ -32,7 +32,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                     </div>
                   </div>
                   <div className="absolute top-[10%] left-[5%]">
-                    <span className="text-[18px] p-[10px] time-up font-bold">
+                    <span className="text-[18px] p-[10px] time-up font-[400]">
                       {t("lastest_news")}
                     </span>
                   </div>
