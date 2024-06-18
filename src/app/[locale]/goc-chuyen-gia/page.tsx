@@ -95,12 +95,15 @@ const Page: React.FC = (params: any) => {
   const locale = params.params.locale;
   const t = useTranslations("professionalist");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
+  const [loading, setLoading] = useState(false);
   const [displayedCount, setDisplayedCount] = useState(3);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
   >([]);
   const [filterDanhMuc, setFilterDanhMuc] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const searchData = {
     populate: ["danh_muc_bai_viets", "seo.thumbnail"].toString(),
   };
@@ -112,11 +115,37 @@ const Page: React.FC = (params: any) => {
     searchDataChuyenGia
   ).toString();
 
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearchValue(searchValue), 300);
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      console.log("Searching for:", debouncedSearchValue);
+    }
+  }, [debouncedSearchValue]);
+
   const fetchDataTinTuc = async () => {
     try {
+      setLoading(true);
       const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintuc(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataTinTucWithFilter = async () => {
+    try {
+      setLoading(true);
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setTintucWithFilter(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -141,14 +170,13 @@ const Page: React.FC = (params: any) => {
   };
 
   useEffect(() => {
-    fetchDataTinTuc();
-    fetchData();
-    fetchDataDanhMucBaiViet();
-  }, []);
+    fetchDataTinTucWithFilter();
+  }, [debouncedSearchValue]);
   useEffect(() => {
-    console.log("dataChuyenGia", dataChuyenGia?.attributes);
-    console.log("dataDanhMucBaiViet", dataDanhMucBaiViet);
-  }, [dataChuyenGia, dataDanhMucBaiViet]);
+    fetchDataTinTuc();
+    fetchDataDanhMucBaiViet();
+    fetchData();
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
@@ -171,6 +199,7 @@ const Page: React.FC = (params: any) => {
       setFilterDanhMuc(name);
     }
   };
+
   const filteredAndLimitedArticles = tintuc
     .filter((item: tintuc) => {
       const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
@@ -383,6 +412,7 @@ const Page: React.FC = (params: any) => {
           <div className="relative">
             <input
               className="focus:outline-none p-[24px] rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder="Nhập từ khóa tìm kiếm"
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10%]">
