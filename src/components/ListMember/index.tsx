@@ -57,7 +57,10 @@ const ListMember = ({ url, locale }: UrlProps) => {
 
   const fetchData = async (page: number) => {
     try {
-      const endpoint = `${url}/1/card-thanh-vien?page=${page}&pageSize=6&locale=${locale}`;
+      const endpoint =
+        locale === "vi"
+          ? `${url}/1/card-thanh-vien?page=${page}&pageSize=6&locale=${locale}`
+          : `${url}/2/card-thanh-vien?page=${page}&pageSize=6&locale=${locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
       setDataThanhVien((prevMembers) => [...prevMembers, ...response.data]);
       setTotalPages(response.meta.pagination.pageCount);
@@ -91,7 +94,8 @@ const ListMember = ({ url, locale }: UrlProps) => {
           {dataThanhVien.map((item) => (
             <div
               key={item.id}
-              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] ">
+              className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] "
+            >
               <div className="border border-[#DFE4EA] desktop:h-[450px]  mobile:h-[400px]">
                 <div className="px-[24px] pb-[24px] pt-[100px]">
                   <div className="flex flex-col gap-[24px]">
@@ -119,7 +123,8 @@ const ListMember = ({ url, locale }: UrlProps) => {
                         <Link
                           href={item.path}
                           target="_blank"
-                          className="mr-[8px]">
+                          className="mr-[8px]"
+                        >
                           {t("visit_our_website")}
                         </Link>
                         <IconAngleRight width="16" height="16" />
@@ -135,7 +140,8 @@ const ListMember = ({ url, locale }: UrlProps) => {
           <div className="flex justify-center pt-[40px]">
             <button
               onClick={handleLoadMore}
-              className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+              className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+            >
               {t("see_more")}
             </button>
           </div>

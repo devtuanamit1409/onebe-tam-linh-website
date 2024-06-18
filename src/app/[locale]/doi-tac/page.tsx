@@ -8,6 +8,7 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
 import ListMember from "@/components/ListMember";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -87,6 +88,7 @@ async function fetchData(endpoint: string) {
 }
 
 const page: React.FC = async (params: any) => {
+  const t = await getTranslations("partner");
   const locale = params.params.locale;
   const dataDoiTac = await fetchData(
     `${ENDPOINT.GET_DOITAC}?${searchParams}&locale=${locale}`
@@ -142,10 +144,10 @@ const page: React.FC = async (params: any) => {
       <div className="desktop:pt-[80px] pt-[32px] pb-[64px]">
         <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
           <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
-            ĐỐI TÁC LIÊN KẾT
+            {t("sub_title")}
           </h5>
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
-            Hợp tác chiến lược
+            {t("title")}
           </h1>
           <p>{description && description}</p>
         </div>
