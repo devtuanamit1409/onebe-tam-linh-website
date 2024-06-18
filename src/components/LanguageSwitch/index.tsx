@@ -31,6 +31,8 @@ const LanguageSwitch: React.FC = () => {
     "/en/doi-tac": "/doi-tac",
     "/en/goc-chuyen-gia": "/goc-chuyen-gia",
     "/goc-chuyen-gia": "/en/goc-chuyen-gia",
+    "/thong-tu-nghi-dinh": "/en/thong-tu-nghi-dinh",
+    "/en/thong-tu-nghi-dinh": "/thong-tu-nghi-dinh",
   });
 
   const updateSlugMap = (data: any) => {
