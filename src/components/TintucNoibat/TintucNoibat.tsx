@@ -10,6 +10,7 @@ import { Swiper as SwiperClass } from "swiper";
 import IconNextCricle from "../icons/IconNextCricle";
 import IconPrevCricle from "../icons/IconPrevCricle";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 interface TintucNoibatProps {
   name: string;
   data: any;
@@ -19,6 +20,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const t = useTranslations("home");
   const onPrev = (): void => {
     swiperRef.current?.slidePrev();
   };
@@ -69,7 +71,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">
                   <Link href={`/${item.slug}}`} className="mr-[10px]">
-                    Xem chi tiết
+                    {t("let_see")}
                   </Link>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

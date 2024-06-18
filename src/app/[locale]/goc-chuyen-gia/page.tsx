@@ -74,6 +74,12 @@ interface chuyengia {
     }[];
   };
 }
+interface danhMucBaiViet {
+  id: number;
+  attributes: {
+    name: string;
+  };
+}
 
 interface ResponseDataTinTuc {
   data: tintuc[];
@@ -81,12 +87,19 @@ interface ResponseDataTinTuc {
 interface ResponseData {
   data: chuyengia;
 }
+interface ResponseDanhMucBaiViet {
+  data: danhMucBaiViet[];
+}
 
 const Page: React.FC = (params: any) => {
   const locale = params.params.locale;
   const t = useTranslations("professionalist");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
+  const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
+    danhMucBaiViet[]
+  >([]);
+  const [filterDanhMuc, setFilterDanhMuc] = useState("");
   const searchData = {
     populate: ["danh_muc_bai_viets", "seo.thumbnail"].toString(),
   };
@@ -116,14 +129,25 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
+  const fetchDataDanhMucBaiViet = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/danh-muc-bai-viets?locale=${locale}`;
+      const response = await apiService.get<ResponseDanhMucBaiViet>(endpoint);
+      setDataDanhMucBaiViet(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     fetchDataTinTuc();
     fetchData();
+    fetchDataDanhMucBaiViet();
   }, []);
   useEffect(() => {
     console.log("dataChuyenGia", dataChuyenGia?.attributes);
-  }, [dataChuyenGia]);
+    console.log("dataDanhMucBaiViet", dataDanhMucBaiViet);
+  }, [dataChuyenGia, dataDanhMucBaiViet]);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
@@ -248,6 +272,14 @@ const Page: React.FC = (params: any) => {
   ];
   const baseUrl = process.env.URL_API;
   const text = useTranslations("home");
+
+  const handleSetFilterDanhMuc = (name: string) => {
+    if (filterDanhMuc === name) {
+      setFilterDanhMuc("");
+    } else {
+      setFilterDanhMuc(name);
+    }
+  };
   return (
     <>
       <div className="container">
@@ -445,29 +477,55 @@ const Page: React.FC = (params: any) => {
         </div>
 
         <div className="py-[50px]">
-          <div className="flex">
-            <button className="bg-[#3B559E] py-[8px] px-[10px] flex items-center rounded-[24px] border border-[#3B559E]">
-              <IconWater />
-              <span className="text-12px font-medium text-[#fff] ml-[8px]">
-                Xử lý nước
-              </span>
-            </button>
-            <button className="bg-[#fff] py-[8px] px-[10px] flex items-center rounded-[24px] ml-[8px] border  border-[#3B559E]">
-              <IconDesign />
-              <span className="text-12px font-medium text-[#3B559E] ml-[8px]">
-                Thiết kế cơ điện
-              </span>
-            </button>
+          <div className="flex gap-4">
+            {dataDanhMucBaiViet && dataDanhMucBaiViet.length > 0
+              ? dataDanhMucBaiViet.map((item: danhMucBaiViet) => {
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() =>
+                        handleSetFilterDanhMuc(item.attributes.name)
+                      }
+                      className={`${
+                        filterDanhMuc === item.attributes.name
+                          ? `bg-[#3B559E] border-[#3B559E]`
+                          : `bg-[#fff] border  border-[#3B559E]`
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      <span
+                        className={`text-12px font-medium  ${
+                          filterDanhMuc === item.attributes.name
+                            ? `text-[#fff]`
+                            : `text-[#3B559E]`
+                        }`}>
+                        {item.attributes.name}
+                      </span>
+                    </button>
+                  );
+                })
+              : "Chưa có dữ liệu"}
           </div>
         </div>
 
         <BoxTinTuc
           data={tintuc
-            .filter(
-              (item: tintuc) => item.attributes.type === "Bài viết chuyên gia"
-            )
+            .filter((item: tintuc) => {
+              const isExpertArticle =
+                item.attributes.type === "Bài viết chuyên gia";
+              if (!isExpertArticle) {
+                return false;
+              }
+
+              if (filterDanhMuc === "") {
+                return true;
+              }
+
+              return item.attributes.danh_muc_bai_viets?.data.some(
+                (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+              );
+            })
             .map((item: tintuc) => item.attributes)}
         />
+
         <div className="py-[40px] flex justify-center">
           <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">
             Tải thêm bài viết
