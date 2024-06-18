@@ -95,11 +95,14 @@ const Page: React.FC = (params: any) => {
   const locale = params.params.locale;
   const t = useTranslations("professionalist");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
+  const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
+  const [loading, setLoading] = useState(false);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
   >([]);
   const [filterDanhMuc, setFilterDanhMuc] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const searchData = {
     populate: ["danh_muc_bai_viets", "seo.thumbnail"].toString(),
   };
@@ -111,11 +114,37 @@ const Page: React.FC = (params: any) => {
     searchDataChuyenGia
   ).toString();
 
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearchValue(searchValue), 300);
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      console.log("Searching for:", debouncedSearchValue);
+    }
+  }, [debouncedSearchValue]);
+
   const fetchDataTinTuc = async () => {
     try {
+      setLoading(true);
       const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintuc(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataTinTucWithFilter = async () => {
+    try {
+      setLoading(true);
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setTintucWithFilter(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -140,14 +169,13 @@ const Page: React.FC = (params: any) => {
   };
 
   useEffect(() => {
-    fetchDataTinTuc();
-    fetchData();
-    fetchDataDanhMucBaiViet();
-  }, []);
+    fetchDataTinTucWithFilter();
+  }, [debouncedSearchValue]);
   useEffect(() => {
-    console.log("dataChuyenGia", dataChuyenGia?.attributes);
-    console.log("dataDanhMucBaiViet", dataDanhMucBaiViet);
-  }, [dataChuyenGia, dataDanhMucBaiViet]);
+    fetchDataTinTuc();
+    fetchDataDanhMucBaiViet();
+    fetchData();
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
@@ -159,117 +187,7 @@ const Page: React.FC = (params: any) => {
   const onNext = (): void => {
     swiperRef.current?.slideNext();
   };
-  const data = [
-    {
-      name: "Coriss Ambady",
-      image: chuyen_gia_1,
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_2,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_3,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_4,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-    {
-      image: chuyen_gia_1,
-      name: "Coriss Ambady",
-      position: "Web Developer",
-    },
-  ];
-  const data_detail = [
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-    {
-      image: demo_goc_chuyen_gia,
-      title:
-        "Tiến sĩ Lâm Vừ Thanh Nội – Chuyên gia cố vấn Công nghệ môi trường",
-      describe:
-        "Làm việc, nghiên cứu và giảng dạy trong lĩnh vực môi trường từ năm 2001, TS. Nội là một trong những chuyên gia cố vấn công nghệ môi trường hàng đầu của NTS.",
-    },
-  ];
-  const tin_tuc_noi_bat = [
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-    {
-      category: "Xử lý nước",
-      title: "Quản lý hoạt động tái sử dụng nước thải doanh...",
-      description:
-        "A Viewpoint by Davide S., Delivery Director, Aina P., Consultant, and...",
-      image: demo_tin_tuc_2,
-    },
-  ];
-  const data_tin_tuc = [
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-1.jpg",
-      title: "Meet AutoManage, the best AI management tools",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-2.jpg",
-      title: "How to earn more money as a wellness coach",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-    {
-      url: "/images/tin-tuc/tin-tuc-3.jpg",
-      title: "The no-fuss guide to upselling and cross selling",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    },
-  ];
+
   const baseUrl = process.env.URL_API;
   const text = useTranslations("home");
 
@@ -280,6 +198,7 @@ const Page: React.FC = (params: any) => {
       setFilterDanhMuc(name);
     }
   };
+
   return (
     <>
       <div className="container">
@@ -468,6 +387,7 @@ const Page: React.FC = (params: any) => {
           <div className="relative">
             <input
               className="focus:outline-none p-[24px] rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder="Nhập từ khóa tìm kiếm"
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10%]">
@@ -505,26 +425,29 @@ const Page: React.FC = (params: any) => {
               : "Chưa có dữ liệu"}
           </div>
         </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <BoxTinTuc
+            data={tintucWithFilter
+              .filter((item: tintuc) => {
+                const isExpertArticle =
+                  item.attributes.type === "Bài viết chuyên gia";
+                if (!isExpertArticle) {
+                  return false;
+                }
 
-        <BoxTinTuc
-          data={tintuc
-            .filter((item: tintuc) => {
-              const isExpertArticle =
-                item.attributes.type === "Bài viết chuyên gia";
-              if (!isExpertArticle) {
-                return false;
-              }
+                if (filterDanhMuc === "") {
+                  return true;
+                }
 
-              if (filterDanhMuc === "") {
-                return true;
-              }
-
-              return item.attributes.danh_muc_bai_viets?.data.some(
-                (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
-              );
-            })
-            .map((item: tintuc) => item.attributes)}
-        />
+                return item.attributes.danh_muc_bai_viets?.data.some(
+                  (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+                );
+              })
+              .map((item: tintuc) => item.attributes)}
+          />
+        )}
 
         <div className="py-[40px] flex justify-center">
           <button className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]">

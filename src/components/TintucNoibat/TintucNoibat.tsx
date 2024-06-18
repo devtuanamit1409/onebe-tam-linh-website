@@ -57,7 +57,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     className="mobile:rounded-xl desktop:rounded-none desktop:w-full "
                   />
                   <div className="absolute top-[15%] left-[5%]">
-                    <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-bold">
+                    <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-[400]">
                       {item?.danh_muc_bai_viets?.data[0]?.attributes?.name ||
                         "Mới đây"}
                     </span>
