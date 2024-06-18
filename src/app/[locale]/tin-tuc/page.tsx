@@ -143,11 +143,11 @@ const Page: React.FC = (params: any) => {
         return true;
       }
 
-      return item.attributes.danh_muc_bai_viets?.data.some(
+      return item?.attributes?.danh_muc_bai_viets?.data.some(
         (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
       );
     })
-    .map((item: tintuc) => item.attributes);
+    .map((item: tintuc) => item?.attributes);
   const loadMoreArticles = () => {
     setDisplayedCount((prevCount) => prevCount + 3);
   };
@@ -159,8 +159,8 @@ const Page: React.FC = (params: any) => {
           <div className="col-span-12 laptop:col-span-6">
             <TintucNoibat
               data={tintuc
-                .filter((item) => item?.attributes.bai_viet_tieu_diem === true)
-                .map((item) => item.attributes)}
+                .filter((item) => item?.attributes?.bai_viet_tieu_diem === true)
+                .map((item) => item?.attributes)}
               name="Bài viết nổi bật"
             />
           </div>
@@ -181,10 +181,10 @@ const Page: React.FC = (params: any) => {
                             </div>
                           </div>
                           <h3 className="text-[20px] text-[#374151] font-[500]">
-                            {item.attributes.seo.description}
+                            {item?.attributes?.seo?.description || "có lỗi"}
                           </h3>
                           <p className="text-[18px] text-[#8899A8]">
-                            {item.attributes.seo.description}
+                            {item?.attributes?.seo?.description || "có lỗi"}
                           </p>
                           <div className="flex justify-start">
                             <Link
@@ -240,20 +240,20 @@ const Page: React.FC = (params: any) => {
                     <button
                       key={item.id}
                       onClick={() =>
-                        handleSetFilterDanhMuc(item.attributes.name)
+                        handleSetFilterDanhMuc(item?.attributes?.name)
                       }
                       className={`${
-                        filterDanhMuc === item.attributes.name
+                        filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
                       } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
                       <span
                         className={`text-12px font-medium  ${
-                          filterDanhMuc === item.attributes.name
+                          filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
                         }`}>
-                        {item.attributes.name}
+                        {item?.attributes?.name}
                       </span>
                     </button>
                   );
