@@ -27,6 +27,8 @@ const LanguageSwitch: React.FC = () => {
     "/du-an": "/en/du-an",
     "/en/tin-tuc": "/tin-tuc",
     "/tin-tuc": "/en/tin-tuc",
+    "/doi-tac": "/en/doi-tac",
+    "/en/doi-tac": "/doi-tac",
   });
 
   const updateSlugMap = (data: any) => {
