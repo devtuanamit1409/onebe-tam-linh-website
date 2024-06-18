@@ -8,6 +8,7 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
 import ListMember from "@/components/ListMember";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -18,61 +19,63 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-// export async function generateMetadata(): Promise<Metadata> {
-//   const dataDoiTac = await fetchData();
-//   const seo =
-//     (dataDoiTac as { data: { attributes: { seo: any } } })?.data?.attributes
-//       ?.seo || {};
+export async function generateMetadata(params: any): Promise<Metadata> {
+  const dataDoiTac = await fetchData(
+    `${ENDPOINT.GET_DOITAC}?${searchParams}&locale=${params.params.locale}`
+  );
+  const seo =
+    (dataDoiTac as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
 
-//   const baseUrl = process.env.URL_API;
+  const baseUrl = process.env.URL_API;
 
-//   return {
-//     metadataBase: new URL(baseUrl || ""),
-//     title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-//     description:
-//       seo.description ||
-//       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//     keywords:
-//       seo.keywords ||
-//       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
-//     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
-//     openGraph: {
-//       title:
-//         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.ogDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       url: `${baseUrl}/home`,
-//       images: [
-//         {
-//           url: seo.thumbnail?.data?.attributes?.url
-//             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-//             : "/path/to/default-image.jpg",
-//           width: 800,
-//           height: 600,
-//           alt: "Image description",
-//         },
-//       ],
-//     },
-//     twitter: {
-//       title:
-//         seo.twitterTitle ||
-//         seo.title ||
-//         "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.twitterDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       images: [
-//         seo.twitterImage
-//           ? `${baseUrl}${seo.twitterImage}`
-//           : "/path/to/default-image.jpg",
-//       ],
-//       card: "summary_large_image",
-//     },
-//   };
-// }
+  return {
+    metadataBase: new URL(baseUrl || ""),
+    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    description:
+      seo.description ||
+      "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+    keywords:
+      seo.keywords ||
+      "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
+    authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    openGraph: {
+      title:
+        seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.ogDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      url: `${baseUrl}/home`,
+      images: [
+        {
+          url: seo.thumbnail?.data?.attributes?.url
+            ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
+            : "/path/to/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Image description",
+        },
+      ],
+    },
+    twitter: {
+      title:
+        seo.twitterTitle ||
+        seo.title ||
+        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+      description:
+        seo.twitterDescription ||
+        seo.description ||
+        "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
+      images: [
+        seo.twitterImage
+          ? `${baseUrl}${seo.twitterImage}`
+          : "/path/to/default-image.jpg",
+      ],
+      card: "summary_large_image",
+    },
+  };
+}
 
 async function fetchData(endpoint: string) {
   try {
@@ -85,6 +88,7 @@ async function fetchData(endpoint: string) {
 }
 
 const page: React.FC = async (params: any) => {
+  const t = await getTranslations("partner");
   const locale = params.params.locale;
   const dataDoiTac = await fetchData(
     `${ENDPOINT.GET_DOITAC}?${searchParams}&locale=${locale}`
@@ -140,10 +144,10 @@ const page: React.FC = async (params: any) => {
       <div className="desktop:pt-[80px] pt-[32px] pb-[64px]">
         <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
           <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
-            ĐỐI TÁC LIÊN KẾT
+            {t("sub_title")}
           </h5>
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
-            Hợp tác chiến lược
+            {t("title")}
           </h1>
           <p>{description && description}</p>
         </div>
