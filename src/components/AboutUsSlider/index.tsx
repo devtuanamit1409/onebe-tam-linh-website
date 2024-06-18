@@ -101,14 +101,12 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
           },
         }}
         modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
+        className="mySwiper about-us-slider">
         {dataBoxService &&
           data?.map((item, index) => (
             <SwiperSlide
               className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px] max-w-[330px] relative`}
-              key={index}
-            >
+              key={index}>
               <div className="overflow-hidden tablet:h-[437px] ">
                 {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
                 <div className="p-[32px] ">
@@ -129,8 +127,7 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                   <div className="pt-[16px]">
                     <Link
                       href={`/${locale}${item.url}`}
-                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] "
-                    >
+                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
                       {t("see_more")}
                     </Link>
                   </div>

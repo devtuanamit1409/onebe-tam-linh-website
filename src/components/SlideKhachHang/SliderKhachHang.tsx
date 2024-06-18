@@ -45,7 +45,7 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
   return (
     <div className="sliderContainer flex items-center overflow-hidden max-h-[100px]">
       <Marquee
-        velocity={1}
+        velocity={60}
         resetAfterTries={200}
         direction="rtl"
         scatterRandomly={false}
@@ -54,14 +54,14 @@ const SliderKhachHang = (listlogo: ListLogoprops) => {
         {listlogo.listlogo.map((logo, index) => (
           <div
             key={index}
-            className="logo-item mx-8 flex items-center h-[100px]">
+            className="logo-item mx-8 flex items-center h-[100px] mobile:w-[100px]">
             <Image
               src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
               alt={logo.alt}
               layout="responsive"
               width={100}
               height={50}
-              // objectFit="contain"
+              objectFit="cover"
             />
           </div>
         ))}
