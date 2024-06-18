@@ -55,8 +55,8 @@ const MobileMenuNew: React.FC<MobileMenuProps> = ({
 
   useEffect(() => {
     if (data) {
-      const newMegaMenu: MenuItem[] = data.map((item: any) => ({
-        key: item.attributes.slug,
+      const newMegaMenu: MenuItem[] = data.map((item: any, index: number) => ({
+        key: `${item.attributes.slug}-${index}`,
         title: item.attributes.name,
         description: item.attributes.description,
         url: `/${item.attributes.slug}`,
@@ -65,18 +65,20 @@ const MobileMenuNew: React.FC<MobileMenuProps> = ({
           url: `/${baiViet.attributes.slug}`,
           icon: <IconAngleRight width={"16"} height={"16"} />,
         })),
-        content: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
-          key: `${item.attributes.slug}-${subItem.attributes.slug}`,
-          title: subItem.attributes.name,
-          description: subItem.attributes.description,
-          url: `${subItem.attributes.slug}`,
-          icon: <IconAngleRightColorFull />,
-          baiViet: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
-            title: baiViet.attributes.title,
-            url: `/${baiViet.attributes.slug}`,
-            icon: <IconAngleRight width={"16"} height={"16"} />,
-          })),
-        })),
+        content: item.attributes.danh_muc_cons.data.map(
+          (subItem: any, subIndex: number) => ({
+            key: `${item.attributes.slug}-${subItem.attributes.slug}-${subIndex}`,
+            title: subItem.attributes.name,
+            description: subItem.attributes.description,
+            url: `${subItem.attributes.slug}`,
+            icon: <IconAngleRightColorFull />,
+            baiViet: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
+              title: baiViet.attributes.title,
+              url: `/${baiViet.attributes.slug}`,
+              icon: <IconAngleRight width={"16"} height={"16"} />,
+            })),
+          })
+        ),
       }));
 
       setMobileMenu(newMegaMenu);
