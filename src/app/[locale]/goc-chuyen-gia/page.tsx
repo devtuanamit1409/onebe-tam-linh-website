@@ -247,6 +247,7 @@ const Page: React.FC = (params: any) => {
     },
   ];
   const baseUrl = process.env.URL_API;
+  const text = useTranslations("home");
   return (
     <>
       <div className="container">
@@ -364,7 +365,10 @@ const Page: React.FC = (params: any) => {
           <div className="mobile:col-span-12 tablet:col-span-6 ">
             <TintucNoibat
               data={tintuc
-                .filter((item: tintuc) => item.attributes.type === "Tin tức")
+                .filter(
+                  (item: tintuc) =>
+                    item.attributes.type === "Bài viết chuyên gia"
+                )
                 .map((item: tintuc) => item.attributes)
                 .filter((item) => item?.bai_viet_tieu_diem === true)
                 .map((item) => item)}
@@ -372,48 +376,53 @@ const Page: React.FC = (params: any) => {
             />
           </div>
           <div className="mobile:col-span-12 tablet:col-span-6">
-            {tin_tuc_noi_bat.map((item, key) => {
-              return (
-                <div key={key} className="py-[16px]">
-                  <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                    <div className="tablet:col-span-6 mobile:col-span-12">
-                      <div className="flex flex-col gap-[16px]">
-                        <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                          <div className="text-indigo-800 text-base font-normal leading-normal">
-                            {item.category}
+            {tintuc
+              .filter(
+                (item: tintuc) => item.attributes.type === "Bài viết chuyên gia"
+              )
+              .map((item, key) => {
+                return (
+                  <div key={key} className="py-[16px]">
+                    <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
+                      <div className="tablet:col-span-6 mobile:col-span-12">
+                        <div className="flex flex-col gap-[16px]">
+                          <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                            <div className="text-indigo-800 text-base font-normal leading-normal">
+                              {item?.attributes.danh_muc_bai_viets?.data[0]
+                                ?.attributes?.name || "Bài viết"}
+                            </div>
+                          </div>
+                          <h3
+                            className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
+                            title={item.attributes.title}>
+                            {item.attributes.title}
+                          </h3>
+                          <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
+                            {item.attributes.seo.description}
+                          </p>
+                          <div className="flex justify-start">
+                            <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                              {text("read_now")}
+                            </button>
                           </div>
                         </div>
-                        <h3
-                          className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                          title={item.title}>
-                          {item.title}
-                        </h3>
-                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
-                          {item.description}
-                        </p>
-                        <div className="flex justify-start">
-                          <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
-                            Đọc ngay
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                    <div className="tablet:col-span-6 mobile:col-span-12 ">
-                      <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
-                        <Image
-                          // height={196}
-                          // width={196}
-                          src={demo_tin_tuc_2}
-                          layout="fill"
-                          objectFit="cover"
-                          alt="tin-tuc-moi-len"
-                        />
+                      <div className="tablet:col-span-6 mobile:col-span-12 ">
+                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
+                          <Image
+                            // height={196}
+                            // width={196}
+                            src={demo_tin_tuc_2}
+                            layout="fill"
+                            objectFit="cover"
+                            alt="tin-tuc-moi-len"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
 
@@ -454,7 +463,9 @@ const Page: React.FC = (params: any) => {
 
         <BoxTinTuc
           data={tintuc
-            .filter((item: tintuc) => item.attributes.type === "Tin tức")
+            .filter(
+              (item: tintuc) => item.attributes.type === "Bài viết chuyên gia"
+            )
             .map((item: tintuc) => item.attributes)}
         />
         <div className="py-[40px] flex justify-center">
