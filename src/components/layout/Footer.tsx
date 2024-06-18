@@ -151,7 +151,7 @@ const Footer = async (locale: any) => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -171,7 +171,7 @@ const Footer = async (locale: any) => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -191,7 +191,7 @@ const Footer = async (locale: any) => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -211,7 +211,7 @@ const Footer = async (locale: any) => {
                       icon?.map((item) => {
                         return (
                           <div key={item?.id}>
-                            <a href={item?.path} target="_blank">
+                            <a href={item?.path || "/"} target="_blank">
                               <Image
                                 src={`${baseUrl}${item?.urlIcon?.data?.attributes?.url}`}
                                 alt={item?.alt}
