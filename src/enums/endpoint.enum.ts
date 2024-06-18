@@ -9,4 +9,5 @@ export const ENDPOINT = {
   GET_DANHMUC: `${process.env.URL_API}/api/danh-mucs`,
   GET_DANHMUCCON: `${process.env.URL_API}/api/danh-muc-cons`,
   GET_DUAN: `${process.env.URL_API}/api/du-an`,
+  GET_TTND: `${process.env.URL_API}/api/thong-tu-nghi-dinh`,
 };
