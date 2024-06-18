@@ -124,7 +124,6 @@ const Page: React.FC = (params: any) => {
 
   useEffect(() => {
     if (debouncedSearchValue) {
-      console.log("Searching for:", debouncedSearchValue);
     }
   }, [debouncedSearchValue]);
 
@@ -142,7 +141,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTucWithFilter = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Bài viết chuyên gia&pagination[pageSize]=${displayedCount}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
@@ -168,10 +167,13 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
-
+  const loadMoreArticles = () => {
+    setDisplayedCount((prevCount) => prevCount + 3);
+  };
   useEffect(() => {
     fetchDataTinTucWithFilter();
-  }, [debouncedSearchValue]);
+  }, [debouncedSearchValue, displayedCount]);
+
   useEffect(() => {
     fetchDataTinTuc();
     fetchDataDanhMucBaiViet();
@@ -199,13 +201,14 @@ const Page: React.FC = (params: any) => {
       setFilterDanhMuc(name);
     }
   };
+  console.log(tintucWithFilter);
 
-  const filteredAndLimitedArticles = tintuc
+  const filteredAndLimitedArticles = tintucWithFilter
     .filter((item: tintuc) => {
-      const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
-      if (!isExpertArticle) {
-        return false;
-      }
+      // const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
+      // if (!isExpertArticle) {
+      //   return false;
+      // }
 
       if (filterDanhMuc === "") {
         return true;
@@ -215,13 +218,8 @@ const Page: React.FC = (params: any) => {
         (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
       );
     })
-    .slice(0, displayedCount)
     .map((item: tintuc) => item.attributes);
 
-  const loadMoreArticles = () => {
-    const nextCount = displayedCount + 3;
-    setDisplayedCount(nextCount);
-  };
   return (
     <>
       <div className="container">
@@ -455,16 +453,14 @@ const Page: React.FC = (params: any) => {
 
         <BoxTinTuc data={filteredAndLimitedArticles} />
 
-        {displayedCount < tintuc.length && (
-          <div className="py-[40px] flex justify-center">
-            <button
-              onClick={loadMoreArticles}
-              className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            >
-              Tải thêm bài viết
-            </button>
-          </div>
-        )}
+        <div className="py-[40px] flex justify-center">
+          <button
+            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            onClick={loadMoreArticles}
+          >
+            Tải thêm bài viết
+          </button>
+        </div>
       </div>
     </>
   );
