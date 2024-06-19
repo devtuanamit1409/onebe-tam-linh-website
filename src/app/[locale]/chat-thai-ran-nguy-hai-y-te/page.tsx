@@ -144,7 +144,7 @@ const page = async (params: any) => {
     }[];
   };
   const main = baiViet.data.filter(
-    (item) => item.attributes.slug === "luat-bao-ve-moi-truong"
+    (item) => item.attributes.slug === "chat-thai-ran-nguy-hai-y-te"
   );
   console.log("params", params);
 

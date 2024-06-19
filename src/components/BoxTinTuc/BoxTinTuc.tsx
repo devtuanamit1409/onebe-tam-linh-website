@@ -7,7 +7,7 @@ interface BoxTinTucProps {
 }
 
 const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
-  console.log(data);
+  // console.log("dataBaiVIet", data);/
 
   const baseUrl = process.env.URL_API;
   const t = useTranslations("detail_post");
@@ -28,7 +28,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                       <Image
                         objectFit="containt"
                         alt="tin-tuc"
-                        src={`${baseUrl}${item.seo.thumbnail.data.attributes.url}`}
+                        src={`${baseUrl}${item.seo?.thumbnail?.data?.attributes?.url}`}
                         layout="responsive"
                         width={100}
                         height={100}
@@ -47,7 +47,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                   </h5>
                 </div>
                 <p className="text-[#637381] font-[400] leading-[24px]">
-                  {item.seo.description}
+                  {item.seo?.description}
                 </p>
               </Link>
             );
