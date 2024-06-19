@@ -77,15 +77,23 @@ body {
     object-fit: cover;
   }
 }
-.about-us-slider > .swiper-wrapper {
-  display: flex;
-  justify-content: center;
-}
 
 @media (min-width: 360px) and (max-width: 1023px) {
   .swiper-home > .swiper-wrapper {
     border-radius: 0 0 24px 24px;
     overflow: hidden;
+  }
+}
+@media (min-width: 360px) and (max-width: 743px) {
+  .about-us-slider > .swiper-wrapper {
+    display: flex;
+    justify-content: start;
+  }
+}
+@media (min-width: 744px) {
+  .about-us-slider > .swiper-wrapper {
+    display: flex;
+    justify-content: center;
   }
 }
 
