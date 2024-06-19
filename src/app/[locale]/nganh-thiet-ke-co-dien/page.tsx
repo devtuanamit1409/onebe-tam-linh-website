@@ -13,7 +13,7 @@ const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataBaiViet = await fetchData(
-    `${ENDPOINT.GET_CHILDTTND}?${searchParams}&locale=${params.params.locale}`
+    `${ENDPOINT.GET_CHILDDUAN}?${searchParams}&locale=${params.params.locale}`
   );
 
   const seo =
@@ -80,7 +80,7 @@ async function fetchData(endpoint: string) {
 const page = async (params: any) => {
   const locale = params.params.locale;
   const data = await fetchData(
-    `${ENDPOINT.GET_CHILDTTND}?${searchParams}&locale=${locale}`
+    `${ENDPOINT.GET_CHILDDUAN}?${searchParams}&locale=${locale}`
   );
 
   const baiViet = data as {
@@ -144,7 +144,7 @@ const page = async (params: any) => {
     }[];
   };
   const main = baiViet.data.filter(
-    (item) => item.attributes.slug === "luat-bao-ve-moi-truong"
+    (item) => item.attributes.slug === "nganh-thiet-ke-co-dien"
   );
   console.log("params", params);
 

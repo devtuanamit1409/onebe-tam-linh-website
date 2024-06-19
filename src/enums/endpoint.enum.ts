@@ -11,5 +11,6 @@ export const ENDPOINT = {
   GET_DUAN: `${process.env.URL_API}/api/du-an`,
   GET_TTND: `${process.env.URL_API}/api/thong-tu-nghi-dinh`,
   GET_CTTV: `${process.env.URL_API}/api/cong-ty-thanh-vien`,
-  GET_BHBTCN: `${process.env.URL_API}/api/bao-hanh-bao-tri-chuyen-nghiep`,
+  GET_CHILDDUAN: `${process.env.URL_API}/api/child-page-du-ans`,
+  GET_CHILDTTND: `${process.env.URL_API}/api/child-page-thong-tu-nghi-dinhs`,
 };

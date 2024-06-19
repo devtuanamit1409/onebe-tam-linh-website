@@ -2,17 +2,18 @@ import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { Pagination } from "antd";
 import "../../../styles/pages/luat-bao-ve-moi-truong.css";
 import { apiService } from "@/services/api.service";
+import { useRouter } from "next/router";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 const searchData = {
-  populate: ["main.seo.thumbnail", "main.bai_viets.seo.thumbnail"].toString(),
+  populate: ["seo.thumbnail", "bai_viets.seo.thumbnail"].toString(),
 };
 
 const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataBaiViet = await fetchData(
-    `${ENDPOINT.GET_BHBTCN}?${searchParams}&locale=${params.params.locale}`
+    `${ENDPOINT.GET_CHILDDUAN}?${searchParams}&locale=${params.params.locale}`
   );
 
   const seo =
@@ -78,11 +79,11 @@ async function fetchData(endpoint: string) {
 
 const page = async (params: any) => {
   const locale = params.params.locale;
-  const dataTinTuc = await fetchData(
-    `${ENDPOINT.GET_BHBTCN}?${searchParams}&locale=${locale}`
+  const data = await fetchData(
+    `${ENDPOINT.GET_CHILDDUAN}?${searchParams}&locale=${locale}`
   );
 
-  const baiViet = dataTinTuc as {
+  const baiViet = data as {
     data: {
       id: number;
       attributes: {
@@ -90,74 +91,98 @@ const page = async (params: any) => {
         updatedAt: Date;
         publishedAt: Date;
         locale: string;
-        main: {
-          name: string;
-          subName: string;
-          id: number;
+
+        name: string;
+        subTitle: string;
+        id: number;
+        title: string;
+        slug: string;
+        description: string;
+        seo: {
           title: string;
           description: string;
-          seo: {
-            title: string;
-            description: string;
-            ogTitle: string;
-            ogDescription: string;
-            thumbnail: {
-              data: {
-                attributes: {
-                  url: string;
-                };
+
+          ogTitle: string;
+          ogDescription: string;
+          thumbnail: {
+            data: {
+              attributes: {
+                url: string;
               };
             };
           };
-          bai_viets: {
-            data: {
+        };
+        bai_viets: {
+          data: {
+            id: number;
+            attributes: {
               id: number;
-              attributes: {
+              title: string;
+              description: string;
+              slug: string;
+              type: string;
+              locale: string;
+              subTitle: string;
+
+              seo: {
                 title: string;
                 description: string;
-                seo: {
-                  title: string;
-                  description: string;
-                  ogTitle: string;
-                  ogDescription: string;
-                  thumbnail: {
-                    data: {
-                      attributes: {
-                        url: string;
-                      };
+                ogTitle: string;
+                ogDescription: string;
+                thumbnail: {
+                  data: {
+                    attributes: {
+                      url: string;
                     };
                   };
                 };
               };
-            }[];
-          };
+            };
+          }[];
         };
       };
-    };
+    }[];
   };
-  const baiviet = baiViet.data.attributes.main.bai_viets.data;
+  const main = baiViet.data.filter(
+    (item) => item.attributes.slug === "nganh-xu-ly-nuoc"
+  );
+  console.log("params", params);
+
+  // console.log("main", main[0]);
+  const filteredData = main[0].attributes.bai_viets.data.map((item) => {
+    const { title, slug, locale, subTitle, seo, id } = item.attributes;
+    return {
+      id,
+      title,
+      slug,
+
+      locale,
+      subTitle,
+      seo,
+    };
+  });
 
   return (
     <>
       <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
         <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
           <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
-            {baiViet.data.attributes.main.subName}
+            {main[0].attributes.subTitle}
           </h5>
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
-            {baiViet.data.attributes.main.name}
+            {main[0].attributes.name}
           </h1>
-          <p className="text-[#8899A8]">
-            {baiViet.data.attributes.main.description}
-          </p>
+          <p className="text-[#8899A8]">{main[0].attributes.description}</p>
         </div>
       </div>
       <div className="container">
-        <BoxTinTuc data={baiviet} />
+        {main ? <BoxTinTuc data={filteredData} /> : "khong co data"}
       </div>
-      <div className="py-[40px] container flex justify-center">
-        <Pagination defaultCurrent={1} total={500} showSizeChanger={false} />
-      </div>
+      {filteredData && filteredData.length > 6 ? (
+        <div className="py-[40px] container flex justify-center">
+          <Pagination defaultCurrent={1} total={500} showSizeChanger={false} />
+        </div>
+      ) : null}
     </>
   );
 };
