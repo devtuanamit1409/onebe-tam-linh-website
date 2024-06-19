@@ -247,12 +247,12 @@ const Home: React.FC = async (params: any) => {
                   </div>
                 </div>
               </div>
-              <AboutUsSlider dataBoxService={boxService} locale={locale} />
             </div>
           </div>
         </div>
         <div className="h-[0px] laptop:h-[110px]"></div>
       </div>
+      <AboutUsSlider dataBoxService={boxService} locale={locale} />
       <div className="section-member tablet:my-[120px] mobile:my-[32px] relative">
         <Image
           src={bannerMember.src}

@@ -66,46 +66,46 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
 
   return (
     <div className=" gap-[24px] mt-[112px] desktop:overflow-hidden ">
-      <Swiper
-        slidesPerView={"auto"}
-        spaceBetween={30}
-        // autoplay={{
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // }}
-        navigation={{
-          prevEl: ".slider-prev",
-          nextEl: ".slider-next",
-        }}
-        loop={true}
-        breakpoints={{
-          400: {
-            slidesPerView: 2,
-            spaceBetween: 12,
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 12,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 12,
-          },
-          1024: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-          },
-          1440: {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Autoplay, Navigation]}
-        className="mySwiper about-us-slider">
-        {dataBoxService &&
-          data?.map((item, index) => (
+      {dataBoxService && (
+        <Swiper
+          slidesPerView={"auto"}
+          spaceBetween={30}
+          slidesPerGroupSkip={1}
+          centeredSlides={false}
+          speed={800}
+          navigation={{
+            prevEl: ".slider-prev",
+            nextEl: ".slider-next",
+          }}
+          loop={true}
+          grabCursor={true}
+          // breakpoints={{
+          //   400: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 12,
+          //   },
+          //   640: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 12,
+          //   },
+          //   768: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 12,
+          //   },
+          //   1024: {
+          //     slidesPerView: 3,
+          //     spaceBetween: 20,
+          //   },
+          //   1440: {
+          //     slidesPerView: 3,
+          //     spaceBetween: 50,
+          //   },
+          // }}
+          modules={[Navigation]}
+          className="about-us-slider">
+          {data?.map((item, index) => (
             <SwiperSlide
-              className={`col-span-12 laptop:col-span-4 background-about-${index} min-h-[398px] min-w-[300px] max-w-[330px] relative`}
+              className={` background-about-${index} min-h-[398px] max-h-[436px] min-w-[330px] w-[330px] max-w-[330px] relative`}
               key={index}>
               <div className="overflow-hidden tablet:h-[437px] ">
                 {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
@@ -135,7 +135,9 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
               </div>
             </SwiperSlide>
           ))}
-      </Swiper>
+        </Swiper>
+      )}
+
       <div className="controll-block mobile:flex laptop:hidden justify-center gap-6 mt-4 ">
         <div className="slider-prev text-[#3B559E]">
           <IconCircleArrowLeft />
