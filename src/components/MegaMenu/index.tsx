@@ -68,7 +68,7 @@ const MegaMenu = ({
                 <h2 className="self-stretch text-indigo-800 text-[40px] font-bold leading-[64px]">
                   {activeItem.title}
                 </h2>
-                <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px]">
+                <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
                   {activeItem.description}
                 </p>
                 <Link
@@ -86,11 +86,11 @@ const MegaMenu = ({
                           <Link
                             href={item.url}
                             key={index}
-                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between">
+                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between pb-4">
                             {item.title} {item.icon !== null ? item.icon : ""}
                           </Link>
                           {item.description && (
-                            <p className="text-slate-400 text-xs font-normal leading-snug">
+                            <p className="text-slate-400 text-xs font-normal leading-snug line-clamp-3">
                               {item.description}
                             </p>
                           )}
@@ -103,11 +103,11 @@ const MegaMenu = ({
                           <Link
                             href={item.url}
                             key={index}
-                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between">
+                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between pb-4">
                             {item.title} {item.icon !== null ? item.icon : ""}
                           </Link>
                           {item.Descriptions && (
-                            <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px]">
+                            <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] line-clamp-3">
                               {item.Descriptions}
                             </p>
                           )}

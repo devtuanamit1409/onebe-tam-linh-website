@@ -88,11 +88,9 @@ export async function generateMetadata(params: any): Promise<Metadata> {
     },
   };
 }
-async function fetchDataDanhMuc() {
+async function fetchDataDanhMuc(endpoint: any) {
   try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}`
-    );
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -110,14 +108,17 @@ async function fetchData(endpoint: any) {
 }
 const page = async (params: any) => {
   let locale = params.params.locale;
+  console.log("locale", locale);
   const dataDuAn = await fetchData(
     `${ENDPOINT.GET_DUAN}?${searchParamsDuAn}&locale=${locale}`
   );
   const dataTinTuc = await fetchData(
-    `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${params.params.locale}`
+    `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
   );
 
-  const dataDanhMuc = await fetchDataDanhMuc();
+  const dataDanhMuc = await fetchDataDanhMuc(
+    `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}&locale=${locale}`
+  );
   const danhMuc = (
     dataDanhMuc as {
       data: {
@@ -175,7 +176,7 @@ const page = async (params: any) => {
   const danhMucDuAn = danhMuc.filter((item) =>
     locale === "vi"
       ? item.attributes.slug === "du-an"
-      : item.attributes.slug === "projects"
+      : item.attributes.slug === "en/du-an"
   );
 
   const baiViet = dataTinTuc as {
@@ -233,8 +234,11 @@ const page = async (params: any) => {
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
+
   const baseUrl = process.env.URL_API;
   const t = await getTranslations("detail_post");
+
+  console.log("danhMucDuAn", danhMucDuAn);
   return (
     <div>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
@@ -263,9 +267,8 @@ const page = async (params: any) => {
               {t("title_post")}
             </h2>
             <Link
-              href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
-            >
+              href={`/${locale}/tin-tuc`}
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>

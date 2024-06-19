@@ -298,6 +298,7 @@ const page = async (params: any) => {
       ],
     },
   ];
+  const t = await getTranslations("detail_post");
 
   return (
     <div>
@@ -327,10 +328,9 @@ const page = async (params: any) => {
               Tin Tức
             </h2>
             <Link
-              href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
-            >
-              Tới trang tin tức <IconArrowRight width={20} height={20} />
+              href={`/${locale}/tin-tuc`}
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
           <BoxTinTuc data={tintuc.slice(0, 3)} />

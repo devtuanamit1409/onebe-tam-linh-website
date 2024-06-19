@@ -73,8 +73,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
           clickable: true,
         }}
         modules={[EffectFade, Pagination, Autoplay]}
-        className="slider-member swiper-container"
-      >
+        className="slider-member swiper-container">
         {cardThanhVien &&
           cardThanhVien.cardThanhVien.map((item, key) => (
             <SwiperSlide key={key}>
@@ -98,7 +97,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
 
                 <div className="py-[24px] flex justify-center">
                   <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
-                    <Link href={item.path} className="mr-[8px]">
+                    <Link href={item.path} target="_blank" className="mr-[8px]">
                       {t("visit_our_website")}
                     </Link>
                     <IconAngleRight width="16" height="16" />

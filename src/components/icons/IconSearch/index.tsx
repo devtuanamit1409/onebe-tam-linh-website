@@ -1,9 +1,15 @@
-export default function IconSearch() {
+export default function IconSearch({
+  width,
+  height,
+}: {
+  width: string;
+  height: string;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="30"
-      height="30"
+      width={width}
+      height={height}
       viewBox="0 0 30 30"
       fill="none">
       <g clipPath="url(#clip0_2424_17413)">
