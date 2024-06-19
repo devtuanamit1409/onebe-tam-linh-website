@@ -1,37 +1,29 @@
-"use server";
-import Image from "next/image";
-import cong_ty_thanh_vien from "../../../public/images/ve-chung-toi/doi-tac-lien-ket.png";
-import "../../../styles/pages/home.css";
-import IconAngleRight from "@/components/icons/IconAngleRight";
+import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
+import { Pagination } from "antd";
+import "../../../styles/pages/luat-bao-ve-moi-truong.css";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
-import Link from "next/link";
-import ListMember from "@/components/ListMember";
-import { getTranslations } from "next-intl/server";
-
 const searchData = {
-  populate: [
-    "banner.urlImage",
-    "seo.thumbnail",
-    "cardThanhVien.logo",
-  ].toString(),
+  populate: ["main.seo.thumbnail", "main.bai_viets.seo.thumbnail"].toString(),
 };
+
 const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(params: any): Promise<Metadata> {
-  const dataDoiTac = await fetchData(
-    `${ENDPOINT.GET_CTTV}?${searchParams}&locale=${params.params.locale}`
+  const dataBaiViet = await fetchData(
+    `${ENDPOINT.GET_BHBTCN}?${searchParams}&locale=${params.params.locale}`
   );
+
   const seo =
-    (dataDoiTac as { data: { attributes: { seo: any } } })?.data?.attributes
-      ?.seo || {};
+    (dataBaiViet as { data: { attributes: { main: { seo: any } } } })?.data
+      ?.attributes?.main?.seo || {};
 
   const baseUrl = process.env.URL_API;
 
   return {
     metadataBase: new URL(baseUrl || ""),
-    title: seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+    title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
     description:
       seo.description ||
       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
@@ -46,7 +38,7 @@ export async function generateMetadata(params: any): Promise<Metadata> {
         seo.ogDescription ||
         seo.description ||
         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-      url: `${baseUrl}/home`,
+      url: `${baseUrl}/tin-tuc`,
       images: [
         {
           url: seo.thumbnail?.data?.attributes?.url
@@ -60,9 +52,7 @@ export async function generateMetadata(params: any): Promise<Metadata> {
     },
     twitter: {
       title:
-        seo.twitterTitle ||
-        seo.title ||
-        "Trang chủ - Công ty TNHH Kỹ thuật NTS",
+        seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
       description:
         seo.twitterDescription ||
         seo.description ||
@@ -76,7 +66,6 @@ export async function generateMetadata(params: any): Promise<Metadata> {
     },
   };
 }
-
 async function fetchData(endpoint: string) {
   try {
     const data = await apiService.get(endpoint);
@@ -87,72 +76,88 @@ async function fetchData(endpoint: string) {
   }
 }
 
-const page: React.FC = async (params: any) => {
-  const t = await getTranslations("member");
+const page = async (params: any) => {
   const locale = params.params.locale;
-  const dataDoiTac = await fetchData(
-    `${ENDPOINT.GET_CTTV}?${searchParams}&locale=${locale}`
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_BHBTCN}?${searchParams}&locale=${locale}`
   );
 
-  const baseUrl = process.env.URL_API;
-  const description = (
-    dataDoiTac as { data: { attributes: { description: string } } }
-  )?.data?.attributes?.description;
-  const banner = (
-    dataDoiTac as {
-      data: {
-        attributes: {
-          banner: { urlImage: { data: { attributes: { url: string } } } };
-        };
-      };
-    }
-  )?.data?.attributes?.banner?.urlImage?.data?.attributes?.url;
-  const listMember = (
-    dataDoiTac as {
-      data: {
-        attributes: {
-          cardThanhVien: {
-            id: number;
+  const baiViet = dataTinTuc as {
+    data: {
+      id: number;
+      attributes: {
+        createdAt: Date;
+        updatedAt: Date;
+        publishedAt: Date;
+        locale: string;
+        main: {
+          name: string;
+          subName: string;
+          id: number;
+          title: string;
+          description: string;
+          seo: {
             title: string;
             description: string;
-            path: string;
-            logo: {
+            ogTitle: string;
+            ogDescription: string;
+            thumbnail: {
               data: {
                 attributes: {
-                  width: number;
-                  height: number;
                   url: string;
                 };
               };
             };
-          }[];
+          };
+          bai_viets: {
+            data: {
+              id: number;
+              attributes: {
+                title: string;
+                description: string;
+                seo: {
+                  title: string;
+                  description: string;
+                  ogTitle: string;
+                  ogDescription: string;
+                  thumbnail: {
+                    data: {
+                      attributes: {
+                        url: string;
+                      };
+                    };
+                  };
+                };
+              };
+            }[];
+          };
         };
       };
-    }
-  )?.data?.attributes?.cardThanhVien;
+    };
+  };
+  const baiviet = baiViet.data.attributes.main.bai_viets.data;
 
   return (
     <>
-      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
-        <Image
-          src={`${baseUrl}${banner}`}
-          alt="banner"
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
-      <div className="desktop:pt-[80px] pt-[32px] pb-[64px]">
+      <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
         <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
           <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
-            {t("sub_title")}
+            {baiViet.data.attributes.main.subName}
           </h5>
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
-            {t("title")}
+            {baiViet.data.attributes.main.name}
           </h1>
-          <p>{description && description}</p>
+          <p className="text-[#8899A8]">
+            {baiViet.data.attributes.main.description}
+          </p>
         </div>
       </div>
-      <ListMember url={ENDPOINT.GET_CTTV} locale={locale} />
+      <div className="container">
+        <BoxTinTuc data={baiviet} />
+      </div>
+      <div className="py-[40px] container flex justify-center">
+        <Pagination defaultCurrent={1} total={500} showSizeChanger={false} />
+      </div>
     </>
   );
 };

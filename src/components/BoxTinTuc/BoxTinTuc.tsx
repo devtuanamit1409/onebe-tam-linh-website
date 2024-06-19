@@ -7,6 +7,8 @@ interface BoxTinTucProps {
 }
 
 const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
+  console.log(data);
+
   const baseUrl = process.env.URL_API;
   const t = useTranslations("detail_post");
   return (
