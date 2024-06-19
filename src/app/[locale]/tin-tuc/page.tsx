@@ -173,7 +173,7 @@ const Page: React.FC = (params: any) => {
                 return (
                   <div key={item.id} className="py-[16px]">
                     <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                      <div className="col-span-7">
+                      <div className="tablet:col-span-7 mobile:col-span-12">
                         <div className="flex flex-col gap-[16px]">
                           <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
                             <div className="text-indigo-800 text-base font-normal leading-normal">
@@ -195,13 +195,14 @@ const Page: React.FC = (params: any) => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-span-5">
-                        <div className="">
+                      <div className="tablet:col-span-5 mobile:col-span-12">
+                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
                           <Image
-                            height={196}
-                            width={196}
+                            // height={196}
+                            // width={196}
                             src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
-                            layout="responsive"
+                            fill
+                            objectFit="cover"
                             alt="tin-tuc-moi-len"
                           />
                         </div>
@@ -216,18 +217,21 @@ const Page: React.FC = (params: any) => {
           <hr />
         </div>
 
-        <div className="flex justify-between ">
+        <div className="flex tablet:flex-row mobile:flex-col  justify-between ">
           <div>
             <h2 className="text-[35px] font-bold">Tất cả bài viết</h2>
           </div>
           <div className="relative">
             <input
-              className="focus:outline-none p-[24px] rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              className="focus:outline-none laptop:p-[24px] mobile:px-[24px] mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
               onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder="Nhập từ khóa tìm kiếm"
             />
-            <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10%]">
-              <IconSearch />
+            <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10px] mobile:hidden laptop:flex">
+              <IconSearch width="30" height="30" />
+            </button>
+            <button className="w-[32px] h-[32px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[0px] top-[0px] mobile:flex laptop:hidden">
+              <IconSearch width="14" height="14" />
             </button>
           </div>
         </div>

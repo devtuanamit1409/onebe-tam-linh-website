@@ -62,7 +62,7 @@ const Header = (locale: any) => {
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "projects" : "du-an",
+        key: locale.locale === "en" ? "en/du-an" : "du-an",
         label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
@@ -110,8 +110,6 @@ const Header = (locale: any) => {
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
-
-
       setActiveKey(key);
       setIsMenuOpen(true);
     }
@@ -154,29 +152,32 @@ const Header = (locale: any) => {
               <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
             </Link>
             <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
-              {menuItems.map((item) => (
-                <li
-                  key={item.key}
-                  className={`border-b-2 border-transparent flex items-center`}
-                  onMouseEnter={() => {
-                    handleMouseEnter(item.key, item.showIcon);
-                  }}
-                  onMouseLeave={handleMouseLeave}>
-                  <div
-                    className={`font-inter text-base font-medium leading-6 text-left flex items-center gap-3 cursor-pointer 
-                  ${
-                    activeKey === item.key ? "text-[#28A645]" : "text-[#3B559E]"
-                  }`}>
-                    {item.label}
-                    {item.showIcon &&
-                      (activeKey === item.key ? (
-                        <IconAngleUp width="12" height="12" />
-                      ) : (
-                        <IconAngleDown width="12" height="12" />
-                      ))}
-                  </div>
-                </li>
-              ))}
+              {menuItems.map((item) => {
+                const isActive = pathname.replace("/", "") === item.key;
+                return (
+                  <li
+                    key={item.key}
+                    className={`border-b-2 border-transparent flex items-center`}
+                    onMouseEnter={() => {
+                      handleMouseEnter(item.key, item.showIcon);
+                    }}
+                    onMouseLeave={handleMouseLeave}>
+                    <div
+                      className={`font-inter text-base font-medium leading-6 hover:text-[#28A645] ${
+                        isActive ? "text-[#28A645]" : "text-[#3B559E]"
+                      } text-left flex items-center gap-3 cursor-pointer 
+                    ${activeKey === item.key ? "text-[#28A645]" : ""}`}>
+                      {item.label}
+                      {item.showIcon &&
+                        (activeKey === item.key ? (
+                          <IconAngleUp width="12" height="12" />
+                        ) : (
+                          <IconAngleDown width="12" height="12" />
+                        ))}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             <div className="hidden laptop:flex">
               <LanguageSwitch />

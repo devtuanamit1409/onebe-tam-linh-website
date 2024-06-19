@@ -274,8 +274,7 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}
-                >
+                  }}>
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -355,7 +354,7 @@ const Page: React.FC = (params: any) => {
               )
               .map((item, key) => {
                 return (
-                  <div key={key} className="py-[16px]">
+                  <div key={key} className="pb-[32px]">
                     <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
                       <div className="tablet:col-span-6 mobile:col-span-12">
                         <div className="flex flex-col gap-[16px]">
@@ -367,8 +366,7 @@ const Page: React.FC = (params: any) => {
                           </div>
                           <h3
                             className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                            title={item.attributes.title}
-                          >
+                            title={item.attributes.title}>
                             {item.attributes.title}
                           </h3>
                           <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
@@ -382,12 +380,12 @@ const Page: React.FC = (params: any) => {
                         </div>
                       </div>
                       <div className="tablet:col-span-6 mobile:col-span-12 ">
-                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
+                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
                           <Image
                             // height={196}
                             // width={196}
                             src={demo_tin_tuc_2}
-                            layout="fill"
+                            fill
                             objectFit="cover"
                             alt="tin-tuc-moi-len"
                           />
@@ -409,12 +407,15 @@ const Page: React.FC = (params: any) => {
           </div>
           <div className="relative">
             <input
-              className="focus:outline-none p-[24px] rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              className="focus:outline-none laptop:p-[24px] mobile:px-[24px] mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
               onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder="Nhập từ khóa tìm kiếm"
             />
-            <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10%]">
-              <IconSearch />
+            <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10px] mobile:hidden laptop:flex">
+              <IconSearch width="30" height="30" />
+            </button>
+            <button className="w-[32px] h-[32px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[0px] top-[0px] mobile:flex laptop:hidden">
+              <IconSearch width="14" height="14" />
             </button>
           </div>
         </div>
@@ -433,15 +434,13 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
-                    >
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}
-                      >
+                        }`}>
                         {item.attributes.name}
                       </span>
                     </button>
@@ -456,8 +455,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}
-          >
+            onClick={loadMoreArticles}>
             Tải thêm bài viết
           </button>
         </div>

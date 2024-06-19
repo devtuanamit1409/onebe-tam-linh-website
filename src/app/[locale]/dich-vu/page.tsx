@@ -10,9 +10,11 @@ import IconArrowRight from "@/components/icons/IconArrowRight";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
-  populate: ["main.seo.thumbnail", "danh_muc_bai_viets "].toString(),
+  populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
 };
 const searchDataDanhMuc = {
   populate: ["bai_viets.seo", "danh_muc_cons.bai_viets.seo "].toString(),
@@ -23,6 +25,7 @@ const searhDichVu = {
 const searchParamsDichVu = new URLSearchParams(searhDichVu).toString();
 const searchParamsSanPham = new URLSearchParams(searchDataDanhMuc).toString();
 const searchParams = new URLSearchParams(searchData).toString();
+
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataVeChungToi = await fetchData(
     `${ENDPOINT.GET_DICHVU}?${searchParams}}&locale=${params.params.locale}`
@@ -231,6 +234,7 @@ const page = async (params: any) => {
       ? item.attributes.slug === "dich-vu"
       : item.attributes.slug === "services"
   );
+  const t = await getTranslations("detail_post");
 
   return (
     <div>
@@ -260,10 +264,9 @@ const page = async (params: any) => {
               Tin Tức
             </h2>
             <Link
-              href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
-            >
-              Tới trang tin tức <IconArrowRight width={20} height={20} />
+              href={`/${locale}/tin-tuc`}
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
           <BoxTinTuc data={tintuc.slice(0, 3)} />

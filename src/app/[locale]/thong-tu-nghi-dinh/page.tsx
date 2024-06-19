@@ -10,6 +10,7 @@ import IconArrowRight from "@/components/icons/IconArrowRight";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: ["main.seo.thumbnail", "danh_muc_bai_viets "].toString(),
@@ -33,6 +34,7 @@ export async function generateMetadata(params: any): Promise<Metadata> {
       ?.attributes?.main?.seo || {};
 
   const baseUrl = process.env.URL_API;
+  const t = await getTranslations("detail_post");
 
   return {
     metadataBase: new URL(baseUrl || ""),
@@ -231,6 +233,7 @@ const page = async (params: any) => {
       ? item.attributes.slug === "thong-tu-nghi-dinh"
       : item.attributes.slug === "regulations-ordinances"
   );
+  const t = await getTranslations("detail_post");
 
   return (
     <div>
@@ -260,10 +263,9 @@ const page = async (params: any) => {
               Tin Tức
             </h2>
             <Link
-              href={"/"}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5"
-            >
-              Tới trang tin tức <IconArrowRight width={20} height={20} />
+              href={`/${locale}/tin-tuc`}
+              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
           <BoxTinTuc data={tintuc.slice(0, 3)} />

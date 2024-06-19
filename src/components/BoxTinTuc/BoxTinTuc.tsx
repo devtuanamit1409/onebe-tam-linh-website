@@ -19,18 +19,17 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
               <Link
                 href={item.slug}
                 key={item.id}
-                className="col-span-12 desktop:col-span-4 mb-[40px]"
-              >
+                className="col-span-12 desktop:col-span-4 mb-[40px]">
                 <div className="relative">
                   <div className="h-[300px] relative overflow-hidden">
                     <div className="abosolute top-0 left-0 ">
                       <Image
-                        objectFit="cover"
+                        objectFit="containt"
                         alt="tin-tuc"
                         src={`${baseUrl}${item.seo.thumbnail.data.attributes.url}`}
-                        layout="fill"
-                        // width={10}
-                        // height={10}
+                        layout="responsive"
+                        width={100}
+                        height={100}
                       />
                     </div>
                   </div>
