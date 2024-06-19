@@ -52,12 +52,12 @@ const Header = (locale: any) => {
   const menuItems = useMemo(
     () => [
       {
-        key: locale.locale === "en" ? "products" : "san-pham",
+        key: locale.locale === "en" ? "en/san-pham" : "san-pham",
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "services" : "dich-vu",
+        key: locale.locale === "en" ? "en/dich-vu" : "dich-vu",
         label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
@@ -67,7 +67,7 @@ const Header = (locale: any) => {
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "partners" : "doi-tac",
+        key: locale.locale === "en" ? "en/doi-tac" : "doi-tac",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
             {t("partners")}
@@ -76,12 +76,12 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: locale.locale === "en" ? "about-us" : "ve-chung-toi",
+        key: locale.locale === "en" ? "en/ve-chung-toi" : "ve-chung-toi",
         label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "news" : "tin-tuc",
+        key: locale.locale === "en" ? "en/tin-tuc" : "tin-tuc",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
             {t("news")}
@@ -92,7 +92,7 @@ const Header = (locale: any) => {
       {
         key:
           locale.locale === "en"
-            ? "regulations-ordinances"
+            ? "en/thong-tu-nghi-dinh"
             : "thong-tu-nghi-dinh",
         label: (
           <div className="flex items-center gap-3">{t("circular_decree")}</div>
