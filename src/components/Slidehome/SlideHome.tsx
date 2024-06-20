@@ -62,9 +62,9 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
-                      <button className="rounded-[32px] py-[12px] px-[24px] text-white border border-white">
+                      <p className="rounded-[32px] py-[12px] px-[24px] text-white border border-white w-fit">
                         {item.name}
-                      </button>
+                      </p>
                     </div>
                     <div className="col-span-1">
                       <h1 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white">

@@ -13,7 +13,7 @@ const searchParams = new URLSearchParams(searchData).toString();
 
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataBaiViet = await fetchData(
-    `${ENDPOINT.GET_CHILDDUAN}?${searchParams}&locale=${params.params.locale}`
+    `${ENDPOINT.GET_CHILDTTND}?${searchParams}&locale=${params.params.locale}`
   );
 
   const seo =

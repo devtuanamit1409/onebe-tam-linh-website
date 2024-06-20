@@ -237,7 +237,7 @@ const DetailPage = async ({ params }: { params: any }) => {
             </h2>
             <Link
               href={`/${locale}/tin-tuc`}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex  items-center gap-2.5">
+              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
               {t("go_to_news_page")}
               <IconArrowRight width={20} height={20} />
             </Link>

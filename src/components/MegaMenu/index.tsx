@@ -65,7 +65,7 @@ const MegaMenu = ({
           {activeItem ? (
             <div className="flex justify-between gap-[32.5px] ">
               <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
-                <h2 className="self-stretch text-indigo-800 text-[40px] font-bold leading-[64px]">
+                <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]">
                   {activeItem.title}
                 </h2>
                 <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
@@ -73,7 +73,7 @@ const MegaMenu = ({
                 </p>
                 <Link
                   href={activeItem.url}
-                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-indigo-800 text-white hover:text-indigo-800 transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
                   Xem thêm
                 </Link>
               </div>
