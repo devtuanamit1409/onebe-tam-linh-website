@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -31,6 +32,7 @@ async function fetchData(endpoint: string) {
   }
 }
 const Footer = async (locale: any) => {
+  const t = await getTranslations("footer");
   const dataFooter = await fetchData(
     `${ENDPOINT.GET_FOOTER}?${searchParams}&locale=${locale.locale}`
   );
@@ -143,7 +145,7 @@ const Footer = async (locale: any) => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Sản phẩm
+                  {t("products")}
                 </p>
                 <div className=" h-24 flex-col justify-start items-start gap-3 inline-flex">
                   {sanpham &&
@@ -163,7 +165,7 @@ const Footer = async (locale: any) => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Dịch vụ
+                  {t("services")}
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   {dichvu &&
@@ -183,7 +185,7 @@ const Footer = async (locale: any) => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Công ty Kỹ thuật NTS
+                  {t("NTS_company")}
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   {congty &&
@@ -203,7 +205,7 @@ const Footer = async (locale: any) => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Theo dõi chúng tôi trên
+                  {t("followUs")}
                 </p>
                 <div className="flex-col justify-start items-start gap-[25px] flex">
                   <div className="grid grid-cols-5 gap-[15px]">
@@ -254,10 +256,7 @@ const Footer = async (locale: any) => {
         </div>
         <div className=" tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
           <div className="text-center text-white text-base font-normal  leading-normal ">
-            <p>
-              Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần
-              đầu ngày 03/04/2013, tại Sở KH&ĐT TP.HCM.
-            </p>
+            <p>{t("licence")}</p>
             <p> Copyright 2024 © NTSE.VN</p>
           </div>
         </div>

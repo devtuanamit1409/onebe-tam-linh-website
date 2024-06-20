@@ -179,10 +179,10 @@ const MobileMenuNew: React.FC<MobileMenuProps> = ({
                 title={renderTitleWithIcon(item.title, item.key)}
                 onTitleClick={() => handleMenuClick(item.key)}
                 className="text-black text-lg font-semibold px-0">
-                <Menu.Item className="text-indigo-800 text-base font-normal leading-relaxed  ">
+                <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed  ">
                   <Link
                     href={`${item.url}`}
-                    className="!text-indigo-800 text-base font-normal leading-relaxed px-0">
+                    className="!text-[#3B559E] text-base font-normal leading-relaxed px-0">
                     {locale && locale === "vi" ? "Đến trang" : "Go to"}{" "}
                     {item.title}
                   </Link>

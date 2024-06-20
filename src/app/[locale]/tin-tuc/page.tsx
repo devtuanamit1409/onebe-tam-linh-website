@@ -176,7 +176,7 @@ const Page: React.FC = (params: any) => {
                       <div className="tablet:col-span-7 mobile:col-span-12">
                         <div className="flex flex-col gap-[16px]">
                           <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                            <div className="text-indigo-800 text-base font-normal leading-normal">
+                            <div className="text-[#3B559E] text-base font-normal leading-normal">
                               Mới đây
                             </div>
                           </div>

@@ -144,9 +144,11 @@ const page = async (params: any) => {
     }[];
   };
   const main = baiViet.data.filter(
-    (item) => item.attributes.slug === "phong-chay-chua-chay"
+    (item) =>
+      item.attributes.slug === "phong-chay-chua-chay" ||
+      item.attributes.slug === "phong-chay-chua-chay-en"
   );
-  console.log("params", params);
+  console.log("main", main);
 
   // console.log("main", main[0]);
   const filteredData = main[0].attributes.bai_viets.data.map((item) => {

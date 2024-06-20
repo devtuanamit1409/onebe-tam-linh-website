@@ -41,5 +41,12 @@
   "member": {
     "title": "Accompany us",
     "sub_title": "MEMBER COMPANIES"
+  },
+  "footer": {
+    "licence": "Certificate of Business Registration No. 0312218474, first registered on 03/04/2013, at the Department of Planning and Investment of Ho Chi Minh City.",
+    "followUs": "Follow us on",
+    "NTS_company": "NTS Engineering Company",
+    "services": "Services",
+    "products": "Products"
   }
 }
