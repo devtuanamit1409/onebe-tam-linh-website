@@ -21,11 +21,11 @@
     "projects": "Projects",
     "partners": "Partners",
     "about_us": "About Us",
-    "news": "News",
+    "news": "Related Articles",
     "circular_decree": "Circular - Decree"
   },
   "detail_post": {
-    "title_post": "News",
+    "title_post": "Related Articles",
     "go_to_news_page": "Go to news page",
     "read_now": "Read now",
     "news": "News",
