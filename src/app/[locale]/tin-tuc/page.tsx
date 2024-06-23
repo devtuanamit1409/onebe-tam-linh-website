@@ -15,6 +15,7 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import Link from "next/link";
 import Loading from "@/components/Loading";
+import { useTranslations } from "use-intl";
 
 interface danhMucBaiViet {
   id: number;
@@ -151,6 +152,7 @@ const Page: React.FC = (params: any) => {
   const loadMoreArticles = () => {
     setDisplayedCount((prevCount) => prevCount + 3);
   };
+  const t = useTranslations("detail_post");
 
   return (
     <>
@@ -161,12 +163,12 @@ const Page: React.FC = (params: any) => {
               data={tintuc
                 .filter((item) => item?.attributes?.bai_viet_tieu_diem === true)
                 .map((item) => item?.attributes)}
-              name="Bài viết nổi bật"
+              name={t("features_article")}
             />
           </div>
           <div className="col-span-12 laptop:col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
-              Tin mới lên
+              {t("lastest_news")}
             </h2>
             {tintuc &&
               tintuc.map((item) => {
@@ -177,7 +179,7 @@ const Page: React.FC = (params: any) => {
                         <div className="flex flex-col gap-[16px]">
                           <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
                             <div className="text-[#3B559E] text-base font-normal leading-normal">
-                              Mới đây
+                              {t("lastest_news")}
                             </div>
                           </div>
                           <h3 className="text-[20px] text-[#374151] font-[500]">
@@ -190,7 +192,7 @@ const Page: React.FC = (params: any) => {
                             <Link
                               href={`/${item.attributes.slug}`}
                               className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
-                              Đọc ngay
+                              {t("read_now")}
                             </Link>
                           </div>
                         </div>
@@ -219,13 +221,13 @@ const Page: React.FC = (params: any) => {
 
         <div className="flex tablet:flex-row mobile:flex-col  justify-between ">
           <div>
-            <h2 className="text-[35px] font-bold">Tất cả bài viết</h2>
+            <h2 className="text-[35px] font-bold">{t("news")}</h2>
           </div>
           <div className="relative">
             <input
               className="focus:outline-none laptop:p-[24px] mobile:px-[24px] mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
               onChange={(e: any) => setSearchValue(e.target.value)}
-              placeholder="Nhập từ khóa tìm kiếm"
+              placeholder={t("search")}
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10px] mobile:hidden laptop:flex">
               <IconSearch width="30" height="30" />
@@ -276,7 +278,7 @@ const Page: React.FC = (params: any) => {
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
             onClick={loadMoreArticles}>
-            Tải thêm bài viết
+            {t("load_more_news")}
           </button>
         </div>
       </div>

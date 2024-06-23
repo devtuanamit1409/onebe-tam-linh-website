@@ -21,16 +21,24 @@
     "projects": "Projects",
     "partners": "Partners",
     "about_us": "About Us",
-    "news": "News",
+    "news": "Related Articles",
     "circular_decree": "Circular - Decree"
   },
   "detail_post": {
-    "title_post": "News",
+    "title_post": "Related Articles",
     "go_to_news_page": "Go to news page",
+    "read_now": "Read now",
+    "news": "News",
+    "search": "Enter search keywords",
+    "nodata_news": "No matching articles found",
+    "features_article": "Featured Articles",
+    "load_more_news": "Load more",
     "lastest_news": "Recently"
   },
   "professionalist": {
     "title": "Professionalist",
+    "expertopinion": "Expert's opinion",
+    "q&a": "Q&A",
     "sub_title": "We are a team of professionals",
     "description": "We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do."
   },
@@ -48,5 +56,11 @@
     "NTS_company": "NTS Engineering Company",
     "services": "Services",
     "products": "Products"
+  },
+  "aboutUs": {
+    "contractors": "General Contractors",
+    "investors": "Foreign Investors",
+    "partners": "Foreign Partners",
+    "corporations": "Companies and Corporations"
   }
 }

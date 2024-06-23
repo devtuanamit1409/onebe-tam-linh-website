@@ -65,7 +65,7 @@ const MegaMenu = ({
           {activeItem ? (
             <div className="flex justify-between gap-[32.5px] ">
               <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
-                <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]">
+                <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px] line-clamp-2">
                   {activeItem.title}
                 </h2>
                 <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
@@ -86,7 +86,7 @@ const MegaMenu = ({
                           <Link
                             href={item.url}
                             key={index}
-                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between pb-4">
+                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between pb-4 line-clamp-2">
                             {item.title} {item.icon !== null ? item.icon : ""}
                           </Link>
                           {item.description && (
@@ -98,16 +98,21 @@ const MegaMenu = ({
                       </div>
                     ))
                   : activeItem.content.map((item: any, index: any) => (
-                      <div className="flex flex-col items-start" key={index}>
-                        <div className="w-full h-[175px]">
+                      <div
+                        className="flex flex-col items-start gap-4"
+                        key={index}>
+                        <div className="w-full min-h-[108px] gap-4">
                           <Link
                             href={item.url}
                             key={index}
-                            className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between pb-4">
-                            {item.title} {item.icon !== null ? item.icon : ""}
+                            className="flex gap-2 items-center justify-between">
+                            <p className=" text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
+                              {item.title}
+                            </p>
+                            <span>{item.icon !== null ? item.icon : ""}</span>
                           </Link>
                           {item.Descriptions && (
-                            <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] line-clamp-3">
+                            <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
                               {item.Descriptions}
                             </p>
                           )}
@@ -119,7 +124,7 @@ const MegaMenu = ({
                               className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full">
                               <Link
                                 href={child.url}
-                                className="flex items-center justify-between mb-4">
+                                className="flex items-center justify-between">
                                 {child.title}
                                 {child.icon}
                               </Link>

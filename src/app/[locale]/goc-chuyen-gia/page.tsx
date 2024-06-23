@@ -94,6 +94,7 @@ interface ResponseData {
 const Page: React.FC = (params: any) => {
   const locale = params.params.locale;
   const t = useTranslations("professionalist");
+  const translate = useTranslations("detail_post");
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
   const [loading, setLoading] = useState(false);
@@ -332,7 +333,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px]  mobile:hidden tablet:block">
           <hr className="border border-[#ECECEC]" />
         </div>
-        <h3 className="text-[35px] font-bold">Góc chuyên gia</h3>
+        <h3 className="text-[35px] font-bold">{t("expertopinion")}</h3>
         <div className="grid grid-cols-12 gap-4">
           <div className="mobile:col-span-12 tablet:col-span-6 ">
             <TintucNoibat
@@ -403,13 +404,13 @@ const Page: React.FC = (params: any) => {
         </div>
         <div className="flex justify-between ">
           <div>
-            <h2 className="text-[35px] font-bold">Hỏi & đáp</h2>
+            <h2 className="text-[35px] font-bold">{t("q&a")}</h2>
           </div>
           <div className="relative">
             <input
               className="focus:outline-none laptop:p-[24px] mobile:px-[24px] mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
               onChange={(e: any) => setSearchValue(e.target.value)}
-              placeholder="Nhập từ khóa tìm kiếm"
+              placeholder={translate("search")}
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10px] mobile:hidden laptop:flex">
               <IconSearch width="30" height="30" />
@@ -456,7 +457,7 @@ const Page: React.FC = (params: any) => {
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
             onClick={loadMoreArticles}>
-            Tải thêm bài viết
+            {translate("load_more_news")}
           </button>
         </div>
       </div>
