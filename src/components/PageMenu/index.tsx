@@ -65,12 +65,12 @@ const PageMenu = (props: props): JSX.Element => {
                         </div>
                         <Link
                           href={`/${locale}/${item.attributes.slug}`}
-                          className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
-                          <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
+                          className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
+                          <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
                             {t("see_more")}
                           </div>
-                          <div className="text-indigo-800">
-                            <IconAngleRightColorFull />
+                          <div className="text-[#3B559E]">
+                            <IconAngleRight width="16" height="16" />
                           </div>
                         </Link>
                       </div>
@@ -120,7 +120,7 @@ const PageMenu = (props: props): JSX.Element => {
                                 {t("see_more")}
                               </p>
                               <div className="w-5 h-5 relative text-white ">
-                                <IconAngleRightColorFull />
+                                <IconArrowRight width={24} height={24} />
                               </div>
                             </Link>
                           </div>
@@ -130,11 +130,11 @@ const PageMenu = (props: props): JSX.Element => {
                     {item.tagIcon && (
                       <Link
                         href={`${locale}/${item.slug}`}
-                        className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
-                        <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
+                        className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
+                        <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
                           Xem tất cả
                         </div>
-                        <div className="text-indigo-800">
+                        <div className="text-[#3B559E]">
                           <IconAngleRight width="16" height="16" />
                         </div>
                       </Link>

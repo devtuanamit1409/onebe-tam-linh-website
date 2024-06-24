@@ -25,49 +25,68 @@ interface ResponseData {
     };
   }[];
 }
+interface ResponseDataDanhMuc {
+  data: {
+    id: number;
+    attributes: {
+      main: {
+        name: string;
+        description: string;
+      };
+    };
+  }[];
+}
 
 const Header = (locale: any) => {
   const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
+  const [dataDanhMuc, setDataDanhMuc] = useState<ResponseDataDanhMuc["data"]>();
+  const [loading, setLoading] = useState(false);
   const searchData = {
-    populate: ["danh_muc_cons.bai_viets", "bai_viets.seo"].toString(),
+    populate: ["main"].toString(),
   };
   const searchParams = new URLSearchParams(searchData).toString();
+  const pathname = usePathname();
+  const [activeKey, setActiveKey] = useState<string | null>(pathname);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useTranslations("menu");
   const fetchData = async () => {
     try {
-      const endpoint = `${process.env.URL_API}/api/danh-mucs?${searchParams}&locale=${locale.locale}`;
+      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${activeKey}&locale=${locale.locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
       setDataHeader(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const fetchDataActiveKey = async (danhmuc: string | null) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/${danhmuc}?${searchParams}&locale=${locale.locale}`;
+      const response = await apiService.get<ResponseDataDanhMuc>(endpoint);
+      setDataDanhMuc(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-  const pathname = usePathname();
-  const [activeKey, setActiveKey] = useState<string | null>(pathname);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = useTranslations("menu");
   const menuItems = useMemo(
     () => [
       {
-        key: locale.locale === "en" ? "en/san-pham" : "san-pham",
+        key: "Sản phẩm",
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "en/dich-vu" : "dich-vu",
+        key: "Dịch vụ",
         label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "en/du-an" : "du-an",
+        key: "Dự án",
         label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "en/doi-tac" : "doi-tac",
+        key: "Đối tác",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
             {t("partners")}
@@ -76,24 +95,21 @@ const Header = (locale: any) => {
         showIcon: false,
       },
       {
-        key: locale.locale === "en" ? "en/ve-chung-toi" : "ve-chung-toi",
+        key: "Về chúng tôi",
         label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
-        key: locale.locale === "en" ? "en/tin-tuc" : "tin-tuc",
+        key: "Tin tức",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
-            {t("news")}
+            {t("newsTitle")}
           </Link>
         ),
         showIcon: false,
       },
       {
-        key:
-          locale.locale === "en"
-            ? "en/thong-tu-nghi-dinh"
-            : "thong-tu-nghi-dinh",
+        key: "Thông tư nghị định",
         label: (
           <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
@@ -112,6 +128,27 @@ const Header = (locale: any) => {
     if (condition) {
       setActiveKey(key);
       setIsMenuOpen(true);
+      fetchDataActiveKey(key);
+    }
+  };
+  const handleGetEndPoint = (key: string) => {
+    switch (key) {
+      case "Sản phẩm":
+        return "san-pham";
+      case "Dịch vụ":
+        return "dich-vu";
+      case "Dự án":
+        return "du-an";
+      case "Đối tác":
+        return null;
+      case "Về chúng tôi":
+        return "ve-chung-toi";
+      case "Tin tức":
+        return null;
+      case "Thông tư nghị định":
+        return "thong-tu-nghi-dinh";
+      default:
+        return null;
     }
   };
 
@@ -135,6 +172,14 @@ const Header = (locale: any) => {
     setIsMenuOpen(false);
     setIsOpen(false);
   }, [pathname, menuItems]);
+  useEffect(() => {
+    if (activeKey) {
+      setLoading(true);
+      fetchData();
+      fetchDataActiveKey(handleGetEndPoint(activeKey));
+      setLoading(false);
+    }
+  }, [activeKey]);
 
   // mobileMenu
   const [isOpen, setIsOpen] = useState(false);
@@ -194,25 +239,24 @@ const Header = (locale: any) => {
               onClick={toggleMenu}>
               <IconMenu />
             </button>
-            {/* <MobileMenu
-              data={dataHeader ? dataHeader : []}
-              isOpen={isOpen}
-              toggleMenu={toggleMenu}
-            /> */}
-            <MobileMenuNew
+
+            {/* <MobileMenuNew
               data={dataHeader ? dataHeader : []}
               locale={locale.locale}
               isOpen={isOpen}
               toggleMenu={toggleMenu}
-            />
+            /> */}
           </div>
         </div>
         <MegaMenu
+          locale={locale.locale}
           data={dataHeader ? dataHeader : []}
+          dataDanhMuc={dataDanhMuc ? dataDanhMuc : null}
           activeKey={activeKey}
           isMenuOpen={isMenuOpen}
           setIsMenuOpen={setIsMenuOpen}
           handleMouseLeave={handleMouseLeave}
+          loading={loading}
         />
       </div>
     </header>

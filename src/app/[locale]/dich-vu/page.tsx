@@ -235,6 +235,7 @@ const page = async (params: any) => {
       : item.attributes.slug === "services"
   );
   const t = await getTranslations("detail_post");
+  const translate = await getTranslations("menu");
 
   return (
     <div>
@@ -261,11 +262,11 @@ const page = async (params: any) => {
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
             <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
-              Tin Tức
+              {translate("news")}
             </h2>
             <Link
               href={`/${locale}/tin-tuc`}
-              className="text-center text-indigo-800 text-base font-medium leading-normal inline-flex gap-2.5">
+              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5">
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>

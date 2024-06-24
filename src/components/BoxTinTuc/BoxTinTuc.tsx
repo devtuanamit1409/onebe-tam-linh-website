@@ -55,7 +55,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
         ) : (
           <div className="col-span-12">
             <h3 className="text-center text-black text-[32px] font-bold">
-              Không có bài viết phù hợp
+              {t("nodata_news")}
             </h3>
           </div>
         )}

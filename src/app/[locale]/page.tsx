@@ -1,5 +1,4 @@
 "use server";
-import Head from "next/head";
 import SlideHome from "@/components/Slidehome/SlideHome";
 import SliderKhachHang from "@/components/SlideKhachHang/SliderKhachHang";
 import "../../styles/pages/home.css";
@@ -7,9 +6,6 @@ import Image from "next/image";
 import SlideMember from "@/components/SlideMember/SlideMember";
 import Construction from "@/components/Construction/Construction";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
-import imageBannerVeChungToi1 from "../../public/images/bannerHome/banner-ve-chung-toi-1.jpg";
-import imageBannerVeChungToi2 from "../../public/images/bannerHome/banner-ve-chung-toi-2.jpg";
-import imageBannerVeChungToi3 from "../../public/images/bannerHome/banner-ve-chung-toi-3.jpg";
 import bannerMember from "../../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
@@ -231,7 +227,7 @@ const Home: React.FC = async (params: any) => {
                 </div>
                 <div className="col-span-1 flex items-center">
                   <div className="gap-6">
-                    <h4 className="text-indigo-800 desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center laptop:text-left">
+                    <h4 className="text-[#3B559E] desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize leading-[76.80px] mobile:text-center laptop:text-left">
                       {t("introduce_about_us")}
                     </h4>
                     <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-8 text-left">

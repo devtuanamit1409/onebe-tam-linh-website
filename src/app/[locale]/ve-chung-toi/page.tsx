@@ -9,6 +9,7 @@ import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { Metadata } from "next";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -91,6 +92,7 @@ async function fetchData(endpoint: string) {
   }
 }
 const page = async (params: any) => {
+  const t = await getTranslations("aboutUs");
   let locale = params.params.locale;
   const dataVeChungToi = await fetchData(
     `${ENDPOINT.GET_VECHUNGTOI}?${searchParams}&locale=${locale}`
@@ -333,7 +335,7 @@ const page = async (params: any) => {
               <div className="grid grid-cols-12 gap-4 tablet:gap-8 mobile:gap-4">
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    Các tổng thầu
+                    {t("contractors")}
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
                     {cacTongThau &&
@@ -352,7 +354,7 @@ const page = async (params: any) => {
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    Các đối tác nước ngoài
+                    {t("partners")}
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
                     {cacDoiTacNuocNgoai &&
@@ -372,7 +374,7 @@ const page = async (params: any) => {
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    Các chủ đầu tư nước ngoài:
+                    {t("investors")}
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
                     {cacChuDauTuNuocNgoai &&
@@ -385,7 +387,7 @@ const page = async (params: any) => {
                 </div>
                 <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
                   <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    Các công ty và tập đoàn
+                    {t("corporations")}
                   </h4>
                   <ul className="leading-[32px] list-disc pl-[20px]">
                     {cacCongTyVaTapDoan &&
