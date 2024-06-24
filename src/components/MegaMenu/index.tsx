@@ -3,57 +3,105 @@ import IconAngleRight from "../icons/IconAngleRight";
 import IconAngleRightColorFull from "../icons/IconAngleRightColorFull";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
-
+import { apiService } from "@/services/api.service";
+interface MegaMenuItem {
+  attributes: {
+    category: string;
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
+interface ResponseData {
+  data: {
+    id: number;
+    attributes: {
+      title: string;
+      slug: string;
+      content: string;
+      bai_viet_tieu_diem: boolean;
+      danh_muc_cons: {
+        data: {
+          id: number;
+          attributes: {
+            name: string;
+            slug: string;
+            description: string;
+            category: string;
+            content: null;
+          };
+        }[];
+      };
+    };
+  }[];
+}
+interface dataMegaMenu {
+  category: string;
+  description: string;
+  title: string;
+  url: string;
+}
 const MegaMenu = ({
+  locale,
   data,
+  dataDanhMuc,
   activeKey,
   isMenuOpen,
   setIsMenuOpen,
   handleMouseLeave,
+  loading,
 }: {
+  locale: string;
   data: any;
+  dataDanhMuc: any;
   activeKey: string | null;
   isMenuOpen: boolean;
   setIsMenuOpen: (isOpen: boolean) => void;
   handleMouseLeave: (event: React.MouseEvent) => void;
+  loading: boolean;
 }) => {
   const [megaMenu, setMegaMenu] = useState<any>([]);
+  const [activeItem, setActiveItem] = useState<any>([]);
+
+  const fetchData = async (name: string) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name][$eq]=${name}&locale=${locale}`;
+      const response = await apiService.get<ResponseData>(endpoint);
+      const formattedData = response.data.map((item: any) => ({
+        title: item.attributes.title,
+        slug: item.attributes.slug,
+      }));
+      return formattedData;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
 
   useEffect(() => {
     if (data) {
-      const newMegaMenu = data.map((item: any) => ({
-        key: item.attributes.slug,
-        title: item.attributes.name,
-        description: item.attributes.description,
-        url: `/${item.attributes.slug}`,
-        baiviet: item.attributes.bai_viets.data.map((baiViet: any) => ({
-          title: baiViet.attributes.title,
-          description: baiViet.attributes.seo.description,
-          url: `/${baiViet.attributes.slug}`,
-          icon: <IconAngleRightColorFull />,
-        })),
-        content: item.attributes.danh_muc_cons.data.map((subItem: any) => ({
-          title: subItem.attributes.name,
-          Descriptions: subItem.attributes.description,
-          url: subItem.attributes.slug,
-          icon: <IconAngleRightColorFull />,
-          children: subItem.attributes.bai_viets.data.map((baiViet: any) => ({
-            title: baiViet.attributes.title,
-            url: `/${baiViet.attributes.slug}`,
-            icon: <IconAngleRight width="16" height="16" />,
-          })),
-        })),
-      }));
-
-      setMegaMenu(newMegaMenu);
+      const fetchMegaMenu = async () => {
+        const newMegaMenu = await Promise.all(
+          data.map(async (item: any) => ({
+            category: item.attributes.category,
+            title: item.attributes.name,
+            description: item.attributes.description,
+            url: `/${item.attributes.slug}`,
+            baiViet: await fetchData(item.attributes.name),
+          }))
+        );
+        setMegaMenu(newMegaMenu);
+      };
+      fetchMegaMenu();
+      console.log(megaMenu);
     }
   }, [data]);
+  useEffect(() => {
+    console.log("dataDanhMuc", dataDanhMuc);
+  }, [dataDanhMuc]);
 
-  const activeItem = megaMenu.find((item: any) => item.key === activeKey);
-
-  return (
-    <>
-      {activeKey === "doi-tac" || activeKey === "tin-tuc" ? null : (
+  const template = () => {
+    return (
+      <>
         <div
           className={`hidden laptop:block px-[92px] py-[37.5px] shadow absolute left-0 w-full bg-white z-40 mega-menu-container shadow-top ${
             isMenuOpen
@@ -72,14 +120,14 @@ const MegaMenu = ({
                   {activeItem.description}
                 </p>
                 <Link
-                  href={activeItem.url}
+                  href={activeItem.url || "/"}
                   className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
                   Xem thêm
                 </Link>
               </div>
               <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
               <div className="flex-1 grid grid-cols-3 gap-x-8 gap-y-4">
-                {activeItem.baiviet.length > 0
+                {/* {activeItem.baiviet.length > 0
                   ? activeItem.baiviet.map((item: any, index: any) => (
                       <div className="flex flex-col items-start" key={index}>
                         <div className="w-full h-[175px]">
@@ -131,14 +179,157 @@ const MegaMenu = ({
                             </div>
                           ))}
                       </div>
-                    ))}
+                    ))} */}
               </div>
             </div>
           ) : (
             <Loading />
           )}
         </div>
-      )}
+      </>
+    );
+  };
+  // const renderByTemplate = async (dataHeader: dataMegaMenu[]) => {
+  //   const titles = dataHeader.map((item) => item.title);
+  //   const responseData: ResponseData[] = [];
+  //   for (const title of titles) {
+  //     const dataBaiviet = await fetchData(title);
+  //     responseData.push(dataBaiviet);
+  //   }
+  //   console.log("Response Data:", responseData);
+  // };
+  const renderByActiveKey = (activeKey: string | null, data: any) => {
+    switch (activeKey) {
+      case "Sản phẩm":
+        return null;
+      case "Dịch vụ":
+        return null;
+      case "Dự án":
+        return null;
+      case "Đối tác":
+        return null;
+      case "Về chúng tôi":
+        return null;
+      case "Tin tức":
+        return null;
+      case "Thông tư nghị định":
+        return null;
+      default:
+        null;
+    }
+  };
+  const handleGetEndPoint = (key: string) => {
+    switch (key) {
+      case "Sản phẩm":
+        return locale === "en" ? "en/san-pham" : "san-pham";
+      case "Dịch vụ":
+        return locale === "en" ? "en/dich-vu" : "dich-vu";
+      case "Dự án":
+        return locale === "en" ? "en/du-an" : "du-an";
+      case "Đối tác":
+        return null;
+      case "Về chúng tôi":
+        return locale === "en" ? "en/ve-chung-toi" : "ve-chung-toi";
+      case "Tin tức":
+        return null;
+      case "Thông tư nghị định":
+        return locale === "en" ? "en/thong-tu-nghi-dinh" : "thong-tu-nghi-dinh";
+      default:
+        return null;
+    }
+  };
+  // <>{renderByActiveKey(activeKey, megaMenu)}</>;
+  return (
+    <>
+      <div
+        className={`hidden laptop:block px-[92px] py-[37.5px] shadow absolute left-0 w-full bg-white z-40 mega-menu-container shadow-top ${
+          isMenuOpen
+            ? "top-[100px] opacity-100"
+            : "-translate-y-full top-[0px] opacity-0"
+        }`}
+        onMouseEnter={() => setIsMenuOpen(true)}
+        onMouseLeave={handleMouseLeave}>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {dataDanhMuc && (
+              <div className="flex justify-between gap-[32.5px] ">
+                <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
+                  <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px] line-clamp-2">
+                    {dataDanhMuc.attributes.main.name || "Chưa có Data"}
+                  </h2>
+                  <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
+                    {dataDanhMuc.attributes.main.description || "Chưa có Data"}
+                  </p>
+                  <Link
+                    href={
+                      handleGetEndPoint(dataDanhMuc.attributes.main.name) || "/"
+                    }
+                    className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                    Xem thêm
+                  </Link>
+                </div>
+                <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
+                <div className="flex-1 grid grid-cols-3 gap-x-8 gap-y-4">
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <>
+                      {activeKey === "Sản phẩm" || activeKey === "Dự án"
+                        ? megaMenu.map((item: any, index: any) => (
+                            <div
+                              className="flex flex-col items-start gap-4"
+                              key={index}>
+                              <div className="w-full min-h-[108px] gap-4">
+                                <Link
+                                  href={item.url}
+                                  key={index}
+                                  className="flex gap-2 items-center justify-between">
+                                  <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
+                                    {item.title}
+                                  </p>
+                                  <span>
+                                    {item.icon !== null ? item.icon : ""}
+                                  </span>
+                                </Link>
+                                {item.description && (
+                                  <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
+                                    {item.description}
+                                  </p>
+                                )}
+                              </div>
+                              {item.baiViet &&
+                                item.baiViet.map(
+                                  (child: any, childIndex: any) => (
+                                    <div
+                                      key={childIndex}
+                                      className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full">
+                                      <Link
+                                        href={child.slug || "/"}
+                                        className="flex items-center justify-between">
+                                        {child.title}
+                                        {child.icon}
+                                      </Link>
+                                    </div>
+                                  )
+                                )}
+                            </div>
+                          ))
+                        : activeKey === "Dịch vụ" ||
+                          activeKey === "Thông tư nghị định"
+                        ? "render danh muc 0 co bai viet"
+                        : activeKey === "Về chúng tôi"
+                        ? "render về chúng tôi"
+                        : null}
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };
