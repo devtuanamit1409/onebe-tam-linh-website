@@ -1,5 +1,4 @@
 "use server";
-import Head from "next/head";
 import SlideHome from "@/components/Slidehome/SlideHome";
 import SliderKhachHang from "@/components/SlideKhachHang/SliderKhachHang";
 import "../../styles/pages/home.css";
@@ -7,9 +6,6 @@ import Image from "next/image";
 import SlideMember from "@/components/SlideMember/SlideMember";
 import Construction from "@/components/Construction/Construction";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
-import imageBannerVeChungToi1 from "../../public/images/bannerHome/banner-ve-chung-toi-1.jpg";
-import imageBannerVeChungToi2 from "../../public/images/bannerHome/banner-ve-chung-toi-2.jpg";
-import imageBannerVeChungToi3 from "../../public/images/bannerHome/banner-ve-chung-toi-3.jpg";
 import bannerMember from "../../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/AboutUsSlider";
