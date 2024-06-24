@@ -19,6 +19,9 @@ interface ResponseData {
       slug: string;
       content: string;
       bai_viet_tieu_diem: boolean;
+      main: any;
+      name: string;
+      description: string;
       danh_muc_cons: {
         data: {
           id: number;
@@ -49,6 +52,7 @@ const MegaMenu = ({
   setIsMenuOpen,
   handleMouseLeave,
   loading,
+  dataVeChungToi,
 }: {
   locale: string;
   data: any;
@@ -58,6 +62,7 @@ const MegaMenu = ({
   setIsMenuOpen: (isOpen: boolean) => void;
   handleMouseLeave: (event: React.MouseEvent) => void;
   loading: boolean;
+  dataVeChungToi: any;
 }) => {
   const [megaMenu, setMegaMenu] = useState<any>([]);
   const [activeItem, setActiveItem] = useState<any>([]);
@@ -92,7 +97,7 @@ const MegaMenu = ({
         setMegaMenu(newMegaMenu);
       };
       fetchMegaMenu();
-      console.log(megaMenu);
+      console.log("megaMenu", megaMenu);
     }
   }, [data]);
   useEffect(() => {
@@ -189,35 +194,7 @@ const MegaMenu = ({
       </>
     );
   };
-  // const renderByTemplate = async (dataHeader: dataMegaMenu[]) => {
-  //   const titles = dataHeader.map((item) => item.title);
-  //   const responseData: ResponseData[] = [];
-  //   for (const title of titles) {
-  //     const dataBaiviet = await fetchData(title);
-  //     responseData.push(dataBaiviet);
-  //   }
-  //   console.log("Response Data:", responseData);
-  // };
-  const renderByActiveKey = (activeKey: string | null, data: any) => {
-    switch (activeKey) {
-      case "Sản phẩm":
-        return null;
-      case "Dịch vụ":
-        return null;
-      case "Dự án":
-        return null;
-      case "Đối tác":
-        return null;
-      case "Về chúng tôi":
-        return null;
-      case "Tin tức":
-        return null;
-      case "Thông tư nghị định":
-        return null;
-      default:
-        null;
-    }
-  };
+
   const handleGetEndPoint = (key: string) => {
     switch (key) {
       case "Sản phẩm":
@@ -238,6 +215,19 @@ const MegaMenu = ({
         return null;
     }
   };
+  const handleGetSlugVeChungToi = (name: any) => {
+    switch (name) {
+      case "Về chúng tôi":
+        return "ve-chung-toi";
+      case "Góc chuyên gia":
+        return "goc-chuyen-gia";
+      case "Công ty thành viên":
+        return "cong-ty-thanh-vien";
+      default:
+        null;
+    }
+  };
+
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (
     <>
@@ -277,7 +267,7 @@ const MegaMenu = ({
                   ) : (
                     <>
                       {activeKey === "Sản phẩm" || activeKey === "Dự án"
-                        ? megaMenu.map((item: any, index: any) => (
+                        ? megaMenu.slice(0, 3).map((item: any, index: any) => (
                             <div
                               className="flex flex-col items-start gap-4"
                               key={index}>
@@ -300,8 +290,9 @@ const MegaMenu = ({
                                 )}
                               </div>
                               {item.baiViet &&
-                                item.baiViet.map(
-                                  (child: any, childIndex: any) => (
+                                item.baiViet
+                                  .slice(0, 4)
+                                  .map((child: any, childIndex: any) => (
                                     <div
                                       key={childIndex}
                                       className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full">
@@ -312,15 +303,62 @@ const MegaMenu = ({
                                         {child.icon}
                                       </Link>
                                     </div>
-                                  )
-                                )}
+                                  ))}
                             </div>
                           ))
                         : activeKey === "Dịch vụ" ||
                           activeKey === "Thông tư nghị định"
-                        ? "render danh muc 0 co bai viet"
+                        ? megaMenu.slice(0, 6).map((item: any, index: any) => (
+                            <div
+                              className="flex flex-col items-start gap-4"
+                              key={index}>
+                              <div className="w-full min-h-[108px] gap-4">
+                                <Link
+                                  href={item.url}
+                                  key={index}
+                                  className="flex gap-2 items-center justify-between">
+                                  <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
+                                    {item.title}
+                                  </p>
+                                  <span>
+                                    {item.icon !== null ? item.icon : ""}
+                                  </span>
+                                </Link>
+                                {item.description && (
+                                  <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
+                                    {item.description}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          ))
                         : activeKey === "Về chúng tôi"
-                        ? "render về chúng tôi"
+                        ? dataVeChungToi
+                            .slice(0, 6)
+                            .map((item: any, index: any) => (
+                              <div
+                                className="flex flex-col items-start gap-4"
+                                key={index}>
+                                <div className="w-full min-h-[108px] gap-4">
+                                  <Link
+                                    href={item.url || "."}
+                                    key={index}
+                                    className="flex gap-2 items-center justify-between">
+                                    <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
+                                      {item.name}
+                                    </p>
+                                    <span>
+                                      {item.icon !== null ? item.icon : ""}
+                                    </span>
+                                  </Link>
+                                  {item.description && (
+                                    <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
+                                      {item.description}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            ))
                         : null}
                     </>
                   )}
