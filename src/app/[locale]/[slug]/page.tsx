@@ -6,72 +6,10 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { apiService } from "@/services/api.service";
 import { Breadcrumb, Pagination } from "antd";
 import notFoundBanner from "../../../../public/images/banner/404Banner.png";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import Head from "next/head";
-
-interface baiviet {}
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: any;
-// }): Promise<Metadata> {
-//   const dataBaiViet = await fetchData(
-//     `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&locale=${params.locale}&populate=seo.thumbnail`
-//   );
-//   const seo =
-//     (dataBaiViet as { data: { attributes: { seo: any } }[] })?.data[0]
-//       ?.attributes?.seo || {};
-
-//   const baseUrl = process.env.URL_API;
-
-//   return {
-//     metadataBase: new URL(baseUrl || ""),
-//     title: seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-//     description:
-//       seo.description ||
-//       "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//     keywords:
-//       seo.keywords ||
-//       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
-//     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
-//     openGraph: {
-//       title:
-//         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.ogDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       url: `${baseUrl}/tin-tuc`,
-//       images: [
-//         {
-//           url: seo.thumbnail?.data?.attributes?.url
-//             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-//             : "/path/to/default-image.jpg",
-//           width: 800,
-//           height: 600,
-//           alt: "Image description",
-//         },
-//       ],
-//     },
-//     twitter: {
-//       title:
-//         seo.twitterTitle || seo.title || "Tin tức - Công ty TNHH Kỹ thuật NTS",
-//       description:
-//         seo.twitterDescription ||
-//         seo.description ||
-//         "Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu.",
-//       images: [
-//         seo.twitterImage
-//           ? `${baseUrl}${seo.twitterImage}`
-//           : "/path/to/default-image.jpg",
-//       ],
-//       card: "summary_large_image",
-//     },
-//   };
-// }
+import { useParams } from "next/navigation";
 
 const DetailPage = async ({ params }: { params: any }) => {
   async function fetchData(endpoint: string) {
@@ -83,6 +21,7 @@ const DetailPage = async ({ params }: { params: any }) => {
       return null;
     }
   }
+  console.log(params);
 
   const checkLastSegmentIsNumeric = (input: string) => {
     const segments = input.split("-");
@@ -93,13 +32,12 @@ const DetailPage = async ({ params }: { params: any }) => {
   const t = await getTranslations("detail_post");
   let locale = params.locale;
   const page = params.page || 1;
-
   const detailSubCategory: any = await fetchData(
     `${ENDPOINT.GET_DANHMUCCON}?filters[slug]=${slug}&locale=${locale}`
   );
 
   const detailBaiViet: any = await fetchData(
-    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=`
+    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=1`
   );
 
   const filteredData = detailBaiViet.data.map((item: any) => {
@@ -130,6 +68,8 @@ const DetailPage = async ({ params }: { params: any }) => {
       ? resBaiViet?.data[0]?.attributes?.content
       : resBaiViet?.data[0]?.attributes?.localizations.data[0].attributes
           .content;
+
+  const handlePageChange = (page: number) => {};
   const DetailNew = () => {
     return (
       <>
@@ -251,7 +191,7 @@ const DetailPage = async ({ params }: { params: any }) => {
         </div>
         <div className="py-[40px] container flex justify-center">
           <Pagination
-            defaultCurrent={1}
+            pageSize={1}
             total={detailBaiViet?.meta?.pagination?.total}
             showSizeChanger={false}
           />
