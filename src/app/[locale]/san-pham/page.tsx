@@ -103,7 +103,7 @@ const page = async (params: any) => {
     `${ENDPOINT.GET_SANPHAM}?${searchParamsSanPham}&locale=${locale}`
   );
   const dataDanhMuc = await fetchData(
-    `${ENDPOINT.GET_DANHMUC}?${searchParamsDanhMucSanPham}&locale=${locale}`
+    `${ENDPOINT.GET_DANHMUCCON}?filters[category][$eqi]=Sản phẩm&locale=${locale}`
   );
   const sanPham = (
     dataSanPham as {
@@ -171,10 +171,6 @@ const page = async (params: any) => {
     }
   )?.data;
 
-  const DanhMucSanPham = danhMuc.filter(
-    (item) =>
-      item.attributes.slug === "san-pham" || item.attributes.slug === "product"
-  );
   const baiViet = dataTinTuc as {
     data: {
       attributes: {
@@ -207,97 +203,7 @@ const page = async (params: any) => {
   const tintuc = baiViet?.data
     .filter((item) => item?.attributes?.type === "Tin tức")
     .map((item) => item.attributes);
-  const menuItem = [
-    {
-      title: "xử lý nước Cấp",
-      url: "/",
-      children: [
-        {
-          title: "Hệ thống lọc tổng",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có",
-          children: [],
-        },
-        {
-          title: "Xử lý nước cấp sinh hoạt",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
 
-          children: [],
-        },
-      ],
-    },
-    {
-      title: "Tái sử dụng nước",
-      url: "/",
-      children: [
-        {
-          title: "Thu gom và sử dụng nước mưa",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-        {
-          title: "Tái sử dụng nước thải",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-      ],
-    },
-    {
-      title: "xử lý nước Thải",
-      url: "/",
-      children: [
-        {
-          title: "Xử lý nước thải bệnh viện",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-        {
-          title: "Xử lý nước thải khu dân cư",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-        {
-          title: "Xử lý nước thải toà nhà văn phòng",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-        {
-          title: "Xử lý nước thải trường học",
-          url: "/",
-          icon: <IconAngleRightColorFull />,
-          descriptions:
-            "Tình trạng ô nhiễm nước ở các đô thị, nước thải, rác thải sinh hoạt không có hệ thống xử lý tập trung mà trực tiếp xả ra nguồn tiếp nhận (sông, hồ, kênh, mương). Mặt khác, còn rất nhiều cơ sở sản xuất không xử lý nước thải, phần lớn các bệnh viện và cơ sở y tế lớn chưa có ",
-
-          children: [],
-        },
-      ],
-    },
-  ];
   const t = await getTranslations("detail_post");
   const translate = await getTranslations("menu");
 
@@ -320,7 +226,7 @@ const page = async (params: any) => {
             {sanPham?.description || "chưa có content CMS"}
           </p>
         </div>
-        <PageMenu menu={DanhMucSanPham[0]} locale={locale} />
+        <PageMenu menu={danhMuc} locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

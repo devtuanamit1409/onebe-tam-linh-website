@@ -117,7 +117,7 @@ const page = async (params: any) => {
   );
 
   const dataDanhMuc = await fetchDataDanhMuc(
-    `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}&locale=${locale}`
+    `${ENDPOINT.GET_DANHMUCCON}?filters[category][$eqi]=Dự án&locale=${locale}`
   );
   const danhMuc = (
     dataDanhMuc as {
@@ -258,7 +258,7 @@ const page = async (params: any) => {
             {duAn?.description || ""}
           </p>
         </div>
-        <PageMenu menu={danhMucDuAn[0]} locale={locale} />
+        <PageMenu menu={danhMuc} locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">
