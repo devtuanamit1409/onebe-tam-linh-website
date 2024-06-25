@@ -39,7 +39,9 @@ interface ResponseDataDanhMuc {
 }
 
 const Header = (locale: any) => {
+  const t = useTranslations("menu");
   const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
+
   const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
   const [dataDanhMuc, setDataDanhMuc] = useState<ResponseDataDanhMuc["data"]>();
 
@@ -51,7 +53,7 @@ const Header = (locale: any) => {
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = useTranslations("menu");
+
   const fetchData = async () => {
     try {
       const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${activeKey}&locale=${locale.locale}`;
@@ -61,6 +63,7 @@ const Header = (locale: any) => {
       console.error("Error fetching data:", error);
     }
   };
+
   const fetchDataActiveKey = async (danhmuc: string | null) => {
     try {
       const endpoint = `${process.env.URL_API}/api/${danhmuc}?${searchParams}&locale=${locale.locale}`;
@@ -173,7 +176,6 @@ const Header = (locale: any) => {
     setActiveKey(pathname);
   }, [pathname]);
 
-
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
       if (key === "Về chúng tôi") {
@@ -236,9 +238,6 @@ const Header = (locale: any) => {
     }
     setLoading(false);
   }, [activeKey]);
-  useEffect(() => {
-    console.log("loading", loading);
-  }, [loading]);
 
   // mobileMenu
   const [isOpen, setIsOpen] = useState(false);
@@ -299,14 +298,14 @@ const Header = (locale: any) => {
               <IconMenu />
             </button>
 
-            {/* <MobileMenuNew
-              data={dataHeader ? dataHeader : []}
+            <MobileMenuNew
               locale={locale.locale}
               isOpen={isOpen}
               toggleMenu={toggleMenu}
-            /> */}
+            />
           </div>
         </div>
+
         <MegaMenu
           locale={locale.locale}
           data={dataHeader ? dataHeader : []}

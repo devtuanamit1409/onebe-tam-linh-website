@@ -97,7 +97,6 @@ const MegaMenu = ({
         setMegaMenu(newMegaMenu);
       };
       fetchMegaMenu();
-      console.log("megaMenu", megaMenu);
     }
   }, [data]);
 
@@ -230,9 +229,6 @@ const MegaMenu = ({
         null;
     }
   };
-  useEffect(() => {
-    console.log("dataDanhMuc", dataDanhMuc);
-  }, [dataDanhMuc]);
 
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (

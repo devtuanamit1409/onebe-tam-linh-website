@@ -37,7 +37,7 @@ const DetailPage = async ({ params }: { params: any }) => {
   );
 
   const detailBaiViet: any = await fetchData(
-    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=1`
+    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=3`
   );
 
   const filteredData = detailBaiViet.data.map((item: any) => {
@@ -141,8 +141,7 @@ const DetailPage = async ({ params }: { params: any }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                >
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                   Quay lại trang chủ
                 </Link>
               </div>
@@ -158,8 +157,7 @@ const DetailPage = async ({ params }: { params: any }) => {
               </h2>
               <Link
                 href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
-              >
+                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
                 {t("go_to_news_page")}
                 <IconArrowRight width={20} height={20} />
               </Link>
