@@ -17,11 +17,11 @@
   },
   "menu": {
     "newsTitle": "Tin tức",
-    "products": "Sản Phẩm",
-    "services": "Dịch Vụ",
-    "projects": "Dự Án",
-    "partners": "Đối Tác",
-    "about_us": "Về Chúng Tôi",
+    "products": "Sản phẩm",
+    "services": "Dịch vụ",
+    "projects": "Dự án",
+    "partners": "Đối tác",
+    "about_us": "Về chúng tôi",
     "news": "Bài viết liên quan",
     "circular_decree": "Thông tư - Nghị định"
   },
@@ -32,7 +32,7 @@
     "go_to_news_page": "Tới trang tin tức",
     "search": "Nhập từ khóa tìm kiếm",
     "features_article": "Bài viết nổi bật",
-    "nodata_new": "Không có bài viết phù hợp",
+    "nodata_news": "Không có bài viết phù hợp",
     "load_more_news": "Tải thêm bài viết",
     "lastest_news": "Mới đây"
   },

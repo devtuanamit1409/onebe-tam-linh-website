@@ -172,9 +172,7 @@ const Header = (locale: any) => {
   useEffect(() => {
     setActiveKey(pathname);
   }, [pathname]);
-  useEffect(() => {
-    console.log("dataVeChungToi", dataVeChungToi);
-  }, [dataVeChungToi]);
+
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {

@@ -173,7 +173,7 @@ const page = async (params: any) => {
     .map((item) => item.attributes);
 
   const dataDanhMuc = await fetchData(
-    `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}&locale=${locale}`
+    `${ENDPOINT.GET_DANHMUCCON}?filters[category][$eqi]=Dịch vụ&locale=${locale}`
   );
   const danhMuc = (
     dataDanhMuc as {
@@ -256,7 +256,7 @@ const page = async (params: any) => {
             {dichVu?.description || "Chưa ráp CMS"}
           </p>
         </div>
-        <PageMenu menu={dichVuMenu[0]} locale={locale} />
+        <PageMenu menu={danhMuc} locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

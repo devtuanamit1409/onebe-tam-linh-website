@@ -100,9 +100,6 @@ const MegaMenu = ({
       console.log("megaMenu", megaMenu);
     }
   }, [data]);
-  useEffect(() => {
-    console.log("dataDanhMuc", dataDanhMuc);
-  }, [dataDanhMuc]);
 
   const template = () => {
     return (
@@ -198,19 +195,25 @@ const MegaMenu = ({
   const handleGetEndPoint = (key: string) => {
     switch (key) {
       case "Sản phẩm":
-        return locale === "en" ? "en/san-pham" : "san-pham";
+        return "san-pham";
+      case "Products":
+        return "san-pham";
       case "Dịch vụ":
-        return locale === "en" ? "en/dich-vu" : "dich-vu";
-      case "Dự án":
-        return locale === "en" ? "en/du-an" : "du-an";
-      case "Đối tác":
-        return null;
+        return "dich-vu";
+      case "Services":
+        return "dich-vu";
+      case "Dự Án":
+        return "du-an";
+      case "Project":
+        return "du-an";
       case "Về chúng tôi":
-        return locale === "en" ? "en/ve-chung-toi" : "ve-chung-toi";
-      case "Tin tức":
-        return null;
+        return "ve-chung-toi";
+      case "About Us":
+        return "ve-chung-toi";
       case "Thông tư nghị định":
-        return locale === "en" ? "en/thong-tu-nghi-dinh" : "thong-tu-nghi-dinh";
+        return "thong-tu-nghi-dinh";
+      case "Circular - Decree":
+        return "thong-tu-nghi-dinh";
       default:
         return null;
     }
@@ -227,6 +230,9 @@ const MegaMenu = ({
         null;
     }
   };
+  useEffect(() => {
+    console.log("dataDanhMuc", dataDanhMuc);
+  }, [dataDanhMuc]);
 
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (
