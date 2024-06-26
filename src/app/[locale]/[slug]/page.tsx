@@ -21,7 +21,6 @@ const DetailPage = async ({ params }: { params: any }) => {
       return null;
     }
   }
-  console.log(params);
 
   const checkLastSegmentIsNumeric = (input: string) => {
     const segments = input.split("-");
@@ -68,7 +67,7 @@ const DetailPage = async ({ params }: { params: any }) => {
     };
   });
 
-  const detailEndpoint = `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localizations&locale=${locale}`;
+  const detailEndpoint = `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localizations&locale=${locale}&populate=danh_muc_cons`;
   async function fetchDataBaiViet() {
     try {
       const data = await apiService.get(detailEndpoint);
@@ -85,7 +84,25 @@ const DetailPage = async ({ params }: { params: any }) => {
       : resBaiViet?.data[0]?.attributes?.localizations.data[0].attributes
           .content;
 
-  const handlePageChange = (page: number) => {};
+  let breadcum: any;
+  let subBreadcum: any;
+
+  !checkLastSegmentIsNumeric(slug)
+    ? (breadcum =
+        locale === "vi"
+          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes
+              .category
+          : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
+              ?.data[0]?.attributes?.category)
+    : "";
+
+  !checkLastSegmentIsNumeric(slug)
+    ? (subBreadcum =
+        locale === "vi"
+          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes.name
+          : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
+              ?.data[0]?.attributes?.name)
+    : "";
   const DetailNew = () => {
     return (
       <>
@@ -93,38 +110,20 @@ const DetailPage = async ({ params }: { params: any }) => {
           <>
             <div className=" bg-gray-50 ">
               <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
-                {/* <Breadcrumb separator="/">
-                  <Breadcrumb.Item>
-                    <Link
-                      className="hover:bg-transparent !bg-transparent"
-                      href="/"
-                    >
-                      Trang chủ
-                    </Link>
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item>
-                    <Link
-                      className="hover:bg-transparent !bg-transparent"
-                      href="/san-pham"
-                    >
-                      Sản phẩm
-                    </Link>
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item>
-                    <Link
-                      className="hover:bg-transparent !bg-transparent"
-                      href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
-                    >
-                      Vật liệu mới, thiết bị plastic ngành nước
-                    </Link>
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
-                </Breadcrumb> */}
+                <Link href={"/"}>Trang chủ</Link>
+                <span className="mx-2"> / </span>
+                <Link href={``}>{breadcum}</Link>
+                {breadcum ? <span className="mx-2"> / </span> : null}
+                <Link href={``}>{subBreadcum}</Link>
+                {subBreadcum ? <span className="mx-2 "> / </span> : null}
+                <Link className="text-[#000]" href={``}>
+                  {resBaiViet?.data[0]?.attributes?.title}
+                </Link>
               </div>
             </div>
             <div className="container">
               <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
-                {resBaiViet?.data[0]?.attributes?.subTitle}
+                {breadcum}
               </p>
               <h2 className="text-gray-800 text-5xl font-bold leading-normal text-center">
                 {resBaiViet?.data[0]?.attributes?.title}
@@ -186,6 +185,7 @@ const DetailPage = async ({ params }: { params: any }) => {
       </>
     );
   };
+
   const DetailDanhMuc = () => {
     return (
       <>
@@ -215,6 +215,7 @@ const DetailPage = async ({ params }: { params: any }) => {
       </>
     );
   };
+
   return (
     <>{checkLastSegmentIsNumeric(slug) ? <DetailDanhMuc /> : <DetailNew />}</>
   );
