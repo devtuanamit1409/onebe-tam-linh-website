@@ -11,6 +11,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 const DetailPage = async ({ params }: { params: any }) => {
+  const translate = await getTranslations("404");
   async function fetchData(endpoint: string) {
     try {
       const data = await apiService.get(endpoint);
@@ -167,20 +168,20 @@ const DetailPage = async ({ params }: { params: any }) => {
               <Image src={notFoundBanner.src} alt="" layout="fill" />
               <div className="w-full h-full absolute flex flex-col justify-center items-center gap-[35px]">
                 <h2 className="text-center text-white text-[100px] font-bold leading-[130px]">
-                  404
+                  {translate("404")}
                 </h2>
                 <p className="text-center text-white text-[22px] font-semibold leading-normal">
-                  Oops! That page can’t be found
+                  {translate("not_found")}
                 </p>
                 <p className="text-center text-white text-base font-normal leading-normal">
-                  The page you are looking for it maybe deleted
+                  {translate("maybe_delete")}
                 </p>
 
                 <Link
                   href="/"
                   className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
                 >
-                  Quay lại trang chủ
+                  {translate("back_home")}
                 </Link>
               </div>
             </div>
@@ -207,6 +208,9 @@ const DetailPage = async ({ params }: { params: any }) => {
       </>
     );
   };
+  (() => {
+    console.log("hello");
+  })();
 
   const DetailDanhMuc = () => {
     return (
@@ -224,6 +228,43 @@ const DetailPage = async ({ params }: { params: any }) => {
             </p>
           </div>
         </div>
+        {filteredData.length > 0 ? (
+          <>
+            <div className="container">
+              <BoxTinTuc data={filteredData} />
+            </div>
+            <div className="py-[40px] container flex justify-center">
+              <Pagination
+                pageSize={1}
+                total={detailBaiViet?.meta?.pagination?.total}
+                showSizeChanger={false}
+              />
+            </div>
+            <div className="container">
+              <ContactEnd />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
+              <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
+                <h2 className="text-center text-[#fff] text-[48px] font-bold leading-[130px]">
+                  {translate("no_article")}
+                </h2>
+
+                <Link
+                  href="/"
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+                >
+                  {translate("back_home")}
+                </Link>
+              </div>
+            </div>
+            <div className="container">
+              <ContactEnd />
+            </div>
+          </>
+        )}
         <div className="container">
           {filteredData.length > 0 ? <BoxTinTuc data={filteredData} /> : <></>}
         </div>
