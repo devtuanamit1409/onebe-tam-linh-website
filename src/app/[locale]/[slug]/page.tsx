@@ -25,8 +25,9 @@ const DetailPage = async ({ params }: { params: any }) => {
   const checkLastSegmentIsNumeric = (input: string) => {
     const segments = input.split("-");
     const lastSegment = segments[segments.length - 1];
-    return /^\d+$/.test(lastSegment);
+    return /^\d{13}$/.test(lastSegment);
   };
+
   const slug = params.slug;
   const t = await getTranslations("detail_post");
   let locale = params.locale;
@@ -90,8 +91,8 @@ const DetailPage = async ({ params }: { params: any }) => {
   !checkLastSegmentIsNumeric(slug)
     ? (breadcum =
         locale === "vi"
-          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes
-              .category
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.category
           : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
               ?.data[0]?.attributes?.category)
     : "";
@@ -99,10 +100,12 @@ const DetailPage = async ({ params }: { params: any }) => {
   !checkLastSegmentIsNumeric(slug)
     ? (subBreadcum =
         locale === "vi"
-          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes.name
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.name
           : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
               ?.data[0]?.attributes?.name)
     : "";
+
   const DetailNew = () => {
     return (
       <>
