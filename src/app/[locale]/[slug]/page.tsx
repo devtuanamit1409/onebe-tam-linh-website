@@ -9,7 +9,6 @@ import notFoundBanner from "../../../../public/images/banner/404Banner.png";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { useParams } from "next/navigation";
 
 const DetailPage = async ({ params }: { params: any }) => {
   const translate = await getTranslations("404");
@@ -88,6 +87,7 @@ const DetailPage = async ({ params }: { params: any }) => {
 
   let breadcum: any;
   let subBreadcum: any;
+  let slugSubBreadcum: any;
 
   !checkLastSegmentIsNumeric(slug)
     ? (breadcum =
@@ -107,6 +107,15 @@ const DetailPage = async ({ params }: { params: any }) => {
               ?.data[0]?.attributes?.name)
     : "";
 
+  !checkLastSegmentIsNumeric(slug)
+    ? (slugSubBreadcum =
+        locale === "vi"
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.slug
+          : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
+              ?.data[0]?.attributes?.slug)
+    : "";
+
   const DetailNew = () => {
     return (
       <>
@@ -116,9 +125,19 @@ const DetailPage = async ({ params }: { params: any }) => {
               <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
                 <Link href={"/"}>Trang chủ</Link>
                 <span className="mx-2"> / </span>
-                <Link href={``}>{breadcum}</Link>
+                <Link
+                  href={`${
+                    breadcum === "Sản phẩm"
+                      ? "/san-pham"
+                      : breadcum === "Dịch vụ"
+                      ? "/dich-vu"
+                      : breadcum === "Góc chuyên gia"
+                  }`}
+                >
+                  {breadcum}
+                </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
-                <Link href={``}>{subBreadcum}</Link>
+                <Link href={`/${slugSubBreadcum}`}>{subBreadcum}</Link>
                 {subBreadcum ? <span className="mx-2 "> / </span> : null}
                 <Link className="text-[#000]" href={``}>
                   {resBaiViet?.data[0]?.attributes?.title}
@@ -160,7 +179,8 @@ const DetailPage = async ({ params }: { params: any }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+                >
                   {translate("back_home")}
                 </Link>
               </div>
@@ -176,7 +196,8 @@ const DetailPage = async ({ params }: { params: any }) => {
               </h2>
               <Link
                 href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
+                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
+              >
                 {t("go_to_news_page")}
                 <IconArrowRight width={20} height={20} />
               </Link>
@@ -214,7 +235,7 @@ const DetailPage = async ({ params }: { params: any }) => {
             </div>
             <div className="py-[40px] container flex justify-center">
               <Pagination
-                pageSize={1}
+                pageSize={6}
                 total={detailBaiViet?.meta?.pagination?.total}
                 showSizeChanger={false}
               />
@@ -233,7 +254,8 @@ const DetailPage = async ({ params }: { params: any }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+                >
                   {translate("back_home")}
                 </Link>
               </div>
