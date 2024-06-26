@@ -13,13 +13,13 @@ import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
-    "seo.thumbnail",
-    "videoAbout",
-    "boxAbout",
-    "cacTongThau",
-    "cacDoiTacNuocNgoai",
-    "cacChuDauTuNuocNgoai",
-    "cacCongTyVaTapDoan",
+    "main.seo.thumbnail",
+    "main.videoAbout",
+    "main.boxAbout",
+    "main.cacTongThau",
+    "main.cacDoiTacNuocNgoai",
+    "main.cacChuDauTuNuocNgoai",
+    "main.cacCongTyVaTapDoan",
   ].toString(),
 };
 
@@ -101,6 +101,7 @@ const page = async (params: any) => {
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
   );
+  console.log("dataVeChungToi", dataVeChungToi);
 
   const baiViet = dataTinTuc as {
     data: {
@@ -137,65 +138,79 @@ const page = async (params: any) => {
 
   const baseUrl = process.env.URL_API;
   const contentFirst = (
-    dataVeChungToi as { data: { attributes: { contentFirst: string } } }
-  )?.data?.attributes?.contentFirst;
+    dataVeChungToi as {
+      data: { attributes: { main: { contentFirst: string } } };
+    }
+  )?.data?.attributes?.main.contentFirst;
   const contentEnd = (
-    dataVeChungToi as { data: { attributes: { contentEnd: string } } }
-  )?.data?.attributes?.contentEnd;
+    dataVeChungToi as { data: { attributes: { main: { contentEnd: string } } } }
+  )?.data?.attributes?.main.contentEnd;
   const boxAbout = (
     dataVeChungToi as {
       data: {
         attributes: {
-          boxAbout: { id: number; title: string; description: string }[];
+          main: {
+            boxAbout: { id: number; title: string; description: string }[];
+          };
         };
       };
     }
-  )?.data?.attributes?.boxAbout;
+  )?.data?.attributes?.main.boxAbout;
 
   const videoAbout = (
     dataVeChungToi as {
       data: {
         attributes: {
-          videoAbout: {
-            data: {
-              attributes: {
-                width: number;
-                height: number;
-                url: string;
-                ext: string;
+          main: {
+            videoAbout: {
+              data: {
+                attributes: {
+                  width: number;
+                  height: number;
+                  url: string;
+                  ext: string;
+                };
               };
             };
           };
         };
       };
     }
-  )?.data?.attributes?.videoAbout?.data?.attributes;
+  )?.data?.attributes?.main.videoAbout?.data?.attributes;
   const cacTongThau = (
     dataVeChungToi as {
-      data: { attributes: { cacTongThau: { id: number; item: string }[] } };
+      data: {
+        attributes: { main: { cacTongThau: { id: number; item: string }[] } };
+      };
     }
-  )?.data?.attributes?.cacTongThau;
+  )?.data?.attributes?.main.cacTongThau;
   const cacDoiTacNuocNgoai = (
     dataVeChungToi as {
       data: {
-        attributes: { cacDoiTacNuocNgoai: { id: number; item: string }[] };
+        attributes: {
+          main: { cacDoiTacNuocNgoai: { id: number; item: string }[] };
+        };
       };
     }
-  )?.data?.attributes?.cacDoiTacNuocNgoai;
+  )?.data?.attributes?.main.cacDoiTacNuocNgoai;
   const cacChuDauTuNuocNgoai = (
     dataVeChungToi as {
       data: {
-        attributes: { cacChuDauTuNuocNgoai: { id: number; item: string }[] };
+        attributes: {
+          main: { cacChuDauTuNuocNgoai: { id: number; item: string }[] };
+        };
       };
     }
-  )?.data?.attributes?.cacChuDauTuNuocNgoai;
+  )?.data?.attributes?.main.cacChuDauTuNuocNgoai;
   const cacCongTyVaTapDoan = (
     dataVeChungToi as {
       data: {
-        attributes: { cacCongTyVaTapDoan: { id: number; item: string }[] };
+        attributes: {
+          main: { cacCongTyVaTapDoan: { id: number; item: string }[] };
+        };
       };
     }
-  )?.data?.attributes?.cacCongTyVaTapDoan;
+  )?.data?.attributes?.main.cacCongTyVaTapDoan;
 
   const supportedVideoExtensions = [".mp4", ".mov", ".avi"];
   const supportedImageExtensions = [".png", ".jpg", ".jpeg", ".gif"];

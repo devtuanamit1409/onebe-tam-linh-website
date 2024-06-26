@@ -201,7 +201,7 @@ const MegaMenu = ({
         return "dich-vu";
       case "Services":
         return "dich-vu";
-      case "Dự Án":
+      case "Dự án":
         return "du-an";
       case "Project":
         return "du-an";
