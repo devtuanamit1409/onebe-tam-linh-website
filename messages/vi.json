@@ -63,5 +63,12 @@
     "investors": "Các chủ đầu tư nước ngoài",
     "partners": "Các đối tác nước ngoài",
     "corporations": "Các công ty và tập đoàn"
+  },
+  "404": {
+    "404": "404",
+    "not_found": "Oops! Trang này không thể tìm thấy",
+    "maybe_delete": "Trang bạn đang tìm kiếm không tồn tại hoặc có thể đã bị xóa",
+    "back_home": "Quay lại trang chủ",
+    "no_article": "Chưa có bài viết nào thuộc danh mục này"
   }
 }
