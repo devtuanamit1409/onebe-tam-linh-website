@@ -265,16 +265,6 @@ const DetailPage = async ({ params }: { params: any }) => {
             </div>
           </>
         )}
-        <div className="container">
-          {filteredData.length > 0 ? <BoxTinTuc data={filteredData} /> : <></>}
-        </div>
-        <div className="py-[40px] container flex justify-center">
-          <Pagination
-            pageSize={6}
-            total={detailBaiViet?.meta?.pagination?.total}
-            showSizeChanger={false}
-          />
-        </div>
       </>
     );
   };
