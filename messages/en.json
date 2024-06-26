@@ -63,5 +63,12 @@
     "investors": "Foreign Investors",
     "partners": "Foreign Partners",
     "corporations": "Companies and Corporations"
+  },
+  "404": {
+    "404": "404",
+    "not_found": "Oops! That page can’t be found",
+    "maybe_delete": "The page you are looking for does exist or may be deleted",
+    "back_home": "Back to home page",
+    "no_article": "There are no articles in this category yet"
   }
 }
