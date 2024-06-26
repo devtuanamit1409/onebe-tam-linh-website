@@ -124,21 +124,26 @@ const Header = (locale: any) => {
     () => [
       {
         key: "Sản phẩm",
+        pathname: "/san-pham",
+
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },
       {
         key: "Dịch vụ",
+        pathname: "/dich-vu",
         label: <div className="flex items-center gap-3">{t("services")}</div>,
         showIcon: true,
       },
       {
         key: "Dự án",
+        pathname: "/du-an",
         label: <div className="flex items-center gap-3">{t("projects")}</div>,
         showIcon: true,
       },
       {
         key: "Đối tác",
+        pathname: "/doi-tac",
         label: (
           <Link href="/doi-tac" className="flex items-center gap-3">
             {t("partners")}
@@ -148,11 +153,13 @@ const Header = (locale: any) => {
       },
       {
         key: "Về chúng tôi",
+        pathname: "/ve-chung-toi",
         label: <div className="flex items-center gap-3">{t("about_us")}</div>,
         showIcon: true,
       },
       {
         key: "Tin tức",
+        pathname: "/tin-tuc",
         label: (
           <Link href="/tin-tuc" className="flex items-center gap-3">
             {t("newsTitle")}
@@ -162,6 +169,7 @@ const Header = (locale: any) => {
       },
       {
         key: "Thông tư nghị định",
+        pathname: "/thong-tu-nghi-dinh",
         label: (
           <div className="flex items-center gap-3">{t("circular_decree")}</div>
         ),
@@ -256,7 +264,7 @@ const Header = (locale: any) => {
             </Link>
             <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
               {menuItems.map((item) => {
-                const isActive = pathname.replace("/", "") === item.key;
+                const isActive = pathname === item.pathname;
                 return (
                   <li
                     key={item.key}
