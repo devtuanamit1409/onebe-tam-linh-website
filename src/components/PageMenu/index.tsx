@@ -88,7 +88,7 @@ const PageMenu = (props: props): JSX.Element => {
                       href={`/${locale}/${item.slug}`}
                       className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
                       <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
-                        {t("see_more")}
+                        {t("see_all")}
                       </div>
                       <div className="text-[#3B559E]">
                         <IconAngleRight width="16" height="16" />

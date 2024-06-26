@@ -97,13 +97,13 @@ const Header = (locale: any) => {
           },
           {
             id: 2,
-            name: "Góc chuyên gia",
+            name: t("expertopinion"),
             description: allData[1].data.attributes.description,
             url: "goc-chuyen-gia",
           },
           {
             id: 3,
-            name: "Công ty thành viên",
+            name: t("member_company"),
             description: allData[2].data.attributes.description,
             url: "cong-ty-thanh-vien",
           },
@@ -125,7 +125,6 @@ const Header = (locale: any) => {
       {
         key: "Sản phẩm",
         pathname: "/san-pham",
-
         label: <div className="flex items-center gap-3">{t("products")}</div>,
         showIcon: true,
       },

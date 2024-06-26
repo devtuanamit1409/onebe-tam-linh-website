@@ -126,7 +126,7 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                   </p>
                   <div className="pt-[16px]">
                     <Link
-                      href={`/${locale}${item.url}`}
+                      href={item.url}
                       className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
                       {t("see_more")}
                     </Link>

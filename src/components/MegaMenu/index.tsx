@@ -229,6 +229,9 @@ const MegaMenu = ({
         null;
     }
   };
+  useEffect(() => {
+    console.log("dataVeChungToi", dataVeChungToi);
+  }, [dataVeChungToi]);
 
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (
@@ -286,7 +289,7 @@ const MegaMenu = ({
                                   </span>
                                 </Link>
                                 {item.description && (
-                                  <p className="text-slate-400 text-xs font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
+                                  <p className="text-slate-400 text-[15px] font-normal leading-snug pr-[18px] mt-4 line-clamp-3">
                                     {item.description}
                                   </p>
                                 )}
