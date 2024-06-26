@@ -1,65 +1,26 @@
-"use client";
-import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Autoplay } from "swiper/modules";
+import React from "react";
+import Marquee from "react-fast-marquee";
 import Image from "next/image";
-import Marquee from "react-marquee-slider";
-import Loading from "../Loading";
-interface ListLogoprops {
-  listlogo: listLogo[];
-}
-interface listLogo {
-  id: number;
-  alt: string;
-  urlImage: {
-    data: {
-      attributes: {
-        url: string;
-      };
-    };
-  };
-}
-const handleInit = () => {
-  return <Loading />;
-};
-const handleFinish = () => {};
 
-const SliderKhachHang = (listlogo: ListLogoprops) => {
+const SliderKhachHang = (listlogo: any) => {
   const baseUrl = process.env.URL_API;
-  const imagesUrl = [
-    "images/logoDoiTac/logo1.png",
-    "images/logoDoiTac/logo2.png",
-    "images/logoDoiTac/logo3.svg",
-    "images/logoDoiTac/logo4.png",
-    "images/logoDoiTac/logo5.png",
-    "images/logoDoiTac/logo6.png",
-    "images/logoDoiTac/logo1.png",
-    "images/logoDoiTac/logo2.png",
-    "images/logoDoiTac/logo3.svg",
-    "images/logoDoiTac/logo4.png",
-    "images/logoDoiTac/logo5.png",
-    "images/logoDoiTac/logo6.png",
-  ];
+
   return (
     <div className="sliderContainer flex items-center overflow-hidden max-h-[100px]">
       <Marquee
-        velocity={60}
-        resetAfterTries={200}
-        direction="rtl"
-        scatterRandomly={false}
-        onInit={handleInit}
-        onFinish={handleFinish}>
-        {listlogo.listlogo.map((logo, index) => (
+        speed={50} // Điều chỉnh tốc độ cuộn
+        direction="left" // Hướng cuộn, "left" hoặc "right"
+        pauseOnHover={false} // Tạm dừng khi hover
+      >
+        {listlogo.listlogo.map((logo: any, index: any) => (
           <div
             key={index}
-            className="logo-item mx-8 flex items-center h-[100px] mobile:w-[100px]">
+            className="logo-item flex items-center justify-center h-[100px] mx-4">
             <Image
               src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
               alt={logo.alt}
               layout="responsive"
-              width={100}
+              width={150}
               height={50}
               objectFit="cover"
             />
