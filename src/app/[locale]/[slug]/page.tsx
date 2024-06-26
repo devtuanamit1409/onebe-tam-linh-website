@@ -25,8 +25,9 @@ const DetailPage = async ({ params }: { params: any }) => {
   const checkLastSegmentIsNumeric = (input: string) => {
     const segments = input.split("-");
     const lastSegment = segments[segments.length - 1];
-    return /^\d+$/.test(lastSegment);
+    return /^\d{13}$/.test(lastSegment);
   };
+
   const slug = params.slug;
   const t = await getTranslations("detail_post");
   let locale = params.locale;
