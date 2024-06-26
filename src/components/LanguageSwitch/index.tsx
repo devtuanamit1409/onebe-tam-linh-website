@@ -59,6 +59,18 @@ const LanguageSwitch: React.FC = () => {
     setSlugMap(newSlugMap);
   };
 
+  async function fetchDanhMucCon() {
+    try {
+      const data = await apiService.get(
+        `${ENDPOINT.GET_DANHMUCCON}?locale=vi&locale=en&populate=localizations`
+      );
+      updateSlugMap(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  }
+
   async function fetchData() {
     try {
       const data = await apiService.get(
@@ -74,6 +86,7 @@ const LanguageSwitch: React.FC = () => {
   }
   useEffect(() => {
     fetchData();
+    fetchDanhMucCon();
   }, []);
 
   const locale = useLocale() as Locale;
