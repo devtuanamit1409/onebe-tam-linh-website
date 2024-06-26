@@ -9,7 +9,6 @@ import notFoundBanner from "../../../../public/images/banner/404Banner.png";
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { useParams } from "next/navigation";
 
 const DetailPage = async ({ params }: { params: any }) => {
   async function fetchData(endpoint: string) {
@@ -87,6 +86,7 @@ const DetailPage = async ({ params }: { params: any }) => {
 
   let breadcum: any;
   let subBreadcum: any;
+  let slugSubBreadcum: any;
 
   !checkLastSegmentIsNumeric(slug)
     ? (breadcum =
@@ -106,6 +106,15 @@ const DetailPage = async ({ params }: { params: any }) => {
               ?.data[0]?.attributes?.name)
     : "";
 
+  !checkLastSegmentIsNumeric(slug)
+    ? (slugSubBreadcum =
+        locale === "vi"
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.slug
+          : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
+              ?.data[0]?.attributes?.slug)
+    : "";
+
   const DetailNew = () => {
     return (
       <>
@@ -115,9 +124,19 @@ const DetailPage = async ({ params }: { params: any }) => {
               <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
                 <Link href={"/"}>Trang chủ</Link>
                 <span className="mx-2"> / </span>
-                <Link href={``}>{breadcum}</Link>
+                <Link
+                  href={`${
+                    breadcum === "Sản phẩm"
+                      ? "/san-pham"
+                      : breadcum === "Dịch vụ"
+                      ? "/dich-vu"
+                      : breadcum === "Góc chuyên gia"
+                  }`}
+                >
+                  {breadcum}
+                </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
-                <Link href={``}>{subBreadcum}</Link>
+                <Link href={`/${slugSubBreadcum}`}>{subBreadcum}</Link>
                 {subBreadcum ? <span className="mx-2 "> / </span> : null}
                 <Link className="text-[#000]" href={``}>
                   {resBaiViet?.data[0]?.attributes?.title}
@@ -210,7 +229,7 @@ const DetailPage = async ({ params }: { params: any }) => {
         </div>
         <div className="py-[40px] container flex justify-center">
           <Pagination
-            pageSize={1}
+            pageSize={6}
             total={detailBaiViet?.meta?.pagination?.total}
             showSizeChanger={false}
           />
