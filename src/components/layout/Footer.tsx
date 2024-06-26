@@ -1,5 +1,4 @@
 "use server";
-
 import logoFullWidth from "../../../public/images/logo/logo-fullwidth.png";
 import LogoBoCongThuong from "../../../public/images/logo/logoBoCongThuong.png";
 import IconPhone from "../icons/IconPhone";
@@ -7,10 +6,9 @@ import IconLocation from "../icons/IconLocation";
 import Map from "../Map";
 import Image from "next/image";
 import Link from "next/link";
-import IconFacebookRounded from "../icons/IconFacebookRounded";
-import IconYoutubeRounded from "../icons/IconYoutubeRounded";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
+import { getTranslations } from "next-intl/server";
 
 const searchData = {
   populate: [
@@ -24,17 +22,20 @@ const searchData = {
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData() {
+async function fetchData(endpoint: string) {
   try {
-    const data = await apiService.get(`${ENDPOINT.GET_FOOTER}?${searchParams}`);
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const Footer = async () => {
-  const dataFooter = await fetchData();
+const Footer = async (locale: any) => {
+  const t = await getTranslations("footer");
+  const dataFooter = await fetchData(
+    `${ENDPOINT.GET_FOOTER}?${searchParams}&locale=${locale.locale}`
+  );
   const baseUrl = process.env.URL_API;
 
   const phoneNumber = (dataFooter as { data: { attributes: { phone: any } } })
@@ -144,7 +145,7 @@ const Footer = async () => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Sản phẩm
+                  {t("products")}
                 </p>
                 <div className=" h-24 flex-col justify-start items-start gap-3 inline-flex">
                   {sanpham &&
@@ -152,7 +153,7 @@ const Footer = async () => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -164,7 +165,7 @@ const Footer = async () => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Dịch vụ
+                  {t("services")}
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   {dichvu &&
@@ -172,7 +173,7 @@ const Footer = async () => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -184,7 +185,7 @@ const Footer = async () => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Công ty Kỹ thuật NTS
+                  {t("NTS_company")}
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
                   {congty &&
@@ -192,7 +193,7 @@ const Footer = async () => {
                       return (
                         <Link
                           key={item?.id}
-                          href={item?.path}
+                          href={item?.path || "/"}
                           className="text-white text-base font-normal  leading-normal">
                           {item?.title}
                         </Link>
@@ -204,7 +205,7 @@ const Footer = async () => {
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
                 <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
-                  Theo dõi chúng tôi trên
+                  {t("followUs")}
                 </p>
                 <div className="flex-col justify-start items-start gap-[25px] flex">
                   <div className="grid grid-cols-5 gap-[15px]">
@@ -212,7 +213,7 @@ const Footer = async () => {
                       icon?.map((item) => {
                         return (
                           <div key={item?.id}>
-                            <a href={item?.path} target="_blank">
+                            <a href={item?.path || "/"} target="_blank">
                               <Image
                                 src={`${baseUrl}${item?.urlIcon?.data?.attributes?.url}`}
                                 alt={item?.alt}
@@ -255,10 +256,7 @@ const Footer = async () => {
         </div>
         <div className=" tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
           <div className="text-center text-white text-base font-normal  leading-normal ">
-            <p>
-              Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần
-              đầu ngày 03/04/2013, tại Sở KH&ĐT TP.HCM.
-            </p>
+            <p>{t("licence")}</p>
             <p> Copyright 2024 © NTSE.VN</p>
           </div>
         </div>

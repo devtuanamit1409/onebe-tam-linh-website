@@ -3,22 +3,27 @@ import Image from "next/image";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 const searchData = {
   populate: ["bai_viets.seo.thumbnail"].toString(),
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
-async function fetchData() {
+async function fetchData(endpoint: any) {
   try {
-    const data = await apiService.get(`${ENDPOINT.GET_HOME}?${searchParams}`);
+    const data = await apiService.get(endpoint);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
-const Construction = async () => {
-  const dataTinTuc = await fetchData();
+const Construction = async (locale: any) => {
+  const t = await getTranslations("home");
+  console.log("locale:", locale);
+  const dataTinTuc = await fetchData(
+    `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale.locale}`
+  );
   const baseUrl = process.env.URL_API;
 
   const baiviet = (
@@ -53,8 +58,6 @@ const Construction = async () => {
     }
   )?.data?.attributes?.bai_viets?.data;
 
-  console.log("baiviet", baiviet);
-
   const construction = [
     {
       name: "Xử lý nước",
@@ -81,7 +84,7 @@ const Construction = async () => {
       <div className="grid grid-cols-12 gap-4 items-stretch">
         <div className="col-span-12 laptop:col-span-8">
           <div className="flex flex-col gap-[24px]">
-            {baiviet.slice(0, 2).map((item, key) => {
+            {baiviet?.slice(0, 2)?.map((item, key) => {
               return (
                 <div
                   key={key}
@@ -107,10 +110,10 @@ const Construction = async () => {
                           {item.attributes.seo.description}
                         </p>
                         <Link
-                          href={item.attributes.slug}
+                          href={`${locale.locale}/${item.attributes.slug}`}
                           className="flex items-center ">
                           <span className="text-[#3B559E] font-medium mr-[10px]">
-                            Đọc ngay
+                            {t("read_now")}
                           </span>
                           <Image
                             src="/images/svg-home/arrow-right.svg"
@@ -129,7 +132,7 @@ const Construction = async () => {
         </div>
         <div className="col-span-12 laptop:col-span-4 mobile:hidden laptop:block">
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
-            {baiviet.slice(2, 3).map((item, key) => {
+            {baiviet?.slice(2, 3)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[6px]">
@@ -143,10 +146,10 @@ const Construction = async () => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={item.attributes.slug}
+                      href={`${locale.locale}${item.attributes.slug}`}
                       className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
-                        Đọc ngay
+                        {t("read_now")}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +172,7 @@ const Construction = async () => {
             <hr />
           </div>
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
-            {baiviet.slice(3, 4).map((item, key) => {
+            {baiviet?.slice(3, 4)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[6px]">
@@ -183,10 +186,10 @@ const Construction = async () => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={item.attributes.slug}
+                      href={`${locale.locale}/${item.attributes.slug}`}
                       className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
-                        Đọc ngay
+                        {t("read_now")}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

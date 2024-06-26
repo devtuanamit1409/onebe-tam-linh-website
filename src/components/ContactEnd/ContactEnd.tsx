@@ -3,8 +3,10 @@ import React from "react";
 import CTE_Desktop from "../../../public/images/banner/CTA_Desktop.png";
 import CTE_Mobile from "../../../public/images/banner/CTA_MOBILE.png";
 import CTE_Tablet from "../../../public/images/banner/CTA_TABLET.png";
+import { getTranslations } from "next-intl/server";
 
-const ContactEnd = () => {
+const ContactEnd = async () => {
+  const t = await getTranslations("contact_end");
   return (
     <>
       <div className="py-[80px] relative overflow-hidden">
@@ -32,16 +34,16 @@ const ContactEnd = () => {
           />
           <div className="relative z-1">
             <p className="font-medium  text-[#fff] mobile:hidden laptop:block">
-              Khởi đầu dự án của bạn ngay thôi
+              {t("introduce")}
             </p>
             <h2 className="pt-[15px] font-bold text-[40px] text-[#ffff] mobile:hidden  laptop:block">
-              Liên hệ với chúng tôi
+              {t("contact_us")}
             </h2>
             <p className="font-medium text-[15px]  text-[#fff]  laptop:hidden mobile:block">
-              NTSE luôn đồng hành cùng bạn
+              {t("introduce")}
             </p>
             <h2 className="pt-[8px] mobile:pt-[16px] font-bold text-[24px] tablet:max-w-[310px] text-[#ffff]  laptop:hidden mobile:block">
-              Liên hệ với chúng tôi để bắt đầu dự án của bạn
+              {t("contact_us")}
             </h2>
           </div>
           <div className="relative z-1">
@@ -60,7 +62,7 @@ const ContactEnd = () => {
                 />
               </svg>
               <span className="mx-[8px] text-[#fff]">
-                Gọi ngay 0888 167 247
+                {t("call_now")} 0888 167 247
               </span>
             </a>
           </div>

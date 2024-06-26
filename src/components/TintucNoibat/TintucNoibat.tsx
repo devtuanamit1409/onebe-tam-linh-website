@@ -10,6 +10,7 @@ import { Swiper as SwiperClass } from "swiper";
 import IconNextCricle from "../icons/IconNextCricle";
 import IconPrevCricle from "../icons/IconPrevCricle";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 interface TintucNoibatProps {
   name: string;
   data: any;
@@ -19,6 +20,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalSlides, setTotalSlides] = useState<number>(0);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const t = useTranslations("home");
   const onPrev = (): void => {
     swiperRef.current?.slidePrev();
   };
@@ -44,7 +46,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
           return (
             <SwiperSlide key={item.id}>
               <div>
-                <div className="py-[16px] relative overflow-hidden desktop:h-full aspect-[3/2] max-h-[400px]">
+                <div className="py-[16px] relative overflow-hidden desktop:h-full min-h-[400px] max-h-[400px]">
                   <Image
                     src={`${baseUrl}${item?.seo.thumbnail.data.attributes.url}`}
                     layout="fill"
@@ -55,8 +57,8 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     className="mobile:rounded-xl desktop:rounded-none desktop:w-full "
                   />
                   <div className="absolute top-[15%] left-[5%]">
-                    <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-bold">
-                      {item?.danh_muc_bai_viets.data[0].attributes.name ||
+                    <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-[400]">
+                      {item?.danh_muc_bai_viets?.data[0]?.attributes?.name ||
                         "Mới đây"}
                     </span>
                   </div>
@@ -69,7 +71,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">
                   <Link href={`/${item.slug}}`} className="mr-[10px]">
-                    Xem chi tiết
+                    {t("let_see")}
                   </Link>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

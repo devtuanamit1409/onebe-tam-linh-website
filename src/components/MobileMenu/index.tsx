@@ -156,20 +156,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             </ul>
             <div className="w-full h-[50px] px-4 my-2 justify-between items-center inline-flex">
               {breadcrumb.length <= 1 ? (
-                <button className="w-full h-[50px] px-4 items-center gap-1 flex rounded-lg border-indigo-800 shadow border justify-center text-indigo-800">
+                <button className="w-full h-[50px] px-4 items-center gap-1 flex rounded-lg border-[#3B559E] shadow border justify-center text-[#3B559E]">
                   <IconGlobe />
                   <p className="text-black text-lg font-medium leading-relaxed">
                     VN
                   </p>
                 </button>
               ) : (
-                <div className="w-full h-[52px] px-6 py-3.5 rounded-lg shadow border border-indigo-800 justify-between items-center inline-flex">
+                <div className="w-full h-[52px] px-6 py-3.5 rounded-lg shadow border border-[#3B559E] justify-between items-center inline-flex">
                   <Link href={breadcrumb[1].url}>
-                    <p className="text-indigo-800 text-base font-medium leading-normal text-left flex justify-between">
+                    <p className="text-[#3B559E] text-base font-medium leading-normal text-left flex justify-between">
                       Tới trang {breadcrumb[1].title}
                     </p>
                   </Link>
-                  <div className="w-6 h-6 relative text-indigo-800">
+                  <div className="w-6 h-6 relative text-[#3B559E]">
                     <IconArrowRight />
                   </div>
                 </div>

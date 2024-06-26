@@ -84,6 +84,18 @@ body {
     overflow: hidden;
   }
 }
+@media (min-width: 360px) and (max-width: 743px) {
+  .about-us-slider > .swiper-wrapper {
+    display: flex;
+    justify-content: start;
+  }
+}
+@media (min-width: 744px) {
+  .about-us-slider > .swiper-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 /* components/BrandingSlider.module.css */
 .sliderContainer {
@@ -91,11 +103,11 @@ body {
   overflow: hidden;
 }
 
-.branding-slider {
+/* .branding-slider {
   display: flex;
   width: calc(2 * 100%);
-  animation: slide 10s linear infinite;
-}
+  animation: slide 20s linear infinite;
+} */
 
 .branding-slide {
   width: auto;
@@ -107,11 +119,58 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-@keyframes slide {
+.shadow-top {
+  box-shadow: 0 -5px 5px -5px rgba(0, 0, 0, 0.1);
+}
+/* @keyframes slide {
   0% {
     transform: translateX(0%);
   }
   100% {
     transform: translateX(-50%);
   }
+} */
+/* :where(.css-dev-only-do-not-override-3rel02).ant-dropdown {
+  top: 70px !important;
+} */
+
+.ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  display: none;
+}
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  color: #000;
+}
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  background-color: transparent;
+}
+
+.ant-menu-submenu-title {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+.ant-menu-item.ant-menu-item-only-child {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+.ant-radio-group.ant-radio-button-wrapper {
+  border-color: transparent !important;
+}
+.ant-radio-button-wrapper::before {
+  display: none !important;
+}
+.ant-radio-button.ant-radio-button-checked {
+  background-color: #e1e8ff !important;
+}
+.ant-radio-button {
+  border-radius: 4px !important;
 }

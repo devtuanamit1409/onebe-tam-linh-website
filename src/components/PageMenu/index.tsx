@@ -9,154 +9,145 @@ import IconAngleRight from "../icons/IconAngleRight";
 import IconChemicalBottle from "../icons/IconChemiscalBottle";
 import IconCircleDesign from "../icons/IconCircleDesign";
 import IconCircleLeaf from "../icons/IconCircleLeaf";
+import { useTranslations } from "next-intl";
+import { apiService } from "@/services/api.service";
 
-// interface MenuItemProps {
-//   attributes?:  attributesInterFace[]
-//   name: string;
-//   slug: string;
-//   bai_viets: {
-//     data: attributesInterFace[]
-//   };
-//   danh_muc_cons: {
-//     data: attributesInterFace[]
-//   };
-//   tagIcon?: JSX.Element;
-//   descriptions?: string;
-//   icon?: JSX.Element;
-// }
-// interface attributesInterFace {
-//   attributes?:  attributesInterFace[]
-//   name: string
-//   slug: string
-//   description: string
-//   tagIcon?: JSX.Element
-//   icon?: JSX.Element
-//   bai_viets?: attributesInterFace[]
-//   danh_muc_cons?: attributesInterFace[]
-// }
-const PageMenu = (menu: any) => {
+interface props {
+  menu: any;
+  locale: any;
+}
+interface ResponseData {
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      slug: string;
+      description: string;
+      main: any;
+    };
+  }[];
+}
+const PageMenu = (props: props): JSX.Element => {
+  const t = useTranslations("home");
+  const { menu, locale } = props;
+  const [loading, setLoading] = useState(false);
+  const [formatMenu, setFormatMenu] = useState<any>();
+  const fetchData = async (tenDanhMuc: any) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons,seo&filters[danh_muc_cons][name][$eq]=${tenDanhMuc}&locale=${locale}`;
+      const response = await apiService.get<ResponseData>(endpoint);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  // const fetchDataBaiViet =
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      if (!menu) return;
+
+      const promises = menu.map(async (item: any) => {
+        const baiViet = await fetchData(item.attributes.name);
+        return {
+          name: item.attributes.name,
+          slug: item.attributes.slug,
+          description: item.attributes.description,
+          category: item.attributes.category,
+          baiViet: baiViet,
+        };
+      });
+
+      const formattedMenu = await Promise.all(promises);
+      setFormatMenu(formattedMenu);
+    };
+
+    fetchMenuData();
+  }, [menu]);
+  useEffect(() => {
+    console.log("formatMenu", formatMenu);
+  }, [formatMenu]);
   const [activeMenu, setActiveMenu] = useState<string | null>(null); // Khởi tạo với null
   const [isLoading, setIsLoading] = useState(true);
   const handleMenuClick = (name: string) => {
     setActiveMenu((prevActiveMenu) => (prevActiveMenu === name ? null : name));
   };
-  useEffect(() => {
-    if (menu.menu.attributes?.slug === "du-an") {
-      setIsLoading(true);
-      menu.menu.attributes?.danh_muc_cons?.data?.forEach(
-        (item: any, index: number) => {
-          const icons = [
-            <IconChemicalBottle key={index} />,
-            <IconCircleDesign key={index} />,
-            <IconCircleLeaf key={index} />,
-          ];
-          item.attributes.tagIcon = icons[index] || null;
-        }
-      );
-    }
-    setIsLoading(false);
-  }, []);
+
   return (
     <>
       <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px] desktop:px-[120px]">
-        {menu.menu.attributes?.danh_muc_cons?.data?.length > 0 && !isLoading
-          ? menu.menu.attributes.danh_muc_cons?.data?.map((item: any) => {
-              return (
-                <div
-                  key={item.id}
-                  className="flex w-full
-              ">
-                  <div className=" flex-col w-full gap-4">
-                    {item.attributes?.tagIcon ? (
-                      <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex justify-between items-center mb-8">
-                        <div className="flex items-center gap-6">
-                          {item.attributes.tagIcon}
-                          <p>{item.attributes.name}</p>
-                        </div>
-                        <Link
-                          href={item.attributes.slug}
-                          className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
-                          <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
-                            Xem tất cả
-                          </div>
-                          <div className="text-indigo-800">
-                            <IconAngleRightColorFull />
-                          </div>
-                        </Link>
+        {formatMenu &&
+          formatMenu.map((item: any) => {
+            return (
+              <div key={item.id} className="flex w-full">
+                <div className=" flex-col w-full gap-4">
+                  <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex justify-between items-center mb-8">
+                    <div className="flex items-center gap-6">
+                      <p>{item.name}</p>
+                    </div>
+                    <Link
+                      href={`/${locale}/${item.slug}`}
+                      className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
+                      <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
+                        {t("see_more")}
                       </div>
-                    ) : (
-                      <p className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex mb-8">
-                        {item.attributes.name}
-                      </p>
-                    )}
-
-                    {item.attributes.bai_viets.data.map((child: any) => {
-                      return (
-                        <div
-                          key={child.attributes.title}
-                          className="text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden"
-                          onClick={() =>
-                            handleMenuClick(child.attributes.title)
-                          }>
-                          <div className="flex w-full justify-between items-center">
-                            {child.attributes.title}
-                            <div
-                              className={`transform transition-transform duration-300 p-4 ${
-                                activeMenu === child.attributes.title
-                                  ? "rotate-90"
-                                  : ""
-                              }`}>
-                              {child.attributes.icon || (
-                                <IconAngleRight width="16" height="16" />
-                              )}
-                            </div>
-                          </div>
-                          <div
-                            className={`transform origin-top transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
-                              activeMenu === child.attributes.title
-                                ? "max-h-96 pb-4 mt-4"
-                                : "max-h-0"
-                            }`}>
-                            <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
-                              {child.attributes.seo.description ||
-                                "description mac dinh"}
-                            </p>
-
-                            <Link
-                              href={child.attributes?.slug}
-                              className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
-                              <p className="text-center text-white text-base font-medium  leading-normal">
-                                Xem thêm
-                              </p>
-                              <div className="w-5 h-5 relative text-white ">
-                                <IconArrowRight width={24} height={24} />
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    {item.tagIcon && (
-                      <Link
-                        href={item.slug}
-                        className="mobile:inline-flex tablet:hidden h-12 mt-8 px-6 py-3 rounded-[50px] border border-indigo-800 justify-center items-center gap-2 inline-flex">
-                        <div className="text-center text-indigo-800 text-base font-medium  leading-normal">
-                          Xem tất cả
-                        </div>
-                        <div className="text-indigo-800">
-                          <IconAngleRight width="16" height="16" />
-                        </div>
-                      </Link>
-                    )}
+                      <div className="text-[#3B559E]">
+                        <IconAngleRight width="16" height="16" />
+                      </div>
+                    </Link>
                   </div>
+                  {item.baiViet.slice(0, 3).map((child: any) => {
+                    return (
+                      <div
+                        key={child.attributes.title}
+                        className={` text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden`}
+                        onClick={() => handleMenuClick(child.attributes.title)}>
+                        <div
+                          className={`flex w-full justify-between items-center `}>
+                          {child.attributes.title}
+                          <div
+                            className={`transform transition-transform duration-300 p-4 ${
+                              activeMenu === child.attributes.title
+                                ? "rotate-90"
+                                : ""
+                            }`}>
+                            {child.attributes.icon || (
+                              <IconAngleRightColorFull />
+                            )}
+                          </div>
+                        </div>
+                        <div
+                          className={`transform origin-top transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
+                            activeMenu === child.attributes.title
+                              ? "max-h-96 pb-4 mt-4"
+                              : "max-h-0"
+                          }`}>
+                          <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
+                            {child.attributes?.seo?.description ||
+                              "Không có hoặc chưa CMS seo.description"}
+                          </p>
+
+                          <Link
+                            href={child.attributes?.slug}
+                            className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                            <p className="text-center text-white text-base font-medium  leading-normal">
+                              {t("see_more")}
+                            </p>
+                            <div className="w-5 h-5 relative text-white ">
+                              <IconArrowRight width={24} height={24} />
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })
-          : ""}
+              </div>
+            );
+          })}
       </div>
-      <div className=" flex-col justify-start items-start flex w-full my-[40px] desktop:px-[120px]">
-        {menu.menu.attributes?.bai_viets?.data?.length > 0 && !isLoading
-          ? menu.menu.attributes?.bai_viets?.data?.map((item: any) => {
+      {/* <div className=" flex-col justify-start items-start flex w-full my-[40px] desktop:px-[120px]">
+        {menu?.attributes?.bai_viets?.data?.length > 0 && !isLoading
+          ? menu?.attributes?.bai_viets?.data?.map((item: any) => {
               return (
                 <div
                   key={item.id}
@@ -165,9 +156,15 @@ const PageMenu = (menu: any) => {
                   <div className=" flex-col w-full gap-4">
                     <div
                       key={item.attributes.title}
-                      className="text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-2  pl-2 tablet:mb-2 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden"
+                      className={`text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-2  pl-2 tablet:mb-2 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden`}
                       onClick={() => handleMenuClick(item.attributes.title)}>
-                      <div className="flex w-full justify-between items-center">
+                      <div
+                        className={`flex w-full justify-between items-center ${
+                          menu?.attributes?.slug === "dich-vu" ||
+                          menu?.attributes?.slug === "en/dich-vu"
+                            ? "text-[#374151]"
+                            : "text-gray-500"
+                        }`}>
                         {item.attributes.title}
                         <div
                           className={`transform transition-transform duration-300 p-4 ${
@@ -190,10 +187,10 @@ const PageMenu = (menu: any) => {
                         </p>
 
                         <Link
-                          href={item.attributes?.slug}
-                          className=" h-10 px-4 py-2 bg-indigo-800 rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                          href={`/${locale}/${item.attributes?.slug}`}
+                          className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                           <p className="text-center text-white text-base font-medium  leading-normal">
-                            Xem thêm
+                            {t("see_more")}
                           </p>
                           <div className="w-5 h-5 relative text-white ">
                             <IconArrowRight width={24} height={24} />
@@ -206,7 +203,7 @@ const PageMenu = (menu: any) => {
               );
             })
           : ""}
-      </div>
+      </div> */}
     </>
   );
 };
