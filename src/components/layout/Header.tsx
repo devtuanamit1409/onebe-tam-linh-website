@@ -22,6 +22,7 @@ interface ResponseData {
       name: string;
       slug: string;
       description: string;
+      main: any;
     };
   }[];
 }
@@ -38,8 +39,12 @@ interface ResponseDataDanhMuc {
 }
 
 const Header = (locale: any) => {
+  const t = useTranslations("menu");
   const [dataHeader, setDataHeader] = useState<ResponseData["data"]>([]);
+
+  const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
   const [dataDanhMuc, setDataDanhMuc] = useState<ResponseDataDanhMuc["data"]>();
+
   const [loading, setLoading] = useState(false);
   const searchData = {
     populate: ["main"].toString(),
@@ -48,7 +53,7 @@ const Header = (locale: any) => {
   const pathname = usePathname();
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = useTranslations("menu");
+
   const fetchData = async () => {
     try {
       const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${activeKey}&locale=${locale.locale}`;
@@ -58,11 +63,58 @@ const Header = (locale: any) => {
       console.error("Error fetching data:", error);
     }
   };
+
   const fetchDataActiveKey = async (danhmuc: string | null) => {
     try {
       const endpoint = `${process.env.URL_API}/api/${danhmuc}?${searchParams}&locale=${locale.locale}`;
       const response = await apiService.get<ResponseDataDanhMuc>(endpoint);
       setDataDanhMuc(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataVeChungToi = async () => {
+    const listEndPoint = [
+      `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale.locale}`,
+      `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale.locale}`,
+      `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale.locale}`,
+      locale.locale === "en"
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
+        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
+    ];
+    try {
+      const responses = await Promise.all(
+        listEndPoint.map((endpoint) => apiService.get<any>(endpoint))
+      );
+      const allData = responses;
+      setDataVeChungToi(() => {
+        return [
+          {
+            id: 1,
+            name: allData[0].data.attributes.main.name,
+            description: allData[0].data.attributes.main.description,
+            url: "ve-chung-toi",
+          },
+          {
+            id: 2,
+            name: "Góc chuyên gia",
+            description: allData[1].data.attributes.description,
+            url: "goc-chuyen-gia",
+          },
+          {
+            id: 3,
+            name: "Công ty thành viên",
+            description: allData[2].data.attributes.description,
+            url: "cong-ty-thanh-vien",
+          },
+          {
+            id: 4,
+            name: allData[3].data[0].attributes.name,
+            description: allData[3].data[0].attributes.description,
+            url: allData[3].data[0].attributes.slug,
+          },
+        ];
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -126,9 +178,15 @@ const Header = (locale: any) => {
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
-      setActiveKey(key);
-      setIsMenuOpen(true);
-      fetchDataActiveKey(key);
+      if (key === "Về chúng tôi") {
+        fetchDataVeChungToi();
+        setActiveKey(key);
+        setIsMenuOpen(true);
+      } else {
+        setActiveKey(key);
+        setIsMenuOpen(true);
+        fetchDataActiveKey(key);
+      }
     }
   };
   const handleGetEndPoint = (key: string) => {
@@ -173,12 +231,12 @@ const Header = (locale: any) => {
     setIsOpen(false);
   }, [pathname, menuItems]);
   useEffect(() => {
+    setLoading(true);
     if (activeKey) {
-      setLoading(true);
       fetchData();
       fetchDataActiveKey(handleGetEndPoint(activeKey));
-      setLoading(false);
     }
+    setLoading(false);
   }, [activeKey]);
 
   // mobileMenu
@@ -240,14 +298,14 @@ const Header = (locale: any) => {
               <IconMenu />
             </button>
 
-            {/* <MobileMenuNew
-              data={dataHeader ? dataHeader : []}
+            <MobileMenuNew
               locale={locale.locale}
               isOpen={isOpen}
               toggleMenu={toggleMenu}
-            /> */}
+            />
           </div>
         </div>
+
         <MegaMenu
           locale={locale.locale}
           data={dataHeader ? dataHeader : []}
@@ -257,6 +315,7 @@ const Header = (locale: any) => {
           setIsMenuOpen={setIsMenuOpen}
           handleMouseLeave={handleMouseLeave}
           loading={loading}
+          dataVeChungToi={dataVeChungToi}
         />
       </div>
     </header>
