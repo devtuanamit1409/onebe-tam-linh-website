@@ -235,7 +235,7 @@ const DetailPage = async ({ params }: { params: any }) => {
             </div>
             <div className="py-[40px] container flex justify-center">
               <Pagination
-                pageSize={1}
+                pageSize={6}
                 total={detailBaiViet?.meta?.pagination?.total}
                 showSizeChanger={false}
               />
