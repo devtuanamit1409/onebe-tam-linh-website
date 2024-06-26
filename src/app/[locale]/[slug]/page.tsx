@@ -90,8 +90,8 @@ const DetailPage = async ({ params }: { params: any }) => {
   !checkLastSegmentIsNumeric(slug)
     ? (breadcum =
         locale === "vi"
-          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes
-              .category
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.category
           : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
               ?.data[0]?.attributes?.category)
     : "";
@@ -99,7 +99,8 @@ const DetailPage = async ({ params }: { params: any }) => {
   !checkLastSegmentIsNumeric(slug)
     ? (subBreadcum =
         locale === "vi"
-          ? resBaiViet.data[0].attributes.danh_muc_cons.data[0].attributes.name
+          ? resBaiViet.data[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.name
           : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
               ?.data[0]?.attributes?.name)
     : "";
