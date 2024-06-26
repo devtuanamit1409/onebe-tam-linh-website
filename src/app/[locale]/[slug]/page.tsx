@@ -37,10 +37,26 @@ const DetailPage = async ({ params }: { params: any }) => {
   );
 
   const detailBaiViet: any = await fetchData(
-    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=1`
+    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=6`
+  );
+
+  const baiVietLienQuan: any = await fetchData(
+    `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&locale=${locale}&filters[bai_viet_tieu_diem]=true`
   );
 
   const filteredData = detailBaiViet.data.map((item: any) => {
+    const { title, slug, locale, subTitle, seo, id } = item.attributes;
+    return {
+      id,
+      title,
+      slug,
+      locale,
+      subTitle,
+      seo,
+    };
+  });
+
+  const recomenData = baiVietLienQuan.data.map((item: any) => {
     const { title, slug, locale, subTitle, seo, id } = item.attributes;
     return {
       id,
@@ -76,35 +92,35 @@ const DetailPage = async ({ params }: { params: any }) => {
         {resBaiViet?.data[0] ? (
           <>
             <div className=" bg-gray-50 ">
-              {/* <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
-            <Breadcrumb separator="/">
-              <Breadcrumb.Item>
-                <Link
-                  className="hover:bg-transparent !bg-transparent"
-                  href="/"
-                >
-                  Trang chủ
-                </Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link
-                  className="hover:bg-transparent !bg-transparent"
-                  href="/san-pham"
-                >
-                  Sản phẩm
-                </Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link
-                  className="hover:bg-transparent !bg-transparent"
-                  href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
-                >
-                  Vật liệu mới, thiết bị plastic ngành nước
-                </Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
-            </Breadcrumb>
-          </div> */}
+              <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
+                {/* <Breadcrumb separator="/">
+                  <Breadcrumb.Item>
+                    <Link
+                      className="hover:bg-transparent !bg-transparent"
+                      href="/"
+                    >
+                      Trang chủ
+                    </Link>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Link
+                      className="hover:bg-transparent !bg-transparent"
+                      href="/san-pham"
+                    >
+                      Sản phẩm
+                    </Link>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Link
+                      className="hover:bg-transparent !bg-transparent"
+                      href="/vat-lieu-moi-thiet-bi-plastic-nganh-nuoc"
+                    >
+                      Vật liệu mới, thiết bị plastic ngành nước
+                    </Link>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>Hệ thống lọc tổng</Breadcrumb.Item>
+                </Breadcrumb> */}
+              </div>
             </div>
             <div className="container">
               <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
@@ -164,7 +180,7 @@ const DetailPage = async ({ params }: { params: any }) => {
                 <IconArrowRight width={20} height={20} />
               </Link>
             </div>
-            {/* <BoxTinTuc data={detailBaiViet.data} /> */}
+            <BoxTinTuc data={recomenData.slice(0, 3)} />
           </div>
         </div>
       </>
@@ -187,7 +203,7 @@ const DetailPage = async ({ params }: { params: any }) => {
           </div>
         </div>
         <div className="container">
-          <BoxTinTuc data={filteredData} />
+          {filteredData.length > 0 ? <BoxTinTuc data={filteredData} /> : <></>}
         </div>
         <div className="py-[40px] container flex justify-center">
           <Pagination
