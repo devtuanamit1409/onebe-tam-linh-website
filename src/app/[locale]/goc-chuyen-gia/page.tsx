@@ -50,6 +50,7 @@ interface tintuc {
 }
 interface chuyengia {
   attributes: {
+    description: string;
     seo: {
       description: string;
       thumbnail: {
@@ -220,7 +221,7 @@ const Page: React.FC = (params: any) => {
       );
     })
     .map((item: tintuc) => item.attributes);
-
+  console.log("dataChuyenGia", dataChuyenGia);
   return (
     <>
       <div className="container">
@@ -237,7 +238,14 @@ const Page: React.FC = (params: any) => {
             </h1>
             <div className="laptop:flex mobile:hidden justify-center pt-5 ">
               <div className="max-w-[40%]">
-                <p className="text-[#637381] leading-7">{t("description")}</p>
+                {dataChuyenGia ? (
+                  <p className="text-[#637381] leading-7">
+                    {dataChuyenGia?.attributes?.description ||
+                      "chưa có data CMS"}
+                  </p>
+                ) : (
+                  <Loading />
+                )}
               </div>
             </div>
           </div>
