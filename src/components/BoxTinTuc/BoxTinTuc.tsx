@@ -22,8 +22,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
               <Link
                 href={item.slug || "/"}
                 key={item.id}
-                className="col-span-12 desktop:col-span-4 mb-[40px]"
-              >
+                className="col-span-12 desktop:col-span-4 mb-[40px]">
                 <div className="relative">
                   <div className="h-[300px] relative overflow-hidden">
                     <div className="abosolute top-0 left-0 ">
@@ -44,11 +43,15 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                   </div>
                 </div>
                 <div className="pt-[24px] pb-[16px]">
-                  <h5 className="text-[#000] font-bold text-[24px] leading-[38.4px]">
+                  <h5
+                    title={item.title}
+                    className="text-[#000] font-bold text-[24px] leading-[38.4px] line-clamp-2 laptop:min-h-[77px]">
                     {item.title}
                   </h5>
                 </div>
-                <p className="text-[#637381] font-[400] leading-[24px]">
+                <p
+                  title={item.seo?.description}
+                  className="text-[#637381] font-[400] leading-[24px] line-clamp-3">
                   {item.seo?.description}
                 </p>
               </Link>

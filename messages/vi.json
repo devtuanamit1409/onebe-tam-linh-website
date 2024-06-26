@@ -1,6 +1,7 @@
 {
   "home": {
     "see_more": "Xem thêm",
+    "see_all": "Xem tất cả",
     "let_see": "Xem chi tiết",
     "read_now": "Đọc ngay",
     "member_company": "Các Công Ty Thành Viên",
@@ -20,6 +21,8 @@
     "products": "Sản phẩm",
     "services": "Dịch vụ",
     "projects": "Dự án",
+    "member_company": "Công ty thành viên",
+    "expertopinion": "Góc chuyên gia",
     "partners": "Đối tác",
     "about_us": "Về chúng tôi",
     "news": "Bài viết liên quan",

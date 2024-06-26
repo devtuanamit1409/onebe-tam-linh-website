@@ -1,9 +1,10 @@
 {
   "home": {
     "see_more": "See more",
+    "see_all": "See all",
     "let_see": "Read details",
     "read_now": "Read now",
-    "member_company": "Partners",
+    "member_company": "Member company",
     "introduce_about_us": "Introduce About Us",
     "visit_our_website": "Visit our website",
     "about_us": "About us",
@@ -21,6 +22,8 @@
     "services": "Services",
     "projects": "Projects",
     "partners": "Partners",
+    "member_company": "Member company",
+    "expertopinion": "Expert Corner",
     "about_us": "About Us",
     "news": "Related Articles",
     "circular_decree": "Circular - Decree"
@@ -37,8 +40,8 @@
     "lastest_news": "Recently"
   },
   "professionalist": {
-    "title": "Professionalist",
-    "expertopinion": "Expert's opinion",
+    "title": "Expert Corner",
+    "expertopinion": "Expert Corner",
     "q&a": "Q&A",
     "sub_title": "We are a team of professionals",
     "description": "We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do. We are a team of professionals who are passionate about what we do."

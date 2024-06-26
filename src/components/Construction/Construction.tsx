@@ -100,13 +100,13 @@ const Construction = async (locale: any) => {
                   <div className="flex-1">
                     <div className="bg-[#F4F7FF] p-[24px] w-full h-full ">
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
-                        <h5 className="text-[#28A645] font-bold">
+                        <h5 className="text-[#28A645] font-bold line-clamp-2">
                           {item.attributes.title}
                         </h5>
-                        <h2 className="text-[18px] font-bold text-[#374151] leading-[28.8px]">
+                        <h2 className="text-[18px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
                           {item.attributes.seo.title}
                         </h2>
-                        <p className="text-[#9CA3AF] leading-[25.6px]">
+                        <p className="text-[#9CA3AF] leading-[25.6px] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
                         <Link
@@ -142,12 +142,12 @@ const Construction = async (locale: any) => {
                     <h2 className="font-bold text-[18px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
                     </h2>
-                    <p className="text-[#9CA3AF] leading-[25.6px]">
+                    <p className="text-[#DFE4EA] leading-[25.6px] line-clamp-3">
                       {item.attributes.seo.description}
                     </p>
                     <Link
                       href={`${locale.locale}${item.attributes.slug}`}
-                      className="flex items-center ">
+                      className="flex items-center mt-[25.6px] ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
                       </span>
@@ -168,7 +168,7 @@ const Construction = async (locale: any) => {
               );
             })}
           </div>
-          <div className="h-[24px] w-full bg-[#3B559E] px-[24px]">
+          <div className="py-[12px] w-full bg-[#3B559E] px-[24px]">
             <hr />
           </div>
           <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
@@ -182,12 +182,12 @@ const Construction = async (locale: any) => {
                     <h2 className="font-bold text-[18px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
                     </h2>
-                    <p className="text-[#9CA3AF] leading-[25.6px]">
+                    <p className="text-[#DFE4EA] leading-[25.6px] line-clamp-3">
                       {item.attributes.seo.description}
                     </p>
                     <Link
                       href={`${locale.locale}/${item.attributes.slug}`}
-                      className="flex items-center ">
+                      className="flex items-center mt-[25.6px] ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
                       </span>
