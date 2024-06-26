@@ -104,6 +104,7 @@ const DetailPage = async ({ params }: { params: any }) => {
           : resBaiViet.data[0]?.attributes?.localizations?.danh_muc_cons
               ?.data[0]?.attributes?.name)
     : "";
+
   const DetailNew = () => {
     return (
       <>
