@@ -110,7 +110,7 @@ const Construction = async (locale: any) => {
                           {item.attributes.seo.description}
                         </p>
                         <Link
-                          href={`${locale.locale}/${item.attributes.slug}`}
+                          href={item.attributes.slug}
                           className="flex items-center ">
                           <span className="text-[#3B559E] font-medium mr-[10px]">
                             {t("read_now")}
@@ -146,7 +146,7 @@ const Construction = async (locale: any) => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={`${locale.locale}${item.attributes.slug}`}
+                      href={item.attributes.slug}
                       className="flex items-center mt-[25.6px] ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
@@ -186,7 +186,7 @@ const Construction = async (locale: any) => {
                       {item.attributes.seo.description}
                     </p>
                     <Link
-                      href={`${locale.locale}/${item.attributes.slug}`}
+                      href={item.attributes.slug}
                       className="flex items-center mt-[25.6px] ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
