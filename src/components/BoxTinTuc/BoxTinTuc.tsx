@@ -25,7 +25,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 className="col-span-12 desktop:col-span-4 mb-[40px]"
               >
                 <div className="relative">
-                  <div className="h-[300px] relative overflow-hidden">
+                  <div className="h-auto max-h-[280px]  relative overflow-hidden">
                     <div className="abosolute top-0 left-0 ">
                       <Image
                         objectFit="containt"
