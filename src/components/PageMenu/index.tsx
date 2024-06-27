@@ -80,8 +80,8 @@ const PageMenu = (props: props): JSX.Element => {
             return (
               <div key={item.id} className="flex w-full">
                 <div className=" flex-col w-full gap-4">
-                  <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold  capitalize leading-[44.80px] flex justify-between items-center mb-8">
-                    <div className="flex items-center gap-6">
+                  <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold   leading-[44.80px] flex justify-between items-center mb-8">
+                    <div className="flex items-center capitalize gap-6">
                       <p>{item.name}</p>
                     </div>
                     <Link

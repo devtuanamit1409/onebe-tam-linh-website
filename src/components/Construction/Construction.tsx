@@ -100,11 +100,11 @@ const Construction = async (locale: any) => {
                   <div className="flex-1">
                     <div className="bg-[#F4F7FF] p-[24px] w-full h-full ">
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
-                        <h5 className="text-[#28A645] font-bold line-clamp-2">
-                          {item.attributes.title}
-                        </h5>
-                        <h2 className="text-[18px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
+                        <h5 className="text-[#28A645] font-bold line-clamp-1">
                           {item.attributes.seo.title}
+                        </h5>
+                        <h2 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
+                          {item.attributes.title}
                         </h2>
                         <p className="text-[#9CA3AF] leading-[25.6px] line-clamp-3">
                           {item.attributes.seo.description}
@@ -131,15 +131,15 @@ const Construction = async (locale: any) => {
           </div>
         </div>
         <div className="col-span-12 laptop:col-span-4 mobile:hidden laptop:block">
-          <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
+          <div className="bg-[#3B559E] h-[280px] p-6">
             {baiviet?.slice(2, 3)?.map((item, key) => {
               return (
                 <>
-                  <div className=" flex flex-col gap-[6px]">
-                    <h5 className="text-[#28A645] font-bold pt-[16px]">
+                  <div className=" flex flex-col gap-[16px]">
+                    <h5 className="text-[#28A645] font-bold">
                       {item.attributes.seo.title}
                     </h5>
-                    <h2 className="font-bold text-[18px] leading-[28.8px] text-[#fff]">
+                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
                     </h2>
                     <p className="text-[#DFE4EA] leading-[25.6px] line-clamp-3">
@@ -147,7 +147,7 @@ const Construction = async (locale: any) => {
                     </p>
                     <Link
                       href={item.attributes.slug}
-                      className="flex items-center mt-[25.6px] ">
+                      className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
                       </span>
@@ -171,15 +171,15 @@ const Construction = async (locale: any) => {
           <div className="py-[12px] w-full bg-[#3B559E] px-[24px]">
             <hr />
           </div>
-          <div className="bg-[#3B559E] h-[280px] py-[16px] px-[24px]">
+          <div className="bg-[#3B559E] h-[280px] p-6">
             {baiviet?.slice(3, 4)?.map((item, key) => {
               return (
                 <>
-                  <div className=" flex flex-col gap-[6px]">
-                    <h5 className="text-[#28A645] font-bold pt-[16px]">
+                  <div className=" flex flex-col gap-[16px]">
+                    <h5 className="text-[#28A645] font-bold">
                       {item.attributes.seo.title}
                     </h5>
-                    <h2 className="font-bold text-[18px] leading-[28.8px] text-[#fff]">
+                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
                     </h2>
                     <p className="text-[#DFE4EA] leading-[25.6px] line-clamp-3">
@@ -187,7 +187,7 @@ const Construction = async (locale: any) => {
                     </p>
                     <Link
                       href={item.attributes.slug}
-                      className="flex items-center mt-[25.6px] ">
+                      className="flex items-center ">
                       <span className="text-[#fff] font-medium mr-[10px]">
                         {t("read_now")}
                       </span>
