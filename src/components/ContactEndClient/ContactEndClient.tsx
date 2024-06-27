@@ -1,12 +1,13 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import CTE_Desktop from "../../../public/images/banner/CTA_Desktop.png";
 import CTE_Mobile from "../../../public/images/banner/CTA_MOBILE.png";
 import CTE_Tablet from "../../../public/images/banner/CTA_TABLET.png";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-const ContactEnd = async () => {
-  const t = await getTranslations("contact_end");
+const ContactEndClient = () => {
+  const t = useTranslations("contact_end");
   return (
     <>
       <div className="py-[80px] relative overflow-hidden">
@@ -74,4 +75,4 @@ const ContactEnd = async () => {
   );
 };
 
-export default ContactEnd;
+export default ContactEndClient;

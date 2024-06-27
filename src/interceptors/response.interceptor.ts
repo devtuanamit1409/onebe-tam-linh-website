@@ -4,12 +4,12 @@ import { AxiosResponse } from "axios";
 export function ResponseInterceptorFulfilled(
   response: AxiosResponse<any>
 ): AxiosResponse<any> | Promise<AxiosResponse<any>> {
-  console.log("RESPONSE INTERCEPTOR FULFILLED");
+  // console.log("RESPONSE INTERCEPTOR FULFILLED");
   return response;
 }
 
 export function ResponseInterceptorRejected(error: any): any {
-  console.log("RESPONSE INTERCEPTOR REJECTED");
+  // console.log("RESPONSE INTERCEPTOR REJECTED");
 
   if (error.response) {
     error.response.data = {

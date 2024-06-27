@@ -110,7 +110,8 @@ const MegaMenu = ({
               : "-translate-y-full top-[0px] opacity-0"
           }`}
           onMouseEnter={() => setIsMenuOpen(true)}
-          onMouseLeave={handleMouseLeave}>
+          onMouseLeave={handleMouseLeave}
+        >
           {activeItem ? (
             <div className="flex justify-between gap-[32.5px] ">
               <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
@@ -122,7 +123,8 @@ const MegaMenu = ({
                 </p>
                 <Link
                   href={activeItem.url || "/"}
-                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                  className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex"
+                >
                   Xem thêm
                 </Link>
               </div>
@@ -229,9 +231,9 @@ const MegaMenu = ({
         null;
     }
   };
-  useEffect(() => {
-    console.log("dataVeChungToi", dataVeChungToi);
-  }, [dataVeChungToi]);
+  // useEffect(() => {
+  //   console.log("dataVeChungToi", dataVeChungToi);
+  // }, [dataVeChungToi]);
 
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (
@@ -243,7 +245,8 @@ const MegaMenu = ({
             : "-translate-y-full top-[0px] opacity-0"
         }`}
         onMouseEnter={() => setIsMenuOpen(true)}
-        onMouseLeave={handleMouseLeave}>
+        onMouseLeave={handleMouseLeave}
+      >
         {loading ? (
           <Loading />
         ) : (
@@ -261,7 +264,8 @@ const MegaMenu = ({
                     href={
                       handleGetEndPoint(dataDanhMuc.attributes.main.name) || "/"
                     }
-                    className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                    className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex"
+                  >
                     Xem thêm
                   </Link>
                 </div>
@@ -275,12 +279,14 @@ const MegaMenu = ({
                         ? megaMenu.slice(0, 3).map((item: any, index: any) => (
                             <div
                               className="flex flex-col items-start gap-4"
-                              key={index}>
+                              key={index}
+                            >
                               <div className="w-full min-h-[108px] gap-4">
                                 <Link
                                   href={item.url}
                                   key={index}
-                                  className="flex gap-2 items-center justify-between">
+                                  className="flex gap-2 items-center justify-between"
+                                >
                                   <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
                                     {item.title}
                                   </p>
@@ -300,10 +306,12 @@ const MegaMenu = ({
                                   .map((child: any, childIndex: any) => (
                                     <div
                                       key={childIndex}
-                                      className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full">
+                                      className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full"
+                                    >
                                       <Link
                                         href={child.slug || "/"}
-                                        className="flex items-center justify-between">
+                                        className="flex items-center justify-between"
+                                      >
                                         {child.title}
                                         {child.icon}
                                       </Link>
@@ -316,12 +324,14 @@ const MegaMenu = ({
                         ? megaMenu.slice(0, 6).map((item: any, index: any) => (
                             <div
                               className="flex flex-col items-start gap-4"
-                              key={index}>
+                              key={index}
+                            >
                               <div className="w-full min-h-[108px] gap-4">
                                 <Link
                                   href={item.url}
                                   key={index}
-                                  className="flex gap-2 items-center justify-between">
+                                  className="flex gap-2 items-center justify-between"
+                                >
                                   <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
                                     {item.title}
                                   </p>
@@ -343,12 +353,14 @@ const MegaMenu = ({
                             .map((item: any, index: any) => (
                               <div
                                 className="flex flex-col items-start gap-4"
-                                key={index}>
+                                key={index}
+                              >
                                 <div className="w-full min-h-[108px] gap-4">
                                   <Link
                                     href={item.url || "."}
                                     key={index}
-                                    className="flex gap-2 items-center justify-between">
+                                    className="flex gap-2 items-center justify-between"
+                                  >
                                     <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
                                       {item.name}
                                     </p>
