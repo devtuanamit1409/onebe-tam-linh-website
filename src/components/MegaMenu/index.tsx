@@ -94,7 +94,8 @@ const MegaMenu = ({
                   <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
                   <div className="flex-1 grid grid-cols-3 gap-[30px]">
                     {activeKey === "Sản phẩm" || activeKey === "Dự án"
-                      ? menuItems[0].danhMuc
+                      ? menuItems[0].danhMuc &&
+                        menuItems[0].danhMuc
                           .slice(0, 3)
                           .map((item: any, index: any) => (
                             <div
@@ -144,7 +145,8 @@ const MegaMenu = ({
                           ))
                       : activeKey === "Dịch vụ" ||
                         activeKey === "Thông tư nghị định"
-                      ? menuItems[0].danhMuc
+                      ? menuItems[0].danhMuc &&
+                        menuItems[0].danhMuc
                           .slice(0, 6)
                           .map((item: any, index: any) => (
                             <div
@@ -171,7 +173,8 @@ const MegaMenu = ({
                             </div>
                           ))
                       : activeKey === "Về chúng tôi"
-                      ? menuItems[0].danhMuc
+                      ? menuItems[0].danhMuc &&
+                        menuItems[0].danhMuc
                           .slice(0, 6)
                           .map((item: any, index: any) => (
                             <div
@@ -205,7 +208,7 @@ const MegaMenu = ({
           )}
         </div>
       ) : (
-        <Loading />
+        ""
       )}
     </>
   );

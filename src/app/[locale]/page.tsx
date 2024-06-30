@@ -266,7 +266,7 @@ const Home: React.FC = async (params: any) => {
                     <h2 className="font-bold laptop:text-[48px] tablet:text-[40px] mobile:text-[28px] text-center">
                       {t("member_company")}
                     </h2>
-                    <p className="pt-[24px] text-[18px] max-w-[572px] font-medium text-center">
+                    <p className="pt-[24px] mobile:text-[16px] tablet:text-[20px] laptop:text-[18px] max-w-[572px] font-medium text-center">
                       {descriptionThanhVien && descriptionThanhVien}
                     </p>
                     <div className="pt-[24px] flex justify-center">
@@ -295,11 +295,11 @@ const Home: React.FC = async (params: any) => {
               <h3 className="text-[#28A645] text-[20px] font-bold">
                 {t("project")}
               </h3>
-              <h2 className="text-[#111928] text-[40px] font-bold py-[16px]">
+              <h2 className="text-[#111928] laptop:text-[48px] tablet:text-[40px] mobile:text-[28px]  mobile:font-[600] laptop:py-[16px]">
                 {t("our_project")}
               </h2>
-              <div className="flex justify-center">
-                <p className="text-[#637381] text-[20px] laptop:w-[572px]">
+              <div className="flex justify-center px-4">
+                <p className="laptop:text-[#637381] tablet:text-[#1F2A37] tablet:text-[20px] mobile:text-base tablet:leading-[32px] laptop:w-[572px] laptop:font-[400] mobile:font-[500] ">
                   {(descriptionDuAn && descriptionDuAn) ||
                     "no content description"}
                 </p>
