@@ -203,7 +203,6 @@ const Page: React.FC = (params: any) => {
       setFilterDanhMuc(name);
     }
   };
-  console.log(tintucWithFilter);
 
   const filteredAndLimitedArticles = tintucWithFilter
     .filter((item: tintuc) => {
@@ -221,7 +220,7 @@ const Page: React.FC = (params: any) => {
       );
     })
     .map((item: tintuc) => item.attributes);
-  console.log("dataChuyenGia", dataChuyenGia);
+
   return (
     <>
       <div className="container">
@@ -283,7 +282,8 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}>
+                  }}
+                >
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -375,7 +375,8 @@ const Page: React.FC = (params: any) => {
                           </div>
                           <h3
                             className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                            title={item.attributes.title}>
+                            title={item.attributes.title}
+                          >
                             {item.attributes.title}
                           </h3>
                           <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
@@ -443,13 +444,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
+                    >
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}>
+                        }`}
+                      >
                         {item.attributes.name}
                       </span>
                     </button>
@@ -464,7 +467,8 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}>
+            onClick={loadMoreArticles}
+          >
             {translate("load_more_news")}
           </button>
         </div>

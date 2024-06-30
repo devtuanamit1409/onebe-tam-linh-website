@@ -108,7 +108,7 @@ async function fetchData(endpoint: any) {
 }
 const page = async (params: any) => {
   let locale = params.params.locale;
-  console.log("locale", locale);
+
   const dataDuAn = await fetchData(
     `${ENDPOINT.GET_DUAN}?${searchParamsDuAn}&locale=${locale}`
   );
@@ -238,7 +238,6 @@ const page = async (params: any) => {
   const baseUrl = process.env.URL_API;
   const t = await getTranslations("detail_post");
 
-  console.log("danhMucDuAn", danhMucDuAn);
   return (
     <div>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
@@ -268,7 +267,8 @@ const page = async (params: any) => {
             </h2>
             <Link
               href={`/${locale}/tin-tuc`}
-              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5">
+              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5"
+            >
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
