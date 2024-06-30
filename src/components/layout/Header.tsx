@@ -252,7 +252,7 @@ const Header = (params: any) => {
             } else {
               danhMuc = await fetchDataMobile(menu.key);
             }
-            console.log("menu.key", menu.key);
+
             const key = handleGetEndPoint(menu.key);
 
             const description = await fetchDescription(key);
@@ -290,9 +290,6 @@ const Header = (params: any) => {
       // }
     }
   };
-  useEffect(() => {
-    console.log(activeItem);
-  }, [activeItem]);
 
   const handleMouseLeave = (event: React.MouseEvent) => {
     const relatedTarget = event.relatedTarget as HTMLElement | null;

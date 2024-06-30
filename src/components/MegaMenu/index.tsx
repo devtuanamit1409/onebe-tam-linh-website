@@ -60,22 +60,6 @@ const MegaMenu = ({
   setIsMenuOpen: (isOpen: boolean) => void;
   handleMouseLeave: (event: React.MouseEvent) => void;
 }) => {
-  const handleGetSlugVeChungToi = (name: any) => {
-    switch (name) {
-      case "Về chúng tôi":
-        return "ve-chung-toi";
-      case "Góc chuyên gia":
-        return "goc-chuyen-gia";
-      case "Công ty thành viên":
-        return "cong-ty-thanh-vien";
-      default:
-        null;
-    }
-  };
-  useEffect(() => {
-    console.log("activeKey", activeKey);
-  }, [activeKey]);
-
   // <>{renderByActiveKey(activeKey, megaMenu)}</>;
   return (
     <>
