@@ -98,6 +98,8 @@ const page: React.FC = async (params: any) => {
   const description = (
     dataDoiTac as { data: { attributes: { description: string } } }
   )?.data?.attributes?.description;
+  const name = (dataDoiTac as { data: { attributes: { name: string } } })?.data
+    ?.attributes?.name;
   const banner = (
     dataDoiTac as {
       data: {
@@ -147,9 +149,9 @@ const page: React.FC = async (params: any) => {
             {t("sub_title")}
           </h5>
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
-            {t("title")}
+            {name ? name : t("title")}
           </h1>
-          <p>{description && description}</p>
+          <p>{description ? description : "chưa gắn description"}</p>
         </div>
       </div>
       <ListMember url={ENDPOINT.GET_DOITAC} locale={locale} />
