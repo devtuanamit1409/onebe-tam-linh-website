@@ -49,6 +49,20 @@ const Footer = async (locale: any) => {
       };
     }
   )?.data?.attributes.sanpham;
+  const giayphep = (
+    dataFooter as {
+      data: {
+        attributes: { giayphep: string };
+      };
+    }
+  )?.data?.attributes.giayphep;
+  const banquyen = (
+    dataFooter as {
+      data: {
+        attributes: { banquyen: string };
+      };
+    }
+  )?.data?.attributes.banquyen;
   const congty = (
     dataFooter as {
       data: {
@@ -256,8 +270,19 @@ const Footer = async (locale: any) => {
         </div>
         <div className=" tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
           <div className="text-center text-white text-base font-normal  leading-normal ">
-            <p>{t("licence")}</p>
-            <p> Copyright 2024 © NTSE.VN</p>
+            <p>{giayphep ? giayphep : t("licence")}</p>
+            <p>
+              {banquyen ? (
+                banquyen
+              ) : (
+                <>
+                  Copyright 2024 © NTSE.VN Design by{" "}
+                  <a target="_blank" href="https://amitgroup.vn/en/">
+                    AMITGROUP
+                  </a>
+                </>
+              )}
+            </p>
           </div>
         </div>
       </footer>

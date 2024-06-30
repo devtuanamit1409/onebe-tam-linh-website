@@ -13,16 +13,14 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 const searchData = {
-  populate: ["main.seo.thumbnail", "danh_muc_bai_viets "].toString(),
+  populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
 };
-const searchDataDanhMuc = {
-  populate: ["bai_viets.seo", "danh_muc_cons.bai_viets.seo "].toString(),
-};
+
 const searhDichVu = {
   populate: ["main.seo.thumbnail", "main.banner.urlImage"].toString(),
 };
 const searchParamsDichVu = new URLSearchParams(searhDichVu).toString();
-const searchParamsSanPham = new URLSearchParams(searchDataDanhMuc).toString();
+
 const searchParams = new URLSearchParams(searchData).toString();
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataVeChungToi = await fetchData(
@@ -223,6 +221,7 @@ const page = async (params: any) => {
       : item.attributes.slug === "regulations-ordinances"
   );
   const t = await getTranslations("detail_post");
+  const translate = await getTranslations("menu");
 
   return (
     <div>
@@ -249,7 +248,7 @@ const page = async (params: any) => {
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
             <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
-              Tin Tức
+              {translate("news")}
             </h2>
             <Link
               href={`/${locale}/tin-tuc`}
@@ -257,6 +256,7 @@ const page = async (params: any) => {
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
+
           <BoxTinTuc data={tintuc.slice(0, 3)} />
         </div>
       </div>
