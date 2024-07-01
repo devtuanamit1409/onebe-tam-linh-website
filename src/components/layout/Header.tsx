@@ -144,13 +144,13 @@ const Header = (params: any) => {
         },
         {
           id: 2,
-          name: "Góc chuyên gia",
+          name: t("expertopinion"),
           description: gocChuyenGia.attributes.description,
           slug: "/goc-chuyen-gia",
         },
         {
           id: 3,
-          name: "Công ty thành viên",
+          name: t("member_company"),
           description: congTyThanhVien.attributes.description,
           slug: "/cong-ty-thanh-vien",
         },
