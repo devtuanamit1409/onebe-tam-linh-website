@@ -151,7 +151,9 @@ const page: React.FC = async (params: any) => {
           <h1 className="text-[24px] desktop:text-[54px] font-bold">
             {name ? name : t("title")}
           </h1>
-          <p>{description ? description : "chưa gắn description"}</p>
+          <p className="text-[20px] leading-[24px] text-[#637381] font-[500]">
+            {description ? description : "chưa gắn description"}
+          </p>
         </div>
       </div>
       <ListMember url={ENDPOINT.GET_DOITAC} locale={locale} />

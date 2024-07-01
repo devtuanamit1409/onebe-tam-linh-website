@@ -21,6 +21,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
   const [totalSlides, setTotalSlides] = useState<number>(0);
   const swiperRef = useRef<SwiperClass | null>(null);
   const t = useTranslations("home");
+  const translate = useTranslations("detail_post");
   const onPrev = (): void => {
     swiperRef.current?.slidePrev();
   };
@@ -59,14 +60,14 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                   <div className="absolute top-[15%] left-[5%]">
                     <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-[400]">
                       {item?.danh_muc_bai_viets?.data[0]?.attributes?.name ||
-                        "Mới đây"}
+                        translate("lastest_news_tag")}
                     </span>
                   </div>
                 </div>
-                <h1 className="desktop:text-[40px] laptop:text-[28px] mobile:text-[18px] tablet:text-[#374151] mobile:text-black font-bold">
+                <h1 className="desktop:text-[40px] laptop:text-[28px] mobile:text-[18px] leading-[56px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-3">
                   {item.title}
                 </h1>
-                <p className="py-[24px] desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] mobile:text-black">
+                <p className="my-[24px] desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] laptop:leading-[38.4px] mobile:text-black line-clamp-5">
                   {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">

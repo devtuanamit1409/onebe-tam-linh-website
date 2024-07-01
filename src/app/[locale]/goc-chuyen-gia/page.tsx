@@ -132,7 +132,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTuc = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Góc chuyên gia`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintuc(response.data);
       setLoading(false);
@@ -143,7 +143,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTucWithFilter = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Bài viết chuyên gia&pagination[pageSize]=${displayedCount}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Góc chuyên gia&pagination[pageSize]=${displayedCount}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
@@ -221,6 +221,21 @@ const Page: React.FC = (params: any) => {
     })
     .map((item: tintuc) => item.attributes);
 
+  const checkIfCreatedWithin24Hours = (createdAtStr: string): boolean => {
+    const createdAt = new Date(createdAtStr);
+    const now = new Date();
+    const timeDifference = now.getTime() - createdAt.getTime();
+    return timeDifference <= 24 * 60 * 60 * 1000; // 24 giờ tính bằng milliseconds
+  };
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <>
       <div className="container">
@@ -282,8 +297,7 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}
-                >
+                  }}>
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -347,8 +361,7 @@ const Page: React.FC = (params: any) => {
             <TintucNoibat
               data={tintuc
                 .filter(
-                  (item: tintuc) =>
-                    item.attributes.type === "Bài viết chuyên gia"
+                  (item: tintuc) => item.attributes.type === "Góc chuyên gia"
                 )
                 .map((item: tintuc) => item.attributes)
                 .filter((item) => item?.bai_viet_tieu_diem === true)
@@ -357,54 +370,53 @@ const Page: React.FC = (params: any) => {
             />
           </div>
           <div className="mobile:col-span-12 tablet:col-span-6">
-            {tintuc
-              .filter(
-                (item: tintuc) => item.attributes.type === "Bài viết chuyên gia"
-              )
-              .map((item, key) => {
-                return (
-                  <div key={key} className="pb-[32px]">
-                    <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                      <div className="tablet:col-span-6 mobile:col-span-12">
-                        <div className="flex flex-col gap-[16px]">
-                          <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                            <div className="text-[#3B559E] text-base font-normal leading-normal">
-                              {item?.attributes.danh_muc_bai_viets?.data[0]
-                                ?.attributes?.name || "Bài viết"}
-                            </div>
-                          </div>
-                          <h3
-                            className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
-                            title={item.attributes.title}
-                          >
-                            {item.attributes.title}
-                          </h3>
-                          <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
-                            {item.attributes.seo.description}
-                          </p>
-                          <div className="flex justify-start">
-                            <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
-                              {text("read_now")}
-                            </button>
+            {tintuc.slice(0, 3).map((item, key) => {
+              console.log("item", item);
+              return (
+                <div key={key} className="pb-[32px]">
+                  <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
+                    <div className="tablet:col-span-6 mobile:col-span-12">
+                      <div className="flex flex-col gap-[16px]">
+                        <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                          <div className="text-[#3B559E] text-base font-normal leading-normal">
+                            {item?.attributes.danh_muc_bai_viets?.data[0]
+                              ?.attributes?.name || "Bài viết"}
                           </div>
                         </div>
-                      </div>
-                      <div className="tablet:col-span-6 mobile:col-span-12 ">
-                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
-                          <Image
-                            // height={196}
-                            // width={196}
-                            src={demo_tin_tuc_2}
-                            fill
-                            objectFit="cover"
-                            alt="tin-tuc-moi-len"
-                          />
+                        <h3
+                          className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
+                          title={item.attributes.title}>
+                          {item.attributes.title}
+                        </h3>
+                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
+                          {item.attributes.seo.description}
+                        </p>
+                        <div className="flex justify-start">
+                          <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                            {text("read_now")}
+                          </button>
                         </div>
                       </div>
                     </div>
+                    <div className="tablet:col-span-6 mobile:col-span-12 ">
+                      <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
+                        <Image
+                          // height={196}
+                          // width={196}
+                          src={
+                            `${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}` ||
+                            demo_tin_tuc_2
+                          }
+                          fill
+                          objectFit="cover"
+                          alt="tin-tuc-moi-len"
+                        />
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -444,15 +456,13 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
-                    >
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}
-                      >
+                        }`}>
                         {item.attributes.name}
                       </span>
                     </button>
@@ -467,8 +477,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}
-          >
+            onClick={loadMoreArticles}>
             {translate("load_more_news")}
           </button>
         </div>

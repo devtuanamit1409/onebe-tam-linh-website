@@ -26,6 +26,7 @@ interface danhMucBaiViet {
 interface tintuc {
   id: number;
   attributes: {
+    createdAt: string;
     title: string;
     slug: string;
     type: string;
@@ -66,7 +67,7 @@ const Page: React.FC = (params: any) => {
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
   >([]);
-  const [displayedCount, setDisplayedCount] = useState(3);
+  const [displayedCount, setDisplayedCount] = useState(6);
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
   const [loading, setLoading] = useState(false);
@@ -87,7 +88,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTuc = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Tin tức `;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Tin tức&sort=createdAt:DESC `;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintuc(response.data);
       setLoading(false);
@@ -98,7 +99,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTucWithFilter = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Tin tức&pagination[pageSize]=${displayedCount}`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Tin tức&pagination[pageSize]=${displayedCount}&sort=createdAt:DESC`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
@@ -150,9 +151,24 @@ const Page: React.FC = (params: any) => {
     })
     .map((item: tintuc) => item?.attributes);
   const loadMoreArticles = () => {
-    setDisplayedCount((prevCount) => prevCount + 3);
+    setDisplayedCount((prevCount) => prevCount + 6);
   };
   const t = useTranslations("detail_post");
+
+  const checkIfCreatedWithin24Hours = (createdAtStr: string): boolean => {
+    const createdAt = new Date(createdAtStr);
+    const now = new Date();
+    const timeDifference = now.getTime() - createdAt.getTime();
+    return timeDifference <= 24 * 60 * 60 * 1000; // 24 giờ tính bằng milliseconds
+  };
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <>
@@ -171,15 +187,22 @@ const Page: React.FC = (params: any) => {
               {t("lastest_news")}
             </h2>
             {tintuc &&
-              tintuc.map((item) => {
+              tintuc.slice(0, 3).map((item) => {
+                console.log("item", item.attributes.createdAt);
                 return (
                   <div key={item.id} className="py-[16px]">
                     <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
                       <div className="tablet:col-span-7 mobile:col-span-12">
                         <div className="flex flex-col gap-[16px]">
-                          <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                          <div className="w-[108px] h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
                             <div className="text-[#3B559E] text-base font-normal leading-normal">
-                              {t("lastest_news")}
+                              {item.attributes.createdAt
+                                ? checkIfCreatedWithin24Hours(
+                                    item.attributes.createdAt
+                                  )
+                                  ? t("lastest_news_tag")
+                                  : formatDate(item.attributes.createdAt)
+                                : t("lastest_news_tag")}
                             </div>
                           </div>
                           <h3 className="text-[20px] text-[#374151] font-bold line-clamp-2">
@@ -191,8 +214,7 @@ const Page: React.FC = (params: any) => {
                           <div className="flex justify-start">
                             <Link
                               href={`/${item.attributes.slug}`}
-                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
-                            >
+                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                               {t("read_now")}
                             </Link>
                           </div>
@@ -253,15 +275,13 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
-                    >
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}
-                      >
+                        }`}>
                         {item?.attributes?.name}
                       </span>
                     </button>
@@ -280,8 +300,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}
-          >
+            onClick={loadMoreArticles}>
             {t("load_more_news")}
           </button>
         </div>

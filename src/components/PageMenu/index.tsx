@@ -103,7 +103,9 @@ const PageMenu = (props: props): JSX.Element => {
                         onClick={() => handleMenuClick(child.attributes.title)}>
                         <div
                           className={`flex w-full justify-between items-center `}>
-                          {child.attributes.title}
+                          <p className="line-clamp-1">
+                            {child.attributes.title}
+                          </p>
                           <div
                             className={`transform transition-transform duration-300 p-4 ${
                               activeMenu === child.attributes.title
@@ -121,7 +123,7 @@ const PageMenu = (props: props): JSX.Element => {
                               ? "max-h-96 pb-4 mt-4"
                               : "max-h-0"
                           }`}>
-                          <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none">
+                          <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none line-clamp-2">
                             {child.attributes?.seo?.description ||
                               "Không có hoặc chưa CMS seo.description"}
                           </p>
