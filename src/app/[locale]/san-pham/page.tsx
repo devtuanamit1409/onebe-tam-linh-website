@@ -222,7 +222,7 @@ const page = async (params: any) => {
           <h2 className="text-black text-[54px] font-bold  capitalize leading-normal">
             {sanPham?.name || "chưa có content CMS"}
           </h2>
-          <p className="text-gray-500 text-xl font-medium  leading-normal desktop:px-[120px]">
+          <p className="text-gray-500 text-xl font-medium  leading-normal desktop:px-[120px] text-center">
             {sanPham?.description || "chưa có content CMS"}
           </p>
         </div>
