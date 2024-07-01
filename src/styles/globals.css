@@ -34,19 +34,20 @@ body {
 }
 
 .blog-content {
-  /* padding: 40px 120px; */
   h2 {
+    margin-top: 24px;
     margin-bottom: 64px;
     color: var(--Dark-Dark-2, #1f2a37);
     font-size: 48px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 48px; /* 50% */
+    font-weight: 600;
+    line-height: 51.2px; /* 50% */
 
     @media (min-width: 360px) and (max-width: 1023px) {
       margin-bottom: 24px;
     }
   }
+
   h3 {
     margin: 12px 0;
     color: #000;
