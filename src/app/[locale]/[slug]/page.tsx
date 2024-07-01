@@ -253,7 +253,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
   const dataBaiViet =
     locale === "vi"
       ? detailBaiViet[0]?.attributes?.content
-      : detailBaiViet[0]?.attributes?.localizations.data[0].attributes.content;
+      : detailBaiViet[0]?.attributes?.localizations?.data[0].attributes
+          ?.content;
 
   let breadcum: any;
   let subBreadcum: any;
@@ -470,21 +471,21 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     <>
       {checkLastSegmentIsNumeric(slug) ? (
         <MetaData
-          seoTitle={seoCategory.title}
-          seoDescription={seoCategory.description}
-          seoKeywords={seoCategory.keyword}
+          seoTitle={seoCategory?.title}
+          seoDescription={seoCategory?.description}
+          seoKeywords={seoCategory?.keyword}
           seoAuthor="Công ty xử lý nước NTS"
-          seoImage={`${baseUrl}${seoCategory.thumbnail?.data?.attributes?.url}`}
+          seoImage={`${baseUrl}${seoCategory?.thumbnail?.data?.attributes?.url}`}
           seoUrl={baseUrl}
           seoType="website"
         />
       ) : (
         <MetaData
-          seoTitle={seoDetailNews.title}
-          seoDescription={seoDetailNews.description}
-          seoKeywords={seoDetailNews.keyword}
+          seoTitle={seoDetailNews?.title}
+          seoDescription={seoDetailNews?.description}
+          seoKeywords={seoDetailNews?.keyword}
           seoAuthor="Công ty xử lý nước NTS"
-          seoImage={`${baseUrl}${seoDetailNews.thumbnail?.data?.attributes?.url}`}
+          seoImage={`${baseUrl}${seoDetailNews?.thumbnail?.data?.attributes?.url}`}
           seoUrl={baseUrl}
           seoType="website"
         />

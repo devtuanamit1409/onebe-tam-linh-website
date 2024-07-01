@@ -182,10 +182,10 @@ const Page: React.FC = (params: any) => {
                               {t("lastest_news")}
                             </div>
                           </div>
-                          <h3 className="text-[20px] text-[#374151] font-[500]">
+                          <h3 className="text-[20px] text-[#374151] font-bold line-clamp-2">
                             {item?.attributes?.seo?.description || "có lỗi"}
                           </h3>
-                          <p className="text-[18px] text-[#8899A8]">
+                          <p className="text-[18px] text-[#8899A8] line-clamp-3">
                             {item?.attributes?.seo?.description || "có lỗi"}
                           </p>
                           <div className="flex justify-start">

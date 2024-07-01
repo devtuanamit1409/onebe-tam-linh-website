@@ -22,12 +22,13 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
               <Link
                 href={item.slug || "/"}
                 key={item.id}
-                className="col-span-12 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto">
+                className="col-span-12 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto"
+              >
                 <div className="relative">
                   <div className=" max-h-[280px] h-[280px] relative overflow-hidden bg-slate-200">
                     <div className="abosolute top-0 left-0  w-full h-full flex items-center justify-center">
                       <Image
-                        objectFit="containt"
+                        objectFit="contain"
                         alt="tin-tuc"
                         src={`${baseUrl}${item.seo?.thumbnail?.data?.attributes?.url}`}
                         layout="responsive"
@@ -45,13 +46,15 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 <div className="pt-[24px] pb-[16px]">
                   <h5
                     title={item.title}
-                    className="text-[#000] font-bold text-[24px] leading-[38.4px] line-clamp-2 laptop:min-h-[77px]">
+                    className="text-[#000] font-bold text-[24px] leading-[38.4px] line-clamp-2 laptop:min-h-[77px]"
+                  >
                     {item.title}
                   </h5>
                 </div>
                 <p
                   title={item.seo?.description}
-                  className="text-[#637381] font-[400] leading-[24px] line-clamp-3">
+                  className="text-[#637381] font-[400] leading-[24px] line-clamp-3"
+                >
                   {item.seo?.description}
                 </p>
               </Link>
