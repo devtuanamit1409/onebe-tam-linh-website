@@ -24,8 +24,8 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 key={item.id}
                 className="col-span-12 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto">
                 <div className="relative">
-                  <div className="h-auto max-h-[280px]  relative overflow-hidden">
-                    <div className="abosolute top-0 left-0 ">
+                  <div className=" max-h-[280px] h-[280px] relative overflow-hidden bg-slate-200">
+                    <div className="abosolute top-0 left-0  w-full h-full flex items-center justify-center">
                       <Image
                         objectFit="containt"
                         alt="tin-tuc"
