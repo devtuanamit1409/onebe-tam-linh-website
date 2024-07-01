@@ -96,11 +96,11 @@ const ListMember = ({ url, locale }: UrlProps) => {
               key={item.id}
               className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] "
             >
-              <div className="border border-[#DFE4EA] desktop:h-[450px] mobile:h-[400px] relative">
+              <div className="border border-[#DFE4EA] desktop:h-[450px] mobile:h-[500px] relative">
                 <div className="px-[24px] pb-[24px] pt-[100px] flex flex-col justify-between h-full">
                   <div className="flex flex-col gap-[24px]">
                     <div className="flex justify-center ">
-                      <div className="max-w-[190px] overflow-hidden">
+                      <div className="max-w-[190px] h-[100px] overflow-hidden">
                         <Image
                           src={item.logo ? baseUrl + item.logo.url : ""}
                           alt={item.title}
