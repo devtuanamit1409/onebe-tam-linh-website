@@ -177,6 +177,7 @@ const page = async (params: any) => {
       };
     }
   )?.data?.attributes?.main.videoAbout?.data?.attributes;
+  console.log("videoAbout", videoAbout);
   const cacTongThau = (
     dataVeChungToi as {
       data: {
@@ -263,14 +264,6 @@ const page = async (params: any) => {
                         className="rounded-[32px]"
                       />
                     ))}
-                {/* <Image
-                  src="/images/ve-chung-toi/banner-ve-chung-toi.jpg"
-                  layout="responsive"
-                  width={1920}
-                  height={1080}
-                  alt="Về chúng tôi"
-                  className="rounded-[32px]"
-                /> */}
               </div>
             </div>
           </div>
