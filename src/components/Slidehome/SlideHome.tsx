@@ -52,9 +52,10 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
               <Image
                 src={`${baseUrl}${item.urlImage.data.attributes.url}`}
                 alt="Slide Home"
-                layout="responsive"
-                width={1000}
-                height={1000}
+                layout="fill"
+                // width={1000}
+                // height={1000}
+                objectFit="cover"
               />
               {/* asndashdaskdhlsandlasbkdjsalkdb */}
               <div
