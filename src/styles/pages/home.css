@@ -30,10 +30,12 @@
 
 .image-container {
   position: relative;
+  height: calc(100vh - 100px);
+  min-height: 600px;
 }
-.image-container img {
+/* .image-container img {
   height: 800px !important;
-}
+} */
 
 .progress-bar-fill {
   background-color: #28a645;
@@ -85,18 +87,18 @@
   background-image: url("../../../public/images/home/bg-gioi-thieu.png");
   background-size: cover;
 } */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .image-container img {
     height: 600px !important;
   }
-  /* .section-gioi-thieu {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  } */
-}
+ 
+} */
 
 @media (max-width: 1439px) {
   .content-baner {
     transform: translateY(-50%);
+  }
+  .image-container {
+    height: 600px !important;
   }
 }
