@@ -64,10 +64,10 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
     <>
       <Swiper
         spaceBetween={30}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 0,
+        //   disableOnInteraction: false,
+        // }}
         loop={true}
         pagination={{
           clickable: true,
@@ -79,7 +79,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
             <SwiperSlide key={key}>
               <div className="py-[24px] px-[16px]">
                 <div className="flex flex-col gap-[24px] pt-[10%]">
-                  <div className="flex justify-center">
+                  <div className="flex justify-center max-h-[50px] max-w-[200px] mx-auto">
                     <Image
                       src={`${baseUrl}${item.logo?.data?.attributes?.url}`}
                       alt="logo"
