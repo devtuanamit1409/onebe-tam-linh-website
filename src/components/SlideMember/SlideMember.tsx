@@ -65,7 +65,7 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
       <Swiper
         spaceBetween={30}
         autoplay={{
-          delay: 0,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         loop={true}
