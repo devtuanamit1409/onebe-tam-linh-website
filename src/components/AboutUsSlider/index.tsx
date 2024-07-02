@@ -69,7 +69,7 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
       {dataBoxService && (
         <Swiper
           slidesPerView={"auto"}
-          spaceBetween={30}
+          // spaceBetween={10}
           slidesPerGroupSkip={1}
           centeredSlides={false}
           speed={800}
@@ -79,28 +79,23 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
           }}
           loop={true}
           grabCursor={true}
-          // breakpoints={{
-          //   400: {
-          //     slidesPerView: 2,
-          //     spaceBetween: 12,
-          //   },
-          //   640: {
-          //     slidesPerView: 2,
-          //     spaceBetween: 12,
-          //   },
-          //   768: {
-          //     slidesPerView: 2,
-          //     spaceBetween: 12,
-          //   },
-          //   1024: {
-          //     slidesPerView: 3,
-          //     spaceBetween: 20,
-          //   },
-          //   1440: {
-          //     slidesPerView: 3,
-          //     spaceBetween: 50,
-          //   },
-          // }}
+          breakpoints={{
+            360: {
+              spaceBetween: 10,
+            },
+            640: {
+              spaceBetween: 20,
+            },
+            768: {
+              spaceBetween: 20,
+            },
+            1024: {
+              spaceBetween: 20,
+            },
+            1440: {
+              spaceBetween: 50,
+            },
+          }}
           modules={[Navigation]}
           className="about-us-slider">
           {data?.map((item, index) => (
