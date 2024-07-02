@@ -20,7 +20,7 @@ async function fetchData(endpoint: any) {
 }
 const Construction = async (locale: any) => {
   const t = await getTranslations("home");
-  // console.log("locale:", locale);
+
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_HOME}?${searchParams}&locale=${locale.locale}`
   );

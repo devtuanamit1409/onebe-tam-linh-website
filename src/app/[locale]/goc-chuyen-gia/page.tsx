@@ -99,7 +99,7 @@ const Page: React.FC = (params: any) => {
   const [tintuc, setTintuc] = useState<tintuc[]>([]);
   const [tintucWithFilter, setTintucWithFilter] = useState<tintuc[]>([]);
   const [loading, setLoading] = useState(false);
-  const [displayedCount, setDisplayedCount] = useState(3);
+  const [displayedCount, setDisplayedCount] = useState(6);
   const [dataChuyenGia, setDataChuyenGia] = useState<chuyengia>();
   const [dataDanhMucBaiViet, setDataDanhMucBaiViet] = useState<
     danhMucBaiViet[]
@@ -170,7 +170,7 @@ const Page: React.FC = (params: any) => {
     }
   };
   const loadMoreArticles = () => {
-    setDisplayedCount((prevCount) => prevCount + 3);
+    setDisplayedCount((prevCount) => prevCount + 6);
   };
   useEffect(() => {
     fetchDataTinTucWithFilter();
@@ -276,18 +276,27 @@ const Page: React.FC = (params: any) => {
                     640: {
                       slidesPerView: 1,
                       spaceBetween: 10,
+                      slidesPerGroup: 1, // Điều chỉnh số slide di chuyển theo từng breakpoint
                     },
                     744: {
                       slidesPerView: 1,
                       spaceBetween: 10,
+                      slidesPerGroup: 1,
                     },
                     920: {
                       slidesPerView: 2,
                       spaceBetween: 10,
+                      slidesPerGroup: 2,
                     },
                     1024: {
+                      slidesPerView: 3,
+                      spaceBetween: 10,
+                      slidesPerGroup: 3,
+                    },
+                    1440: {
                       slidesPerView: 4,
                       spaceBetween: 10,
+                      slidesPerGroup: 4,
                     },
                   }}
                   modules={[Navigation]}
@@ -303,7 +312,7 @@ const Page: React.FC = (params: any) => {
                       (item, key) => {
                         return (
                           <SwiperSlide key={key}>
-                            <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto">
+                            <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto overflow-hidden">
                               <Image
                                 src={`${baseUrl}${item.avatar?.data?.attributes?.url}`}
                                 alt={item.avatar?.data?.attributes?.name}
@@ -311,11 +320,11 @@ const Page: React.FC = (params: any) => {
                                 height={100}
                                 layout="responsive"
                               />
-                              <div className="px-[32px] py-[16px] bg-[#F5F3FF] text-center absolute bottom-[10%] left-1/2 transform -translate-x-1/2 w-max">
-                                <h2 className="text-[#3B559E] font-semibold">
+                              <div className="desktop:px-[32px] laptop:px-[8px] mobile:px-[16px] py-[16px] bg-[#F5F3FF] text-center absolute mobile:top-[80%] tablet:top-[70%] laptop:top-[63%] desktop:top-[70%] left-1/2 transform -translate-x-1/2 w-max min-w-[140px] desktop:max-w-[263px] laptop:max-w-[234px] ">
+                                <h2 className="text-[#3B559E] font-semibold line-clamp-1">
                                   {item.name}
                                 </h2>
-                                <span className="text-[12px] text-[#637381]">
+                                <span className="text-[12px] text-[#637381] line-clamp-2">
                                   {item.position}
                                 </span>
                               </div>
@@ -371,7 +380,6 @@ const Page: React.FC = (params: any) => {
           </div>
           <div className="mobile:col-span-12 tablet:col-span-6">
             {tintuc.slice(0, 3).map((item, key) => {
-              console.log("item", item);
               return (
                 <div key={key} className="pb-[32px]">
                   <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
@@ -384,11 +392,11 @@ const Page: React.FC = (params: any) => {
                           </div>
                         </div>
                         <h3
-                          className="laptop:text-[20px] mobile:text-base text-[#374151] font-[500] line-clamp-2"
+                          className="laptop:text-[20px] mobile:text-base laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
                           title={item.attributes.title}>
                           {item.attributes.title}
                         </h3>
-                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-2">
+                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
                         <div className="flex justify-start">
@@ -423,7 +431,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px]">
           <hr />
         </div>
-        <div className="flex justify-between ">
+        <div className="flex tablet:flex-row mobile:flex-col  justify-between gap-4">
           <div>
             <h2 className="text-[35px] font-bold">{t("q&a")}</h2>
           </div>
