@@ -334,10 +334,10 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
           <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
-            <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
+            <h5 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium">
               {detailSubCategory[0]?.attributes?.category}
             </h5>
-            <h1 className="text-[24px] desktop:text-[54px] font-bold">
+            <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold">
               {detailSubCategory[0]?.attributes?.name}
             </h1>
             <p className="text-[#8899A8]">
@@ -418,10 +418,10 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </div>
             </div>
             <div className="container">
-              <p className="text-center text-green-600 text-xl font-medium leading-normal tablet:my-6 mobile:my-4">
+              <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
                 {breadcum}
               </p>
-              <h2 className="text-gray-800 text-5xl font-bold leading-normal text-center">
+              <h2 className="text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center">
                 {detailBaiViet[0]?.attributes?.title}
               </h2>
 
