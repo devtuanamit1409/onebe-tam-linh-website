@@ -60,10 +60,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log("mobileMenu", mobileMenu);
-  // }, [mobileMenu]);
-
   const [currentMenu, setCurrentMenu] = useState<MenuItem[]>([]);
   const [breadcrumb, setBreadcrumb] = useState<MenuItem[]>([]);
   const [previousMenu, setPreviousMenu] = useState<MenuItem[]>([]);

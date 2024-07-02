@@ -134,10 +134,12 @@ const MegaMenu = ({
                                           title={child.title}>
                                           {child.title}
                                         </p>
-                                        <IconAngleRight
-                                          width="16"
-                                          height="16"
-                                        />
+                                        <span>
+                                          <IconAngleRight
+                                            width="16"
+                                            height="16"
+                                          />
+                                        </span>
                                       </Link>
                                     </div>
                                   ))}

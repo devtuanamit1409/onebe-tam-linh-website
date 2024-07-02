@@ -80,11 +80,6 @@ const Page: React.FC = (params: any) => {
     return () => clearTimeout(handler);
   }, [searchValue]);
 
-  // useEffect(() => {
-  //   if (debouncedSearchValue) {
-  //     console.log("Searching for:", debouncedSearchValue);
-  //   }
-  // }, [debouncedSearchValue]);
   const fetchDataTinTuc = async () => {
     try {
       setLoading(true);
@@ -188,7 +183,6 @@ const Page: React.FC = (params: any) => {
             </h2>
             {tintuc &&
               tintuc.slice(0, 3).map((item) => {
-                console.log("item", item.attributes.createdAt);
                 return (
                   <div key={item.id} className="py-[16px]">
                     <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
@@ -206,7 +200,7 @@ const Page: React.FC = (params: any) => {
                             </div>
                           </div>
                           <h3 className="text-[20px] text-[#374151] font-bold line-clamp-2">
-                            {item?.attributes?.seo?.description || "có lỗi"}
+                            {item?.attributes?.title || "có lỗi"}
                           </h3>
                           <p className="text-[18px] text-[#8899A8] line-clamp-3">
                             {item?.attributes?.seo?.description || "có lỗi"}
@@ -242,7 +236,7 @@ const Page: React.FC = (params: any) => {
           <hr />
         </div>
 
-        <div className="flex tablet:flex-row mobile:flex-col  justify-between ">
+        <div className="flex tablet:flex-row mobile:flex-col  justify-between gap-4">
           <div>
             <h2 className="text-[35px] font-bold">{t("news")}</h2>
           </div>

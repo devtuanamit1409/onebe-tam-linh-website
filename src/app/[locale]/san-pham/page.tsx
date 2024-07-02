@@ -219,10 +219,10 @@ const page = async (params: any) => {
       </div>
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
-          <h2 className="text-black text-[54px] font-bold  capitalize leading-normal">
+          <h2 className="text-black mobile:text-[32px] tablet:text-[40px] desktop:text-[54px] font-bold  capitalize leading-normal">
             {sanPham?.name || "chưa có content CMS"}
           </h2>
-          <p className="text-gray-500 text-xl font-medium  leading-normal desktop:px-[120px] text-center">
+          <p className="text-gray-500 text-xl font-medium mobile:text-[16px] tablet:text-[20px]   leading-normal desktop:px-[120px] text-center">
             {sanPham?.description || "chưa có content CMS"}
           </p>
         </div>

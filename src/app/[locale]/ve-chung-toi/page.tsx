@@ -101,7 +101,6 @@ const page = async (params: any) => {
   const dataTinTuc = await fetchData(
     `${ENDPOINT.GET_BAIVIET}?${searchParams}&locale=${locale}`
   );
-  // console.log("dataVeChungToi", dataVeChungToi);
 
   const baiViet = dataTinTuc as {
     data: {
@@ -177,7 +176,7 @@ const page = async (params: any) => {
       };
     }
   )?.data?.attributes?.main.videoAbout?.data?.attributes;
-  console.log("videoAbout", videoAbout);
+
   const cacTongThau = (
     dataVeChungToi as {
       data: {

@@ -64,10 +64,10 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     </span>
                   </div>
                 </div>
-                <h1 className="desktop:text-[40px] laptop:text-[28px] mobile:text-[18px] leading-[56px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-3">
+                <h1 className="desktop:text-[40px] mt-4 laptop:text-[28px] mobile:text-[18px] laptop:leading-[56px] mobile:leading-[25.2px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-3">
                   {item.title}
                 </h1>
-                <p className="my-[24px] desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] laptop:leading-[38.4px] mobile:text-black line-clamp-5">
+                <p className="tablet:my-[24px] mobile:my-4 desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] laptop:leading-[38.4px] mobile:text-black line-clamp-5">
                   {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">

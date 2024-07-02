@@ -64,10 +64,10 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
     <>
       <Swiper
         spaceBetween={30}
-        // autoplay={{
-        //   delay: 0,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 0,
+          disableOnInteraction: false,
+        }}
         loop={true}
         pagination={{
           clickable: true,
