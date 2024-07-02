@@ -444,7 +444,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
         <div className="bg-[#F3F6FE] py-[80px]">
           <div className="container">
             <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-              <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
+              <h2 className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
                 {t("title_post")}
               </h2>
               <Link
