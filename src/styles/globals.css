@@ -102,6 +102,9 @@ body {
 .sliderContainer {
   width: 100%;
   overflow: hidden;
+  img {
+    max-height: 100px;
+  }
 }
 
 /* .branding-slider {
