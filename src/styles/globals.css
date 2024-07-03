@@ -92,6 +92,11 @@ body {
     justify-content: start;
   }
 }
+@media (min-width: 744px) and (max-width: 1023px) {
+  .about-us-slider > .swiper-wrapper {
+    margin: 0 16px;
+  }
+}
 @media (min-width: 744px) {
   .about-us-slider > .swiper-wrapper {
     display: flex;
