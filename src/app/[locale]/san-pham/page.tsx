@@ -12,6 +12,7 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import { useEffect } from "react";
 import { getTranslations } from "next-intl/server";
+import Loading from "@/components/Loading";
 const searchData = {
   populate: ["seo.thumbnail", "danh_muc_bai_viets"].toString(),
 };
