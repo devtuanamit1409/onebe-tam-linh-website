@@ -87,11 +87,18 @@ body {
 }
 @media (min-width: 360px) and (max-width: 743px) {
   .about-us-slider > .swiper-wrapper {
+    margin: 0 16px;
     display: flex;
     justify-content: start;
   }
 }
 @media (min-width: 744px) {
+  .about-us-slider > .swiper-wrapper {
+    display: flex;
+    /* justify-content: center; */
+  }
+}
+@media (min-width: 1023px) {
   .about-us-slider > .swiper-wrapper {
     display: flex;
     justify-content: center;
