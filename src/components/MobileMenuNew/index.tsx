@@ -166,17 +166,19 @@ const MobileMenuNew = ({
                           {danhMucItem.name}
                         </Link>
                       </Menu.Item>
-                      {danhMucItem.baiViet.map((baiVietItem: any) => (
-                        <Menu.Item
-                          key={baiVietItem.slug}
-                          className="text-[#3B559E] text-base font-normal leading-relaxed">
-                          <Link
-                            href={baiVietItem.slug}
-                            className="!text-gray-500 !text-base !font-normal leading-relaxed">
-                            {baiVietItem.title}
-                          </Link>
-                        </Menu.Item>
-                      ))}
+                      {danhMucItem.baiViet
+                        .slice(0, 4)
+                        .map((baiVietItem: any) => (
+                          <Menu.Item
+                            key={baiVietItem.slug}
+                            className="text-[#3B559E] text-base font-normal leading-relaxed">
+                            <Link
+                              href={baiVietItem.slug}
+                              className="!text-gray-500 !text-base !font-normal leading-relaxed">
+                              {baiVietItem.title}
+                            </Link>
+                          </Menu.Item>
+                        ))}
                     </Menu.SubMenu>
                   );
                 })}
