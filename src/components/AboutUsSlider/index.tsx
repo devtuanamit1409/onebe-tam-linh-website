@@ -70,25 +70,20 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
         <Swiper
           slidesPerView={"auto"}
           // spaceBetween={10}
-          slidesPerGroupSkip={1}
+          // slidesPerGroupSkip={1}
           centeredSlides={false}
           speed={800}
           navigation={{
             prevEl: ".slider-prev",
             nextEl: ".slider-next",
           }}
-          loop={true}
+          loop={false}
           grabCursor={true}
           breakpoints={{
             360: {
-              spaceBetween: 10,
+              spaceBetween: 16,
             },
-            640: {
-              spaceBetween: 20,
-            },
-            768: {
-              spaceBetween: 20,
-            },
+
             1024: {
               spaceBetween: 20,
             },

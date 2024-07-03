@@ -27,9 +27,29 @@ const MobileMenuNew = ({
   toggleMenu: () => void;
 }) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
+  const [openSubKeys, setOpenSubKeys] = useState<{ [key: string]: string[] }>(
+    {}
+  );
+
+  const rootSubmenuKeys = menuItems.map((item: any) => item.key);
 
   const onOpenChange = (keys: string[]) => {
-    setOpenKeys(keys);
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+    if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
+  const onSubOpenChange = (rootKey: string, keys: string[]) => {
+    const latestOpenKey = keys.find(
+      (key) => openSubKeys[rootKey]?.indexOf(key) === -1
+    );
+    setOpenSubKeys({
+      ...openSubKeys,
+      [rootKey]: latestOpenKey ? [latestOpenKey] : [],
+    });
   };
 
   const renderTitleWithIcon = (title: string, key: string) => {
@@ -46,29 +66,17 @@ const MobileMenuNew = ({
     );
   };
 
-  const renderChildTitleWithIcon = (title: string, key: string) => {
-    const isOpen = openKeys.includes(key);
+  const renderChildTitleWithIcon = (
+    title: string,
+    key: string,
+    rootKey: string
+  ) => {
+    const isOpen = openSubKeys[rootKey] && openSubKeys[rootKey].includes(key);
     return (
       <div className="flex justify-between items-center">
         <span>{title}</span>
         {isOpen ? <IconMinus /> : <IconPlus />}
       </div>
-    );
-  };
-
-  const handleMenuClick = (key: string) => {
-    setOpenKeys((prevOpenKeys) =>
-      prevOpenKeys.includes(key)
-        ? prevOpenKeys.filter((openKey) => openKey !== key)
-        : [key]
-    );
-  };
-
-  const handleSubMenuClick = (key: string) => {
-    setOpenKeys((prevOpenKeys) =>
-      prevOpenKeys.includes(key)
-        ? prevOpenKeys.filter((openKey) => openKey !== key)
-        : [key]
     );
   };
 
@@ -120,68 +128,72 @@ const MobileMenuNew = ({
               <Menu.SubMenu
                 key={item.key}
                 title={renderTitleWithIcon(item.name, item.key)}
-                onTitleClick={() => handleMenuClick(item.key)}
                 className="text-black text-lg font-semibold px-0">
-                {item.key === "Về chúng tôi" ? null : (
-                  <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
-                    <Link
-                      href={item.pathname}
-                      className="!text-[#3B559E] text-base font-normal leading-relaxed px-0">
-                      {locale === "vi" ? "Đến trang " : "Go to "} {item.name}
-                    </Link>
-                  </Menu.Item>
-                )}
+                <Menu
+                  mode="inline"
+                  openKeys={openSubKeys[item.key] || []}
+                  onOpenChange={(keys) => onSubOpenChange(item.key, keys)}>
+                  {item.key === "Về chúng tôi" ? null : (
+                    <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
+                      <Link
+                        href={item.pathname}
+                        className="!text-[#3B559E] text-base font-normal leading-relaxed px-0">
+                        {locale === "vi" ? "Đến trang " : "Go to "} {item.name}
+                      </Link>
+                    </Menu.Item>
+                  )}
 
-                {item.danhMuc.map((danhMucItem: any) => {
-                  if (
-                    !danhMucItem.baiViet ||
-                    danhMucItem.baiViet.length === 0
-                  ) {
+                  {item.danhMuc.map((danhMucItem: any) => {
+                    if (
+                      !danhMucItem.baiViet ||
+                      danhMucItem.baiViet.length === 0
+                    ) {
+                      return (
+                        <Menu.Item
+                          key={danhMucItem.slug}
+                          className="!text-base !font-normal !text-[#000]">
+                          <Link
+                            href={danhMucItem.slug}
+                            className="!text-base !font-normal !text-[#000] ">
+                            {danhMucItem.name}
+                          </Link>
+                        </Menu.Item>
+                      );
+                    }
                     return (
-                      <Menu.Item
+                      <Menu.SubMenu
                         key={danhMucItem.slug}
-                        className="!text-base !font-normal !text-[#000]">
-                        <Link
-                          href={danhMucItem.slug}
-                          className="!text-base !font-normal !text-[#000] ">
-                          {danhMucItem.name}
-                        </Link>
-                      </Menu.Item>
+                        title={renderChildTitleWithIcon(
+                          danhMucItem.name,
+                          danhMucItem.slug,
+                          item.key
+                        )}
+                        className="!text-base !font-normal !text-[#000] ">
+                        <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
+                          <Link
+                            href={danhMucItem.slug}
+                            className="!text-[#3B559E] text-base font-normal leading-relaxed">
+                            {locale === "vi" ? "Đến trang " : "Go to "}{" "}
+                            {danhMucItem.name}
+                          </Link>
+                        </Menu.Item>
+                        {danhMucItem.baiViet
+                          .slice(0, 4)
+                          .map((baiVietItem: any) => (
+                            <Menu.Item
+                              key={baiVietItem.slug}
+                              className="text-[#3B559E] text-base font-normal leading-relaxed">
+                              <Link
+                                href={baiVietItem.slug}
+                                className="!text-gray-500 !text-base !font-normal leading-relaxed">
+                                {baiVietItem.title}
+                              </Link>
+                            </Menu.Item>
+                          ))}
+                      </Menu.SubMenu>
                     );
-                  }
-                  return (
-                    <Menu.SubMenu
-                      key={danhMucItem.slug}
-                      title={renderChildTitleWithIcon(
-                        danhMucItem.name,
-                        danhMucItem.slug
-                      )}
-                      onTitleClick={() => handleSubMenuClick(danhMucItem.slug)}
-                      className="!text-base !font-normal !text-[#000] ">
-                      <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
-                        <Link
-                          href={danhMucItem.slug}
-                          className="!text-[#3B559E] text-base font-normal leading-relaxed">
-                          {locale === "vi" ? "Đến trang " : "Go to "}{" "}
-                          {danhMucItem.name}
-                        </Link>
-                      </Menu.Item>
-                      {danhMucItem.baiViet
-                        .slice(0, 4)
-                        .map((baiVietItem: any) => (
-                          <Menu.Item
-                            key={baiVietItem.slug}
-                            className="text-[#3B559E] text-base font-normal leading-relaxed">
-                            <Link
-                              href={baiVietItem.slug}
-                              className="!text-gray-500 !text-base !font-normal leading-relaxed">
-                              {baiVietItem.title}
-                            </Link>
-                          </Menu.Item>
-                        ))}
-                    </Menu.SubMenu>
-                  );
-                })}
+                  })}
+                </Menu>
               </Menu.SubMenu>
             );
           })}
