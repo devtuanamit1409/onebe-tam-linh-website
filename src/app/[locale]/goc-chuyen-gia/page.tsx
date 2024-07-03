@@ -392,11 +392,11 @@ const Page: React.FC = (params: any) => {
                           </div>
                         </div>
                         <h3
-                          className="laptop:text-[20px] mobile:text-base laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
+                          className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
                           title={item.attributes.title}>
                           {item.attributes.title}
                         </h3>
-                        <p className="laptop:text-[18px] mobile:text-[13px] text-[#8899A8] line-clamp-3">
+                        <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
                         <div className="flex justify-start">

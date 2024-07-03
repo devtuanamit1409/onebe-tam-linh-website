@@ -169,7 +169,7 @@ const Page: React.FC = (params: any) => {
     <>
       <div className="container py-[32px] desktop:py-[50px]">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 laptop:col-span-6">
+          <div className="col-span-12 tablet:col-span-6">
             <TintucNoibat
               data={tintuc
                 .filter((item) => item?.attributes?.bai_viet_tieu_diem === true)
@@ -177,7 +177,7 @@ const Page: React.FC = (params: any) => {
               name={t("features_article")}
             />
           </div>
-          <div className="col-span-12 laptop:col-span-6">
+          <div className="col-span-12 tablet:col-span-6">
             <h2 className="text-[24px] font-bold text-[#374151]">
               {t("lastest_news")}
             </h2>
@@ -199,10 +199,10 @@ const Page: React.FC = (params: any) => {
                                 : t("lastest_news_tag")}
                             </div>
                           </div>
-                          <h3 className="text-[20px] text-[#374151] font-bold line-clamp-2">
+                          <h3 className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] text-[#374151] font-bold line-clamp-2">
                             {item?.attributes?.title || "có lỗi"}
                           </h3>
-                          <p className="text-[18px] text-[#8899A8] line-clamp-3">
+                          <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
                             {item?.attributes?.seo?.description || "có lỗi"}
                           </p>
                           <div className="flex justify-start">
