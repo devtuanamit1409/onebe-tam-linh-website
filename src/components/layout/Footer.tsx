@@ -278,7 +278,7 @@ const Footer = async (locale: any) => {
                 <>
                   Copyright 2024 © NTSE.VN Design by{" "}
                   <a target="_blank" href="https://amitgroup.vn/en/">
-                    AMITGROUP
+                    AMIT GROUP
                   </a>
                 </>
               )}
