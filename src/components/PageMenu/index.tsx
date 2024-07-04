@@ -92,11 +92,11 @@ const PageMenu = (props: props): JSX.Element => {
                       </div>
                       <Link
                         href={`/${locale}/${item.slug}`}
-                        className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
-                        <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
+                        className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] text-[#3B559E] justify-center items-center gap-2 inline-flex hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear">
+                        <div className="text-center  text-base font-medium  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {t("see_all")}
                         </div>
-                        <div className="text-[#3B559E]">
+                        <div className="">
                           <IconAngleRight width="16" height="16" />
                         </div>
                       </Link>
@@ -152,8 +152,8 @@ const PageMenu = (props: props): JSX.Element => {
                     })}
                     <Link
                       href={`/${locale}/${item.slug}`}
-                      className="mobile:inline-flex tablet:hidden h-12 mt-4 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex">
-                      <div className="text-center text-[#3B559E] text-base font-medium  leading-normal">
+                      className="mobile:inline-flex tablet:hidden h-12 mt-4 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex  hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear ">
+                      <div className="text-center text-[#3B559E]  text-base font-medium  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                         {t("see_all")}
                       </div>
                       <div className="text-[#3B559E]">

@@ -4,6 +4,7 @@ import IconAngleRightColorFull from "../icons/IconAngleRightColorFull";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { apiService } from "@/services/api.service";
+import { useTranslations } from "next-intl";
 interface MegaMenuItem {
   attributes: {
     category: string;
@@ -60,7 +61,7 @@ const MegaMenu = ({
   setIsMenuOpen: (isOpen: boolean) => void;
   handleMouseLeave: (event: React.MouseEvent) => void;
 }) => {
-  // <>{renderByActiveKey(activeKey, megaMenu)}</>;
+  const t = useTranslations("home");
   return (
     <>
       {menuItems && menuItems.length > 0 ? (
@@ -88,7 +89,7 @@ const MegaMenu = ({
                     <Link
                       href={menuItems[0].pathname || "/"}
                       className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
-                      Xem thêm
+                      {t("see_more")}
                     </Link>
                   </div>
                   <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
@@ -106,7 +107,7 @@ const MegaMenu = ({
                                   href={item.slug}
                                   key={index}
                                   className="flex gap-2 items-center justify-between">
-                                  <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
+                                  <p className="text-black hover:text-[#28A645] transition-colors ease-linear text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
                                     {item.name}
                                   </p>
                                   <span>
@@ -125,7 +126,7 @@ const MegaMenu = ({
                                   .map((child: any, childIndex: any) => (
                                     <div
                                       key={childIndex}
-                                      className="text-black hover:text-[#28A645] text-base font-semibold leading-normal w-full">
+                                      className="text-black  hover:text-[#28A645] transition-colors ease-linear text-base font-semibold leading-normal w-full">
                                       <Link
                                         href={child.slug || "/"}
                                         className=" flex items-center justify-between ">
