@@ -23,7 +23,7 @@ import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 import { formatDistanceToNow } from "date-fns";
-import { vi } from "date-fns/locale";
+import { vi, enUS } from "date-fns/locale";
 interface tintuc {
   id: number;
   attributes: {
@@ -227,7 +227,7 @@ const Page: React.FC = (params: any) => {
   const formatTimeBadge = (createdAt: string) => {
     const timeAgo = formatDistanceToNow(new Date(createdAt), {
       addSuffix: true,
-      locale: vi,
+      locale: locale === "en" ? enUS : vi,
     });
     return timeAgo;
   };
