@@ -57,12 +57,12 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     alt="tin-tuc-tieu-diem"
                     className="mobile:rounded-xl desktop:rounded-none desktop:w-full "
                   />
-                  <div className="absolute top-[15%] left-[5%]">
+                  {/* <div className="absolute top-[15%] left-[5%]">
                     <span className="text-[18px] py-[12px] desktop:py-[16px] px-[24px] time-up font-[400]">
                       {item?.danh_muc_bai_viets?.data[0]?.attributes?.name ||
                         translate("lastest_news_tag")}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
                 <h1 className="desktop:text-[40px] mt-4 laptop:text-[28px] mobile:text-[18px] laptop:leading-[56px] mobile:leading-[25.2px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-3">
                   {item.title}

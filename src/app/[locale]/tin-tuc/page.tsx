@@ -8,6 +8,8 @@ import IconSearch from "@/components/icons/IconSearch";
 import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 
 import demo_goc_chuyen_gia from "../../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
 import { apiService } from "@/services/api.service";
@@ -150,19 +152,12 @@ const Page: React.FC = (params: any) => {
   };
   const t = useTranslations("detail_post");
 
-  const checkIfCreatedWithin24Hours = (createdAtStr: string): boolean => {
-    const createdAt = new Date(createdAtStr);
-    const now = new Date();
-    const timeDifference = now.getTime() - createdAt.getTime();
-    return timeDifference <= 24 * 60 * 60 * 1000; // 24 giờ tính bằng milliseconds
-  };
-
-  const formatDate = (dateStr: string): string => {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+  const formatTimeBadge = (createdAt: string) => {
+    const timeAgo = formatDistanceToNow(new Date(createdAt), {
+      addSuffix: true,
+      locale: vi,
+    });
+    return timeAgo;
   };
 
   return (
@@ -183,19 +178,26 @@ const Page: React.FC = (params: any) => {
             </h2>
             {tintuc &&
               tintuc.slice(0, 3).map((item) => {
+                console.log(
+                  "item.attributes.createdAt",
+                  item.attributes.createdAt
+                );
                 return (
                   <div key={item.id} className="py-[16px]">
                     <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
                       <div className="tablet:col-span-7 mobile:col-span-12">
                         <div className="flex flex-col gap-[16px]">
-                          <div className="w-[108px] h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                            <div className="text-[#3B559E] text-base font-normal leading-normal">
-                              {item.attributes.createdAt
+                          <div className="w-fit h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                            <div className="text-[#3B559E] text-base font-normal leading-normal capitalize">
+                              {/* {item.attributes.createdAt
                                 ? checkIfCreatedWithin24Hours(
                                     item.attributes.createdAt
                                   )
                                   ? t("lastest_news_tag")
                                   : formatDate(item.attributes.createdAt)
+                                : t("lastest_news_tag")} */}
+                              {item.attributes.createdAt
+                                ? formatTimeBadge(item.attributes.createdAt)
                                 : t("lastest_news_tag")}
                             </div>
                           </div>

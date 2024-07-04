@@ -22,12 +22,15 @@ import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 interface tintuc {
   id: number;
   attributes: {
     title: string;
     slug: string;
     type: string;
+    createdAt: string;
     bai_viet_tieu_diem: boolean;
     seo: {
       description: string;
@@ -221,19 +224,12 @@ const Page: React.FC = (params: any) => {
     })
     .map((item: tintuc) => item.attributes);
 
-  const checkIfCreatedWithin24Hours = (createdAtStr: string): boolean => {
-    const createdAt = new Date(createdAtStr);
-    const now = new Date();
-    const timeDifference = now.getTime() - createdAt.getTime();
-    return timeDifference <= 24 * 60 * 60 * 1000; // 24 giờ tính bằng milliseconds
-  };
-
-  const formatDate = (dateStr: string): string => {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+  const formatTimeBadge = (createdAt: string) => {
+    const timeAgo = formatDistanceToNow(new Date(createdAt), {
+      addSuffix: true,
+      locale: vi,
+    });
+    return timeAgo;
   };
 
   return (
@@ -385,10 +381,11 @@ const Page: React.FC = (params: any) => {
                   <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
                     <div className="tablet:col-span-6 mobile:col-span-12">
                       <div className="flex flex-col gap-[16px]">
-                        <div className="w-24 h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                        <div className="w-fit h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
                           <div className="text-[#3B559E] text-base font-normal leading-normal">
-                            {item?.attributes.danh_muc_bai_viets?.data[0]
-                              ?.attributes?.name || "Bài viết"}
+                            {item.attributes.createdAt
+                              ? formatTimeBadge(item.attributes.createdAt)
+                              : t("lastest_news_tag")}
                           </div>
                         </div>
                         <h3
