@@ -410,6 +410,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       ? "/goc-chuyen-gia"
                       : breadcum === "Dự án"
                       ? "/du-an"
+                      : breadcum === "Thông tư nghị định"
+                      ? "/thong-tu-nghi-dinh"
                       : ""
                   }`}
                 >
