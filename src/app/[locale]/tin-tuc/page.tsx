@@ -9,7 +9,7 @@ import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { formatDistanceToNow } from "date-fns";
-import { vi } from "date-fns/locale";
+import { vi, enUS } from "date-fns/locale";
 
 import demo_goc_chuyen_gia from "../../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
 import { apiService } from "@/services/api.service";
@@ -155,7 +155,7 @@ const Page: React.FC = (params: any) => {
   const formatTimeBadge = (createdAt: string) => {
     const timeAgo = formatDistanceToNow(new Date(createdAt), {
       addSuffix: true,
-      locale: vi,
+      locale: locale === "en" ? enUS : vi,
     });
     return timeAgo;
   };
