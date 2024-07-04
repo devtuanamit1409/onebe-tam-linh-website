@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 interface BoxTinTucProps {
   data: Array<any>;
 }
@@ -10,19 +12,12 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
   const baseUrl = process.env.URL_API;
   const t = useTranslations("detail_post");
 
-  const checkIfCreatedWithin24Hours = (createdAtStr: string): boolean => {
-    const createdAt = new Date(createdAtStr);
-    const now = new Date();
-    const timeDifference = now.getTime() - createdAt.getTime();
-    return timeDifference <= 24 * 60 * 60 * 1000; // 24 giờ tính bằng milliseconds
-  };
-
-  const formatDate = (dateStr: string): string => {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+  const formatTimeBadge = (createdAt: string) => {
+    const timeAgo = formatDistanceToNow(new Date(createdAt), {
+      addSuffix: true,
+      locale: vi,
+    });
+    return timeAgo;
   };
 
   return (
@@ -52,9 +47,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                   <div className="absolute top-[10%] left-[5%]">
                     <span className="text-[18px] p-[10px] time-up font-[400]">
                       {item.createdAt
-                        ? checkIfCreatedWithin24Hours(item.createdAt)
-                          ? t("lastest_news_tag")
-                          : formatDate(item.createdAt)
+                        ? formatTimeBadge(item.createdAt)
                         : t("lastest_news_tag")}
                     </span>
                   </div>
