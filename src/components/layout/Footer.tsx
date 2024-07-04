@@ -125,7 +125,7 @@ const Footer = async (locale: any) => {
                   <a
                     href={`tel:${phoneNumber}}`}
                     target="_blank"
-                    className="text-white text-sm font-medium  leading-snug">
+                    className="text-white text-sm font-medium  leading-snug hover:text-[#28A645] transition-colors ease-linear">
                     {phoneNumber}
                   </a>
                 </div>
@@ -142,7 +142,7 @@ const Footer = async (locale: any) => {
                   <a
                     href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
                     target="_blank"
-                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full">
+                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full hover:text-[#28A645] transition-colors ease-linear">
                     {address}
                   </a>
                 </div>
@@ -168,7 +168,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -178,7 +178,7 @@ const Footer = async (locale: any) => {
             </div>
             <div className="mobile:col-span-1 flex-1 ">
               <div className="flex flex-col gap-6">
-                <p className="text-white text-lg font-semibold  leading-relaxed pr-2">
+                <p className="text-white text-lg font-semibold  leading-relaxed pr-2 ">
                   {t("services")}
                 </p>
                 <div className="flex-col justify-start items-start gap-3 flex">
@@ -188,7 +188,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -208,7 +208,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -272,16 +272,13 @@ const Footer = async (locale: any) => {
           <div className="text-center text-white text-base font-normal  leading-normal ">
             <p>{giayphep ? giayphep : t("licence")}</p>
             <p>
-              {banquyen ? (
-                banquyen
-              ) : (
-                <>
-                  Copyright 2024 © NTSE.VN Design by{" "}
-                  <a target="_blank" href="https://amitgroup.vn/en/">
-                    AMIT GROUP
-                  </a>
-                </>
-              )}
+              {banquyen ? banquyen : <>Copyright 2024 © NTSE.VN Design by </>}
+              <a
+                target="_blank"
+                href="https://amitgroup.vn/"
+                className="hover:text-[#28A645] transition-all ease-linear">
+                AMIT GROUP
+              </a>
             </p>
           </div>
         </div>

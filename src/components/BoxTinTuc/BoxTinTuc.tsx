@@ -30,9 +30,9 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
               <Link
                 href={item.slug || "/"}
                 key={item.id}
-                className="col-span-12 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto">
+                className="col-span-12 tablet:col-span-6 laptop:col-span-6 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto">
                 <div className="relative">
-                  <div className=" max-h-[280px] h-[280px] relative overflow-hidden bg-slate-200">
+                  <div className=" max-h-[280px] laptop:h-[280px] tablet:h-[220px] relative overflow-hidden bg-slate-200">
                     <div className="abosolute top-0 left-0  w-full h-full flex items-center justify-center">
                       <Image
                         objectFit="contain"
@@ -52,10 +52,10 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                     </span>
                   </div>
                 </div>
-                <div className="pt-[24px] pb-[16px]">
+                <div className="mt-[24px] mb-[16px]">
                   <h5
                     title={item.title}
-                    className="text-[#000] font-[600] tablet:text-[24px] tablet:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] line-clamp-2 laptop:min-h-[77px]">
+                    className="text-[#000] font-[600] laptop:text-[24px] laptop:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] line-clamp-2 mobile:min-h-none laptop:min-h-[77px]">
                     {item.title}
                   </h5>
                 </div>
