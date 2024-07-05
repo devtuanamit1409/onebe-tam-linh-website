@@ -74,38 +74,42 @@ const Slidemember = (cardThanhVien: cardThanhVienProps) => {
         }}
         modules={[EffectFade, Pagination, Autoplay]}
         className="slider-member swiper-container">
-        {cardThanhVien &&
-          cardThanhVien.cardThanhVien.map((item, key) => (
-            <SwiperSlide key={key}>
-              <div className="py-[24px] px-[16px]">
-                <div className="flex flex-col gap-[24px] pt-[10%]">
-                  <div className="flex justify-center max-h-[50px] max-w-[200px] mx-auto">
-                    <Image
-                      src={`${baseUrl}${item.logo?.data?.attributes?.url}`}
-                      alt="logo"
-                      height={item.logo?.data?.attributes?.height}
-                      width={item.logo?.data?.attributes?.width}
-                    />
+        {cardThanhVien.cardThanhVien && cardThanhVien.cardThanhVien.length > 0
+          ? cardThanhVien.cardThanhVien.map((item, key) => (
+              <SwiperSlide key={key}>
+                <div className="py-[24px] px-[16px]">
+                  <div className="flex flex-col gap-[24px] pt-[10%]">
+                    <div className="flex justify-center max-h-[50px] max-w-[200px] mx-auto">
+                      <Image
+                        src={`${baseUrl}${item.logo?.data?.attributes?.url}`}
+                        alt="logo"
+                        height={item.logo?.data?.attributes?.height}
+                        width={item.logo?.data?.attributes?.width}
+                      />
+                    </div>
+                    <h5 className="text-center text-[#000] font-bold text-[20px]">
+                      {item.title}
+                    </h5>
+                    <p className="text-[#6B7280] text-[18px] line-clamp-3">
+                      {item.description}
+                    </p>
                   </div>
-                  <h5 className="text-center text-[#000] font-bold text-[20px]">
-                    {item.title}
-                  </h5>
-                  <p className="text-[#6B7280] text-[18px] line-clamp-3">
-                    {item.description}
-                  </p>
-                </div>
 
-                <div className="py-[24px] flex justify-center">
-                  <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
-                    <Link href={item.path} target="_blank" className="mr-[8px]">
-                      {t("visit_our_website")}
-                    </Link>
-                    <IconAngleRight width="16" height="16" />
-                  </button>
+                  <div className="py-[24px] flex justify-center">
+                    <button className="py-[16px] flex  items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
+                      <Link
+                        href={item.path}
+                        target="_blank"
+                        className="mr-[8px]">
+                        {t("visit_our_website")}
+                      </Link>
+                      <IconAngleRight width="16" height="16" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))
+          : "Chưa có dữ liệu"}
       </Swiper>
     </>
   );
