@@ -12,20 +12,23 @@ const SliderKhachHang = (listlogo: any) => {
         direction="left" // Hướng cuộn, "left" hoặc "right"
         pauseOnHover={false} // Tạm dừng khi hover
       >
-        {listlogo.listlogo.map((logo: any, index: any) => (
-          <div
-            key={index}
-            className="logo-item flex items-center justify-center h-[100px] max-h-[100px] mx-4">
-            <Image
-              src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
-              alt={logo.alt}
-              layout="responsive"
-              width={150}
-              height={50}
-              objectFit="cover"
-            />
-          </div>
-        ))}
+        {listlogo.listlogo.map((logo: any, index: any) => {
+          console.log("logo", logo);
+          return (
+            <div
+              key={index}
+              className="logo-item flex items-center justify-center h-[100px] max-h-[100px] mx-4">
+              <Image
+                src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
+                alt={logo.alt}
+                layout="responsive"
+                width={200}
+                height={50}
+                objectFit="cover"
+              />
+            </div>
+          );
+        })}
       </Marquee>
     </div>
   );

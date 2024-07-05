@@ -106,8 +106,8 @@ const MegaMenu = ({
                                 <Link
                                   href={item.slug}
                                   key={index}
-                                  className="flex gap-2 items-center justify-between">
-                                  <p className="text-black hover:text-[#28A645] transition-colors ease-linear text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
+                                  className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear">
+                                  <p className=" text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
                                     {item.name}
                                   </p>
                                   <span>
@@ -159,8 +159,8 @@ const MegaMenu = ({
                                 <Link
                                   href={item.slug}
                                   key={index}
-                                  className="flex gap-2 items-center justify-between">
-                                  <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
+                                  className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear">
+                                  <p className=" font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2 ">
                                     {item.name}
                                   </p>
                                   <span>
@@ -187,8 +187,8 @@ const MegaMenu = ({
                                 <Link
                                   href={item.slug || "/"}
                                   key={index}
-                                  className="flex gap-2 items-center justify-between">
-                                  <p className="text-black text-lg font-semibold leading-relaxed flex items-center justify-between !line-clamp-2">
+                                  className="flex gap-2 items-center justify-between hover:text-[#28A645] text-lg font-semibold leading-relaxed flextext-black transition-colors ease-linear">
+                                  <p className="  items-center justify-between !line-clamp-2 ">
                                     {item.name}
                                   </p>
                                   <span>

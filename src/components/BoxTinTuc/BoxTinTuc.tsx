@@ -25,6 +25,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
       <div className="grid grid-cols-12 gap-8 overflow-hidden">
         {data && data.length > 0 ? (
           data.map((item) => {
+            console.log(item);
             if (!item.seo) return null;
             return (
               <Link

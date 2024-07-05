@@ -116,6 +116,7 @@ body {
   overflow: hidden;
   img {
     max-height: 100px;
+    min-width: 200px;
   }
 }
 

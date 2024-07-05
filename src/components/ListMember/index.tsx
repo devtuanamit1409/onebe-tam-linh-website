@@ -99,7 +99,7 @@ const ListMember = ({ url, locale }: UrlProps) => {
                 <div className="px-[24px] pb-[24px] pt-[100px] flex flex-col justify-between h-full">
                   <div className="flex flex-col gap-[24px]">
                     <div className="flex justify-center ">
-                      <div className="max-w-[190px] h-[100px] overflow-hidden">
+                      <div className="max-w-[200px] min-w-[100px] h-[100px] overflow-hidden">
                         <Image
                           src={item.logo ? baseUrl + item.logo.url : ""}
                           alt={item.title}
@@ -112,7 +112,7 @@ const ListMember = ({ url, locale }: UrlProps) => {
                     <h2 className="text-center font-semibold text-[28px] ">
                       {item.title}
                     </h2>
-                    <p className="text-[#6B7280] text-[18px] h-[87px] overflow-y-hidden line-clamp-3">
+                    <p className="text-[#6B7280] text-[18px] h-[85px] overflow-y-hidden line-clamp-3">
                       {item.description}
                     </p>
                   </div>

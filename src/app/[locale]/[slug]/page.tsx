@@ -307,7 +307,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
   };
 
   const filteredData = data.map((item: any) => {
-    const { title, slug, locale, subTitle, seo, id } = item.attributes;
+    const { title, slug, locale, subTitle, seo, id, createdAt } =
+      item.attributes;
     return {
       id,
       title,
@@ -315,10 +316,12 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       locale,
       subTitle,
       seo,
+      createdAt,
     };
   });
   const recomenData = filteredArticles.map((item: any) => {
-    const { title, slug, locale, subTitle, seo, id } = item.attributes;
+    const { title, slug, locale, subTitle, seo, id, createdAt } =
+      item.attributes;
     return {
       id,
       title,
@@ -326,10 +329,12 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       locale,
       subTitle,
       seo,
+      createdAt,
     };
   });
 
   const DetailDanhMuc = () => {
+    console.log("{detailSubCategory", detailSubCategory);
     return (
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
@@ -343,6 +348,15 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             <p className="text-[#8899A8]">
               {detailSubCategory[0]?.attributes?.description}
             </p>
+
+            <div
+              className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
+              dangerouslySetInnerHTML={{
+                __html: detailSubCategory[0]?.attributes?.content
+                  ? detailSubCategory[0]?.attributes?.content
+                  : "",
+              }}
+            />
           </div>
         </div>
         {filteredData.length > 0 ? (
@@ -376,8 +390,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                >
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                   {translate("back_home")}
                 </Link>
               </div>
@@ -413,8 +426,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : breadcum === "Thông tư nghị định"
                       ? "/thong-tu-nghi-dinh"
                       : ""
-                  }`}
-                >
+                  }`}>
                   {breadcum}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
@@ -457,8 +469,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </h2>
               <Link
                 href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
-              >
+                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
                 {t("go_to_news_page")}
                 <IconArrowRight width={20} height={20} />
               </Link>
