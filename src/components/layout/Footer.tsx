@@ -117,7 +117,7 @@ const Footer = async (locale: any) => {
                 <div className="justify-start items-center gap-2.5 desktop:inline-flex mobile:flex">
                   <div className=" justify-center items-center desktop:inline-flex mobile:flex">
                     <div className="">
-                      <a href="tel:+01234567899" target="_blank">
+                      <a href={`tel:${phoneNumber}`} target="_blank">
                         <IconPhone />
                       </a>
                     </div>
