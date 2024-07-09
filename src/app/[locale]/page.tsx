@@ -236,7 +236,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
                         href={`/${locale}/ve-chung-toi`}
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         {t("about_us")}
                       </Link>
                     </div>
@@ -272,7 +273,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/cong-ty-thanh-vien"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+                      >
                         {t("see_more")}
                       </Link>
                     </div>
