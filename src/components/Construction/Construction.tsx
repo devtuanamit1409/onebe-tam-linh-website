@@ -176,10 +176,10 @@ const Construction = async (locale: any) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[16px]">
-                    <h5 className="text-[#28A645] font-bold">
+                    <h5 className="text-[#28A645] font-bold line-clamp-1">
                       {item.attributes.seo.title}
                     </h5>
-                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff]">
+                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff] line-clamp-2">
                       {item.attributes.title}
                     </h2>
                     <p className="text-[#DFE4EA] leading-[25.6px] line-clamp-3">
