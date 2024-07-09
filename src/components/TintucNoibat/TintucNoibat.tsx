@@ -49,7 +49,9 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
               <div>
                 <div className="py-[16px] relative overflow-hidden desktop:h-full min-h-[400px] max-h-[400px]">
                   <Image
-                    src={`${baseUrl}${item?.seo.thumbnail.data.attributes.url}`}
+                    src={`${baseUrl}${
+                      item?.seo?.thumbnail?.data?.attributes?.url || "/"
+                    }`}
                     layout="fill"
                     // width={100}
                     // height={100}
