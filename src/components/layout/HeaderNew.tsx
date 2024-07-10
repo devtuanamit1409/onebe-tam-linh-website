@@ -14,6 +14,7 @@ import MegaMenu from "../MegaMenu";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import MobileMenuNew from "../MobileMenuNew";
+import { Descriptions } from "antd";
 
 interface ResponseData {
   data: {
@@ -47,10 +48,11 @@ interface Menu {
   danhmuc: any;
 }
 
-const Header = (params: any) => {
+const HeaderNew = (params: any) => {
   const locale = params.locale;
   const t = useTranslations("menu");
   const pathname = usePathname();
+
   const [menuItems, setMenuItems] = useState([
     {
       key: "Sản phẩm",
@@ -115,56 +117,12 @@ const Header = (params: any) => {
   ]);
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [activeItem, setActiveItem] = useState<any>();
-
+  const [danhmuc, setDanhmuc] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
-  const fetchDataVeChungToi = async () => {
-    const listEndPoint = [
-      `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale}`,
-      `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
-      `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
-      locale === "en"
-        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
-        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
-    ];
-    try {
-      const responses = await Promise.all(
-        listEndPoint.map((endpoint) => apiService.get<any>(endpoint))
-      );
-      const [veChungToi, gocChuyenGia, congTyThanhVien, duAnCongDong] =
-        responses.map((res) => res.data);
-      setDataVeChungToi([
-        {
-          id: 1,
-          name: veChungToi.attributes.main.name,
-          description: veChungToi.attributes.main.description,
-          slug: "/ve-chung-toi",
-        },
-        {
-          id: 2,
-          name: t("expertopinion"),
-          description: gocChuyenGia.attributes.description,
-          slug: "/goc-chuyen-gia",
-        },
-        {
-          id: 3,
-          name: t("member_company"),
-          description: congTyThanhVien.attributes.description,
-          slug: "/cong-ty-thanh-vien",
-        },
-        {
-          id: 4,
-          name: duAnCongDong[0].attributes.name,
-          description: duAnCongDong[0].attributes.description,
-          slug: duAnCongDong[0].attributes.slug,
-        },
-      ]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+
   const handleGetEndPoint = (key: any) => {
     switch (key) {
       case "Sản phẩm":
@@ -192,26 +150,8 @@ const Header = (params: any) => {
     }
   };
 
-  const fetchDataMobile = async (key: any) => {
-    try {
-      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${key}&locale=${locale}`;
-      const response = await apiService.get<any>(endpoint);
-      const danhMucData = response.data.map((item: any) => ({
-        description: item.attributes.description,
-        name: item.attributes.name,
-        slug: item.attributes.slug,
-      }));
-      const baiVietPromises = danhMucData.map(async (danhMucItem: any) => {
-        const baiVietData = await fetchData(danhMucItem.name);
-        return { ...danhMucItem, baiViet: baiVietData };
-      });
-      return await Promise.all(baiVietPromises);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return [];
-    }
-  };
-  const fetchDescription = async (name: string) => {
+  const fetchDataDescription = async (key: string) => {
+    const name = handleGetEndPoint(key);
     try {
       const endpoint = `${process.env.URL_API}/api/${name}?populate=main&locale=${locale}`;
       const response = await apiService.get<any>(endpoint);
@@ -221,73 +161,116 @@ const Header = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
-
-  const fetchData = async (name: string) => {
+  const fetchDataDanhMuc = async (key: string) => {
     try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name][$eq]=${name}&locale=${locale}`;
+      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${key}&locale=${locale}`;
+      const response = await apiService.get<any>(endpoint);
+      return response.data.map((item: any) => ({
+        name: item.attributes.name,
+        description: item.attributes.description,
+        slug: item.attributes.slug,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataBaiViet = async (name: string) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name]=${name}&locale=${locale}`;
       const response = await apiService.get<any>(endpoint);
       return response.data.map((item: any) => ({
         title: item.attributes.title,
         slug: item.attributes.slug,
       }));
     } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
+      console.error(`Error fetching data for ${name}:`, error);
+      return null;
     }
   };
+  const fetchDataVeChungToi = async () => {
+    const listEndPoint = [
+      `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale}`,
+      `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
+      `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
+      locale === "en"
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
+        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
+    ];
+    try {
+      const responses = await Promise.all(
+        listEndPoint.map((endpoint) => apiService.get<any>(endpoint))
+      );
 
-  useEffect(() => {
-    fetchDataVeChungToi();
-  }, [locale]);
-
-  useEffect(() => {
-    const fetchMegaMenu = async () => {
+      const [veChungToi, gocChuyenGia, congTyThanhVien, duAnCongDong] =
+        responses.map((res) => res.data);
+      setActiveItem((prev: any) => ({
+        ...prev,
+        danhMuc: [
+          {
+            id: 1,
+            name: veChungToi.attributes.main.name,
+            description: veChungToi.attributes.main.description,
+            slug: "/ve-chung-toi",
+          },
+          {
+            id: 2,
+            name: t("expertopinion"),
+            description: gocChuyenGia?.attributes?.description,
+            slug: "/goc-chuyen-gia",
+          },
+          {
+            id: 3,
+            name: t("member_company"),
+            description: congTyThanhVien?.attributes?.description,
+            slug: "/cong-ty-thanh-vien",
+          },
+          {
+            id: 4,
+            name: duAnCongDong[0]?.attributes?.name,
+            description: duAnCongDong[0]?.attributes?.description,
+            slug: duAnCongDong[0]?.attributes?.slug,
+          },
+        ],
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const handleMouseEnter = async (key: string, condition: boolean) => {
+    if (condition) {
       setLoading(true);
-      try {
-        const newMegaMenu = await Promise.all(
-          menuItems.map(async (menu: any) => {
-            let danhMuc;
-            if (menu.key === "Về chúng tôi") {
-              danhMuc = dataVeChungToi;
-            } else {
-              danhMuc = await fetchDataMobile(menu.key);
-            }
+      setActiveKey(key);
+      const item = menuItems.find((item: any) => item.key === key);
+      setActiveItem(item);
+      setIsMenuOpen(true);
 
-            const key = handleGetEndPoint(menu.key);
+      if (key === "Về chúng tôi") {
+        await fetchDataVeChungToi();
+      } else {
+        const description = await fetchDataDescription(key);
+        setActiveItem((prev: any) => ({
+          ...prev,
+          description: description,
+        }));
 
-            const description = await fetchDescription(key);
-            return { ...menu, danhMuc, description };
+        const danhmucData = await fetchDataDanhMuc(key);
+        const danhmucWithBaiViet = await Promise.all(
+          danhmucData.map(async (danhMuc: any) => {
+            const baiVietData = await fetchDataBaiViet(danhMuc.name);
+            return {
+              ...danhMuc,
+              baiViet: baiVietData,
+            };
           })
         );
 
-        setMenuItems(newMegaMenu);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
+        setActiveItem((prev: any) => ({
+          ...prev,
+          danhMuc: danhmucWithBaiViet,
+        }));
       }
-    };
 
-    fetchMegaMenu();
-  }, [locale, dataVeChungToi]);
-
-  // get pathname to active navigation
-  useEffect(() => {
-    setActiveKey(pathname);
-  }, [pathname]);
-
-  const handleMouseEnter = (key: string, condition: boolean) => {
-    if (condition) {
-      // if (key === "Về chúng tôi") {
-      //   setActiveKey(key);
-      //   setActiveItem(menuItems.filter((item: any) => item.key === activeKey));
-      //   setIsMenuOpen(true);
-      // } else {
-
-      setActiveKey(key);
-      setActiveItem(menuItems.filter((item: any) => item.key === key));
-      setIsMenuOpen(true);
-      // }
+      setLoading(false);
     }
   };
 
@@ -393,7 +376,7 @@ const Header = (params: any) => {
   );
 };
 
-export default Header;
+export default HeaderNew;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {

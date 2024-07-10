@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import Image from "next/image";
@@ -14,18 +15,204 @@ import { useTranslations } from "next-intl";
 import NTSLogo from "../../../public/images/logo/logo.png";
 
 const MobileMenuNew = ({
-  menuItems,
-  loading,
   locale,
   isOpen,
   toggleMenu,
 }: {
-  menuItems: any;
-  loading: boolean;
   locale: string;
   isOpen: boolean;
   toggleMenu: () => void;
 }) => {
+  const t = useTranslations("menu");
+  const [menuItems, setMenuItems] = useState([
+    {
+      key: "Sản phẩm",
+      name: t("products"),
+      pathname: "/san-pham",
+      label: <div className="flex items-center gap-3">{t("products")}</div>,
+      showIcon: true,
+    },
+    {
+      key: "Dịch vụ",
+      name: t("services"),
+      pathname: "/dich-vu",
+      label: <div className="flex items-center gap-3">{t("services")}</div>,
+      showIcon: true,
+    },
+    {
+      key: "Dự án",
+      name: t("projects"),
+
+      pathname: "/du-an",
+      label: <div className="flex items-center gap-3">{t("projects")}</div>,
+      showIcon: true,
+    },
+    {
+      key: "Đối tác",
+      name: t("partners"),
+      pathname: "/doi-tac",
+      label: (
+        <Link href="/doi-tac" className="flex items-center gap-3">
+          {t("partners")}
+        </Link>
+      ),
+      showIcon: false,
+    },
+    {
+      key: "Về chúng tôi",
+      name: t("about_us"),
+      pathname: "/ve-chung-toi",
+      label: <div className="flex items-center gap-3">{t("about_us")}</div>,
+      showIcon: true,
+    },
+    {
+      key: "Tin tức",
+      name: t("newsTitle"),
+      pathname: "/tin-tuc",
+      label: (
+        <Link href="/tin-tuc" className="flex items-center gap-3">
+          {t("newsTitle")}
+        </Link>
+      ),
+      showIcon: false,
+    },
+    {
+      key: "Thông tư nghị định",
+      name: t("circular_decree"),
+      pathname: "/thong-tu-nghi-dinh",
+      label: (
+        <div className="flex items-center gap-3">{t("circular_decree")}</div>
+      ),
+      showIcon: true,
+    },
+  ]);
+  const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
+  const fetchDataVeChungToi = async () => {
+    const listEndPoint = [
+      `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale}`,
+      `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
+      `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
+      locale === "en"
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
+        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
+    ];
+    try {
+      const responses = await Promise.all(
+        listEndPoint.map((endpoint) => apiService.get<any>(endpoint))
+      );
+
+      const [veChungToi, gocChuyenGia, congTyThanhVien, duAnCongDong] =
+        responses.map((res) => res.data);
+      return {
+        danhMuc: [
+          {
+            id: 1,
+            name: veChungToi.attributes.main.name,
+            description: veChungToi.attributes.main.description,
+            slug: "/ve-chung-toi",
+          },
+          {
+            id: 2,
+            name: t("expertopinion"),
+            description: gocChuyenGia?.attributes?.description,
+            slug: "/goc-chuyen-gia",
+          },
+          {
+            id: 3,
+            name: t("member_company"),
+            description: congTyThanhVien?.attributes?.description,
+            slug: "/cong-ty-thanh-vien",
+          },
+          {
+            id: 4,
+            name: duAnCongDong[0]?.attributes?.name,
+            description: duAnCongDong[0]?.attributes?.description,
+            slug: duAnCongDong[0]?.attributes?.slug,
+          },
+        ],
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataDanhMuc = async (key: string) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${key}&locale=${locale}`;
+      const response = await apiService.get<any>(endpoint);
+      return response.data.map((item: any) => ({
+        name: item.attributes.name,
+        description: item.attributes.description,
+        slug: item.attributes.slug,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchDataBaiViet = async (name: string) => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name]=${name}&locale=${locale}`;
+      const response = await apiService.get<any>(endpoint);
+      return response.data.map((item: any) => ({
+        title: item.attributes.title,
+        slug: item.attributes.slug,
+      }));
+    } catch (error) {
+      console.error(`Error fetching data for ${name}:`, error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setLoading(true);
+
+      const fetchMegaMenu = async () => {
+        try {
+          // Dùng Promise.all để xử lý song song các lời gọi API cho tất cả menu items
+          const promises = menuItems.map(async (item) => {
+            if (item.key === "Về chúng tôi") {
+              // Gọi API riêng cho mục "Về chúng tôi"
+              const veChungToiData = await fetchDataVeChungToi();
+              return {
+                ...item,
+                ...veChungToiData,
+              };
+            } else {
+              // Gọi API để lấy danh mục
+              const danhMucData = await fetchDataDanhMuc(item.key);
+              // Gọi API để lấy bài viết tương ứng với từng danh mục
+              const baiVietData = await Promise.all(
+                danhMucData.map(async (danhMuc: any) => {
+                  const baiViet = await fetchDataBaiViet(danhMuc.name);
+                  return {
+                    ...danhMuc,
+                    baiViet: baiViet,
+                  };
+                })
+              );
+              return {
+                ...item,
+                danhMuc: baiVietData,
+              };
+            }
+          });
+
+          const updatedMenuItems = await Promise.all(promises);
+
+          // Cập nhật state của menuItems với dữ liệu mới
+          setMenuItems(updatedMenuItems);
+        } catch (error) {
+          console.error("Error fetching menu data:", error);
+        } finally {
+          setLoading(false); // Đảm bảo setLoading được gọi để tắt trạng thái loading
+        }
+      };
+
+      fetchMegaMenu();
+    }
+  }, [isOpen]);
+
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [openSubKeys, setOpenSubKeys] = useState<{ [key: string]: string[] }>(
     {}

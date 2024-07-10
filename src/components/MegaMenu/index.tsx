@@ -62,9 +62,19 @@ const MegaMenu = ({
   handleMouseLeave: (event: React.MouseEvent) => void;
 }) => {
   const t = useTranslations("home");
+
+  useEffect(() => {
+    console.log(isMenuOpen);
+  }, [isMenuOpen]);
+  useEffect(() => {
+    console.log(menuItems);
+  }, [menuItems]);
+  useEffect(() => {
+    console.log("loading", loading);
+  }, [loading]);
   return (
     <>
-      {menuItems && menuItems.length > 0 ? (
+      {menuItems ? (
         <div
           className={`hidden laptop:block px-[92px] py-[37.5px] shadow absolute left-0 w-full bg-white z-40 mega-menu-container shadow-top ${
             isMenuOpen
@@ -80,14 +90,28 @@ const MegaMenu = ({
               {menuItems && (
                 <div className="flex justify-between gap-[32.5px] ">
                   <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
-                    <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]  line-clamp-2">
-                      {menuItems[0].name}
-                    </h2>
-                    <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
-                      {menuItems[0].description}
-                    </p>
+                    {activeKey === "Về chúng tôi" ? (
+                      <>
+                        <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]  line-clamp-2">
+                          {menuItems.danhMuc[0].name}
+                        </h2>
+                        <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
+                          {menuItems.danhMuc[0].description}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]  line-clamp-2">
+                          {menuItems.name}
+                        </h2>
+                        <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
+                          {menuItems.description}
+                        </p>
+                      </>
+                    )}
+
                     <Link
-                      href={menuItems[0].pathname || "/"}
+                      href={menuItems.pathname || "/"}
                       className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[50px] justify-center items-center gap-2.5 inline-flex">
                       {t("see_more")}
                     </Link>
@@ -95,8 +119,8 @@ const MegaMenu = ({
                   <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
                   <div className="flex-1 grid grid-cols-3 gap-[30px]">
                     {activeKey === "Sản phẩm" || activeKey === "Dự án"
-                      ? menuItems[0].danhMuc &&
-                        menuItems[0].danhMuc
+                      ? menuItems.danhMuc &&
+                        menuItems.danhMuc
                           .slice(0, 3)
                           .map((item: any, index: any) => (
                             <div
@@ -148,8 +172,8 @@ const MegaMenu = ({
                           ))
                       : activeKey === "Dịch vụ" ||
                         activeKey === "Thông tư nghị định"
-                      ? menuItems[0].danhMuc &&
-                        menuItems[0].danhMuc
+                      ? menuItems.danhMuc &&
+                        menuItems.danhMuc
                           .slice(0, 6)
                           .map((item: any, index: any) => (
                             <div
@@ -176,8 +200,8 @@ const MegaMenu = ({
                             </div>
                           ))
                       : activeKey === "Về chúng tôi"
-                      ? menuItems[0].danhMuc &&
-                        menuItems[0].danhMuc
+                      ? menuItems.danhMuc &&
+                        menuItems.danhMuc
                           .slice(0, 6)
                           .map((item: any, index: any) => (
                             <div
