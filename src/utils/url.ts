@@ -5,27 +5,38 @@ export class UrlUtils {
    * @param {{ [key: string]: string }} [params={}] Query Params
    * @returns {string}
    */
-  static query(params: { [key: string]: any }, includeLoop: boolean = false): string {
+  static query(
+    params: { [key: string]: any },
+    includeLoop: boolean = false
+  ): string {
     if (params && Object.keys(params).length > 0) {
       return `?${Object.keys(params)
         .filter((key) => {
-          return params[key] != null && params[key].toString() != '' && params[key] != undefined && params[key] != 'null';
+          return (
+            params[key] != null &&
+            params[key].toString() != "" &&
+            params[key] != undefined &&
+            params[key] != "null"
+          );
         })
         .map((key: string) => {
           if (includeLoop) {
-            if (typeof params[key] === 'string' && params[key].split('|').length > 1) {
+            if (
+              typeof params[key] === "string" &&
+              params[key].split("|").length > 1
+            ) {
               const arr: Array<string> = [];
-              params[key].split('|').forEach((str: string) => {
+              params[key].split("|").forEach((str: string) => {
                 arr.push(`${key}=${encodeURIComponent(str)}`);
               });
-              return arr.join('&');
+              return arr.join("&");
             }
           }
-          return [key, encodeURIComponent(params[key])].join('=');
+          return [key, encodeURIComponent(params[key])].join("=");
         })
-        .join('&')}`;
+        .join("&")}`;
     } else {
-      return '';
+      return "";
     }
   }
 
@@ -40,10 +51,22 @@ export class UrlUtils {
    * @param {{ [key: string]: any }} [queryParams=null] URL Query Params
    * @returns {string}
    */
-  static mergeWithHost(host: string, prefix: string, version: string, endpoint: string, queryParams: { [key: string]: any } = {}) {
-    const array = [host, prefix, version, endpoint, UrlUtils.query(queryParams)].filter((str) => !!str);
+  static mergeWithHost(
+    host: string,
+    prefix: string,
+    version: string,
+    endpoint: string,
+    queryParams: { [key: string]: any } = {}
+  ) {
+    const array = [
+      host,
+      prefix,
+      version,
+      endpoint,
+      UrlUtils.query(queryParams),
+    ].filter((str) => !!str);
 
-    return array.join('/');
+    return array.join("/");
   }
 
   /**
@@ -56,10 +79,15 @@ export class UrlUtils {
    * @param {{ [key: string]: any }} [queryParams=null] URL Query Params
    * @returns {string}
    */
-  static merge(prefix: string, version: string | undefined, endpoint: string, queryParams: { [key: string]: any } = {}) {
+  static merge(
+    prefix: string,
+    version: string | undefined,
+    endpoint: string,
+    queryParams: { [key: string]: any } = {}
+  ) {
     const array = [prefix, version, endpoint].filter((str) => !!str);
-    console.log(array);
-    return `/${array.join('/')}${UrlUtils.query(queryParams)}`;
+    // console.log(array);
+    return `/${array.join("/")}${UrlUtils.query(queryParams)}`;
   }
 }
 
