@@ -73,7 +73,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                   {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] ">
-                  <Link href={`/${item.slug}}`} className="mr-[10px]">
+                  <Link href={`/${item.slug}`} className="mr-[10px]">
                     {t("let_see")}
                   </Link>
                   <svg
