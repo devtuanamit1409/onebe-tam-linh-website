@@ -22,8 +22,9 @@ import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 import { vi, enUS } from "date-fns/locale";
+import Link from "next/link";
 interface tintuc {
   id: number;
   attributes: {
@@ -225,7 +226,7 @@ const Page: React.FC = (params: any) => {
     .map((item: tintuc) => item.attributes);
 
   const formatTimeBadge = (createdAt: string) => {
-    const timeAgo = formatDistanceToNow(new Date(createdAt), {
+    const timeAgo = formatDistanceToNowStrict(new Date(createdAt), {
       addSuffix: true,
       locale: locale === "en" ? enUS : vi,
     });
@@ -302,7 +303,8 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}>
+                  }}
+                >
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
@@ -390,16 +392,20 @@ const Page: React.FC = (params: any) => {
                         </div>
                         <h3
                           className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
-                          title={item.attributes.title}>
+                          title={item.attributes.title}
+                        >
                           {item.attributes.title}
                         </h3>
                         <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
                         <div className="flex justify-start">
-                          <button className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                          <Link
+                            href={item.attributes.slug}
+                            className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
+                          >
                             {text("read_now")}
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -461,13 +467,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
+                    >
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}>
+                        }`}
+                      >
                         {item.attributes.name}
                       </span>
                     </button>
@@ -482,7 +490,8 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}>
+            onClick={loadMoreArticles}
+          >
             {translate("load_more_news")}
           </button>
         </div>

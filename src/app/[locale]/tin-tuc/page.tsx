@@ -8,7 +8,7 @@ import IconSearch from "@/components/icons/IconSearch";
 import IconWater from "@/components/icons/IconWater";
 import IconDesign from "@/components/icons/IconDesign";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 import { vi, enUS } from "date-fns/locale";
 
 import demo_goc_chuyen_gia from "../../../../public/images/goc-chuyen-gia/demo_chuuyen_gia.png";
@@ -18,7 +18,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Loading from "@/components/Loading";
 import { useTranslations } from "use-intl";
-
+import TintucNoibatSkeleton from "../TintucNoibatSkeleton/page";
+import LatestNewsSkeleton from "../LatestNewsSkeleton/page";
 interface danhMucBaiViet {
   id: number;
   attributes: {
@@ -153,7 +154,7 @@ const Page: React.FC = (params: any) => {
   const t = useTranslations("detail_post");
 
   const formatTimeBadge = (createdAt: string) => {
-    const timeAgo = formatDistanceToNow(new Date(createdAt), {
+    const timeAgo = formatDistanceToNowStrict(new Date(createdAt), {
       addSuffix: true,
       locale: locale === "en" ? enUS : vi,
     });
@@ -165,73 +166,74 @@ const Page: React.FC = (params: any) => {
       <div className="container py-[32px] desktop:py-[50px]">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 tablet:col-span-6">
-            <TintucNoibat
-              data={tintuc
-                .filter((item) => item?.attributes?.bai_viet_tieu_diem === true)
-                .map((item) => item?.attributes)}
-              name={t("features_article")}
-            />
+            {tintuc && tintuc.length > 0 ? (
+              <TintucNoibat
+                data={tintuc
+                  .filter(
+                    (item) => item?.attributes?.bai_viet_tieu_diem === true
+                  )
+                  .map((item) => item?.attributes)}
+                name={t("features_article")}
+              />
+            ) : (
+              <TintucNoibatSkeleton />
+            )}
           </div>
           <div className="col-span-12 tablet:col-span-6">
-            <h2 className="text-[24px] font-bold text-[#374151]">
-              {t("lastest_news")}
-            </h2>
-            {tintuc &&
-              tintuc.slice(0, 3).map((item) => {
-                console.log(
-                  "item.attributes.createdAt",
-                  item.attributes.createdAt
-                );
-                return (
-                  <div key={item.id} className="py-[16px]">
-                    <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
-                      <div className="tablet:col-span-7 mobile:col-span-12">
-                        <div className="flex flex-col gap-[16px]">
-                          <div className="w-fit h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
-                            <div className="text-[#3B559E] text-base font-normal leading-normal capitalize">
-                              {/* {item.attributes.createdAt
-                                ? checkIfCreatedWithin24Hours(
-                                    item.attributes.createdAt
-                                  )
-                                  ? t("lastest_news_tag")
-                                  : formatDate(item.attributes.createdAt)
-                                : t("lastest_news_tag")} */}
-                              {item.attributes.createdAt
-                                ? formatTimeBadge(item.attributes.createdAt)
-                                : t("lastest_news_tag")}
+            {tintuc && tintuc.length > 0 ? (
+              <>
+                <h2 className="text-[24px] font-bold text-[#374151]">
+                  {t("lastest_news")}
+                </h2>
+                {tintuc.slice(0, 3).map((item) => {
+                  return (
+                    <div key={item.id} className="py-[16px]">
+                      <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
+                        <div className="tablet:col-span-7 mobile:col-span-12">
+                          <div className="flex flex-col gap-[16px]">
+                            <div className="w-fit h-8 px-2 py-1 bg-indigo-50 rounded-md justify-start items-center gap-2 inline-flex">
+                              <div className="text-[#3B559E] text-base font-normal leading-normal">
+                                {item.attributes.createdAt
+                                  ? formatTimeBadge(item.attributes.createdAt)
+                                  : t("lastest_news_tag")}
+                              </div>
+                            </div>
+                            <h3 className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] text-[#374151] font-bold line-clamp-2">
+                              {item?.attributes?.title || "có lỗi"}
+                            </h3>
+                            <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
+                              {item?.attributes?.seo?.description || "có lỗi"}
+                            </p>
+                            <div className="flex justify-start">
+                              <Link
+                                href={`/${item.attributes.slug}`}
+                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
+                              >
+                                {t("read_now")}
+                              </Link>
                             </div>
                           </div>
-                          <h3 className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] text-[#374151] font-bold line-clamp-2">
-                            {item?.attributes?.title || "có lỗi"}
-                          </h3>
-                          <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
-                            {item?.attributes?.seo?.description || "có lỗi"}
-                          </p>
-                          <div className="flex justify-start">
-                            <Link
-                              href={`/${item.attributes.slug}`}
-                              className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
-                              {t("read_now")}
-                            </Link>
-                          </div>
                         </div>
-                      </div>
-                      <div className="tablet:col-span-5 mobile:col-span-12">
-                        <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
-                          <Image
-                            // height={196}
-                            // width={196}
-                            src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
-                            fill
-                            objectFit="cover"
-                            alt="tin-tuc-moi-len"
-                          />
+                        <div className="tablet:col-span-5 mobile:col-span-12">
+                          <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
+                            <Image
+                              // height={196}
+                              // width={196}
+                              src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
+                              fill
+                              objectFit="cover"
+                              alt="tin-tuc-moi-len"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </>
+            ) : (
+              <LatestNewsSkeleton />
+            )}
           </div>
         </div>
         <div className="py-[40px]">
@@ -271,13 +273,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
+                    >
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}>
+                        }`}
+                      >
                         {item?.attributes?.name}
                       </span>
                     </button>
@@ -296,7 +300,8 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}>
+            onClick={loadMoreArticles}
+          >
             {t("load_more_news")}
           </button>
         </div>
