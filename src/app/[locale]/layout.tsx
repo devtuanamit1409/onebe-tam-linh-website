@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import NextTopLoader from "nextjs-toploader";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import HeaderNew from "@/components/layout/HeaderNew";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,7 +44,8 @@ export default async function RootLayout({
           shadow="0 0 10px #28A645,0 0 5px #28A645"
         />
         <NextIntlClientProvider messages={messages}>
-          <Header locale={locale} />
+          {/* <Header locale={locale} /> */}
+          <HeaderNew locale={locale} />
           <div
             id="top-content"
             className="desktop:mt-[100px] mobile:mt-[72px]"></div>
