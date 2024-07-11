@@ -268,15 +268,15 @@ const Page: React.FC = (params: any) => {
               {dataChuyenGia ? (
                 <Swiper
                   slidesPerView={1}
-                  spaceBetween={10}
+                  spaceBetween={14}
                   breakpoints={{
-                    640: {
-                      slidesPerView: 1,
+                    540: {
+                      slidesPerView: 2,
                       spaceBetween: 10,
                       slidesPerGroup: 1, // Điều chỉnh số slide di chuyển theo từng breakpoint
                     },
                     744: {
-                      slidesPerView: 1,
+                      slidesPerView: 2,
                       spaceBetween: 10,
                       slidesPerGroup: 1,
                     },
@@ -292,7 +292,7 @@ const Page: React.FC = (params: any) => {
                     },
                     1440: {
                       slidesPerView: 4,
-                      spaceBetween: 10,
+                      spaceBetween: 14,
                       slidesPerGroup: 4,
                     },
                   }}
@@ -303,14 +303,13 @@ const Page: React.FC = (params: any) => {
                   }}
                   onSlideChange={(swiper) => {
                     setCurrentIndex(swiper.realIndex);
-                  }}
-                >
+                  }}>
                   {dataChuyenGia &&
                     dataChuyenGia.attributes?.listChuyenGia?.map(
                       (item, key) => {
                         return (
                           <SwiperSlide key={key}>
-                            <div className="relative tablet:max-w-[480px] tablet:max-h-[330px] mobile:p-6  mx-auto overflow-hidden">
+                            <div className="relative mobile:max-w-[480px] mobile:max-h-[330px] tablet:min-h-[330px] bg-slate-200 mobile:min-h-[330px]  h-full w-full   mx-auto overflow-hidden flex flex-col items-center justify-center ">
                               <Image
                                 src={`${baseUrl}${item.avatar?.data?.attributes?.url}`}
                                 alt={item.avatar?.data?.attributes?.name}
@@ -318,7 +317,7 @@ const Page: React.FC = (params: any) => {
                                 height={100}
                                 layout="responsive"
                               />
-                              <div className="desktop:px-[32px] laptop:px-[8px] mobile:px-[16px] py-[16px] bg-[#F5F3FF] text-center absolute mobile:top-[80%] tablet:top-[70%] laptop:top-[63%] desktop:top-[70%] left-1/2 transform -translate-x-1/2 w-max min-w-[140px] desktop:max-w-[263px] laptop:max-w-[234px] ">
+                              <div className="desktop:px-[32px] laptop:px-[8px] mobile:px-[16px] py-[16px] bg-[#F5F3FF] text-center absolute mobile:top-[70%] tablet:top-[70%] laptop:top-[63%] desktop:top-[230px] left-1/2 transform -translate-x-1/2 w-max min-w-[140px] desktop:max-w-[263px] laptop:max-w-[234px] ">
                                 <h2 className="text-[#3B559E] font-semibold line-clamp-1">
                                   {item.name}
                                 </h2>
@@ -392,8 +391,7 @@ const Page: React.FC = (params: any) => {
                         </div>
                         <h3
                           className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
-                          title={item.attributes.title}
-                        >
+                          title={item.attributes.title}>
                           {item.attributes.title}
                         </h3>
                         <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
@@ -402,8 +400,7 @@ const Page: React.FC = (params: any) => {
                         <div className="flex justify-start">
                           <Link
                             href={item.attributes.slug}
-                            className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
-                          >
+                            className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                             {text("read_now")}
                           </Link>
                         </div>
@@ -467,15 +464,13 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item.attributes.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}
-                    >
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
                       <span
                         className={`text-12px font-medium  ${
                           filterDanhMuc === item.attributes.name
                             ? `text-[#fff]`
                             : `text-[#3B559E]`
-                        }`}
-                      >
+                        }`}>
                         {item.attributes.name}
                       </span>
                     </button>
@@ -490,8 +485,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}
-          >
+            onClick={loadMoreArticles}>
             {translate("load_more_news")}
           </button>
         </div>
