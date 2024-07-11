@@ -6,6 +6,7 @@ import Loading from "../Loading";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import MegaMenuSkeleton from "../MegaMenuSkeleton/page";
+import Skeleton from "react-loading-skeleton";
 interface MegaMenuItem {
   attributes: {
     category: string;
@@ -80,7 +81,7 @@ const MegaMenu = ({
           }`}
           onMouseEnter={() => setIsMenuOpen(true)}
           onMouseLeave={handleMouseLeave}>
-          {loading ? (
+          {loading || !menuItems.danhMuc ? (
             <MegaMenuSkeleton activeKey={activeKey} />
           ) : (
             <>
@@ -115,116 +116,141 @@ const MegaMenu = ({
                   </div>
                   <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
                   <div className="flex-1 grid grid-cols-3 gap-[30px]">
-                    {activeKey === "Sản phẩm" || activeKey === "Dự án"
-                      ? menuItems.danhMuc &&
-                        menuItems.danhMuc
-                          .slice(0, 3)
-                          .map((item: any, index: any) => (
-                            <div
-                              className="flex flex-col items-start gap-4"
-                              key={index}>
-                              <div className="w-full min-h-[108px] gap-4">
-                                <Link
-                                  href={item.slug}
-                                  key={index}
-                                  className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear">
-                                  <p className=" text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
-                                    {item.name}
-                                  </p>
-                                  <span>
-                                    <IconAngleRightColorFull />
-                                  </span>
-                                </Link>
-                                {item.description && (
-                                  <p className="text-slate-400 text-[15px] font-normal leading-[22px] pr-[18px] mt-4 line-clamp-3">
-                                    {item.description}
-                                  </p>
-                                )}
-                              </div>
-                              {item.baiViet &&
-                                item.baiViet
-                                  .slice(0, 4)
-                                  .map((child: any, childIndex: any) => (
-                                    <div
-                                      key={childIndex}
-                                      className="text-black  hover:text-[#28A645] transition-colors ease-linear text-base font-semibold leading-normal w-full">
-                                      <Link
-                                        href={child.slug || "/"}
-                                        className=" flex items-center justify-between ">
-                                        <p
-                                          className="!line-clamp-1"
-                                          title={child.title}>
-                                          {child.title}
-                                        </p>
-                                        <span>
-                                          <IconAngleRight
-                                            width="16"
-                                            height="16"
-                                          />
-                                        </span>
-                                      </Link>
-                                    </div>
-                                  ))}
+                    {activeKey === "Sản phẩm" || activeKey === "Dự án" ? (
+                      menuItems.danhMuc &&
+                      menuItems.danhMuc
+                        .slice(0, 3)
+                        .map((item: any, index: any) => (
+                          <div
+                            className="flex flex-col items-start gap-4"
+                            key={index}>
+                            <div className="w-full min-h-[108px] gap-4">
+                              <Link
+                                href={item.slug}
+                                key={index}
+                                className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear">
+                                <p className=" text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
+                                  {item.name}
+                                </p>
+                                <span>
+                                  <IconAngleRightColorFull />
+                                </span>
+                              </Link>
+                              {item.description && (
+                                <p className="text-slate-400 text-[15px] font-normal leading-[22px] pr-[18px] mt-4 line-clamp-3">
+                                  {item.description}
+                                </p>
+                              )}
                             </div>
-                          ))
-                      : activeKey === "Dịch vụ" ||
-                        activeKey === "Thông tư nghị định"
-                      ? menuItems.danhMuc &&
-                        menuItems.danhMuc
-                          .slice(0, 6)
-                          .map((item: any, index: any) => (
-                            <div
-                              className="flex flex-col items-start gap-4"
-                              key={index}>
-                              <div className="w-full min-h-[108px] gap-4">
-                                <Link
-                                  href={item.slug}
-                                  key={index}
-                                  className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear">
-                                  <p className=" font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2 ">
-                                    {item.name}
-                                  </p>
-                                  <span>
-                                    <IconAngleRightColorFull />
-                                  </span>
-                                </Link>
-                                {item.description && (
-                                  <p className="text-slate-400 text-[15px] leading-[22px]  font-normal pr-[18px] mt-4 line-clamp-3">
-                                    {item.description}
-                                  </p>
-                                )}
+                            {item.baiViet &&
+                              item.baiViet
+                                .slice(0, 4)
+                                .map((child: any, childIndex: any) => (
+                                  <div
+                                    key={childIndex}
+                                    className="text-black  hover:text-[#28A645] transition-colors ease-linear text-base font-semibold leading-normal w-full">
+                                    <Link
+                                      href={child.slug || "/"}
+                                      className=" flex items-center justify-between ">
+                                      <p
+                                        className="!line-clamp-1"
+                                        title={child.title}>
+                                        {child.title}
+                                      </p>
+                                      <span>
+                                        <IconAngleRight
+                                          width="16"
+                                          height="16"
+                                        />
+                                      </span>
+                                    </Link>
+                                  </div>
+                                ))}
+                          </div>
+                        ))
+                    ) : activeKey === "Dịch vụ" ||
+                      activeKey === "Thông tư nghị định" ? (
+                      menuItems.danhMuc &&
+                      menuItems.danhMuc
+                        .slice(0, 6)
+                        .map((item: any, index: any) => (
+                          <div
+                            className="flex flex-col items-start gap-4"
+                            key={index}>
+                            <div className="w-full min-h-[108px] gap-4">
+                              <Link
+                                href={item.slug}
+                                key={index}
+                                className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear">
+                                <p className=" font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2 ">
+                                  {item.name}
+                                </p>
+                                <span>
+                                  <IconAngleRightColorFull />
+                                </span>
+                              </Link>
+                              {item.description && (
+                                <p className="text-slate-400 text-[15px] leading-[22px]  font-normal pr-[18px] mt-4 line-clamp-3">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                    ) : activeKey === "Về chúng tôi" ? (
+                      menuItems.danhMuc &&
+                      menuItems.danhMuc
+                        .slice(0, 6)
+                        .map((item: any, index: any) => (
+                          <div
+                            className="flex flex-col items-start gap-4"
+                            key={index}>
+                            <div className="w-full min-h-[108px] gap-4">
+                              <Link
+                                href={item.slug || "/"}
+                                key={index}
+                                className="flex gap-2 items-center justify-between hover:text-[#28A645] text-lg font-semibold leading-relaxed flextext-black transition-colors ease-linear">
+                                <p className="  items-center justify-between !line-clamp-2 ">
+                                  {item.name}
+                                </p>
+                                <span>
+                                  <IconAngleRightColorFull />
+                                </span>
+                              </Link>
+                              {item.description && (
+                                <p className="text-slate-400  text-[15px] font-normal leading-[22px] pr-[18px] mt-4 line-clamp-3">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                    ) : (
+                      <div className="flex flex-col items-start gap-4">
+                        <div className="w-full min-h-[108px] gap-4">
+                          <div className="flex gap-2 items-center justify-between">
+                            <Skeleton height={24} width="70%" />
+                            <Skeleton height={24} width={24} />
+                          </div>
+                          <Skeleton
+                            height={18}
+                            width="90%"
+                            count={2}
+                            style={{ marginTop: "1rem" }}
+                          />
+                        </div>
+                        {Array(4)
+                          .fill(0)
+                          .map((_, childIndex) => (
+                            <div key={childIndex} className="w-full">
+                              <div className="flex items-center justify-between">
+                                <Skeleton height={18} width="80%" />
+                                <Skeleton height={18} width={16} />
                               </div>
                             </div>
-                          ))
-                      : activeKey === "Về chúng tôi"
-                      ? menuItems.danhMuc &&
-                        menuItems.danhMuc
-                          .slice(0, 6)
-                          .map((item: any, index: any) => (
-                            <div
-                              className="flex flex-col items-start gap-4"
-                              key={index}>
-                              <div className="w-full min-h-[108px] gap-4">
-                                <Link
-                                  href={item.slug || "/"}
-                                  key={index}
-                                  className="flex gap-2 items-center justify-between hover:text-[#28A645] text-lg font-semibold leading-relaxed flextext-black transition-colors ease-linear">
-                                  <p className="  items-center justify-between !line-clamp-2 ">
-                                    {item.name}
-                                  </p>
-                                  <span>
-                                    <IconAngleRightColorFull />
-                                  </span>
-                                </Link>
-                                {item.description && (
-                                  <p className="text-slate-400  text-[15px] font-normal leading-[22px] pr-[18px] mt-4 line-clamp-3">
-                                    {item.description}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          ))
-                      : null}
+                          ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
