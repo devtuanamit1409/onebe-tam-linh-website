@@ -12,6 +12,7 @@ import IconCircleLeaf from "../icons/IconCircleLeaf";
 import { useTranslations } from "next-intl";
 import { apiService } from "@/services/api.service";
 import Loading from "../Loading";
+import PageMenuSkeleton from "../PageMenuSkeleton";
 
 interface props {
   menu: any;
@@ -77,7 +78,7 @@ const PageMenu = (props: props): JSX.Element => {
     <>
       {loading ? (
         <div className="flex items-center justify-center min-h-[500px]">
-          <Loading />
+          <PageMenuSkeleton />
         </div>
       ) : (
         <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px] desktop:px-[120px]">
