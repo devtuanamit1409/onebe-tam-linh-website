@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
+import MegaMenuSkeleton from "../MegaMenuSkeleton/page";
 interface MegaMenuItem {
   attributes: {
     category: string;
@@ -64,14 +65,10 @@ const MegaMenu = ({
   const t = useTranslations("home");
 
   useEffect(() => {
-    console.log(isMenuOpen);
-  }, [isMenuOpen]);
-  useEffect(() => {
-    console.log(menuItems);
-  }, [menuItems]);
-  useEffect(() => {
-    console.log("loading", loading);
-  }, [loading]);
+    console.log("menuItems", menuItems);
+    console.log("activeKey", activeKey);
+  });
+
   return (
     <>
       {menuItems ? (
@@ -84,7 +81,7 @@ const MegaMenu = ({
           onMouseEnter={() => setIsMenuOpen(true)}
           onMouseLeave={handleMouseLeave}>
           {loading ? (
-            <Loading />
+            <MegaMenuSkeleton activeKey={activeKey} />
           ) : (
             <>
               {menuItems && (
@@ -93,10 +90,10 @@ const MegaMenu = ({
                     {activeKey === "Về chúng tôi" ? (
                       <>
                         <h2 className="self-stretch text-[#3B559E] text-[40px] font-bold leading-[64px]  line-clamp-2">
-                          {menuItems.danhMuc[0].name}
+                          {menuItems.name}
                         </h2>
                         <p className="w-[300px] text-gray-500 text-base font-normal leading-normal pr-[18px] line-clamp-3">
-                          {menuItems.danhMuc[0].description}
+                          {menuItems.description}
                         </p>
                       </>
                     ) : (
