@@ -5,7 +5,7 @@ import { ENDPOINT } from "@/enums/endpoint.enum";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 const searchData = {
-  populate: ["bai_viets.seo.thumbnail"].toString(),
+  populate: ["bai_viets.seo.thumbnail,bai_viets.danh_muc_cons"].toString(),
 };
 const searchParams = new URLSearchParams(searchData).toString();
 
@@ -37,6 +37,13 @@ const Construction = async (locale: any) => {
                 slug: string;
                 content: string;
                 type: string;
+                danh_muc_cons: {
+                  data: {
+                    attributes: {
+                      category: string;
+                    };
+                  }[];
+                };
                 seo: {
                   title: string;
                   description: string;
@@ -58,33 +65,13 @@ const Construction = async (locale: any) => {
     }
   )?.data?.attributes?.bai_viets?.data;
 
-  const construction = [
-    {
-      name: "Xử lý nước",
-      detail: " Dự án xử lý nước thải tòa nhà văn phòng FPT 3 - quận 9",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlImage: "/images/home/demo-du-an-1.jpg",
-      width: 500,
-      height: 500,
-    },
-    {
-      name: "Xử lý nước",
-      detail: " Dự án xử lý nước thải tòa nhà văn phòng FPT 3 - quận 9",
-      describe:
-        "This is a short description about this card.This is a short description about this card.",
-      urlImage: "/images/home/demo-du-an-2.jpg",
-      width: 500,
-      height: 500,
-    },
-  ];
-
   return (
     <>
       <div className="grid grid-cols-12 gap-4 items-stretch">
         <div className="col-span-12 laptop:col-span-8">
           <div className="flex flex-col gap-[24px]">
             {baiviet?.slice(0, 2)?.map((item, key) => {
+              console.log("item", item);
               return (
                 <div
                   key={key}
@@ -101,7 +88,8 @@ const Construction = async (locale: any) => {
                     <div className="bg-[#F4F7FF] p-[24px] w-full h-full ">
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
                         <h5 className="text-[#28A645] font-bold line-clamp-1">
-                          {item.attributes.seo.title}
+                          {item.attributes.danh_muc_cons?.data[0]?.attributes
+                            ?.category || "Danh Mục"}
                         </h5>
                         <h2 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
                           {item.attributes.title}
@@ -137,7 +125,8 @@ const Construction = async (locale: any) => {
                 <>
                   <div className=" flex flex-col gap-[16px]">
                     <h5 className="text-[#28A645] font-bold">
-                      {item.attributes.seo.title}
+                      {item.attributes.danh_muc_cons?.data[0]?.attributes
+                        ?.category || "Danh Mục"}
                     </h5>
                     <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
@@ -177,7 +166,8 @@ const Construction = async (locale: any) => {
                 <>
                   <div className=" flex flex-col gap-[16px]">
                     <h5 className="text-[#28A645] font-bold line-clamp-1">
-                      {item.attributes.seo.title}
+                      {item.attributes.danh_muc_cons?.data[0]?.attributes
+                        ?.category || "Danh Mục"}
                     </h5>
                     <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff] line-clamp-2">
                       {item.attributes.title}
