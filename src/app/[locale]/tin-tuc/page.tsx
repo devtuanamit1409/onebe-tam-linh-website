@@ -259,7 +259,7 @@ const Page: React.FC = (params: any) => {
         </div>
 
         <div className="py-[50px]">
-          <div className="flex gap-4">
+          <div className="flex gap-4  laptop:flex-wrap laptop:overflow-hidden mobile:flex-nowrap mobile:overflow-auto pb-2 ">
             {dataDanhMucBaiViet && dataDanhMucBaiViet.length > 0
               ? dataDanhMucBaiViet.map((item: danhMucBaiViet) => {
                   return (
@@ -272,12 +272,12 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
                       <span
-                        className={`text-12px font-medium  ${
+                        className={`text-12px font-medium text-nowrap  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
-                            : `text-[#3B559E]`
+                            : `text-[#3B559E] `
                         }`}>
                         {item?.attributes?.name}
                       </span>

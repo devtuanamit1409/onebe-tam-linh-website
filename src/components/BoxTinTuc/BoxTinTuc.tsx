@@ -34,13 +34,15 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 className="col-span-12 tablet:col-span-6 laptop:col-span-6 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto w-full">
                 <div className="relative">
                   <div className="max-h-[280px] laptop:h-[280px] tablet:h-[220px] mobile:min-h-[220px] tablet:min-h-[280px] relative overflow-hidden bg-slate-200">
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-full h-full flex flex-col items-center justify-center max-h-[280px] laptop:h-[280px] tablet:h-[220px] mobile:min-h-[220px] tablet:min-h-[280px">
                       <Image
-                        objectFit="cover"
+                        // objectFit="cover"
                         alt="tin-tuc"
                         src={`${baseUrl}${item.seo?.thumbnail?.data?.attributes?.url}`}
-                        layout="fill"
-                        className="absolute top-0 left-0 w-full h-full"
+                        layout="responsive"
+                        width={100}
+                        height={100}
+                        className="h-auto w-full object-cover my-auto"
                       />
                     </div>
                   </div>
