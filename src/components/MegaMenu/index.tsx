@@ -65,10 +65,6 @@ const MegaMenu = ({
 }) => {
   const t = useTranslations("home");
 
-  useEffect(() => {
-    console.log("menuItems", menuItems);
-  });
-
   return (
     <>
       {menuItems ? (

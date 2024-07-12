@@ -13,6 +13,7 @@ import Loading from "../Loading";
 import { apiService } from "@/services/api.service";
 import { useTranslations } from "next-intl";
 import NTSLogo from "../../../public/images/logo/logo.png";
+import Skeleton from "react-loading-skeleton";
 
 const MobileMenuNew = ({
   locale,
@@ -42,7 +43,6 @@ const MobileMenuNew = ({
     {
       key: "Dự án",
       name: t("projects"),
-
       pathname: "/du-an",
       label: <div className="flex items-center gap-3">{t("projects")}</div>,
       showIcon: true,
@@ -86,7 +86,10 @@ const MobileMenuNew = ({
       showIcon: true,
     },
   ]);
+
   const [loading, setLoading] = useState(false);
+  const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
+
   const handleGetEndPoint = (key: string) => {
     switch (key) {
       case "Sản phẩm":
@@ -113,7 +116,6 @@ const MobileMenuNew = ({
         return "";
     }
   };
-  const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
 
   const fetchDataVeChungToi = async () => {
     if (cachedData["Về chúng tôi"]) {
@@ -125,7 +127,7 @@ const MobileMenuNew = ({
       `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
       `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
       locale === "en"
-        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Projects`
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
         : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
     ];
     try {
@@ -184,12 +186,10 @@ const MobileMenuNew = ({
 
     const endpoint = `${process.env.URL_API}/api/custom-${handleGetEndPoint(
       key
-    )}?limitBaiViet=4&locale=${locale}`;
-    console.log("Fetching data from:", endpoint);
-
+    )}?&locale=${locale}`;
+    console.log("engpoint", endpoint);
     try {
       const response = await apiService.get<any>(endpoint);
-      console.log("response", response);
 
       const itemData = {
         ...menuItems.find((item) => item.key === key),
@@ -210,33 +210,32 @@ const MobileMenuNew = ({
     if (isOpen) {
       setLoading(true);
       const fetchAllHeaders = async () => {
-        for (const item of menuItems) {
-          if (cachedData[item.key]) {
-            continue;
+        const promises = menuItems.map(async (item) => {
+          if (
+            !cachedData[item.key] &&
+            item.key !== "Tin tức" &&
+            item.key !== "Đối tác"
+          ) {
+            if (item.key === "Về chúng tôi") {
+              const data = await fetchDataVeChungToi();
+              setCachedData((prev) => ({
+                ...prev,
+                [item.key]: {
+                  ...menuItems.find((menuItem) => menuItem.key === item.key),
+                  ...data,
+                },
+              }));
+            } else {
+              await fetchHeader(item.key);
+            }
           }
-
-          if (item.key === "Về chúng tôi") {
-            const data = await fetchDataVeChungToi();
-            setCachedData((prev) => ({
-              ...prev,
-              [item.key]: {
-                ...menuItems.find((menuItem) => menuItem.key === item.key),
-                ...data,
-              },
-            }));
-          } else {
-            await fetchHeader(item.key);
-          }
-        }
+        });
+        await Promise.all(promises);
         setLoading(false);
       };
       fetchAllHeaders();
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    console.log("cachedData", cachedData);
-  }, [cachedData]);
 
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [openSubKeys, setOpenSubKeys] = useState<{ [key: string]: string[] }>(
@@ -315,7 +314,15 @@ const MobileMenuNew = ({
       </div>
       <LanguageSwitch />
       {loading ? (
-        <Loading />
+        <Menu mode="inline" className="mt-4 flex flex-col gap-2">
+          {Array.from({ length: 7 }).map((_, index) => (
+            <Menu.Item
+              key={index}
+              className="text-black text-lg font-semibold leading-relaxed">
+              <Skeleton height={30} />
+            </Menu.Item>
+          ))}
+        </Menu>
       ) : (
         <Menu
           mode="inline"
