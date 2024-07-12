@@ -156,11 +156,9 @@ const HeaderNew = (params: any) => {
     }&limitBaiViet=${
       key === "Sản phẩm" || key === "Dự án" ? 4 : 0
     }&locale=${locale}`;
-    console.log("Fetching data from:", endpoint);
 
     try {
       const response = await apiService.get<any>(endpoint);
-      console.log("response", response);
 
       const itemData = {
         ...menuItems.find((item) => item.key === key),
@@ -173,9 +171,7 @@ const HeaderNew = (params: any) => {
         [key]: itemData,
       }));
       setActiveItem(itemData);
-    } catch (error) {
-      console.error(`Error fetching data for ${key}:`, error);
-    }
+    } catch (error) {}
   };
   const fetchDataVeChungToi = async () => {
     if (cachedData["Về chúng tôi"]) {
@@ -244,9 +240,7 @@ const HeaderNew = (params: any) => {
         ...menuItems.find((item: any) => item.key === "Về chúng tôi"),
         ...data,
       });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    } catch (error) {}
   };
 
   const handleMouseEnter = async (key: string, condition: boolean) => {

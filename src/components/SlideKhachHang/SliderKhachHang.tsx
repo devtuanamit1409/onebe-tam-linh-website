@@ -13,7 +13,6 @@ const SliderKhachHang = (listlogo: any) => {
         pauseOnHover={false} // Tạm dừng khi hover
       >
         {listlogo.listlogo.map((logo: any, index: any) => {
-          console.log("logo", logo);
           return (
             <div
               key={index}

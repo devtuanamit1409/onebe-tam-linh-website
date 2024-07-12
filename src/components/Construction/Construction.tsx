@@ -72,7 +72,6 @@ const Construction = async (locale: any) => {
         <div className="col-span-12 laptop:col-span-8">
           <div className="flex flex-col gap-[24px]">
             {baiviet?.slice(0, 2)?.map((item, key) => {
-              console.log("item", item);
               return (
                 <div
                   key={key}
