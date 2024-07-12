@@ -41,6 +41,7 @@ const Construction = async (locale: any) => {
                   data: {
                     attributes: {
                       category: string;
+                      name: string;
                     };
                   }[];
                 };
@@ -89,7 +90,7 @@ const Construction = async (locale: any) => {
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
                         <h5 className="text-[#28A645] font-bold line-clamp-1">
                           {item.attributes.danh_muc_cons?.data[0]?.attributes
-                            ?.category || "Danh Mục"}
+                            ?.name || "Dự án"}
                         </h5>
                         <h2 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
                           {item.attributes.title}
@@ -126,7 +127,7 @@ const Construction = async (locale: any) => {
                   <div className=" flex flex-col gap-[16px]">
                     <h5 className="text-[#28A645] font-bold">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
-                        ?.category || "Danh Mục"}
+                        ?.name || "Dự án"}
                     </h5>
                     <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff]">
                       {item.attributes.title}
@@ -167,7 +168,7 @@ const Construction = async (locale: any) => {
                   <div className=" flex flex-col gap-[16px]">
                     <h5 className="text-[#28A645] font-bold line-clamp-1">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
-                        ?.category || "Danh Mục"}
+                        ?.name || "Dự án"}
                     </h5>
                     <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#fff] line-clamp-2">
                       {item.attributes.title}

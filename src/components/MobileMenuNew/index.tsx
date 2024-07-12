@@ -86,15 +86,46 @@ const MobileMenuNew = ({
       showIcon: true,
     },
   ]);
-  const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const handleGetEndPoint = (key: string) => {
+    switch (key) {
+      case "Sản phẩm":
+        return "san-pham";
+      case "Products":
+        return "san-pham";
+      case "Dịch vụ":
+        return "dich-vu";
+      case "Services":
+        return "dich-vu";
+      case "Dự án":
+        return "du-an";
+      case "Project":
+        return "du-an";
+      case "Về chúng tôi":
+        return "ve-chung-toi";
+      case "About Us":
+        return "ve-chung-toi";
+      case "Thông tư nghị định":
+        return "thong-tu-nghi-dinh";
+      case "Circular - Decree":
+        return "thong-tu-nghi-dinh";
+      default:
+        return "";
+    }
+  };
+  const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
+
   const fetchDataVeChungToi = async () => {
+    if (cachedData["Về chúng tôi"]) {
+      return cachedData["Về chúng tôi"]; // Return cached data if it exists
+    }
+
     const listEndPoint = [
       `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale}`,
       `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
       `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
       locale === "en"
-        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Projects`
         : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
     ];
     try {
@@ -104,8 +135,10 @@ const MobileMenuNew = ({
 
       const [veChungToi, gocChuyenGia, congTyThanhVien, duAnCongDong] =
         responses.map((res) => res.data);
-      return {
-        danhMuc: [
+
+      const data = {
+        description: veChungToi.attributes.main.description,
+        danh_muc_cons: [
           {
             id: 1,
             name: veChungToi.attributes.main.name,
@@ -132,86 +165,78 @@ const MobileMenuNew = ({
           },
         ],
       };
+
+      setCachedData((prev) => ({
+        ...prev,
+        "Về chúng tôi": data,
+      }));
+
+      return data;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  const fetchDataDanhMuc = async (key: string) => {
-    try {
-      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${key}&locale=${locale}`;
-      const response = await apiService.get<any>(endpoint);
-      return response.data.map((item: any) => ({
-        name: item.attributes.name,
-        description: item.attributes.description,
-        slug: item.attributes.slug,
-      }));
-    } catch (error) {
-      console.error("Error fetching data:", error);
+
+  const fetchHeader = async (key: string) => {
+    if (cachedData[key]) {
+      return; // Skip API call if data is already cached
     }
-  };
-  const fetchDataBaiViet = async (name: string) => {
+
+    const endpoint = `${process.env.URL_API}/api/custom-${handleGetEndPoint(
+      key
+    )}?limitBaiViet=4&locale=${locale}`;
+    console.log("Fetching data from:", endpoint);
+
     try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name]=${name}&locale=${locale}`;
       const response = await apiService.get<any>(endpoint);
-      return response.data.map((item: any) => ({
-        title: item.attributes.title,
-        slug: item.attributes.slug,
+      console.log("response", response);
+
+      const itemData = {
+        ...menuItems.find((item) => item.key === key),
+        description: response.description,
+        danh_muc_cons: response.danh_muc_cons,
+      };
+
+      setCachedData((prev) => ({
+        ...prev,
+        [key]: itemData,
       }));
     } catch (error) {
-      console.error(`Error fetching data for ${name}:`, error);
-      return null;
+      console.error(`Error fetching data for ${key}:`, error);
     }
   };
 
   useEffect(() => {
     if (isOpen) {
       setLoading(true);
+      const fetchAllHeaders = async () => {
+        for (const item of menuItems) {
+          if (cachedData[item.key]) {
+            continue;
+          }
 
-      const fetchMegaMenu = async () => {
-        try {
-          // Dùng Promise.all để xử lý song song các lời gọi API cho tất cả menu items
-          const promises = menuItems.map(async (item) => {
-            if (item.key === "Về chúng tôi") {
-              // Gọi API riêng cho mục "Về chúng tôi"
-              const veChungToiData = await fetchDataVeChungToi();
-              return {
-                ...item,
-                ...veChungToiData,
-              };
-            } else {
-              // Gọi API để lấy danh mục
-              const danhMucData = await fetchDataDanhMuc(item.key);
-              // Gọi API để lấy bài viết tương ứng với từng danh mục
-              const baiVietData = await Promise.all(
-                danhMucData.map(async (danhMuc: any) => {
-                  const baiViet = await fetchDataBaiViet(danhMuc.name);
-                  return {
-                    ...danhMuc,
-                    baiViet: baiViet,
-                  };
-                })
-              );
-              return {
-                ...item,
-                danhMuc: baiVietData,
-              };
-            }
-          });
-
-          const updatedMenuItems = await Promise.all(promises);
-
-          // Cập nhật state của menuItems với dữ liệu mới
-          setMenuItems(updatedMenuItems);
-        } catch (error) {
-          console.error("Error fetching menu data:", error);
-        } finally {
-          setLoading(false); // Đảm bảo setLoading được gọi để tắt trạng thái loading
+          if (item.key === "Về chúng tôi") {
+            const data = await fetchDataVeChungToi();
+            setCachedData((prev) => ({
+              ...prev,
+              [item.key]: {
+                ...menuItems.find((menuItem) => menuItem.key === item.key),
+                ...data,
+              },
+            }));
+          } else {
+            await fetchHeader(item.key);
+          }
         }
+        setLoading(false);
       };
-
-      fetchMegaMenu();
+      fetchAllHeaders();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    console.log("cachedData", cachedData);
+  }, [cachedData]);
 
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [openSubKeys, setOpenSubKeys] = useState<{ [key: string]: string[] }>(
@@ -298,13 +323,17 @@ const MobileMenuNew = ({
           openKeys={openKeys}
           onOpenChange={onOpenChange}>
           {menuItems.map((item: any) => {
-            if (!item.danhMuc || item.danhMuc.length === 0) {
+            const cachedItem = cachedData[item.key];
+            if (
+              !cachedItem?.danh_muc_cons ||
+              cachedItem?.danh_muc_cons.length === 0
+            ) {
               return (
                 <Menu.Item
                   key={item.key}
                   className="text-black text-lg font-semibold leading-relaxed">
                   <Link
-                    href={item.pathname}
+                    href={item.pathname || "/"}
                     className="!text-black !text-lg !font-semibold leading-relaxed">
                     {item.name}
                   </Link>
@@ -323,24 +352,24 @@ const MobileMenuNew = ({
                   {item.key === "Về chúng tôi" ? null : (
                     <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
                       <Link
-                        href={item.pathname}
+                        href={item.pathname || "/"}
                         className="!text-[#3B559E] text-base font-normal leading-relaxed px-0">
                         {locale === "vi" ? "Đến trang " : "Go to "} {item.name}
                       </Link>
                     </Menu.Item>
                   )}
 
-                  {item.danhMuc.map((danhMucItem: any) => {
+                  {cachedItem.danh_muc_cons.map((danhMucItem: any) => {
                     if (
-                      !danhMucItem.baiViet ||
-                      danhMucItem.baiViet.length === 0
+                      !danhMucItem.bai_viet ||
+                      danhMucItem.bai_viet.length === 0
                     ) {
                       return (
                         <Menu.Item
                           key={danhMucItem.slug}
                           className="!text-base !font-normal !text-[#000]">
                           <Link
-                            href={danhMucItem.slug}
+                            href={danhMucItem.slug || "/"}
                             className="!text-base !font-normal !text-[#000] ">
                             {danhMucItem.name}
                           </Link>
@@ -358,20 +387,20 @@ const MobileMenuNew = ({
                         className="!text-base !font-normal !text-[#000] ">
                         <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
                           <Link
-                            href={danhMucItem.slug}
+                            href={danhMucItem.slug || "/"}
                             className="!text-[#3B559E] text-base font-normal leading-relaxed">
                             {locale === "vi" ? "Đến trang " : "Go to "}{" "}
                             {danhMucItem.name}
                           </Link>
                         </Menu.Item>
-                        {danhMucItem.baiViet
+                        {danhMucItem.bai_viet
                           .slice(0, 4)
                           .map((baiVietItem: any) => (
                             <Menu.Item
                               key={baiVietItem.slug}
                               className="text-[#3B559E] text-base font-normal leading-relaxed">
                               <Link
-                                href={baiVietItem.slug}
+                                href={baiVietItem.slug || "/"}
                                 className="!text-gray-500 !text-base !font-normal leading-relaxed">
                                 {baiVietItem.title}
                               </Link>
