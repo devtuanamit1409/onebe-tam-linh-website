@@ -67,7 +67,6 @@ const MegaMenu = ({
 
   useEffect(() => {
     console.log("menuItems", menuItems);
-    console.log("activeKey", activeKey);
   });
 
   return (
@@ -81,7 +80,7 @@ const MegaMenu = ({
           }`}
           onMouseEnter={() => setIsMenuOpen(true)}
           onMouseLeave={handleMouseLeave}>
-          {loading || !menuItems.danhMuc ? (
+          {loading || !menuItems.danh_muc_cons ? (
             <MegaMenuSkeleton activeKey={activeKey} />
           ) : (
             <>
@@ -117,8 +116,8 @@ const MegaMenu = ({
                   <div className="min-h-full w-1 bg-[#28A645] rounded"></div>
                   <div className="flex-1 grid grid-cols-3 gap-[30px]">
                     {activeKey === "Sản phẩm" || activeKey === "Dự án" ? (
-                      menuItems.danhMuc &&
-                      menuItems.danhMuc
+                      menuItems.danh_muc_cons &&
+                      menuItems.danh_muc_cons
                         .slice(0, 3)
                         .map((item: any, index: any) => (
                           <div
@@ -126,7 +125,7 @@ const MegaMenu = ({
                             key={index}>
                             <div className="w-full min-h-[108px] gap-4">
                               <Link
-                                href={item.slug}
+                                href={item.slug || "/"}
                                 key={index}
                                 className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear">
                                 <p className=" text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
@@ -142,8 +141,8 @@ const MegaMenu = ({
                                 </p>
                               )}
                             </div>
-                            {item.baiViet &&
-                              item.baiViet
+                            {item.bai_viet &&
+                              item.bai_viet
                                 .slice(0, 4)
                                 .map((child: any, childIndex: any) => (
                                   <div
@@ -170,8 +169,8 @@ const MegaMenu = ({
                         ))
                     ) : activeKey === "Dịch vụ" ||
                       activeKey === "Thông tư nghị định" ? (
-                      menuItems.danhMuc &&
-                      menuItems.danhMuc
+                      menuItems.danh_muc_cons &&
+                      menuItems.danh_muc_cons
                         .slice(0, 6)
                         .map((item: any, index: any) => (
                           <div
@@ -179,7 +178,7 @@ const MegaMenu = ({
                             key={index}>
                             <div className="w-full min-h-[108px] gap-4">
                               <Link
-                                href={item.slug}
+                                href={item.slug || "/"}
                                 key={index}
                                 className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear">
                                 <p className=" font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2 ">
@@ -198,8 +197,8 @@ const MegaMenu = ({
                           </div>
                         ))
                     ) : activeKey === "Về chúng tôi" ? (
-                      menuItems.danhMuc &&
-                      menuItems.danhMuc
+                      menuItems.danh_muc_cons &&
+                      menuItems.danh_muc_cons
                         .slice(0, 6)
                         .map((item: any, index: any) => (
                           <div

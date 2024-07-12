@@ -71,7 +71,6 @@ const HeaderNew = (params: any) => {
     {
       key: "Dự án",
       name: t("projects"),
-
       pathname: "/du-an",
       label: <div className="flex items-center gap-3">{t("projects")}</div>,
       showIcon: true,
@@ -115,16 +114,14 @@ const HeaderNew = (params: any) => {
       showIcon: true,
     },
   ]);
+
   const [activeKey, setActiveKey] = useState<string | null>(pathname);
   const [activeItem, setActiveItem] = useState<any>();
-  const [danhmuc, setDanhmuc] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const [dataVeChungToi, setDataVeChungToi] = useState<any>([]);
   const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
 
-  const handleGetEndPoint = (key: any) => {
+  const handleGetEndPoint = (key: string) => {
     switch (key) {
       case "Sản phẩm":
         return "san-pham";
@@ -151,80 +148,41 @@ const HeaderNew = (params: any) => {
     }
   };
 
-  const fetchDataBaiViet = async (name: string) => {
-    try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons&filters[danh_muc_cons][name]=${name}&locale=${locale}`;
-      const response = await apiService.get<any>(endpoint);
-      return response.data.map((item: any) => ({
-        title: item.attributes.title,
-        slug: item.attributes.slug,
-      }));
-    } catch (error) {
-      console.error(`Error fetching data for ${name}:`, error);
-      return null;
-    }
-  };
-  const fetchDataDescription = async (key: string) => {
-    if (cachedData[key] && cachedData[key].description) {
-      return cachedData[key].description;
-    }
+  const fetchHeader = async (key: string) => {
+    const endpoint = `${process.env.URL_API}/api/custom-${handleGetEndPoint(
+      key
+    )}?limitDanhMuc=${
+      key === "Sản phẩm" || key === "Dự án" ? 3 : 6
+    }&limitBaiViet=${
+      key === "Sản phẩm" || key === "Dự án" ? 4 : 0
+    }&locale=${locale}`;
+    console.log("Fetching data from:", endpoint);
 
-    const name = handleGetEndPoint(key);
     try {
-      const endpoint = `${process.env.URL_API}/api/${name}?populate=main&locale=${locale}`;
       const response = await apiService.get<any>(endpoint);
-      const description = response.data.attributes.main.description;
+      console.log("response", response);
+
+      const itemData = {
+        ...menuItems.find((item) => item.key === key),
+        description: response.description,
+        danh_muc_cons: response.danh_muc_cons,
+      };
 
       setCachedData((prev) => ({
         ...prev,
-        [key]: {
-          ...prev[key],
-          description,
-        },
+        [key]: itemData,
       }));
-
-      return description;
+      setActiveItem(itemData);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      return "";
+      console.error(`Error fetching data for ${key}:`, error);
     }
   };
-
-  const fetchDataDanhMuc = async (key: string) => {
-    if (cachedData[key] && cachedData[key].danhmuc) {
-      return cachedData[key].danhmuc;
-    }
-
-    try {
-      const endpoint = `${process.env.URL_API}/api/danh-muc-cons?filters[category][$eqi]=${key}&locale=${locale}`;
-      const response = await apiService.get<any>(endpoint);
-      const danhmucData = response.data.map((item: any) => ({
-        name: item.attributes.name,
-        description: item.attributes.description,
-        slug: item.attributes.slug,
-      }));
-
-      setCachedData((prev) => ({
-        ...prev,
-        [key]: {
-          ...prev[key],
-          danhmuc: danhmucData,
-        },
-      }));
-
-      return danhmucData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return [];
-    }
-  };
-
   const fetchDataVeChungToi = async () => {
     if (cachedData["Về chúng tôi"]) {
       setActiveItem({
         ...menuItems.find((item: any) => item.key === "Về chúng tôi"),
         description: cachedData["Về chúng tôi"].description,
-        danhMuc: cachedData["Về chúng tôi"].danhMuc,
+        danh_muc_cons: cachedData["Về chúng tôi"].danh_muc_cons,
       });
       return;
     }
@@ -234,8 +192,8 @@ const HeaderNew = (params: any) => {
       `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
       `${process.env.URL_API}/api/cong-ty-thanh-vien?locale=${locale}`,
       locale === "en"
-        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=Community Project`
-        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=Dự án cộng đồng`,
+        ? `${process.env.URL_API}/api/danh-muc-cons?locale=en&filters[category][$eqi]=Dự án&filters[name][$eqi]=community projects`
+        : `${process.env.URL_API}/api/danh-muc-cons?filters[category]=Dự án&filters[name][$eqi]=dự án cộng đồng`,
     ];
 
     try {
@@ -247,8 +205,9 @@ const HeaderNew = (params: any) => {
         responses.map((res) => res.data);
 
       const data = {
+        ...menuItems.find((item: any) => item.key === "Về chúng tôi"),
         description: veChungToi.attributes.main.description,
-        danhMuc: [
+        danh_muc_cons: [
           {
             id: 1,
             name: veChungToi.attributes.main.name,
@@ -294,51 +253,19 @@ const HeaderNew = (params: any) => {
     if (condition) {
       setLoading(true);
       setActiveKey(key);
-      const item = menuItems.find((item: any) => item.key === key);
+      setIsMenuOpen(true);
 
       if (cachedData[key]) {
-        // Sử dụng dữ liệu cache nếu có
-        setActiveItem({
-          ...item,
-          description: cachedData[key].description,
-          danhMuc: cachedData[key].danhMuc,
-        });
-        setIsMenuOpen(true);
-      } else {
-        setActiveItem(item);
-        setIsMenuOpen(true);
-
-        if (key === "Về chúng tôi") {
-          await fetchDataVeChungToi();
-        } else {
-          const description = await fetchDataDescription(key);
-          const danhmucData = await fetchDataDanhMuc(key);
-          const danhmucWithBaiViet = await Promise.all(
-            danhmucData.map(async (danhMuc: any) => {
-              const baiVietData = await fetchDataBaiViet(danhMuc.name);
-              return {
-                ...danhMuc,
-                baiViet: baiVietData,
-              };
-            })
-          );
-
-          setActiveItem({
-            ...item,
-            description,
-            danhMuc: danhmucWithBaiViet,
-          });
-
-          setCachedData((prev) => ({
-            ...prev,
-            [key]: {
-              description,
-              danhMuc: danhmucWithBaiViet,
-            },
-          }));
-        }
+        console.log("Using cached data for:", key);
+        setActiveItem(cachedData[key]);
+        setLoading(false);
+        return;
       }
-
+      if (key === "Về chúng tôi") {
+        await fetchDataVeChungToi();
+      } else {
+        await fetchHeader(key);
+      }
       setLoading(false);
     }
   };
@@ -370,9 +297,13 @@ const HeaderNew = (params: any) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   useEffect(() => {
     console.log("cachedData", cachedData);
   }, [cachedData]);
+  useEffect(() => {
+    console.log("activeItem", activeItem);
+  }, [activeItem]);
 
   return (
     <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow ">
