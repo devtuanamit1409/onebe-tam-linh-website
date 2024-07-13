@@ -103,9 +103,9 @@ const page = async (params: any) => {
   const dataSanPham = await fetchData(
     `${ENDPOINT.GET_SANPHAM}?${searchParamsSanPham}&locale=${locale}`
   );
-  const dataDanhMuc = await fetchData(
-    `${ENDPOINT.GET_DANHMUCCON}?filters[category][$eqi]=Sản phẩm&locale=${locale}`
-  );
+  // const dataDanhMuc = await fetchData(
+  //   `${ENDPOINT.GET_DANHMUCCON}?filters[category][$eqi]=Sản phẩm&locale=${locale}`
+  // );
   const sanPham = (
     dataSanPham as {
       data: {
@@ -118,59 +118,59 @@ const page = async (params: any) => {
       };
     }
   )?.data?.attributes?.main;
-  const danhMuc = (
-    dataDanhMuc as {
-      data: {
-        attributes: {
-          name: string;
-          slug: string;
-          description: string;
-          danh_muc_cons: {
-            data: {
-              attributes: {
-                name: string;
-                slug: string;
-                description: string;
-                bai_viets: {
-                  data: {
-                    attributes: {
-                      title: string;
-                      slug: string;
-                      content: string;
-                      type: string;
-                      bai_viet_tieu_diem: boolean;
-                      seo: {
-                        title: string;
-                        description: string;
-                        keyword: string;
-                      };
-                    };
-                  }[];
-                };
-              };
-            }[];
-          };
+  // const danhMuc = (
+  //   dataDanhMuc as {
+  //     data: {
+  //       attributes: {
+  //         name: string;
+  //         slug: string;
+  //         description: string;
+  //         danh_muc_cons: {
+  //           data: {
+  //             attributes: {
+  //               name: string;
+  //               slug: string;
+  //               description: string;
+  //               bai_viets: {
+  //                 data: {
+  //                   attributes: {
+  //                     title: string;
+  //                     slug: string;
+  //                     content: string;
+  //                     type: string;
+  //                     bai_viet_tieu_diem: boolean;
+  //                     seo: {
+  //                       title: string;
+  //                       description: string;
+  //                       keyword: string;
+  //                     };
+  //                   };
+  //                 }[];
+  //               };
+  //             };
+  //           }[];
+  //         };
 
-          bai_viets: {
-            data: {
-              attributes: {
-                title: string;
-                slug: string;
-                content: string;
-                type: string;
-                bai_viet_tieu_diem: boolean;
-                seo: {
-                  title: string;
-                  description: string;
-                  keyword: string;
-                };
-              };
-            }[];
-          };
-        };
-      }[];
-    }
-  )?.data;
+  //         bai_viets: {
+  //           data: {
+  //             attributes: {
+  //               title: string;
+  //               slug: string;
+  //               content: string;
+  //               type: string;
+  //               bai_viet_tieu_diem: boolean;
+  //               seo: {
+  //                 title: string;
+  //                 description: string;
+  //                 keyword: string;
+  //               };
+  //             };
+  //           }[];
+  //         };
+  //       };
+  //     }[];
+  //   }
+  // )?.data;
 
   const baiViet = dataTinTuc as {
     data: {
@@ -227,7 +227,7 @@ const page = async (params: any) => {
             {sanPham?.description || "chưa có content CMS"}
           </p>
         </div>
-        <PageMenu menu={danhMuc} locale={locale} />
+        <PageMenu menu="san-pham" locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

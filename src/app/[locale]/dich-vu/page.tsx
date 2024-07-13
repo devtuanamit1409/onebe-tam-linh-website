@@ -85,17 +85,6 @@ export async function generateMetadata(params: any): Promise<Metadata> {
   };
 }
 
-async function fetchDataDanhMuc() {
-  try {
-    const data = await apiService.get(
-      `${ENDPOINT.GET_DANHMUC}?${searchParamsSanPham}`
-    );
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-}
 async function fetchData(endpoint: any) {
   try {
     const data = await apiService.get(endpoint);
@@ -256,7 +245,7 @@ const page = async (params: any) => {
             {dichVu?.description || "Chưa ráp CMS"}
           </p>
         </div>
-        <PageMenu menu={danhMuc} locale={locale} />
+        <PageMenu menu="dich-vu" locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

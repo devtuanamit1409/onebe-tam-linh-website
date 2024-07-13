@@ -57,7 +57,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
                 <div className="mt-[24px] mb-[16px]">
                   <h5
                     title={item.title}
-                    className="text-[#000] font-[600] laptop:text-[24px] laptop:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] line-clamp-2 min-h-[77px]">
+                    className="text-[#000] font-[600] laptop:text-[24px] laptop:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] mobile:line-clamp-3 tablet:line-clamp-2 laptop:min-h-[77px] tablet:min-h-[58px]">
                     {item.title}
                   </h5>
                 </div>
