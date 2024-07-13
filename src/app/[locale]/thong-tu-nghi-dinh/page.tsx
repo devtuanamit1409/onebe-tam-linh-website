@@ -242,7 +242,7 @@ const page = async (params: any) => {
             {dichVu?.description || "Chưa ráp CMS"}
           </p>
         </div>
-        <PageMenu menu={danhMuc} locale={locale} />
+        <PageMenu menu="thong-tu-nghi-dinh" locale={locale} />
       </div>
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">

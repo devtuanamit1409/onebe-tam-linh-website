@@ -32,41 +32,29 @@ interface ResponseData {
 const PageMenu = (props: props): JSX.Element => {
   const t = useTranslations("home");
   const { menu, locale } = props;
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formatMenu, setFormatMenu] = useState<any>();
-  const fetchData = async (tenDanhMuc: any) => {
+  const fetchData = async (menu: any) => {
     try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?populate=danh_muc_cons,seo&filters[danh_muc_cons][name][$eq]=${tenDanhMuc}&locale=${locale}`;
+      const endpoint = `${process.env.URL_API}/api/custom-${menu}?limitBaiViet=3&locale=${locale}`;
       const response = await apiService.get<ResponseData>(endpoint);
-      return response.data;
+      return setFormatMenu(response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
   // const fetchDataBaiViet =
   useEffect(() => {
-    const fetchMenuData = async () => {
-      if (!menu) return;
+    const fetchMenu = async () => {
       setLoading(true);
-
-      const promises = menu.map(async (item: any) => {
-        const baiViet = await fetchData(item.attributes.name);
-        return {
-          name: item.attributes.name,
-          slug: item.attributes.slug,
-          description: item.attributes.description,
-          category: item.attributes.category,
-          baiViet: baiViet,
-        };
-      });
-
-      const formattedMenu = await Promise.all(promises);
-      setFormatMenu(formattedMenu);
+      await fetchData(menu);
       setLoading(false);
     };
-
-    fetchMenuData();
+    fetchMenu();
   }, [menu]);
+  useEffect(() => {
+    console.log("formatMenu", formatMenu);
+  }, [formatMenu]);
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null); // Khởi tạo với null
   const [isLoading, setIsLoading] = useState(true);
@@ -83,7 +71,7 @@ const PageMenu = (props: props): JSX.Element => {
       ) : (
         <div className=" flex-col justify-start items-start gap-16 flex w-full my-[40px] desktop:px-[120px]">
           {formatMenu &&
-            formatMenu.map((item: any) => {
+            formatMenu.danh_muc_cons.map((item: any) => {
               return (
                 <div key={item.id} className="flex w-full">
                   <div className=" flex-col w-full gap-4">
@@ -102,55 +90,51 @@ const PageMenu = (props: props): JSX.Element => {
                         </div>
                       </Link>
                     </div>
-                    {item.baiViet.slice(0, 3).map((child: any) => {
-                      return (
-                        <div
-                          key={child.attributes.title}
-                          className={` text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden`}
-                          onClick={() =>
-                            handleMenuClick(child.attributes.title)
-                          }>
-                          <div
-                            className={`flex w-full justify-between items-center `}>
-                            <p className="line-clamp-1">
-                              {child.attributes.title}
-                            </p>
+                    {item.bai_viet.length > 0
+                      ? item.bai_viet.slice(0, 3).map((child: any) => {
+                          return (
                             <div
-                              className={`transform transition-transform duration-300 p-4 ${
-                                activeMenu === child.attributes.title
-                                  ? "rotate-90"
-                                  : ""
-                              }`}>
-                              {child.attributes.icon || (
-                                <IconAngleRightColorFull />
-                              )}
-                            </div>
-                          </div>
-                          <div
-                            className={`transform origin-top transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
-                              activeMenu === child.attributes.title
-                                ? "max-h-96 pb-4 mt-4"
-                                : "max-h-0"
-                            }`}>
-                            <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none line-clamp-2">
-                              {child.attributes?.seo?.description ||
-                                "Không có hoặc chưa CMS seo.description"}
-                            </p>
-
-                            <Link
-                              href={child.attributes?.slug}
-                              className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex">
-                              <p className="text-center text-white text-base font-medium  leading-normal">
-                                {t("see_more")}
-                              </p>
-                              <div className="w-5 h-5 relative text-white ">
-                                <IconArrowRight width={24} height={24} />
+                              key={child.title}
+                              className={` text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden`}
+                              onClick={() => handleMenuClick(child.title)}>
+                              <div
+                                className={`flex w-full justify-between items-center `}>
+                                <p className="line-clamp-1">{child.title}</p>
+                                <div
+                                  className={`transform transition-transform duration-300 p-4 ${
+                                    activeMenu === child.title
+                                      ? "rotate-90"
+                                      : ""
+                                  }`}>
+                                  <IconAngleRightColorFull />
+                                </div>
                               </div>
-                            </Link>
-                          </div>
-                        </div>
-                      );
-                    })}
+                              <div
+                                className={`transform origin-top transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
+                                  activeMenu === child.title
+                                    ? "max-h-96 pb-4 mt-4"
+                                    : "max-h-0"
+                                }`}>
+                                <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none line-clamp-2">
+                                  {child.description ||
+                                    "Không có hoặc chưa CMS seo.description"}
+                                </p>
+
+                                <Link
+                                  href={child?.slug || "/"}
+                                  className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                                  <p className="text-center text-white text-base font-medium  leading-normal">
+                                    {t("see_more")}
+                                  </p>
+                                  <div className="w-5 h-5 relative text-white ">
+                                    <IconArrowRight width={24} height={24} />
+                                  </div>
+                                </Link>
+                              </div>
+                            </div>
+                          );
+                        })
+                      : null}
                     <Link
                       href={`/${locale}/${item.slug}`}
                       className="mobile:inline-flex tablet:hidden h-12 mt-4 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex  hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear ">
