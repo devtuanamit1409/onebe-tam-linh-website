@@ -272,7 +272,7 @@ const Footer = async (locale: any) => {
           <div className="text-center text-white text-base font-normal  leading-normal ">
             <p>{giayphep ? giayphep : t("licence")}</p>
             <p>
-              {banquyen ? banquyen : <>Copyright 2024 © NTSE.VN </>}Design by{" "}
+              {banquyen ? banquyen : <>Copyright 2024 © NTSE.VN </>} Design by{" "}
               <a
                 target="_blank"
                 href="https://amitgroup.vn/"
