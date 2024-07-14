@@ -25,6 +25,7 @@ import Loading from "@/components/Loading";
 import { formatDistanceToNowStrict } from "date-fns";
 import { vi, enUS } from "date-fns/locale";
 import Link from "next/link";
+import BoxTinTucSkeleton from "@/components/BoxTinTucSkeleton";
 interface tintuc {
   id: number;
   attributes: {
@@ -144,15 +145,34 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
-  const fetchDataTinTucWithFilter = async () => {
+  const fetchDataTinTucWithFilter = async (
+    searchValue: string,
+    category: string
+  ) => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Góc chuyên gia&pagination[pageSize]=${displayedCount}`;
+      const filters = [
+        `filters[title][$containsi]=${searchValue}`,
+        `filters[type][$containsi]=Góc chuyên gia`,
+        `pagination[pageSize]=${displayedCount}`,
+        `sort=createdAt:DESC`,
+      ];
+
+      if (category) {
+        filters.push(
+          `filters[danh_muc_bai_viets][name][$containsi]=${category}`
+        );
+      }
+
+      const endpoint = `${
+        process.env.URL_API
+      }/api/bai-viets?${searchParams}&locale=${locale}&${filters.join("&")}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
   const fetchData = async () => {
@@ -177,8 +197,8 @@ const Page: React.FC = (params: any) => {
     setDisplayedCount((prevCount) => prevCount + 6);
   };
   useEffect(() => {
-    fetchDataTinTucWithFilter();
-  }, [debouncedSearchValue, displayedCount]);
+    fetchDataTinTucWithFilter(debouncedSearchValue, filterDanhMuc);
+  }, [debouncedSearchValue, displayedCount, filterDanhMuc]);
 
   useEffect(() => {
     fetchDataTinTuc();
@@ -201,11 +221,9 @@ const Page: React.FC = (params: any) => {
   const text = useTranslations("home");
 
   const handleSetFilterDanhMuc = (name: string) => {
-    if (filterDanhMuc === name) {
-      setFilterDanhMuc("");
-    } else {
-      setFilterDanhMuc(name);
-    }
+    const newFilterDanhMuc = filterDanhMuc === name ? "" : name;
+    setFilterDanhMuc(newFilterDanhMuc);
+    fetchDataTinTucWithFilter(debouncedSearchValue, newFilterDanhMuc);
   };
 
   const filteredAndLimitedArticles = tintucWithFilter
@@ -458,20 +476,20 @@ const Page: React.FC = (params: any) => {
                     <button
                       key={item.id}
                       onClick={() =>
-                        handleSetFilterDanhMuc(item.attributes.name)
+                        handleSetFilterDanhMuc(item?.attributes?.name)
                       }
                       className={`${
-                        filterDanhMuc === item.attributes.name
+                        filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
                       <span
-                        className={`text-12px font-medium  ${
-                          filterDanhMuc === item.attributes.name
+                        className={`text-12px font-medium text-nowrap  ${
+                          filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
-                            : `text-[#3B559E]`
+                            : `text-[#3B559E] `
                         }`}>
-                        {item.attributes.name}
+                        {item?.attributes?.name}
                       </span>
                     </button>
                   );
@@ -480,7 +498,17 @@ const Page: React.FC = (params: any) => {
           </div>
         </div>
 
-        <BoxTinTuc data={filteredAndLimitedArticles} />
+        {loading ? (
+          <BoxTinTucSkeleton />
+        ) : filteredAndLimitedArticles.length > 0 ? (
+          <BoxTinTuc data={filteredAndLimitedArticles} />
+        ) : (
+          <div className="col-span-12">
+            <h3 className="text-center text-black text-[32px] font-bold">
+              {translate("nodata_news")}
+            </h3>
+          </div>
+        )}
 
         <div className="py-[40px] flex justify-center">
           <button

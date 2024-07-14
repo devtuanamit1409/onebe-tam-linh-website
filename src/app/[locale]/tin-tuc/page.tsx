@@ -20,6 +20,8 @@ import Loading from "@/components/Loading";
 import { useTranslations } from "use-intl";
 import TintucNoibatSkeleton from "../../../components/TintucNoibatSkeleton/page";
 import LatestNewsSkeleton from "../../../components/LatestNewsSkeleton/page";
+import BoxTinTucSkeleton from "@/components/BoxTinTucSkeleton";
+
 interface danhMucBaiViet {
   id: number;
   attributes: {
@@ -94,17 +96,38 @@ const Page: React.FC = (params: any) => {
       console.error("Error fetching data:", error);
     }
   };
-  const fetchDataTinTucWithFilter = async () => {
+
+  const fetchDataTinTucWithFilter = async (
+    searchValue: string,
+    category: string
+  ) => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[title][$containsi]=${debouncedSearchValue}&filters[type][$containsi]=Tin tức&pagination[pageSize]=${displayedCount}&sort=createdAt:DESC`;
+      const filters = [
+        `filters[title][$containsi]=${searchValue}`,
+        `filters[type][$containsi]=Tin tức`,
+        `pagination[pageSize]=${displayedCount}`,
+        `sort=createdAt:DESC`,
+      ];
+
+      if (category) {
+        filters.push(
+          `filters[danh_muc_bai_viets][name][$containsi]=${category}`
+        );
+      }
+
+      const endpoint = `${
+        process.env.URL_API
+      }/api/bai-viets?${searchParams}&locale=${locale}&${filters.join("&")}`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintucWithFilter(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
+
   const fetchDataDanhMucBaiViet = async () => {
     try {
       const endpoint = `${process.env.URL_API}/api/danh-muc-bai-viets?locale=${locale}`;
@@ -119,38 +142,36 @@ const Page: React.FC = (params: any) => {
     fetchDataTinTuc();
     fetchDataDanhMucBaiViet();
   }, []);
+
   useEffect(() => {
-    fetchDataTinTucWithFilter();
-  }, [debouncedSearchValue, displayedCount]);
+    fetchDataTinTucWithFilter(debouncedSearchValue, filterDanhMuc);
+  }, [debouncedSearchValue, displayedCount, filterDanhMuc]);
 
   const baseUrl = process.env.URL_API;
 
   const handleSetFilterDanhMuc = (name: string) => {
-    if (filterDanhMuc === name) {
-      setFilterDanhMuc("");
-    } else {
-      setFilterDanhMuc(name);
-    }
+    const newFilterDanhMuc = filterDanhMuc === name ? "" : name;
+    setFilterDanhMuc(newFilterDanhMuc);
+    fetchDataTinTucWithFilter(debouncedSearchValue, newFilterDanhMuc);
   };
-  const filteredAndLimitedArticles = tintucWithFilter
-    .filter((item: tintuc) => {
-      // const isExpertArticle = item.attributes.type === "Bài viết chuyên gia";
-      // if (!isExpertArticle) {
-      //   return false;
-      // }
 
-      if (filterDanhMuc === "") {
-        return true;
-      }
+  const filteredAndLimitedArticles = tintucWithFilter.length
+    ? tintucWithFilter
+        .filter((item: tintuc) => {
+          if (filterDanhMuc === "") {
+            return true;
+          }
+          return item?.attributes?.danh_muc_bai_viets?.data.some(
+            (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
+          );
+        })
+        .map((item: tintuc) => item?.attributes)
+    : [];
 
-      return item?.attributes?.danh_muc_bai_viets?.data.some(
-        (danhMuc) => danhMuc.attributes?.name === filterDanhMuc
-      );
-    })
-    .map((item: tintuc) => item?.attributes);
   const loadMoreArticles = () => {
     setDisplayedCount((prevCount) => prevCount + 6);
   };
+
   const t = useTranslations("detail_post");
 
   const formatTimeBadge = (createdAt: string) => {
@@ -289,9 +310,15 @@ const Page: React.FC = (params: any) => {
         </div>
 
         {loading ? (
-          <Loading />
-        ) : (
+          <BoxTinTucSkeleton />
+        ) : filteredAndLimitedArticles.length > 0 ? (
           <BoxTinTuc data={filteredAndLimitedArticles} />
+        ) : (
+          <div className="col-span-12">
+            <h3 className="text-center text-black text-[32px] font-bold">
+              {t("nodata_news")}
+            </h3>
+          </div>
         )}
 
         <div className="py-[40px] flex justify-center">

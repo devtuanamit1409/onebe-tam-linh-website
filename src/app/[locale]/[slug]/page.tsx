@@ -390,8 +390,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                >
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                   {translate("back_home")}
                 </Link>
               </div>
@@ -412,7 +411,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
           <>
             <div className=" bg-gray-50 ">
               <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
-                <Link href={"/"}>Trang chủ</Link>
+                <Link href={"/"}>{locale === "en" ? "Home" : "Trang chủ"}</Link>
                 <span className="mx-2"> / </span>
                 <Link
                   href={`${
@@ -427,8 +426,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : breadcum === "Thông tư nghị định"
                       ? "/thong-tu-nghi-dinh"
                       : ""
-                  }`}
-                >
+                  }`}>
                   {breadcum}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
@@ -471,8 +469,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </h2>
               <Link
                 href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
-              >
+                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
                 {t("go_to_news_page")}
                 <IconArrowRight width={20} height={20} />
               </Link>
