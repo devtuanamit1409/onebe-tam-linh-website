@@ -257,7 +257,7 @@ const page = async (params: any) => {
             </Link>
           </div>
 
-          <BoxTinTuc data={tintuc.slice(0, 3)} />
+          <BoxTinTuc data={tintuc.slice(0, 3)} locale={locale} />
         </div>
       </div>
       <div className="container">

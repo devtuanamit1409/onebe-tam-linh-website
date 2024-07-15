@@ -501,7 +501,7 @@ const Page: React.FC = (params: any) => {
         {loading ? (
           <BoxTinTucSkeleton />
         ) : filteredAndLimitedArticles.length > 0 ? (
-          <BoxTinTuc data={filteredAndLimitedArticles} />
+          <BoxTinTuc data={filteredAndLimitedArticles} locale={locale} />
         ) : (
           <div className="col-span-12">
             <h3 className="text-center text-black text-[32px] font-bold">

@@ -158,7 +158,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}`,
+        `${ENDPOINT.GET_BAIVIET}?populate=seo.thumbnail&danh_muc_cons&filters[danh_muc_cons][slug][$eq]=${slug}&locale=${locale}&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}&sort=createdAt:DESC`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -205,7 +205,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localization,seo.thumbnail&locale=${locale}&populate=danh_muc_cons`,
+        `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localization,seo.thumbnail&locale=${locale}&populate=danh_muc_cons,localizations`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -222,11 +222,14 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     }
   }
 
-  async function fetchBaiVietTieuDiem(): Promise<void> {
+  async function fetchBaiVietTieuDiem(danh_muc_cons: string): Promise<void> {
     setLoading(true);
     try {
       const response = await fetch(
-        `${ENDPOINT.GET_BAIVIET}?filters[bai_viet_tieu_diem]=true&populate=danh_muc_cons,localizations.danh_muc_cons,seo.thumbnail&locale=${locale}`,
+        // `${ENDPOINT.GET_BAIVIET}?
+        // filters[bai_viet_tieu_diem]=true&
+        // populate=danh_muc_cons,localizations.danh_muc_cons,seo.thumbnail&locale=${locale}`,
+        `${ENDPOINT.GET_BAIVIET}?populate=danh_muc_cons,localizations.danh_muc_cons,seo.thumbnail&locale=${locale}&filters[danh_muc_cons][name][$containsi]=${danh_muc_cons}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -246,8 +249,15 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     fetchData(pagination.current);
     fetchDetailSubCategory();
     fetchDetailBaiViet();
-    fetchBaiVietTieuDiem();
   }, []);
+  useEffect(() => {
+    if (detailBaiViet && detailBaiViet.length > 0) {
+      console.log("detailBaiViet", detailBaiViet);
+      fetchBaiVietTieuDiem(
+        detailBaiViet[0].attributes.danh_muc_cons.data[0].attributes.name
+      );
+    }
+  }, [detailBaiViet]);
 
   const dataBaiViet =
     locale === "vi"
@@ -288,18 +298,46 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
   const filterArticlesByCategoryName = () => {
     setLoading(true);
-    const filtered = baiVietTieuDiem.filter(
-      (article) =>
-        article.attributes.danh_muc_cons.data.length > 0 &&
-        article.attributes.danh_muc_cons.data[0].attributes.category ===
-          breadcum
-    );
-    setFilteredArticles(filtered);
+
+    const detailBaiVietNames =
+      detailBaiViet[0]?.attributes?.danh_muc_cons?.data.map(
+        (danhMuc) => danhMuc.attributes.name
+      );
+    const currentSlug = params.slug;
+
+    const filtered = baiVietTieuDiem.filter((article) => {
+      if (article.attributes.slug === currentSlug) {
+        return false;
+      }
+
+      return article.attributes.danh_muc_cons?.data.some((danhMuc) => {
+        return detailBaiVietNames.includes(danhMuc.attributes.name);
+      });
+    });
+
+    const sorted = filtered.sort((a, b) => {
+      if (a.attributes.bai_viet_tieu_diem === b.attributes.bai_viet_tieu_diem) {
+        return (
+          new Date(b.attributes.createdAt).getTime() -
+          new Date(a.attributes.createdAt).getTime()
+        );
+      }
+      return (
+        (b.attributes.bai_viet_tieu_diem ? 1 : 0) -
+        (a.attributes.bai_viet_tieu_diem ? 1 : 0)
+      );
+    });
+
+    console.log("sorted", sorted);
+    setFilteredArticles(sorted);
     setLoading(false);
   };
 
   useEffect(() => {
     filterArticlesByCategoryName();
+  }, [baiVietTieuDiem, detailBaiViet]);
+  useEffect(() => {
+    console.log("baiVietTieuDiem", baiVietTieuDiem);
   }, [baiVietTieuDiem]);
 
   const handlePageChange = (page: number): void => {
@@ -332,15 +370,28 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       createdAt,
     };
   });
+  const renderCategory = (category: string) => {
+    switch (category) {
+      case "Sản phẩm":
+        return locale === "vi" ? "Sản phẩm" : "Products";
+      case "Dịch vụ":
+        return locale === "vi" ? "Dịch vụ" : "Services";
+      case "Dự án":
+        return locale === "vi" ? "Dự án" : "Projects";
+      case "Thông tư nghị định":
+        return locale === "vi" ? "Thông tư - nghị định" : "Circular - Decree";
+      default:
+        return category;
+    }
+  };
 
   const DetailDanhMuc = () => {
-    // console.log("{detailSubCategory", detailSubCategory);
     return (
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
           <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
             <h5 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium">
-              {detailSubCategory[0]?.attributes?.category}
+              {renderCategory(detailSubCategory[0]?.attributes?.category)}
             </h5>
             <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold">
               {detailSubCategory[0]?.attributes?.name}
@@ -362,7 +413,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
         {filteredData.length > 0 ? (
           <>
             <div className="container">
-              <BoxTinTuc data={filteredData} />
+              <BoxTinTuc data={filteredData} locale={locale} />
             </div>
             <div className="py-[40px] container flex justify-center">
               <Pagination
@@ -439,7 +490,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             </div>
             <div className="container">
               <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
-                {breadcum}
+                {breadcum && renderCategory(breadcum)}
               </p>
               <h2 className="text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center">
                 {detailBaiViet[0]?.attributes?.title}
@@ -474,7 +525,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                 <IconArrowRight width={20} height={20} />
               </Link>
             </div>
-            <BoxTinTuc data={recomenData.slice(0, 3)} />
+            <BoxTinTuc data={recomenData.slice(0, 3)} locale={locale} />
           </div>
         </div>
       </>
