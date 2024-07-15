@@ -99,7 +99,7 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
               key={index}>
               <div className="overflow-hidden tablet:h-[437px] ">
                 {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
-                <div className="p-[32px] ">
+                <div className="p-[32px] h-full">
                   <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                     <Image
                       src={item.image.src}
@@ -108,13 +108,13 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                       height={item.image.height}
                     />
                   </div>
-                  <h4 className="pt-[16px] text-[24px] font-bold text-[#fff]">
+                  <h4 className="pt-[16px] text-[24px] font-bold text-[#fff] line-clamp-2">
                     {item.title}
                   </h4>
-                  <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40">
+                  <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-40 line-clamp-7">
                     {item.description}
                   </p>
-                  <div className="pt-[16px]">
+                  <div className="mobile:mt-[16px] tablet:mt-[44px]">
                     <Link
                       href={item.url}
                       className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">

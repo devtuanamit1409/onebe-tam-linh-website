@@ -3,20 +3,23 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { formatDistanceToNowStrict } from "date-fns";
-import { vi } from "date-fns/locale";
+import { enUS, vi } from "date-fns/locale";
 
 interface BoxTinTucProps {
   data: Array<any>;
+  locale: string;
 }
 
-const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data }) => {
+const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, locale }) => {
+  console.log("locale at box", locale);
+
   const baseUrl = process.env.URL_API;
   const t = useTranslations("detail_post");
 
   const formatTimeBadge = (createdAt: string) => {
     const timeAgo = formatDistanceToNowStrict(new Date(createdAt), {
       addSuffix: true,
-      locale: vi,
+      locale: locale === "en" ? enUS : vi,
     });
     return timeAgo;
   };

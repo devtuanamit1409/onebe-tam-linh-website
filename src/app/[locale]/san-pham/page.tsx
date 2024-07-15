@@ -241,7 +241,7 @@ const page = async (params: any) => {
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
-          <BoxTinTuc data={tintuc.slice(0, 3)} />
+          <BoxTinTuc data={tintuc.slice(0, 3)} locale={locale} />
         </div>
       </div>
       <div className="container">
