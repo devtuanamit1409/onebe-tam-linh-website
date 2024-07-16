@@ -217,7 +217,7 @@ const page = async (params: any) => {
 
   return (
     <>
-      <div className="flex justify-center ">
+      <div className=" justify-center ">
         <div className="container">
           <div className="flex justify-center py-[67px]">
             <Image
@@ -266,77 +266,79 @@ const page = async (params: any) => {
               </div>
             </div>
           </div>
-          <div className="py-[80px]">
-            <div className="grid grid-cols-12 laptop:gap-x-[80px] mobile:gap-y-[48px]">
-              <div className="laptop:col-span-4 mobile:col-span-12">
-                <div className="box-vct-1 border-2 border-solid border-[#3B559E]   desktop:w-[351px] laptop:h-[535px] laptop:w-[315px] p-[24px] mobile:pb-[130px] relative">
-                  <Image
-                    src={imageOne.src}
-                    alt="01"
-                    className="absolute bottom-0 right-4 z-0"
-                    width={174}
-                    height={114}
-                  />
-                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
-                    {(boxAbout && boxAbout[0]?.title) || "title"}
-                  </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
-                    {/* Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
+        </div>
+        <div className="py-[80px] px-4">
+          <div className=" flex laptop:flex-row mobile:flex-col mobile:gap-y-[48px] mobile:justify-around laptop:justify-center desktop:gap-x-[80px] laptop:gap-x-[24px]">
+            <div className="">
+              <div className="box-vct-1 border-2 border-solid border-[#3B559E]   desktop:w-[351px] laptop:h-[535px] laptop:w-[315px] p-[24px] mobile:pb-[130px] relative">
+                <Image
+                  src={imageOne.src}
+                  alt="01"
+                  className="absolute bottom-0 right-4 z-0"
+                  width={174}
+                  height={114}
+                />
+                <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
+                  {(boxAbout && boxAbout[0]?.title) || "title"}
+                </h5>
+                <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
+                  {/* Nhân sự chủ chốt và cán bộ kỹ thuật tốt nghiệp các trường
                     Đại học, Cao đẳng chuyên ngành hàng đầu Việt Nam, cùng với
                     sự cố vấn đồng hành của các chuyên gia hàng đầu ngành kỹ
                     thuật nước và môi trường từng học tập, nghiên cứu và công
                     tác tại Đại học Bách Khoa TP.HCM, Đại học Khoa học Tự nhiên,
                     Cao đẳng Xây dựng TP.HCM. */}
-                    {(boxAbout && boxAbout[0]?.description) || "title"}
-                  </p>
-                </div>
+                  {(boxAbout && boxAbout[0]?.description) || "title"}
+                </p>
               </div>
-              <div className="laptop:col-span-4 mobile:col-span-12">
-                <div className="box-vct-2 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
-                  <Image
-                    src={imageTwo.src}
-                    alt="02"
-                    className="absolute bottom-0 right-4 z-0"
-                    width={186}
-                    height={114}
-                  />
+            </div>
+            <div className="">
+              <div className="box-vct-2 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
+                <Image
+                  src={imageTwo.src}
+                  alt="02"
+                  className="absolute bottom-0 right-4 z-0"
+                  width={186}
+                  height={114}
+                />
 
-                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
-                    {/* Nhu cầu thị trường */}
-                    {(boxAbout && boxAbout[1]?.title) || "title"}
-                  </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
-                    {/* Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
+                <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
+                  {/* Nhu cầu thị trường */}
+                  {(boxAbout && boxAbout[1]?.title) || "title"}
+                </h5>
+                <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
+                  {/* Năm 2004- 2012 là giai đoạn ngành xây dựng phát triển mạnh
                     mẽ. Tuy nhiên thị trường chỉ ưu tiên phát triển số lượng
                     công trình mà chưa tập trung vào chất lượng tiện ích đi kèm.
                     Các kỹ thuật cơ bản như thiết kế cơ điện; điện nước, điều
                     hòa không khí, PCCC, hệ thống điều khiển tòa nhà thông minh
                     (iBMS)… chưa được chú trọng và do đó bị bỏ xa so với xu
                     hướng của thế giới. */}
-                    {(boxAbout && boxAbout[1]?.description) || "title"}
-                  </p>
-                </div>
+                  {(boxAbout && boxAbout[1]?.description) || "title"}
+                </p>
               </div>
-              <div className="laptop:col-span-4 mobile:col-span-12">
-                <div className="box-vct-3 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
-                  <Image
-                    src={imageThree.src}
-                    alt="03"
-                    className="absolute bottom-0 right-4 z-0"
-                    width={186}
-                    height={114}
-                  />
+            </div>
+            <div className="">
+              <div className="box-vct-3 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
+                <Image
+                  src={imageThree.src}
+                  alt="03"
+                  className="absolute bottom-0 right-4 z-0"
+                  width={186}
+                  height={114}
+                />
 
-                  <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
-                    {(boxAbout && boxAbout[2]?.title) || "title"}
-                  </h5>
-                  <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
-                    {(boxAbout && boxAbout[2]?.description) || "title"}
-                  </p>
-                </div>
+                <h5 className="text-[#3B559E] font-bold text-[30px] relative z-1">
+                  {(boxAbout && boxAbout[2]?.title) || "title"}
+                </h5>
+                <p className="text-[#1F2A37] text-[18px] mt-[14px] relative z-1">
+                  {(boxAbout && boxAbout[2]?.description) || "title"}
+                </p>
               </div>
             </div>
           </div>
+        </div>
+        <div className="container">
           <div className="flex justify-center">
             <div className="max-w-[1000px] pb-[40px]">
               <div className="grid grid-cols-12 gap-4 tablet:gap-8 mobile:gap-4">
