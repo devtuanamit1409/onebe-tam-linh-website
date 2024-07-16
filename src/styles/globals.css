@@ -49,11 +49,31 @@ body {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
+  white-space: nowrap; /* Đảm bảo nội dung không xuống dòng */
 }
 
 .blog-content th {
   background-color: #f2f2f2;
 }
+
+/* Custom scrollbar styles */
+.blog-content table::-webkit-scrollbar {
+  height: 10px; /* Chiều cao của scrollbar ngang */
+}
+
+.blog-content table::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của track */
+}
+
+.blog-content table::-webkit-scrollbar-thumb {
+  background: #888; /* Màu của thumb */
+  border-radius: 4px; /* Bo góc của thumb */
+}
+
+.blog-content table::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Màu của thumb khi hover */
+}
+
 @media (min-width: 360px) and (max-width: 1023px) {
   .swiper-home > .swiper-wrapper {
     border-radius: 0 0 24px 24px;
