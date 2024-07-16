@@ -80,8 +80,9 @@ const PageMenu = (props: props): JSX.Element => {
                         <p>{item.name}</p>
                       </div>
                       <Link
-                        href={`/${locale}/${item.slug}`}
-                        className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] text-[#3B559E] justify-center items-center gap-2 inline-flex hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear">
+                        href={item.slug ? `/${locale}/${item.slug}` : "/"}
+                        className="mobile:hidden tablet:inline-flex h-12 px-6 py-3 rounded-[50px] border border-[#3B559E] text-[#3B559E] justify-center items-center gap-2 inline-flex hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear"
+                      >
                         <div className="text-center  text-base font-medium  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {t("see_all")}
                         </div>
@@ -96,16 +97,19 @@ const PageMenu = (props: props): JSX.Element => {
                             <div
                               key={child.title}
                               className={` text-gray-500 tablet:text-2xl mobile:text-base font-medium cursor-pointer leading-[38.40px] flex items-center justify-between w-full desktop:pt-6  pl-2 tablet:mb-6 mobile:mb-2 border-b-2 border-zinc-200 flex-col overflow-hidden`}
-                              onClick={() => handleMenuClick(child.title)}>
+                              onClick={() => handleMenuClick(child.title)}
+                            >
                               <div
-                                className={`flex w-full justify-between items-center `}>
+                                className={`flex w-full justify-between items-center `}
+                              >
                                 <p className="line-clamp-1">{child.title}</p>
                                 <div
                                   className={`transform transition-transform duration-300 p-4 ${
                                     activeMenu === child.title
                                       ? "rotate-90"
                                       : ""
-                                  }`}>
+                                  }`}
+                                >
                                   <IconAngleRightColorFull />
                                 </div>
                               </div>
@@ -114,7 +118,8 @@ const PageMenu = (props: props): JSX.Element => {
                                   activeMenu === child.title
                                     ? "max-h-96 pb-4 mt-4"
                                     : "max-h-0"
-                                }`}>
+                                }`}
+                              >
                                 <p className=" text-slate-400 tablet:text-xl mobile:text-base font-light  tablet:leading-loose mb-4 select-none line-clamp-2">
                                   {child.description ||
                                     "Không có hoặc chưa CMS seo.description"}
@@ -122,7 +127,8 @@ const PageMenu = (props: props): JSX.Element => {
 
                                 <Link
                                   href={child?.slug || "/"}
-                                  className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                                  className=" h-10 px-4 py-2 bg-[#3B559E] rounded-[32px] justify-center items-center gap-2.5 inline-flex"
+                                >
                                   <p className="text-center text-white text-base font-medium  leading-normal">
                                     {t("see_more")}
                                   </p>
@@ -136,8 +142,9 @@ const PageMenu = (props: props): JSX.Element => {
                         })
                       : null}
                     <Link
-                      href={`/${locale}/${item.slug}`}
-                      className="mobile:inline-flex tablet:hidden h-12 mt-4 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex  hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear ">
+                      href={item.slug ? `/${locale}/${item.slug}` : "/"}
+                      className="mobile:inline-flex tablet:hidden h-12 mt-4 px-6 py-3 rounded-[50px] border border-[#3B559E] justify-center items-center gap-2 inline-flex  hover:border-[#28A645] hover:text-[#28A645] transition-colors ease-linear "
+                    >
                       <div className="text-center text-[#3B559E]  text-base font-medium  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                         {t("see_all")}
                       </div>

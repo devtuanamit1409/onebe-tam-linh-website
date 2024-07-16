@@ -16,9 +16,10 @@ const SliderKhachHang = (listlogo: any) => {
           return (
             <div
               key={index}
-              className="logo-item flex items-center justify-center h-[100px] max-h-[100px] mx-4">
+              className="logo-item flex items-center justify-center h-[100px] max-h-[100px] mx-4"
+            >
               <Image
-                src={`${baseUrl}${logo.urlImage.data.attributes.url}`}
+                src={`${baseUrl}${logo.urlImage.data.attributes.url}` || "/"}
                 alt={logo.alt}
                 layout="responsive"
                 width={200}

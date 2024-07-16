@@ -108,7 +108,7 @@ const Footer = async (locale: any) => {
               <div className="flex-col justify-start items-start gap-4 flex w-full">
                 <div className="px-2 pb-4 rounded-lg flex-col justify-start items-start gap-4 flex">
                   <Image
-                    src={logoFullWidth.src}
+                    src={logoFullWidth.src || "/"}
                     alt="logo NTS"
                     width={304}
                     height={40}
@@ -125,7 +125,8 @@ const Footer = async (locale: any) => {
                   <a
                     href={`tel:${phoneNumber}}`}
                     target="_blank"
-                    className="text-white text-sm font-medium  leading-snug hover:text-[#28A645] transition-colors ease-linear">
+                    className="text-white text-sm font-medium  leading-snug hover:text-[#28A645] transition-colors ease-linear"
+                  >
                     {phoneNumber}
                   </a>
                 </div>
@@ -134,7 +135,8 @@ const Footer = async (locale: any) => {
                     <div className=" relative">
                       <a
                         href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
-                        target="_blank">
+                        target="_blank"
+                      >
                         <IconLocation />
                       </a>
                     </div>
@@ -142,7 +144,8 @@ const Footer = async (locale: any) => {
                   <a
                     href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
                     target="_blank"
-                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full hover:text-[#28A645] transition-colors ease-linear">
+                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full hover:text-[#28A645] transition-colors ease-linear"
+                  >
                     {address}
                   </a>
                 </div>
@@ -168,7 +171,8 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
+                        >
                           {item?.title}
                         </Link>
                       );
@@ -188,7 +192,8 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
+                        >
                           {item?.title}
                         </Link>
                       );
@@ -208,7 +213,8 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
+                        >
                           {item?.title}
                         </Link>
                       );
@@ -229,7 +235,10 @@ const Footer = async (locale: any) => {
                           <div key={item?.id}>
                             <a href={item?.path || "/"} target="_blank">
                               <Image
-                                src={`${baseUrl}${item?.urlIcon?.data?.attributes?.url}`}
+                                src={
+                                  `${baseUrl}${item?.urlIcon?.data?.attributes?.url}` ||
+                                  "/"
+                                }
                                 alt={item?.alt}
                                 width={32}
                                 height={32}
@@ -258,7 +267,7 @@ const Footer = async (locale: any) => {
                     </div> */}
                   </div>
                   <Image
-                    src={LogoBoCongThuong.src}
+                    src={LogoBoCongThuong.src || "/"}
                     alt="logo Bộ Công Thương"
                     width={186}
                     height={70}
@@ -276,7 +285,8 @@ const Footer = async (locale: any) => {
               <a
                 target="_blank"
                 href="https://amitgroup.vn/"
-                className="hover:text-[#28A645] transition-all ease-linear">
+                className="hover:text-[#28A645] transition-all ease-linear"
+              >
                 AMIT GROUP
               </a>
             </p>

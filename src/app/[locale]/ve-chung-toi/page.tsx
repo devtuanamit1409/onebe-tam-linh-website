@@ -255,7 +255,7 @@ const page = async (params: any) => {
                   (videoAbout &&
                     supportedImageExtensions.includes(videoAbout.ext) && (
                       <Image
-                        src={`${baseUrl}${videoAbout.url}`}
+                        src={`${baseUrl}${videoAbout.url}` || "/"}
                         layout="responsive"
                         width={1920}
                         height={1080}
@@ -272,7 +272,7 @@ const page = async (params: any) => {
             <div className="">
               <div className="box-vct-1 border-2 border-solid border-[#3B559E]   desktop:w-[351px] laptop:h-[535px] laptop:w-[315px] p-[24px] mobile:pb-[130px] relative">
                 <Image
-                  src={imageOne.src}
+                  src={imageOne.src || "/"}
                   alt="01"
                   className="absolute bottom-0 right-4 z-0"
                   width={174}
@@ -295,7 +295,7 @@ const page = async (params: any) => {
             <div className="">
               <div className="box-vct-2 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
                 <Image
-                  src={imageTwo.src}
+                  src={imageTwo.src || "/"}
                   alt="02"
                   className="absolute bottom-0 right-4 z-0"
                   width={186}
@@ -321,7 +321,7 @@ const page = async (params: any) => {
             <div className="">
               <div className="box-vct-3 border-2 border-solid border-[#3B559E]  desktop:w-[351px] laptop:h-[535px] laptop:w-[315px]  p-[24px] mobile:pb-[130px] relative">
                 <Image
-                  src={imageThree.src}
+                  src={imageThree.src || "/"}
                   alt="03"
                   className="absolute bottom-0 right-4 z-0"
                   width={186}

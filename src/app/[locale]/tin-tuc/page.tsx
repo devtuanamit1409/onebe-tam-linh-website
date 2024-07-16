@@ -228,8 +228,13 @@ const Page: React.FC = (params: any) => {
                             </p>
                             <div className="flex justify-start">
                               <Link
-                                href={`/${item.attributes.slug}`}
-                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                                href={
+                                  item.attributes.slug
+                                    ? `/${item.attributes.slug}`
+                                    : "/"
+                                }
+                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
+                              >
                                 {t("read_now")}
                               </Link>
                             </div>
@@ -297,13 +302,15 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}
+                    >
                       <span
                         className={`text-12px font-medium text-nowrap  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E] `
-                        }`}>
+                        }`}
+                      >
                         {item?.attributes?.name}
                       </span>
                     </button>
@@ -328,7 +335,8 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}>
+            onClick={loadMoreArticles}
+          >
             {t("load_more_news")}
           </button>
         </div>

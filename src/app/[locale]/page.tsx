@@ -200,7 +200,7 @@ const Home: React.FC = async (params: any) => {
                 <div className="col-span-1 grid grid-cols-2 tablet:gap-[25px] mobile:gap-4">
                   <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
                     <Image
-                      src={`${baseUrl}${gioiThieuImage1}`}
+                      src={`${baseUrl}${gioiThieuImage1}` || "/"}
                       alt="Image 1"
                       layout="fill"
                       objectFit="cover"
@@ -209,7 +209,7 @@ const Home: React.FC = async (params: any) => {
                   <div className="flex flex-col justify-center gap-[25px]">
                     <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={`${baseUrl}${gioiThieuImage2}`}
+                        src={`${baseUrl}${gioiThieuImage2}` || "/"}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -217,7 +217,7 @@ const Home: React.FC = async (params: any) => {
                     </div>
                     <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
                       <Image
-                        src={`${baseUrl}${gioiThieuImage3}`}
+                        src={`${baseUrl}${gioiThieuImage3}` || "/"}
                         alt="Image 1"
                         layout="fill"
                         objectFit="cover"
@@ -236,7 +236,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
                         href={`/${locale}/ve-chung-toi`}
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
+                      >
                         {t("about_us")}
                       </Link>
                     </div>
@@ -251,7 +252,7 @@ const Home: React.FC = async (params: any) => {
       <AboutUsSlider dataBoxService={boxService} locale={locale} />
       <div className="section-member tablet:my-[120px] mobile:my-[32px] relative">
         <Image
-          src={bannerMember.src}
+          src={bannerMember.src || "/"}
           alt="banner"
           layout="fill"
           objectFit="cover"
@@ -272,7 +273,8 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/cong-ty-thanh-vien"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
+                      >
                         {t("see_more")}
                       </Link>
                     </div>

@@ -92,17 +92,19 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
             },
           }}
           modules={[Navigation]}
-          className="about-us-slider">
+          className="about-us-slider"
+        >
           {data?.map((item, index) => (
             <SwiperSlide
               className={` background-about-${index} min-h-[398px] max-h-[436px] min-w-[330px] w-[330px] max-w-[330px] relative`}
-              key={index}>
+              key={index}
+            >
               <div className="overflow-hidden tablet:h-[437px] ">
                 {/* <Image src={sp.src} alt="alt" layout="fill" /> */}
                 <div className="p-[32px] h-full">
                   <div className="bg-[#fff] w-[60px] h-[60px] rounded-[100px] flex justify-center items-center mx-0">
                     <Image
-                      src={item.image.src}
+                      src={item.image.src || "/"}
                       alt={item.image.alt}
                       width={item.image.width}
                       height={item.image.height}
@@ -116,8 +118,9 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                   </p>
                   <div className="mobile:mt-[16px] tablet:mt-[44px]">
                     <Link
-                      href={item.url}
-                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
+                      href={item.url ? item.url : "/"}
+                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] "
+                    >
                       {t("see_more")}
                     </Link>
                   </div>

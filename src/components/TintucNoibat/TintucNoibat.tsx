@@ -42,7 +42,8 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
         }}
         onSlideChange={(swiper) => {
           setCurrentIndex(swiper.realIndex);
-        }}>
+        }}
+      >
         {data.map((item: any, key: any) => {
           return (
             <SwiperSlide key={item.id}>
@@ -67,7 +68,10 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                   {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] absolute bottom-1">
-                  <Link href={`/${item.slug}`} className="mr-[10px]">
+                  <Link
+                    href={item.slug ? `/${item.slug}` : "/"}
+                    className="mr-[10px]"
+                  >
                     {t("let_see")}
                   </Link>
                   <svg
@@ -75,7 +79,8 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     width="9"
                     height="16"
                     viewBox="0 0 9 16"
-                    fill="none">
+                    fill="none"
+                  >
                     <path
                       d="M0.96875 15.9062C0.78125 15.9062 0.625 15.8438 0.46875 15.7188C0.1875 15.4375 0.1875 15 0.46875 14.7188L7.03125 8L0.46875 1.3125C0.1875 1.03125 0.1875 0.59375 0.46875 0.3125C0.75 0.03125 1.1875 0.03125 1.46875 0.3125L8.53125 7.5C8.8125 7.78125 8.8125 8.21875 8.53125 8.5L1.46875 15.6875C1.34375 15.8125 1.15625 15.9062 0.96875 15.9062Z"
                       fill="white"

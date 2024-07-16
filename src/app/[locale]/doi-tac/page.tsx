@@ -137,7 +137,7 @@ const page: React.FC = async (params: any) => {
     <>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
-          src={`${baseUrl}${banner}`}
+          src={`${baseUrl}${banner}` || "/"}
           alt="banner"
           layout="fill"
           objectFit="contain"

@@ -13,21 +13,21 @@ const ContactEndClient = () => {
       <div className="py-[80px] relative overflow-hidden">
         <div className="w-full relative tablet:h-[256px] mobile:h-[362px] flex mobile:flex-col tablet:flex-row  items-center laptop:px-[78px] tablet:px-[42px] mobile:gap-[80px] mobile:py-[40px] mobile:px-8  justify-between section-contact">
           <Image
-            src={CTE_Desktop.src}
+            src={CTE_Desktop.src || "/"}
             className="hidden laptop:block z-0"
             alt="banner"
             layout="fill"
             objectFit="cover"
           />
           <Image
-            src={CTE_Tablet.src}
+            src={CTE_Tablet.src || "/"}
             className="mobile:hidden tablet:block laptop:hidden z-0"
             alt="banner"
             layout="fill"
             objectFit="cover"
           />
           <Image
-            src={CTE_Mobile.src}
+            src={CTE_Mobile.src || "/"}
             className="tablet:hidden mobile:block z-0"
             alt="banner"
             layout="fill"

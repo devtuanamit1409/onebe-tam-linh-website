@@ -241,7 +241,7 @@ const page = async (params: any) => {
     <div>
       <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
         <Image
-          src={baseUrl + duAn?.banner?.urlImage?.data?.attributes?.url}
+          src={baseUrl + duAn?.banner?.urlImage?.data?.attributes?.url || "/"}
           alt="banner"
           layout="fill"
           objectFit="cover"
@@ -266,7 +266,8 @@ const page = async (params: any) => {
             </h2>
             <Link
               href={`/${locale}/tin-tuc`}
-              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5  hover:text-[#28A645] transition-all ease-linear">
+              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5  hover:text-[#28A645] transition-all ease-linear"
+            >
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>
