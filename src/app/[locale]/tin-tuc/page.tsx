@@ -240,7 +240,10 @@ const Page: React.FC = (params: any) => {
                             <Image
                               // height={196}
                               // width={196}
-                              src={`${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`}
+                              src={
+                                `${baseUrl}${item.attributes?.seo?.thumbnail?.data?.attributes?.url}` ||
+                                "/"
+                              }
                               fill
                               objectFit="cover"
                               alt="tin-tuc-moi-len"
