@@ -34,6 +34,23 @@ body {
 }
 
 .blog-content {
+  overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    th {
+      background: var(--Primary, #3f51b5);
+      color: #fff;
+      font-weight: 600;
+      padding: 8px;
+    }
+    td {
+      padding: 8px;
+      border-bottom: 1px solid var(--Stroke, #dfe4ea);
+    }
+  }
   h2 {
     margin-top: 24px;
     margin-bottom: 64px;

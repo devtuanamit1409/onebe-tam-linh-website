@@ -254,7 +254,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     if (detailBaiViet && detailBaiViet.length > 0) {
       console.log("detailBaiViet", detailBaiViet);
       fetchBaiVietTieuDiem(
-        detailBaiViet[0].attributes.danh_muc_cons.data[0].attributes.name
+        detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes?.name
       );
     }
   }, [detailBaiViet]);
