@@ -36,13 +36,32 @@ body {
 }
 .blog-content {
   width: 100%;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1 {
+    /* font-size: 48px; */
     font-size: initial;
+  }
+  h2 {
+    /* font-size: 40px; */
+    font-size: initial;
+  }
+  h3 {
+    /* font-size: 36px; */
+    font-size: initial;
+  }
+  h4 {
+    /* font-size: 30px; */
+    font-size: initial;
+  }
+  h5 {
+    /* font-size: 26px; */
+    font-size: initial;
+  }
+  h6 {
+    /* font-size: 20px; */
+    font-size: initial;
+  }
+  span {
+    font-size: inherit;
   }
 }
 
