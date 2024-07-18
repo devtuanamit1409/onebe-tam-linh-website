@@ -58,59 +58,49 @@ const HeaderNew = (params: any) => {
       key: "Sản phẩm",
       name: t("products"),
       pathname: "/san-pham",
-      label: <div className="flex items-center gap-3">{t("products")}</div>,
+      label: t("products"),
       showIcon: true,
     },
     {
       key: "Dịch vụ",
       name: t("services"),
       pathname: "/dich-vu",
-      label: <div className="flex items-center gap-3">{t("services")}</div>,
+      label: t("services"),
       showIcon: true,
     },
     {
       key: "Dự án",
       name: t("projects"),
       pathname: "/du-an",
-      label: <div className="flex items-center gap-3">{t("projects")}</div>,
+      label: t("projects"),
       showIcon: true,
     },
     {
       key: "Đối tác",
       name: t("partners"),
       pathname: "/doi-tac",
-      label: (
-        <Link href="/doi-tac" className="flex items-center gap-3">
-          {t("partners")}
-        </Link>
-      ),
+      label: t("partners"),
       showIcon: false,
     },
     {
       key: "Về chúng tôi",
       name: t("about_us"),
       pathname: "/ve-chung-toi",
-      label: <div className="flex items-center gap-3">{t("about_us")}</div>,
+      label: t("about_us"),
       showIcon: true,
     },
     {
       key: "Tin tức",
       name: t("newsTitle"),
       pathname: "/tin-tuc",
-      label: (
-        <Link href="/tin-tuc" className="flex items-center gap-3">
-          {t("newsTitle")}
-        </Link>
-      ),
+      label: t("newsTitle"),
       showIcon: false,
     },
     {
       key: "Thông tư nghị định",
       name: t("circular_decree"),
       pathname: "/thong-tu-nghi-dinh",
-      label: (
-        <div className="flex items-center gap-3">{t("circular_decree")}</div>
-      ),
+      label: t("circular_decree"),
       showIcon: true,
     },
   ]);
@@ -323,7 +313,7 @@ const HeaderNew = (params: any) => {
                         isActive ? "text-[#28A645]" : "text-[#3B559E]"
                       } text-left flex items-center gap-3 cursor-pointer 
                     ${activeKey === item.key ? "text-[#28A645]" : ""}`}>
-                      {item.label}
+                      <Link href={item.pathname}>{item.label}</Link>
                       {item.showIcon &&
                         (activeKey === item.key ? (
                           <IconAngleUp width="12" height="12" />
