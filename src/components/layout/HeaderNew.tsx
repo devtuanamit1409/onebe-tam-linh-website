@@ -368,7 +368,7 @@ const HeaderNew = (params: any) => {
         </div>
       </header>
       {isMenuOpen && (
-        <div className="fixed w-full h-full z-10 top-0 left-0 bg-[#000] bg-opacity-30"></div>
+        <div className="fixed w-full h-full z-40 top-0 left-0 bg-[#000] bg-opacity-30"></div>
       )}
     </>
   );
