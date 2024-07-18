@@ -37,28 +37,34 @@ body {
 .blog-content {
   width: 100%;
   h1 {
-    /* font-size: 48px; */
-    font-size: initial;
+    font-size: 60px;
+    line-height: 72px;
+    font-weight: 600;
   }
   h2 {
-    /* font-size: 40px; */
-    font-size: initial;
+    font-size: 48px;
+    line-height: 58px;
+    font-weight: 600;
   }
   h3 {
-    /* font-size: 36px; */
-    font-size: initial;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 600;
   }
   h4 {
-    /* font-size: 30px; */
-    font-size: initial;
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 600;
   }
   h5 {
-    /* font-size: 26px; */
-    font-size: initial;
+    font-size: 28px;
+    line-height: 40px;
+    font-weight: 500;
   }
   h6 {
-    /* font-size: 20px; */
-    font-size: initial;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 500;
   }
   span {
     font-size: inherit;
