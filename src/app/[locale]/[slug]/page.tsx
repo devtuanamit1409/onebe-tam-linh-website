@@ -507,10 +507,26 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
               <ContactEndClient />
             </div>
+            <div className="bg-[#F3F6FE] py-[80px]">
+              <div className="container">
+                <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
+                  <h2 className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
+                    {t("title_post")}
+                  </h2>
+                  <Link
+                    href={`/${locale}/tin-tuc`}
+                    className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
+                    {t("go_to_news_page")}
+                    <IconArrowRight width={20} height={20} />
+                  </Link>
+                </div>
+                <BoxTinTuc data={recomenData.slice(0, 3)} locale={locale} />
+              </div>
+            </div>
           </>
         ) : (
           <div className="">
-            <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
+            <div className="flex laptop:h-[800px] mobile:h-[500px] bg-[#3B559E] mb-[80px]">
               <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
                 <h2 className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
                   {translate("404")}
@@ -529,25 +545,13 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                 </Link>
               </div>
             </div>
+            <div
+              className="container
+            ">
+              <ContactEndClient />
+            </div>
           </div>
         )}
-
-        <div className="bg-[#F3F6FE] py-[80px]">
-          <div className="container">
-            <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-              <h2 className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
-                {t("title_post")}
-              </h2>
-              <Link
-                href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
-                {t("go_to_news_page")}
-                <IconArrowRight width={20} height={20} />
-              </Link>
-            </div>
-            <BoxTinTuc data={recomenData.slice(0, 3)} locale={locale} />
-          </div>
-        </div>
       </>
     );
   };
