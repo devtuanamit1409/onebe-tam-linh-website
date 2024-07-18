@@ -125,8 +125,7 @@ const Footer = async (locale: any) => {
                   <a
                     href={`tel:${phoneNumber}}`}
                     target="_blank"
-                    className="text-white text-sm font-medium  leading-snug hover:text-[#28A645] transition-colors ease-linear"
-                  >
+                    className="text-white text-sm font-medium  leading-snug hover:text-[#28A645] transition-colors ease-linear">
                     {phoneNumber}
                   </a>
                 </div>
@@ -135,8 +134,7 @@ const Footer = async (locale: any) => {
                     <div className=" relative">
                       <a
                         href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
-                        target="_blank"
-                      >
+                        target="_blank">
                         <IconLocation />
                       </a>
                     </div>
@@ -144,8 +142,7 @@ const Footer = async (locale: any) => {
                   <a
                     href="https://maps.app.goo.gl/5Xvr5GSDVnPz393Y9"
                     target="_blank"
-                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full hover:text-[#28A645] transition-colors ease-linear"
-                  >
+                    className=" text-white text-sm font-medium  leading-snug desktop:max-w-[300px] laptop:w-full hover:text-[#28A645] transition-colors ease-linear">
                     {address}
                   </a>
                 </div>
@@ -171,8 +168,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
-                        >
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -192,8 +188,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
-                        >
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -213,8 +208,7 @@ const Footer = async (locale: any) => {
                         <Link
                           key={item?.id}
                           href={item?.path || "/"}
-                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear"
-                        >
+                          className="text-white text-base font-normal  leading-normal hover:text-[#28A645] transition-colors ease-linear">
                           {item?.title}
                         </Link>
                       );
@@ -280,16 +274,7 @@ const Footer = async (locale: any) => {
         <div className=" tablet:block w-full px-2 py-4 border-t bg-[#3B559E] border-white justify-center items-center gap-2.5 inline-flex">
           <div className="text-center text-white text-base font-normal  leading-normal ">
             <p>{giayphep ? giayphep : t("licence")}</p>
-            <p>
-              {banquyen ? banquyen : <>Copyright 2024 © NTSE.VN </>} Design by{" "}
-              <a
-                target="_blank"
-                href="https://amitgroup.vn/"
-                className="hover:text-[#28A645] transition-all ease-linear"
-              >
-                AMIT GROUP
-              </a>
-            </p>
+            <p>{banquyen ? banquyen : <>Copyright 2024 © NTSE.VN </>}</p>
           </div>
         </div>
       </footer>

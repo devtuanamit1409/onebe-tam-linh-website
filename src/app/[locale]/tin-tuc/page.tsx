@@ -233,8 +233,7 @@ const Page: React.FC = (params: any) => {
                                     ? `/${item.attributes.slug}`
                                     : "/"
                                 }
-                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view"
-                              >
+                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                                 {t("read_now")}
                               </Link>
                             </div>
@@ -273,16 +272,16 @@ const Page: React.FC = (params: any) => {
           <div>
             <h2 className="text-[35px] font-bold">{t("news")}</h2>
           </div>
-          <div className="relative">
+          <div className="relative flex items-center justify-center">
             <input
-              className="focus:outline-none laptop:p-[24px] mobile:px-[24px] mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
+              className="focus:outline-none laptop:p-[24px] tablet:pr-[40px] laptop:pr-[68px] mobile:px-[24px]  mobile:py-[3px] mobile:w-full tablet:w-fit rounded-[56px] border border-[#DFE4EA] bg-[#FFFFFF] placeholder:font-[300] placeholder:italic placeholder:text-[#8899A8]"
               onChange={(e: any) => setSearchValue(e.target.value)}
               placeholder={t("search")}
             />
             <button className="w-[56px] h-[56px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[2%] top-[10px] mobile:hidden laptop:flex">
               <IconSearch width="30" height="30" />
             </button>
-            <button className="w-[32px] h-[32px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[0px] top-[0px] mobile:flex laptop:hidden">
+            <button className="w-[32px] h-[32px] bg-[#3B559E] mx-0 flex justify-center items-center rounded-[50px] absolute right-[0px] mobile:top-[0px] tablet:top-[10px] laptop:top-0 mobile:flex laptop:hidden">
               <IconSearch width="14" height="14" />
             </button>
           </div>
@@ -302,15 +301,13 @@ const Page: React.FC = (params: any) => {
                         filterDanhMuc === item?.attributes?.name
                           ? `bg-[#3B559E] border-[#3B559E]`
                           : `bg-[#fff] border  border-[#3B559E]`
-                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}
-                    >
+                      } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
                       <span
                         className={`text-12px font-medium text-nowrap  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E] `
-                        }`}
-                      >
+                        }`}>
                         {item?.attributes?.name}
                       </span>
                     </button>
@@ -335,8 +332,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px] flex justify-center">
           <button
             className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
-            onClick={loadMoreArticles}
-          >
+            onClick={loadMoreArticles}>
             {t("load_more_news")}
           </button>
         </div>
