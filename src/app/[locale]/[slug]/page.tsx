@@ -441,8 +441,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                >
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                   {translate("back_home")}
                 </Link>
               </div>
@@ -478,8 +477,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : breadcum === "Thông tư nghị định"
                       ? "/thong-tu-nghi-dinh"
                       : ""
-                  }`}
-                >
+                  }`}>
                   {breadcum}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
@@ -501,7 +499,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </h2>
 
               <div
-                className="blog-content desktop:py-[40px] desktop:px-[120px] mobile:px-0 mobile:pb-[20px]"
+                className="blog-content desktop:py-[40px]  mobile:px-0 mobile:pb-[20px]"
                 dangerouslySetInnerHTML={{
                   __html: dataBaiViet ? dataBaiViet : "",
                 }}
@@ -524,8 +522,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </h2>
               <Link
                 href={`/${locale}/tin-tuc`}
-                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
-              >
+                className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
                 {t("go_to_news_page")}
                 <IconArrowRight width={20} height={20} />
               </Link>
