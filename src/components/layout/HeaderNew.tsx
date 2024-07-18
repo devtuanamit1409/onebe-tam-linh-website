@@ -55,6 +55,13 @@ const HeaderNew = (params: any) => {
 
   const [menuItems, setMenuItems] = useState([
     {
+      key: "Về chúng tôi",
+      name: t("about_us"),
+      pathname: "/ve-chung-toi",
+      label: t("about_us"),
+      showIcon: true,
+    },
+    {
       key: "Sản phẩm",
       name: t("products"),
       pathname: "/san-pham",
@@ -82,13 +89,7 @@ const HeaderNew = (params: any) => {
       label: t("partners"),
       showIcon: false,
     },
-    {
-      key: "Về chúng tôi",
-      name: t("about_us"),
-      pathname: "/ve-chung-toi",
-      label: t("about_us"),
-      showIcon: true,
-    },
+
     {
       key: "Tin tức",
       name: t("newsTitle"),
