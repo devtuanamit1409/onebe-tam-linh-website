@@ -27,6 +27,13 @@ const MobileMenuNew = ({
   const t = useTranslations("menu");
   const [menuItems, setMenuItems] = useState([
     {
+      key: "Về chúng tôi",
+      name: t("about_us"),
+      pathname: "/ve-chung-toi",
+      label: <div className="flex items-center gap-3">{t("about_us")}</div>,
+      showIcon: true,
+    },
+    {
       key: "Sản phẩm",
       name: t("products"),
       pathname: "/san-pham",
@@ -58,13 +65,7 @@ const MobileMenuNew = ({
       ),
       showIcon: false,
     },
-    {
-      key: "Về chúng tôi",
-      name: t("about_us"),
-      pathname: "/ve-chung-toi",
-      label: <div className="flex items-center gap-3">{t("about_us")}</div>,
-      showIcon: true,
-    },
+
     {
       key: "Tin tức",
       name: t("newsTitle"),

@@ -45,8 +45,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
-      >
+        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
         {banner?.map((item) => {
           return (
             <SwiperSlide key={item.id}>
@@ -61,12 +60,11 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                 />
                 {/* asndashdaskdhlsandlasbkdjsalkdb */}
                 <div
-                  className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}
-                >
+                  className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}>
                   <div className="w-[90%] laptop:w-[846px]">
                     <div className="grid grid-cols-1 gap-[32px]">
                       <div className="col-span-1">
-                        <p className="rounded-[32px] py-[12px] px-[24px] text-white border border-white w-fit">
+                        <p className=" py-[4px]  text-white  w-fit border-b border-white">
                           {item.name}
                         </p>
                       </div>
@@ -83,8 +81,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                       <div className="col-span-1">
                         <Link
                           href={item.path ? item.path : "/"}
-                          className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent"
-                        >
+                          className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent">
                           {t("see_more")}
                         </Link>
                       </div>

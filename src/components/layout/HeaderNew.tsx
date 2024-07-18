@@ -55,62 +55,53 @@ const HeaderNew = (params: any) => {
 
   const [menuItems, setMenuItems] = useState([
     {
+      key: "Về chúng tôi",
+      name: t("about_us"),
+      pathname: "/ve-chung-toi",
+      label: t("about_us"),
+      showIcon: true,
+    },
+    {
       key: "Sản phẩm",
       name: t("products"),
       pathname: "/san-pham",
-      label: <div className="flex items-center gap-3">{t("products")}</div>,
+      label: t("products"),
       showIcon: true,
     },
     {
       key: "Dịch vụ",
       name: t("services"),
       pathname: "/dich-vu",
-      label: <div className="flex items-center gap-3">{t("services")}</div>,
+      label: t("services"),
       showIcon: true,
     },
     {
       key: "Dự án",
       name: t("projects"),
       pathname: "/du-an",
-      label: <div className="flex items-center gap-3">{t("projects")}</div>,
+      label: t("projects"),
       showIcon: true,
     },
     {
       key: "Đối tác",
       name: t("partners"),
       pathname: "/doi-tac",
-      label: (
-        <Link href="/doi-tac" className="flex items-center gap-3">
-          {t("partners")}
-        </Link>
-      ),
+      label: t("partners"),
       showIcon: false,
     },
-    {
-      key: "Về chúng tôi",
-      name: t("about_us"),
-      pathname: "/ve-chung-toi",
-      label: <div className="flex items-center gap-3">{t("about_us")}</div>,
-      showIcon: true,
-    },
+
     {
       key: "Tin tức",
       name: t("newsTitle"),
       pathname: "/tin-tuc",
-      label: (
-        <Link href="/tin-tuc" className="flex items-center gap-3">
-          {t("newsTitle")}
-        </Link>
-      ),
+      label: t("newsTitle"),
       showIcon: false,
     },
     {
       key: "Thông tư nghị định",
       name: t("circular_decree"),
       pathname: "/thong-tu-nghi-dinh",
-      label: (
-        <div className="flex items-center gap-3">{t("circular_decree")}</div>
-      ),
+      label: t("circular_decree"),
       showIcon: true,
     },
   ]);
@@ -300,76 +291,86 @@ const HeaderNew = (params: any) => {
   }, [activeItem]);
 
   return (
-    <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow ">
-      <div className="container">
-        <div className="hidden laptop:flex w-full max-w-full  p-0  h-[100px] mx-auto justify-between">
-          <div className="flex w-full">
-            <Link href={`/${locale}`} className="my-auto">
-              <Image src={NTSLogo.src} alt="NTS Logo" width={80} height={40} />
-            </Link>
-            <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
-              {menuItems.map((item) => {
-                const isActive = pathname === item.pathname;
-                return (
-                  <li
-                    key={item.key}
-                    className={`border-b-2 border-transparent flex items-center`}
-                    onMouseEnter={() => {
-                      handleMouseEnter(item.key, item.showIcon);
-                    }}
-                    onMouseLeave={handleMouseLeave}>
-                    <div
-                      className={`font-inter text-base font-medium leading-6 hover:text-[#28A645] ${
-                        isActive ? "text-[#28A645]" : "text-[#3B559E]"
-                      } text-left flex items-center gap-3 cursor-pointer 
+    <>
+      <header className="flex laptop:h-[100px] mobile:h-[72px] border-spacing-0 bg-white z-50 fixed top-0 left-0 w-screen mobile:shadow ">
+        <div className="container">
+          <div className="hidden laptop:flex w-full max-w-full  p-0  h-[100px] mx-auto justify-between">
+            <div className="flex w-full">
+              <Link href={`/${locale}`} className="my-auto">
+                <Image
+                  src={NTSLogo.src}
+                  alt="NTS Logo"
+                  width={80}
+                  height={40}
+                />
+              </Link>
+              <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
+                {menuItems.map((item) => {
+                  const isActive = pathname === item.pathname;
+                  return (
+                    <li
+                      key={item.key}
+                      className={`border-b-2 border-transparent flex items-center`}
+                      onMouseEnter={() => {
+                        handleMouseEnter(item.key, item.showIcon);
+                      }}
+                      onMouseLeave={handleMouseLeave}>
+                      <div
+                        className={`font-inter text-base font-medium leading-6 hover:text-[#28A645] ${
+                          isActive ? "text-[#28A645]" : "text-[#3B559E]"
+                        } text-left flex items-center gap-3 cursor-pointer 
                     ${activeKey === item.key ? "text-[#28A645]" : ""}`}>
-                      {item.label}
-                      {item.showIcon &&
-                        (activeKey === item.key ? (
-                          <IconAngleUp width="12" height="12" />
-                        ) : (
-                          <IconAngleDown width="12" height="12" />
-                        ))}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="hidden laptop:flex">
-              <LanguageSwitch />
+                        <Link href={item.pathname}>{item.label}</Link>
+                        {item.showIcon &&
+                          (activeKey === item.key ? (
+                            <IconAngleUp width="12" height="12" />
+                          ) : (
+                            <IconAngleDown width="12" height="12" />
+                          ))}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="hidden laptop:flex">
+                <LanguageSwitch />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
-          <Link href={`/${locale}`}>
-            <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
-          </Link>
-          <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
-            <button
-              className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}>
-              <IconMenu />
-            </button>
+          <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
+            <Link href={`/${locale}`}>
+              <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
+            </Link>
+            <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
+              <button
+                className="w-[30.30px] h-[19.40px] relative"
+                onClick={toggleMenu}>
+                <IconMenu />
+              </button>
 
-            <MobileMenuNew
-              locale={locale}
-              isOpen={isOpen}
-              toggleMenu={toggleMenu}
-            />
+              <MobileMenuNew
+                locale={locale}
+                isOpen={isOpen}
+                toggleMenu={toggleMenu}
+              />
+            </div>
           </div>
-        </div>
 
-        <MegaMenu
-          menuItems={activeItem}
-          locale={locale}
-          loading={loading}
-          activeKey={activeKey}
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          handleMouseLeave={handleMouseLeave}
-        />
-      </div>
-    </header>
+          <MegaMenu
+            menuItems={activeItem}
+            locale={locale}
+            loading={loading}
+            activeKey={activeKey}
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={setIsMenuOpen}
+            handleMouseLeave={handleMouseLeave}
+          />
+        </div>
+      </header>
+      {isMenuOpen && (
+        <div className="fixed w-full h-full z-10 top-0 left-0 bg-[#000] bg-opacity-30"></div>
+      )}
+    </>
   );
 };
 

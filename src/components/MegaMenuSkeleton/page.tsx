@@ -8,7 +8,7 @@ interface MegaMenuSkeletonProps {
 
 const MegaMenuSkeleton: React.FC<MegaMenuSkeletonProps> = ({ activeKey }) => {
   return (
-    <div className="flex justify-between gap-[32.5px]">
+    <div className="flex justify-between gap-[32.5px] bg-[#fefefe]">
       <div className="w-[300px] flex-col justify-start items-start gap-8 inline-flex">
         <Skeleton width={300} height={40} />
         <Skeleton width={300} height={20} count={3} />

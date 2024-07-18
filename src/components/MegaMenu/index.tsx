@@ -70,7 +70,7 @@ const MegaMenu = ({
       {menuItems ? (
         <>
           <div
-            className={`hidden laptop:block  shadow absolute left-0 w-full z-40 mega-menu-container shadow-top ${
+            className={`hidden laptop:block  shadow absolute left-0 w-full z-50 mega-menu-container shadow-top ${
               isMenuOpen
                 ? "top-[100px] opacity-100"
                 : "-translate-y-full top-[0px] opacity-0"
@@ -107,7 +107,7 @@ const MegaMenu = ({
 
                         <Link
                           href={menuItems.pathname || "/"}
-                          className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[8px] justify-center items-center gap-2.5 inline-flex">
+                          className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                           {t("see_more")}
                         </Link>
                       </div>
