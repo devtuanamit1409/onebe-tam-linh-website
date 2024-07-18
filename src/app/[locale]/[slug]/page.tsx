@@ -509,8 +509,26 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             </div>
           </>
         ) : (
-          <div className="flex justify-center min-h-screen">
-            <Loading />
+          <div className="">
+            <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
+              <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
+                <h2 className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
+                  {translate("404")}
+                </h2>
+                <p className="text-[22px] font-[600] text-[#fff]">
+                  {translate("not_found")}
+                </p>
+                <p className="text-[16px] font-[400] text-[#fff]">
+                  {translate("maybe_delete")}
+                </p>
+
+                <Link
+                  href="/"
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                  {translate("back_home")}
+                </Link>
+              </div>
+            </div>
           </div>
         )}
 

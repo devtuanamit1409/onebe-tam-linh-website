@@ -195,7 +195,7 @@ const Home: React.FC = async (params: any) => {
       <div className="section-gioi-thieu py-6">
         <div>
           <div className="flex justify-center">
-            <div className="container z-40">
+            <div className="container z-30">
               <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
                 <div className="col-span-1 grid grid-cols-2 tablet:gap-[25px] mobile:gap-4">
                   <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
@@ -236,8 +236,7 @@ const Home: React.FC = async (params: any) => {
                     <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
                         href={`/${locale}/ve-chung-toi`}
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]"
-                      >
+                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
                         {t("about_us")}
                       </Link>
                     </div>
@@ -273,8 +272,7 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/cong-ty-thanh-vien"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]"
-                      >
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
                         {t("see_more")}
                       </Link>
                     </div>
@@ -282,7 +280,7 @@ const Home: React.FC = async (params: any) => {
                 </div>
               </div>
               <div className="col-span-12 relativ flex justify-center">
-                <div className="h-[417px] w-[356px] card-member relative z-40">
+                <div className="h-[417px] w-[356px] card-member relative z-30">
                   <SlideMember cardThanhVien={cardThanhVien} />
                 </div>
               </div>
