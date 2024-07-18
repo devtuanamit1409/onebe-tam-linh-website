@@ -268,7 +268,7 @@ const page = async (params: any) => {
           </div>
         </div>
 
-        <div className="container">
+        <div className="container mt-[24px]">
           <div className="flex justify-center">
             <div className="max-w-[1000px] pb-[40px]">
               <div className="grid grid-cols-12 gap-4 tablet:gap-8 mobile:gap-4">
