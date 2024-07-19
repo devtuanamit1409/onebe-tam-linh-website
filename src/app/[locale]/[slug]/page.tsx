@@ -389,14 +389,14 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     return (
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
-          <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
-            <h5 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium">
+          <div className="flex flex-col gap-[24px] desktop:gap-[40px]">
+            <h5 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium text-center">
               {renderCategory(detailSubCategory[0]?.attributes?.category)}
             </h5>
-            <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold">
+            <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold text-center">
               {detailSubCategory[0]?.attributes?.name}
             </h1>
-            <p className="text-[#8899A8]">
+            <p className="text-[#8899A8] text-center">
               {detailSubCategory[0]?.attributes?.description}
             </p>
 
@@ -494,17 +494,19 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
                 {breadcum && renderCategory(breadcum)}
               </p>
-              <h2 className="text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center">
+              <h2 className="text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
                 {detailBaiViet[0]?.attributes?.title}
               </h2>
+            </div>
 
-              <div
-                className="blog-content desktop:py-[40px]  mobile:px-0 mobile:pb-[20px]"
-                dangerouslySetInnerHTML={{
-                  __html: dataBaiViet ? dataBaiViet : "",
-                }}
-              />
+            <div
+              className="blog-content desktop:py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
+              dangerouslySetInnerHTML={{
+                __html: dataBaiViet ? dataBaiViet : "",
+              }}
+            />
 
+            <div className="container">
               <ContactEndClient />
             </div>
             <div className="bg-[#F3F6FE] py-[80px]">
