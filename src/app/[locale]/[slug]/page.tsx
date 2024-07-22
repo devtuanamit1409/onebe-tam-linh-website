@@ -276,8 +276,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
         locale === "vi"
           ? detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
               ?.category
-          : detailBaiViet[0]?.attributes?.localizations?.danh_muc_cons?.data[0]
-              ?.attributes?.category)
+          : detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.category)
     : "";
 
   !checkLastSegmentIsNumeric(slug)
@@ -285,8 +285,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
         locale === "vi"
           ? detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
               ?.name
-          : detailBaiViet[0]?.attributes?.localizations?.danh_muc_cons?.data[0]
-              ?.attributes?.name)
+          : detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.name)
     : "";
 
   !checkLastSegmentIsNumeric(slug)
@@ -294,8 +294,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
         locale === "vi"
           ? detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
               ?.slug
-          : detailBaiViet[0]?.attributes?.localizations?.danh_muc_cons?.data[0]
-              ?.attributes?.slug)
+          : detailBaiViet[0]?.attributes?.danh_muc_cons?.data[0]?.attributes
+              ?.slug)
     : "";
 
   const filterArticlesByCategoryName = () => {
@@ -482,7 +482,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : ""
                   }`}
                 >
-                  {breadcum}
+                  {locale === "vi" ? breadcum : renderCategory(breadcum)}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
                 <Link href={slugSubBreadcum ? `/${slugSubBreadcum}` : "/"}>
