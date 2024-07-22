@@ -102,7 +102,7 @@ const LanguageSwitch: React.FC = () => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
     const newUrl = slugMap[pathname] || pathname;
-    window.location.href = newUrl;
+    window.location.href = "/" + newLocale;
   }
 
   const menu = (
