@@ -145,6 +145,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     total: 0,
   });
   const [loading, setLoading] = useState<boolean>(true);
+  const [isHaveData, setIsHaveData] = useState<boolean>(true);
   const [seoCategory, setSeoCategory] = useState<any>("");
   const [seoDetailNews, setSeoDetailNews] = useState<any>("");
 
@@ -214,6 +215,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       );
       const result: DetailArticleData = await response.json();
       setDetailBaiViet(result.data);
+      result.data.length === 0 && setIsHaveData(false);
       setSeoDetailNews(result.data[0]?.attributes?.seo);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -441,7 +443,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+                >
                   {translate("back_home")}
                 </Link>
               </div>
@@ -477,7 +480,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : breadcum === "Thông tư nghị định"
                       ? "/thong-tu-nghi-dinh"
                       : ""
-                  }`}>
+                  }`}
+                >
                   {breadcum}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
@@ -517,7 +521,8 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                   </h2>
                   <Link
                     href={`/${locale}/tin-tuc`}
-                    className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
+                    className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
+                  >
                     {t("go_to_news_page")}
                     <IconArrowRight width={20} height={20} />
                   </Link>
@@ -527,32 +532,34 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             </div>
           </>
         ) : (
-          <div className="">
-            <div className="flex laptop:h-[800px] mobile:h-[500px] bg-[#3B559E] mb-[80px]">
-              <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
-                <h2 className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
-                  {translate("404")}
-                </h2>
-                <p className="text-[22px] font-[600] text-[#fff]">
-                  {translate("not_found")}
-                </p>
-                <p className="text-[16px] font-[400] text-[#fff]">
-                  {translate("maybe_delete")}
-                </p>
-
-                <Link
-                  href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
-                  {translate("back_home")}
-                </Link>
+          isHaveData === false && (
+            <>
+              <div className="">
+                <div className="flex laptop:h-[800px] mobile:h-[500px] bg-[#3B559E] mb-[80px]">
+                  <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
+                    <h2 className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
+                      {translate("404")}
+                    </h2>
+                    <p className="text-[22px] font-[600] text-[#fff]">
+                      {translate("not_found")}
+                    </p>
+                    <p className="text-[16px] font-[400] text-[#fff]">
+                      {translate("maybe_delete")}
+                    </p>
+                    <Link
+                      href="/"
+                      className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
+                    >
+                      {translate("back_home")}
+                    </Link>
+                  </div>
+                </div>
+                <div className="container">
+                  <ContactEndClient />
+                </div>
               </div>
-            </div>
-            <div
-              className="container
-            ">
-              <ContactEndClient />
-            </div>
-          </div>
+            </>
+          )
         )}
       </>
     );
