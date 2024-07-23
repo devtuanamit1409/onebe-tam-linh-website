@@ -504,7 +504,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             </div>
 
             <div
-              className="blog-content desktop:py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
+              className="blog-content py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
               dangerouslySetInnerHTML={{
                 __html: dataBaiViet ? dataBaiViet : "",
               }}
