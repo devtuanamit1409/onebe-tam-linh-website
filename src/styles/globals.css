@@ -167,7 +167,7 @@ body {
   border-collapse: collapse;
   display: block;
   overflow-x: auto;
-  white-space: nowrap;
+  white-space: re-wrap;
 }
 
 .blog-content th,
@@ -175,7 +175,14 @@ body {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
-  white-space: nowrap; /* Đảm bảo nội dung không xuống dòng */
+  white-space: re-wrap; 
+}
+@media (max-width: 744px) {
+  .blog-content table,
+  .blog-content th,
+  .blog-content td {
+    white-space: nowrap;
+  }
 }
 
 .blog-content th {
