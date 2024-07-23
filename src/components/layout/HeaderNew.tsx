@@ -53,6 +53,10 @@ const HeaderNew = (params: any) => {
   const t = useTranslations("menu");
   const pathname = usePathname();
 
+  const [activeKey, setActiveKey] = useState<string | null>(pathname);
+  const [activeItem, setActiveItem] = useState<any>();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [menuItems, setMenuItems] = useState([
     {
       key: "Về chúng tôi",
@@ -105,11 +109,6 @@ const HeaderNew = (params: any) => {
       showIcon: true,
     },
   ]);
-
-  const [activeKey, setActiveKey] = useState<string | null>(pathname);
-  const [activeItem, setActiveItem] = useState<any>();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
 
   const handleGetEndPoint = (key: string) => {
@@ -161,19 +160,10 @@ const HeaderNew = (params: any) => {
         ...prev,
         [key]: itemData,
       }));
-      setActiveItem(itemData);
     } catch (error) {}
   };
-  const fetchDataVeChungToi = async () => {
-    if (cachedData["Về chúng tôi"]) {
-      setActiveItem({
-        ...menuItems.find((item: any) => item.key === "Về chúng tôi"),
-        description: cachedData["Về chúng tôi"].description,
-        danh_muc_cons: cachedData["Về chúng tôi"].danh_muc_cons,
-      });
-      return;
-    }
 
+  const fetchDataVeChungToi = async () => {
     const listEndPoint = [
       `${process.env.URL_API}/api/ve-chung-toi?populate=main&locale=${locale}`,
       `${process.env.URL_API}/api/goc-chuyen-gia?locale=${locale}`,
@@ -226,32 +216,16 @@ const HeaderNew = (params: any) => {
         ...prev,
         "Về chúng tôi": data,
       }));
-
-      setActiveItem({
-        ...menuItems.find((item: any) => item.key === "Về chúng tôi"),
-        ...data,
-      });
     } catch (error) {}
   };
 
-  const handleMouseEnter = async (key: string, condition: boolean) => {
+  const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
-      setLoading(true);
       setActiveKey(key);
       setIsMenuOpen(true);
-
       if (cachedData[key]) {
-        console.log("Using cached data for:", key);
         setActiveItem(cachedData[key]);
-        setLoading(false);
-        return;
       }
-      if (key === "Về chúng tôi") {
-        await fetchDataVeChungToi();
-      } else {
-        await fetchHeader(key);
-      }
-      setLoading(false);
     }
   };
 
@@ -284,11 +258,23 @@ const HeaderNew = (params: any) => {
   };
 
   useEffect(() => {
-    console.log("cachedData", cachedData);
-  }, [cachedData]);
-  useEffect(() => {
-    console.log("activeItem", activeItem);
-  }, [activeItem]);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        for (const item of menuItems) {
+          if (item.key === "Về chúng tôi") {
+            await fetchDataVeChungToi();
+          } else {
+            await fetchHeader(item.key);
+          }
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [menuItems]);
 
   return (
     <>

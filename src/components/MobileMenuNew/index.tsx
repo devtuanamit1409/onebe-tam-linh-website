@@ -299,6 +299,9 @@ const MobileMenuNew = ({
       document.body.classList.remove("overflow-hidden");
     }
   }, [isOpen]);
+  useEffect(() => {
+    console.log("cachedData", cachedData);
+  }, [cachedData]);
 
   return (
     <div
