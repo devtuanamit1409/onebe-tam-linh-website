@@ -14,12 +14,13 @@ import { getTranslations } from "next-intl/server";
 const searchData = {
   populate: [
     "main.seo.thumbnail",
-    "main.videoAbout",
-    "main.boxAbout",
-    "main.cacTongThau",
-    "main.cacDoiTacNuocNgoai",
-    "main.cacChuDauTuNuocNgoai",
-    "main.cacCongTyVaTapDoan",
+    "main.content",
+    // "main.videoAbout",
+    // "main.boxAbout",
+    // "main.cacTongThau",
+    // "main.cacDoiTacNuocNgoai",
+    // "main.cacChuDauTuNuocNgoai",
+    // "main.cacCongTyVaTapDoan",
   ].toString(),
 };
 
@@ -136,207 +137,23 @@ const page = async (params: any) => {
     .map((item) => item.attributes);
 
   const baseUrl = process.env.URL_API;
-  const contentFirst = (
-    dataVeChungToi as {
-      data: { attributes: { main: { contentFirst: string } } };
-    }
-  )?.data?.attributes?.main.contentFirst;
-  const contentEnd = (
-    dataVeChungToi as { data: { attributes: { main: { contentEnd: string } } } }
-  )?.data?.attributes?.main.contentEnd;
-  const boxAbout = (
-    dataVeChungToi as {
-      data: {
-        attributes: {
-          main: {
-            boxAbout: { id: number; title: string; description: string }[];
-          };
-        };
-      };
-    }
-  )?.data?.attributes?.main.boxAbout;
-
-  const videoAbout = (
-    dataVeChungToi as {
-      data: {
-        attributes: {
-          main: {
-            videoAbout: {
-              data: {
-                attributes: {
-                  width: number;
-                  height: number;
-                  url: string;
-                  ext: string;
-                };
-              };
-            };
-          };
-        };
-      };
-    }
-  )?.data?.attributes?.main.videoAbout?.data?.attributes;
-
-  const cacTongThau = (
-    dataVeChungToi as {
-      data: {
-        attributes: { main: { cacTongThau: { id: number; item: string }[] } };
-      };
-    }
-  )?.data?.attributes?.main.cacTongThau;
-  const cacDoiTacNuocNgoai = (
-    dataVeChungToi as {
-      data: {
-        attributes: {
-          main: { cacDoiTacNuocNgoai: { id: number; item: string }[] };
-        };
-      };
-    }
-  )?.data?.attributes?.main.cacDoiTacNuocNgoai;
-  const cacChuDauTuNuocNgoai = (
-    dataVeChungToi as {
-      data: {
-        attributes: {
-          main: { cacChuDauTuNuocNgoai: { id: number; item: string }[] };
-        };
-      };
-    }
-  )?.data?.attributes?.main.cacChuDauTuNuocNgoai;
-  const cacCongTyVaTapDoan = (
-    dataVeChungToi as {
-      data: {
-        attributes: {
-          main: { cacCongTyVaTapDoan: { id: number; item: string }[] };
-        };
-      };
-    }
-  )?.data?.attributes?.main.cacCongTyVaTapDoan;
-
-  const supportedVideoExtensions = [".mp4", ".mov", ".avi"];
-  const supportedImageExtensions = [".png", ".jpg", ".jpeg", ".gif"];
+  const content = (dataVeChungToi as { data: { attributes: { main: any } } })
+    .data.attributes.main;
 
   return (
     <>
       <div className=" justify-center ">
         <div className="container">
-          <div className="flex justify-center py-[67px]">
-            <Image
-              src="/images/ve-chung-toi/logo-ve-toi.png"
-              alt="Về NTS"
-              width={653}
-              height={97}
+          {content ? (
+            <div
+              className="blog-content pt-[40px]"
+              dangerouslySetInnerHTML={{
+                __html: content.content ? content.content : "",
+              }}
             />
-          </div>
-          <div className="flex justify-center pt-[40px] overflow-hidden">
-            <div className="max-w-[1000px]">
-              <p className="text-[20px] font-medium">
-                {/* Thành lập từ năm 2013, Công ty TNHH Kỹ thuật NTS định hướng trở
-                thành nhà cung cấp hàng đầu cho các giải pháp kỹ thuật công
-                trình. Tất cả đều hướng đến trọng tâm là phục vụ tiện ích cho
-                cuộc sống một cách bền vững và lâu dài. Theo đó những lĩnh vực
-                chính mà NTS theo đuổi một cách tâm huyết ngay từ những ngày đầu
-                là: Tư vấn cơ điện, Xử lý nước, Tái sử dụng nước; Cung cấp thiết
-                bị sân vườn, thiết bị tưới cây; Thiết bị thu hồi nước mưa và các
-                tiện ích khác… */}
-                {contentFirst || "description "}
-              </p>
-              <div className="pt-[40px] overflow-hidden relative">
-                {(videoAbout &&
-                  supportedVideoExtensions.includes(videoAbout.ext) && (
-                    <video controls>
-                      <source
-                        src={`${baseUrl}${videoAbout.url}`}
-                        width={1920}
-                        height={1080}
-                        type={`video/${videoAbout.ext.slice(1)}`}
-                      />
-                    </video>
-                  )) ||
-                  (videoAbout &&
-                    supportedImageExtensions.includes(videoAbout.ext) && (
-                      <Image
-                        src={`${baseUrl}${videoAbout.url}` || "/"}
-                        layout="responsive"
-                        width={1920}
-                        height={1080}
-                        alt="Về chúng tôi"
-                        className="rounded-[32px]"
-                      />
-                    ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container mt-[24px]">
-          <div className="flex justify-center">
-            <div className="max-w-[1000px] pb-[40px]">
-              <div className="grid grid-cols-12 gap-4 tablet:gap-8 mobile:gap-4">
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
-                  <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    {t("contractors")}
-                  </h4>
-                  <ul className="leading-[32px] list-disc pl-[20px]">
-                    {cacTongThau &&
-                      cacTongThau.map((item) => (
-                        <li key={item.id} className="text-[20px] font-medium">
-                          {item.item}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
-                  <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    {t("partners")}
-                  </h4>
-                  <ul className="leading-[32px] list-disc pl-[20px]">
-                    {cacDoiTacNuocNgoai &&
-                      cacDoiTacNuocNgoai.map((item) => (
-                        <li key={item.id} className="text-[20px] font-medium">
-                          {item.item}
-                        </li>
-                      ))}
-                    {/* <li className="text-[20px] font-medium">
-                      Claber Spa Italy
-                    </li>
-                    <li className="text-[20px] font-medium">Ecopa Spa Italy</li>
-                    <li className="text-[20px] font-medium">
-                      Solveit Vina Korea
-                    </li> */}
-                  </ul>
-                </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
-                  <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    {t("investors")}
-                  </h4>
-                  <ul className="leading-[32px] list-disc pl-[20px]">
-                    {cacChuDauTuNuocNgoai &&
-                      cacChuDauTuNuocNgoai.map((item) => (
-                        <li key={item.id} className="text-[20px] font-medium">
-                          {item.item}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                <div className="laptop:col-span-6 mobile:col-span-12 laptop:min-h-[20px]">
-                  <h4 className="text-[24px] font-bold text-[#3B559E] pb-[6px]">
-                    {t("corporations")}
-                  </h4>
-                  <ul className="leading-[32px] list-disc pl-[20px]">
-                    {cacCongTyVaTapDoan &&
-                      cacCongTyVaTapDoan.map((item) => (
-                        <li key={item.id} className="text-[20px] font-medium">
-                          {item.item}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              </div>
-              <p className="text-[20px] font-medium laptop:mt-[40px] tablet:mt-[32px] mobile:mt-4">
-                {contentEnd || "description "}
-              </p>
-            </div>
-          </div>
+          ) : (
+            "chưa cms"
+          )}
         </div>
       </div>
       <div className="container">
