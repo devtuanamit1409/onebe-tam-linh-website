@@ -94,9 +94,9 @@ const Construction = async (locale: any) => {
                           {item.attributes.danh_muc_cons?.data[0]?.attributes
                             ?.name || "Dự án"}
                         </h5>
-                        <h2 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
+                        <h3 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
                           {item.attributes.title}
-                        </h2>
+                        </h3>
                         <p className="text-[#9CA3AF] leading-[25.6px] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
@@ -133,9 +133,9 @@ const Construction = async (locale: any) => {
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
                     </h5>
-                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928]">
+                    <h3 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928]">
                       {item.attributes.title}
-                    </h2>
+                    </h3>
                     <p className="text-[#374151] leading-[25.6px] line-clamp-3">
                       {item.attributes.seo.description}
                     </p>
@@ -174,9 +174,9 @@ const Construction = async (locale: any) => {
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
                     </h5>
-                    <h2 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928] line-clamp-2">
+                    <h3 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928] line-clamp-2">
                       {item.attributes.title}
-                    </h2>
+                    </h3>
                     <p className="text-[#374151] leading-[25.6px] line-clamp-3">
                       {item.attributes.seo.description}
                     </p>

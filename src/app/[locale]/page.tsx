@@ -227,9 +227,9 @@ const Home: React.FC = async (params: any) => {
                 </div>
                 <div className="col-span-1 flex items-center">
                   <div className="gap-6">
-                    <h4 className="text-[#3B559E] desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
+                    <h1 className="text-[#3B559E] desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
                       {t("introduce_about_us")}
-                    </h4>
+                    </h1>
                     <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-4 laptop:text-left mobile:text-center">
                       {gioiThieu && gioiThieu?.description}
                     </div>

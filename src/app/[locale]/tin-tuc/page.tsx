@@ -204,9 +204,9 @@ const Page: React.FC = (params: any) => {
           <div className="col-span-12 tablet:col-span-6">
             {tintuc && tintuc.length > 0 ? (
               <>
-                <h2 className="text-[24px] font-bold text-[#374151]">
+                <p className="text-[24px] font-bold text-[#374151]">
                   {t("lastest_news")}
-                </h2>
+                </p>
                 {tintuc.slice(0, 3).map((item) => {
                   return (
                     <div key={item.id} className="py-[16px]">
@@ -270,7 +270,7 @@ const Page: React.FC = (params: any) => {
 
         <div className="flex tablet:flex-row mobile:flex-col  justify-between gap-4">
           <div>
-            <h2 className="text-[35px] font-bold">{t("news")}</h2>
+            <h1 className="text-[35px] font-bold">{t("news")}</h1>
           </div>
           <div className="relative flex items-center justify-center">
             <input
@@ -323,9 +323,9 @@ const Page: React.FC = (params: any) => {
           <BoxTinTuc data={filteredAndLimitedArticles} locale={locale} />
         ) : (
           <div className="col-span-12">
-            <h3 className="text-center text-black text-[32px] font-bold">
+            <p className="text-center text-black text-[32px] font-bold">
               {t("nodata_news")}
-            </h3>
+            </p>
           </div>
         )}
 

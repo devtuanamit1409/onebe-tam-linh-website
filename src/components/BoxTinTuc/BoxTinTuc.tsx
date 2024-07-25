@@ -34,8 +34,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, locale }) => {
               <Link
                 href={item.slug || "/"}
                 key={item.id}
-                className="col-span-12 tablet:col-span-6 laptop:col-span-6 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto w-full"
-              >
+                className="col-span-12 tablet:col-span-6 laptop:col-span-6 desktop:col-span-4 mb-[40px] max-w-[460px] mx-auto w-full">
                 <div className="relative">
                   <div className="max-h-[280px] laptop:h-[280px] tablet:h-[220px] mobile:min-h-[220px] tablet:min-h-[280px] relative overflow-hidden bg-slate-200">
                     <div className="w-full h-full flex flex-col items-center justify-center max-h-[280px] laptop:h-[280px] tablet:h-[220px] mobile:min-h-[220px] tablet:min-h-[280px">
@@ -62,17 +61,15 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, locale }) => {
                   </div>
                 </div>
                 <div className="mt-[24px] mb-[16px]">
-                  <h5
+                  <h3
                     title={item.title}
-                    className="text-[#000] font-[600] laptop:text-[24px] laptop:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] mobile:line-clamp-3 tablet:line-clamp-2 laptop:min-h-[77px] tablet:min-h-[58px]"
-                  >
+                    className="text-[#000] font-[600] laptop:text-[24px] laptop:leading-[38.4px] mobile:text-[18px] mobile:leading-[28.8px] mobile:line-clamp-3 tablet:line-clamp-2 laptop:min-h-[77px] tablet:min-h-[58px]">
                     {item.title}
-                  </h5>
+                  </h3>
                 </div>
                 <p
                   title={item.seo?.description}
-                  className="text-[#637381] font-[400] leading-[24px] line-clamp-3"
-                >
+                  className="text-[#637381] font-[400] leading-[24px] line-clamp-3">
                   {item.seo?.description}
                 </p>
               </Link>

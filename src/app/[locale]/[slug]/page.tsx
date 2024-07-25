@@ -392,9 +392,9 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
           <div className="flex flex-col gap-[24px] desktop:gap-[40px]">
-            <h5 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium text-center">
+            <h3 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium text-center">
               {renderCategory(detailSubCategory[0]?.attributes?.category)}
-            </h5>
+            </h3>
             <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold text-center">
               {detailSubCategory[0]?.attributes?.name}
             </h1>
@@ -437,14 +437,13 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
           <>
             <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
               <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
-                <h2 className="text-center text-[#fff] text-[48px] font-bold leading-[130px]">
+                <p className="text-center text-[#fff] text-[48px] font-bold leading-[130px]">
                   {translate("no_article")}
-                </h2>
+                </p>
 
                 <Link
                   href="/"
-                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                >
+                  className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                   {translate("back_home")}
                 </Link>
               </div>
@@ -480,8 +479,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                       : breadcum === "Thông tư nghị định"
                       ? "/thong-tu-nghi-dinh"
                       : ""
-                  }`}
-                >
+                  }`}>
                   {locale === "vi" ? breadcum : renderCategory(breadcum)}
                 </Link>
                 {breadcum ? <span className="mx-2"> / </span> : null}
@@ -494,14 +492,13 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                 </Link>
               </div>
             </div>
-            <div className="container">
-              <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
-                {breadcum && renderCategory(breadcum)}
-              </p>
-              <h2 className="text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
-                {detailBaiViet[0]?.attributes?.title}
-              </h2>
-            </div>
+
+            <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
+              {breadcum && renderCategory(breadcum)}
+            </p>
+            <h1 className="laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
+              {detailBaiViet[0]?.attributes?.title}
+            </h1>
 
             <div
               className="blog-content py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
@@ -516,13 +513,12 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             <div className="bg-[#F3F6FE] py-[80px]">
               <div className="container">
                 <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-                  <h2 className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
+                  <p className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
                     {t("title_post")}
-                  </h2>
+                  </p>
                   <Link
                     href={`/${locale}/tin-tuc`}
-                    className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5"
-                  >
+                    className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex  items-center gap-2.5">
                     {t("go_to_news_page")}
                     <IconArrowRight width={20} height={20} />
                   </Link>
@@ -537,9 +533,9 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               <div className="">
                 <div className="flex laptop:h-[800px] mobile:h-[500px] bg-[#3B559E] mb-[80px]">
                   <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
-                    <h2 className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
+                    <p className="text-center text-[#fff] text-[100px] font-bold leading-[130px]">
                       {translate("404")}
-                    </h2>
+                    </p>
                     <p className="text-[22px] font-[600] text-[#fff]">
                       {translate("not_found")}
                     </p>
@@ -548,8 +544,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
                     </p>
                     <Link
                       href="/"
-                      className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal"
-                    >
+                      className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
                       {translate("back_home")}
                     </Link>
                   </div>
