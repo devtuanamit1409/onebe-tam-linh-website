@@ -32,7 +32,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
   const baseUrl = process.env.URL_API;
   return (
     <>
-      <h2 className="font-bold text-[32px]">{name}</h2>
+      <p className="font-bold text-[32px]">{name}</p>
       <Swiper
         modules={[Navigation]}
         className="mySwiper"
@@ -42,8 +42,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
         }}
         onSlideChange={(swiper) => {
           setCurrentIndex(swiper.realIndex);
-        }}
-      >
+        }}>
         {data.map((item: any, key: any) => {
           return (
             <SwiperSlide key={item.id}>
@@ -61,17 +60,16 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     className="mobile:rounded-xl desktop:rounded-none desktop:w-full "
                   />
                 </div>
-                <h1 className="desktop:text-[40px] mt-4 laptop:text-[28px] mobile:text-[18px] laptop:leading-[56px] mobile:leading-[25.2px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-2">
+                <h2 className="desktop:text-[40px] mt-4 laptop:text-[28px] mobile:text-[18px] laptop:leading-[56px] mobile:leading-[25.2px] tablet:text-[#374151] mobile:text-black font-bold line-clamp-2">
                   {item.title}
-                </h1>
+                </h2>
                 <p className="tablet:my-[24px] mobile:my-4 desktop:text-[24px] laptop:text-[20px] mobile:text-base tablet:text-[#8899A8] laptop:leading-[38.4px] mobile:text-black line-clamp-5">
                   {item.seo.description}
                 </p>
                 <button className="text-[#fff] bg-[#3B559E] px-[24px] py-[12px] flex items-center rounded-[50px] absolute bottom-1">
                   <Link
                     href={item.slug ? `/${item.slug}` : "/"}
-                    className="mr-[10px]"
-                  >
+                    className="mr-[10px]">
                     {t("let_see")}
                   </Link>
                   <svg
@@ -79,8 +77,7 @@ const TintucNoibat: React.FC<TintucNoibatProps> = ({ name, data }) => {
                     width="9"
                     height="16"
                     viewBox="0 0 9 16"
-                    fill="none"
-                  >
+                    fill="none">
                     <path
                       d="M0.96875 15.9062C0.78125 15.9062 0.625 15.8438 0.46875 15.7188C0.1875 15.4375 0.1875 15 0.46875 14.7188L7.03125 8L0.46875 1.3125C0.1875 1.03125 0.1875 0.59375 0.46875 0.3125C0.75 0.03125 1.1875 0.03125 1.46875 0.3125L8.53125 7.5C8.8125 7.78125 8.8125 8.21875 8.53125 8.5L1.46875 15.6875C1.34375 15.8125 1.15625 15.9062 0.96875 15.9062Z"
                       fill="white"

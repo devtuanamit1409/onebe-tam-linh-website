@@ -220,9 +220,9 @@ const page = async (params: any) => {
       </div>
       <div className="container">
         <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
-          <h2 className="text-black mobile:text-[32px] tablet:text-[40px] desktop:text-[54px] font-bold  capitalize leading-normal">
+          <h1 className="text-black mobile:text-[32px] tablet:text-[40px] desktop:text-[54px] font-bold  capitalize leading-normal">
             {sanPham?.name || "chưa có content CMS"}
-          </h2>
+          </h1>
           <p className="text-gray-500 text-xl font-medium mobile:text-[16px] tablet:text-[20px]   leading-normal desktop:px-[120px] text-center">
             {sanPham?.description || "chưa có content CMS"}
           </p>
@@ -232,13 +232,12 @@ const page = async (params: any) => {
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-            <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
+            <p className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
               {translate("news")}
-            </h2>
+            </p>
             <Link
               href={`/${locale}/tin-tuc`}
-              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5  hover:text-[#28A645] transition-all ease-linear"
-            >
+              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5  hover:text-[#28A645] transition-all ease-linear">
               {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
             </Link>
           </div>

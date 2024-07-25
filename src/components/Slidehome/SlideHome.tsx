@@ -38,10 +38,10 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
       <Swiper
         allowTouchMove={false}
         spaceBetween={30}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
@@ -69,9 +69,9 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                         </p>
                       </div>
                       <div className="col-span-1">
-                        <h1 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white">
+                        <h2 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white">
                           {item.title}
-                        </h1>
+                        </h2>
                       </div>
                       <div className="col-span-1">
                         <p className="text-white tablet:text-[18px] mobile:text-[14px]">

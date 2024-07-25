@@ -259,12 +259,12 @@ const Page: React.FC = (params: any) => {
             <h5 className="text-[#28A645] font-bold text-[18px] laptop:block mobile:hidden ">
               {t("title")}
             </h5>
-            <h1 className="text-[#111928] font-bold text-[40px] laptop:block mobile:hidden">
+            <h2 className="text-[#111928] font-bold text-[40px] laptop:block mobile:hidden">
               {t("sub_title")}
-            </h1>
-            <h1 className="text-[#111928] font-bold text-[24px] laptop:hidden mobile:block">
+            </h2>
+            <h2 className="text-[#111928] font-bold text-[24px] laptop:hidden mobile:block">
               {t("sub_title")}
-            </h1>
+            </h2>
             <div className="laptop:flex mobile:hidden justify-center pt-5 ">
               <div className="max-w-[40%]">
                 {dataChuyenGia ? (
@@ -339,9 +339,9 @@ const Page: React.FC = (params: any) => {
                                 layout="responsive"
                               />
                               <div className="desktop:px-[32px] laptop:px-[8px] mobile:px-[16px] py-[16px] bg-[#F5F3FF] text-center absolute mobile:top-[70%] tablet:top-[70%] laptop:top-[63%] desktop:top-[230px] left-1/2 transform -translate-x-1/2 w-max min-w-[140px] desktop:max-w-[263px] laptop:max-w-[234px] ">
-                                <h2 className="text-[#3B559E] font-semibold line-clamp-1">
+                                <h3 className="text-[#3B559E] font-semibold line-clamp-1">
                                   {item.name}
-                                </h2>
+                                </h3>
                                 <span className="text-[12px] text-[#637381] line-clamp-2">
                                   {item.position}
                                 </span>
@@ -382,7 +382,7 @@ const Page: React.FC = (params: any) => {
         <div className="py-[40px]  mobile:hidden tablet:block">
           <hr className="border border-[#ECECEC]" />
         </div>
-        <h3 className="text-[35px] font-bold">{t("expertopinion")}</h3>
+        <p className="text-[35px] font-bold">{t("expertopinion")}</p>
         <div className="grid grid-cols-12 gap-4">
           <div className="mobile:col-span-12 tablet:col-span-6 ">
             <TintucNoibat
@@ -458,7 +458,7 @@ const Page: React.FC = (params: any) => {
         </div>
         <div className="flex tablet:flex-row mobile:flex-col  justify-between gap-4">
           <div>
-            <h2 className="text-[35px] font-bold">{t("q&a")}</h2>
+            <h1 className="text-[35px] font-bold">{t("q&a")}</h1>
           </div>
           <div className="relative flex items-center justify-center">
             <input
@@ -511,9 +511,9 @@ const Page: React.FC = (params: any) => {
           <BoxTinTuc data={filteredAndLimitedArticles} locale={locale} />
         ) : (
           <div className="col-span-12">
-            <h3 className="text-center text-black text-[32px] font-bold">
+            <p className="text-center text-black text-[32px] font-bold">
               {translate("nodata_news")}
-            </h3>
+            </p>
           </div>
         )}
 

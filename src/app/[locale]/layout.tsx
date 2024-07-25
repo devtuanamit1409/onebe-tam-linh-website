@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Lora, Montserrat } from "next/font/google";
 import "../../styles/globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
@@ -10,7 +10,11 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import HeaderNew from "@/components/layout/HeaderNew";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 
 export const metadata: Metadata = {
   title: "NTS",
@@ -31,7 +35,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={montserrat.className}>
+      <body className={`${montserrat.variable} ${lora.variable}`}>
         <NextTopLoader
           color="#28A645"
           initialPosition={0.08}
@@ -44,7 +48,6 @@ export default async function RootLayout({
           shadow="0 0 10px #28A645,0 0 5px #28A645"
         />
         <NextIntlClientProvider messages={messages}>
-          {/* <Header locale={locale} /> */}
           <HeaderNew locale={locale} />
           <div
             id="top-content"
