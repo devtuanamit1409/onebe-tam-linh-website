@@ -331,7 +331,7 @@ const Page: React.FC = (params: any) => {
 
         <div className="py-[40px] flex justify-center">
           <button
-            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            className="py-[16px] px-[24px] bg-transparent border border-[#3B559E] text-[#3B559E] font-bold rounded-[50px]"
             onClick={loadMoreArticles}>
             {t("load_more_news")}
           </button>
