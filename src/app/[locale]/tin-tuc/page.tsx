@@ -220,9 +220,9 @@ const Page: React.FC = (params: any) => {
                                   : t("lastest_news_tag")}
                               </div>
                             </div>
-                            <h3 className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] text-[#374151] font-bold line-clamp-2">
+                            <h2 className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] text-[#374151] font-bold line-clamp-2">
                               {item?.attributes?.title || "có lỗi"}
-                            </h3>
+                            </h2>
                             <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
                               {item?.attributes?.seo?.description || "có lỗi"}
                             </p>

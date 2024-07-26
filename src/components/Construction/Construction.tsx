@@ -90,10 +90,10 @@ const Construction = async (locale: any) => {
                   <div className="flex-1">
                     <div className="bg-[#F4F7FF] p-[24px] w-full h-full ">
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
-                        <h5 className="text-[#3B559E] font-bold line-clamp-1">
+                        <h3 className="text-[#3B559E] font-bold line-clamp-1">
                           {item.attributes.danh_muc_cons?.data[0]?.attributes
                             ?.name || "Dự án"}
-                        </h5>
+                        </h3>
                         <h3 className="text-[18px] min-h-[58px] font-bold text-[#374151] leading-[28.8px] line-clamp-2">
                           {item.attributes.title}
                         </h3>
@@ -130,10 +130,10 @@ const Construction = async (locale: any) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[16px]">
-                    <h5 className="text-[#3B559E] font-bold">
+                    <h3 className="text-[#3B559E] font-bold">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
-                    </h5>
+                    </h3>
                     <h3 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928]">
                       {item.attributes.title}
                     </h3>
@@ -171,10 +171,10 @@ const Construction = async (locale: any) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[16px]">
-                    <h5 className="text-[#3B559E] font-bold line-clamp-1">
+                    <h3 className="text-[#3B559E] font-bold line-clamp-1">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
-                    </h5>
+                    </h3>
                     <h3 className="font-bold text-[18px] min-h-[58px] leading-[28.8px] text-[#111928] line-clamp-2">
                       {item.attributes.title}
                     </h3>

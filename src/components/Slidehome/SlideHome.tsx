@@ -69,12 +69,12 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                         </p>
                       </div>
                       <div className="col-span-1">
-                        <h2 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white line-clamp-3">
+                        <h2 className="text-[28px] laptop:text-[48px] mobile:text-[24px]  font-bold text-white line-clamp-2 laptop:min-h-[144px] tablet:min-h-[72px] mobile:min-h-[72px]">
                           {item.title}
                         </h2>
                       </div>
                       <div className="col-span-1">
-                        <p className="text-white tablet:text-[18px] mobile:text-[14px] line-clamp-3 ">
+                        <p className="text-white tablet:text-[18px] mobile:text-[14px] line-clamp-2  laptop:min-h-[54px] tablet:min-h-[54px] mobile:min-h-[42px]">
                           {item.description}
                         </p>
                       </div>
