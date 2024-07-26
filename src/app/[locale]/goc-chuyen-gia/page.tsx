@@ -256,7 +256,7 @@ const Page: React.FC = (params: any) => {
       <div className="container">
         <div className="pt-[40px] pb-[32px]">
           <div className="text-center leading-10">
-            <h5 className="text-[#28A645] font-bold text-[18px] laptop:block mobile:hidden ">
+            <h5 className="text-[#28A645] font-bold text-[18px] laptop:block mobile:hidden  uppercase">
               {t("title")}
             </h5>
             <h2 className="text-[#111928] font-bold text-[40px] laptop:block mobile:hidden">
@@ -425,7 +425,7 @@ const Page: React.FC = (params: any) => {
                                 ? `/${item.attributes.slug}`
                                 : "/"
                             }
-                            className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                            className="text-[#3B559E] font-bold border border-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                             {text("read_now")}
                           </Link>
                         </div>
@@ -491,7 +491,7 @@ const Page: React.FC = (params: any) => {
                           : `bg-[#fff] border  border-[#3B559E]`
                       } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
                       <span
-                        className={`text-12px font-medium text-nowrap  ${
+                        className={`text-12px font-bold text-nowrap  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E] `
@@ -519,7 +519,7 @@ const Page: React.FC = (params: any) => {
 
         <div className="py-[40px] flex justify-center">
           <button
-            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-medium rounded-[50px]"
+            className="py-[16px] px-[24px] bg-[#3B559E] border border-[#3B559E] text-[#fff] font-bold rounded-[50px]"
             onClick={loadMoreArticles}>
             {translate("load_more_news")}
           </button>

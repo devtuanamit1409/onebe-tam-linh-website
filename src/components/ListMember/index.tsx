@@ -95,9 +95,9 @@ const ListMember = ({ url, locale }: UrlProps) => {
             <div
               key={item.id}
               className="col-span-12 tablet:col-span-6 desktop:col-span-4 pb-[32px] desktop:pb-[0px] ">
-              <div className="border border-[#DFE4EA] desktop:h-[450px] mobile:h-[500px] relative">
+              <div className="border border-[#DFE4EA] desktop:h-[470px] mobile:h-[520px] relative">
                 <div className="px-[24px] pb-[24px] pt-[100px] flex flex-col justify-between h-full">
-                  <div className="flex flex-col gap-[24px]">
+                  <div className="flex flex-col gap-[24px] mb-4">
                     <div className="flex justify-center ">
                       <div className="max-w-[200px] min-w-[100px] h-[100px] overflow-hidden">
                         <Image
@@ -117,7 +117,7 @@ const ListMember = ({ url, locale }: UrlProps) => {
                     </p>
                   </div>
                   <div className="flex justify-center">
-                    <button className="py-[16px] flex items-center text-[16px] text-[#28A645] px-[24px] bg-[#FFFFFF] btn-truy-cap-web">
+                    <button className="py-[16px] flex items-center text-[16px] text-white px-[24px] bg-[#28A645] btn-truy-cap-web font-bold">
                       <Link
                         href={item.path || "/"}
                         target="_blank"

@@ -50,7 +50,7 @@
 }
 .btn-truy-cap-web {
   border-radius: 50px;
-  background: var(--White-White, #fff);
+  /* background: var(--White-White, #fff); */
 
   box-shadow: 0px 1px 3px 0px rgba(166, 175, 195, 0.4);
 }

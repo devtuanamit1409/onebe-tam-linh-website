@@ -227,7 +227,7 @@ const Home: React.FC = async (params: any) => {
                 </div>
                 <div className="col-span-1 flex items-center">
                   <div className="gap-6">
-                    <h1 className="text-[#3B559E] desktop:text-5xl mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
+                    <h1 className="text-[#3B559E] desktop:text-[52px] mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
                       {t("introduce_about_us")}
                     </h1>
                     <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-4 laptop:text-left mobile:text-center">
@@ -236,7 +236,7 @@ const Home: React.FC = async (params: any) => {
                     <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                       <Link
                         href={`/${locale}/ve-chung-toi`}
-                        className="bg-[#3B559E] text-[#fff] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E]">
+                        className="bg-transparent text-[#3B559E] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E] font-bold transition-all 300ms">
                         {t("about_us")}
                       </Link>
                     </div>
@@ -272,7 +272,7 @@ const Home: React.FC = async (params: any) => {
                     <div className="pt-[24px] flex justify-center">
                       <Link
                         href={"/cong-ty-thanh-vien"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645]">
+                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] font-bold">
                         {t("see_more")}
                       </Link>
                     </div>
@@ -292,7 +292,7 @@ const Home: React.FC = async (params: any) => {
         <div className="flex justify-center">
           <div className="laptop:w-[1038px]">
             <div className="text-center">
-              <h3 className="text-[#28A645] text-[20px] font-bold">
+              <h3 className="text-[#28A645] text-[20px] font-bold uppercase">
                 {t("project")}
               </h3>
               <h2 className="text-[#111928] laptop:text-[48px] tablet:text-[40px] mobile:text-[28px]  mobile:font-[600] laptop:py-[16px]">

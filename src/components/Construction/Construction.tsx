@@ -76,7 +76,7 @@ const Construction = async (locale: any) => {
                 <div
                   key={key}
                   className="flex mobile:flex-col tablet:flex-row items-stretch">
-                  <div className="relative  mobile:pb-[84.85%]  tablet:pb-0 tablet:min-w-[268px] desktop:min-w-[312px] tablet:h-[280px]">
+                  <div className="relative  mobile:pb-[84.85%]  tablet:pb-0 tablet:min-w-[288px] desktop:min-w-[305px] tablet:h-[305px]">
                     <Image
                       src={
                         `${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}` ||
@@ -90,7 +90,7 @@ const Construction = async (locale: any) => {
                   <div className="flex-1">
                     <div className="bg-[#F4F7FF] p-[24px] w-full h-full ">
                       <div className="flex flex-col gap-[16px] laptop:max-w-[394px]">
-                        <h5 className="text-[#28A645] font-bold line-clamp-1">
+                        <h5 className="text-[#3B559E] font-bold line-clamp-1">
                           {item.attributes.danh_muc_cons?.data[0]?.attributes
                             ?.name || "Dự án"}
                         </h5>
@@ -105,15 +105,16 @@ const Construction = async (locale: any) => {
                             item.attributes.slug ? item.attributes.slug : "/"
                           }
                           className="flex items-center ">
-                          <span className="text-[#3B559E] font-medium mr-[10px]">
+                          <span className="text-center text-base  leading-normal px-6 py-3 bg-transparent border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-[#3B559E] hover:text-[#3B559E] transition-colors transition-border font-bold duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                             {t("read_now")}
                           </span>
-                          <Image
+
+                          {/* <Image
                             src="/images/svg-home/arrow-right.svg"
                             alt=""
                             height={20}
                             width={20}
-                          />
+                          /> */}
                         </Link>
                       </div>
                     </div>
@@ -124,12 +125,12 @@ const Construction = async (locale: any) => {
           </div>
         </div>
         <div className="col-span-12 laptop:col-span-4 mobile:hidden laptop:block">
-          <div className="bg-[#F3FFF8] h-[280px] p-6">
+          <div className="bg-[#F3FFF8] h-[305px] p-6">
             {baiviet?.slice(2, 3)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[16px]">
-                    <h5 className="text-[#28A645] font-bold">
+                    <h5 className="text-[#3B559E] font-bold">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
                     </h5>
@@ -142,10 +143,10 @@ const Construction = async (locale: any) => {
                     <Link
                       href={item.attributes.slug || "/"}
                       className="flex items-center ">
-                      <span className="text-[#3B559E] font-medium mr-[10px]">
+                      <span className="text-center text-base font-bold leading-normal px-6 py-3 bg-transparent border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-[#3B559E] hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                         {t("read_now")}
                       </span>
-                      <svg
+                      {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="21"
@@ -155,7 +156,7 @@ const Construction = async (locale: any) => {
                           d="M18 9.69189L11.5312 3.12939C11.25 2.84814 10.8125 2.84814 10.5312 3.12939C10.25 3.41064 10.25 3.84814 10.5312 4.12939L15.7812 9.47314H2.5C2.125 9.47314 1.8125 9.78564 1.8125 10.1606C1.8125 10.5356 2.125 10.8794 2.5 10.8794H15.8437L10.5312 16.2856C10.25 16.5669 10.25 17.0044 10.5312 17.2856C10.6562 17.4106 10.8437 17.4731 11.0312 17.4731C11.2187 17.4731 11.4062 17.4106 11.5312 17.2544L18 10.6919C18.2812 10.4106 18.2812 9.97314 18 9.69189Z"
                           fill="#3B559E"
                         />
-                      </svg>
+                      </svg> */}
                     </Link>
                   </div>
                 </>
@@ -163,14 +164,14 @@ const Construction = async (locale: any) => {
             })}
           </div>
           <div className="py-[12px] w-full bg-[#F3FFF8] px-[36px]">
-            <hr style={{ borderColor: "#28A645" }} />
+            <hr style={{ borderColor: "#3B559E" }} />
           </div>
-          <div className="bg-[#F3FFF8] h-[280px] p-6">
+          <div className="bg-[#F3FFF8] h-[305px] p-6">
             {baiviet?.slice(3, 4)?.map((item, key) => {
               return (
                 <>
                   <div className=" flex flex-col gap-[16px]">
-                    <h5 className="text-[#28A645] font-bold line-clamp-1">
+                    <h5 className="text-[#3B559E] font-bold line-clamp-1">
                       {item.attributes.danh_muc_cons?.data[0]?.attributes
                         ?.name || "Dự án"}
                     </h5>
@@ -183,10 +184,10 @@ const Construction = async (locale: any) => {
                     <Link
                       href={item.attributes.slug || "/"}
                       className="flex items-center ">
-                      <span className="text-[#3B559E] font-medium mr-[10px]">
+                      <span className="text-center text-base font-bold leading-normal px-6 py-3 bg-transparent border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-[#3B559E] hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                         {t("read_now")}
                       </span>
-                      <svg
+                      {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="21"
@@ -196,7 +197,7 @@ const Construction = async (locale: any) => {
                           d="M18 9.69189L11.5312 3.12939C11.25 2.84814 10.8125 2.84814 10.5312 3.12939C10.25 3.41064 10.25 3.84814 10.5312 4.12939L15.7812 9.47314H2.5C2.125 9.47314 1.8125 9.78564 1.8125 10.1606C1.8125 10.5356 2.125 10.8794 2.5 10.8794H15.8437L10.5312 16.2856C10.25 16.5669 10.25 17.0044 10.5312 17.2856C10.6562 17.4106 10.8437 17.4731 11.0312 17.4731C11.2187 17.4731 11.4062 17.4106 11.5312 17.2544L18 10.6919C18.2812 10.4106 18.2812 9.97314 18 9.69189Z"
                           fill="#3B559E"
                         />
-                      </svg>
+                      </svg> */}
                     </Link>
                   </div>
                 </>

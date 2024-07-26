@@ -117,7 +117,7 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                   <div className="mobile:mt-[16px] tablet:mt-[44px]">
                     <Link
                       href={item.url ? item.url : "/"}
-                      className="btn-more py-[12px] px-[24px] text-[#28A645]  bg-[#fff] rounded-[50px] border border-[#fff]  hover:bg-[#E8FBF6] hover:border-[#28A645] ">
+                      className="btn-more py-[12px] px-[24px] font-bold text-white hover:text-[#28A645]   bg-[#28A645] rounded-[50px] border border-[#28A645]  hover:bg-[#E8FBF6] hover:border-[#28A645] transition-all 300ms ">
                       {t("see_more")}
                     </Link>
                   </div>
