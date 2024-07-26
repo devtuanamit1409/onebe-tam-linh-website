@@ -247,7 +247,7 @@ const page = async (params: any) => {
       <div className="bg-[#F3F6FE] py-[80px]">
         <div className="container">
           <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-            <h2 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
+            <h1 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
               {translate("news")}
             </h2>
             <Link
