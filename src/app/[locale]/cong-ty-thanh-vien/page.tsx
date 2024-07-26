@@ -143,7 +143,7 @@ const page: React.FC = async (params: any) => {
       </div>
       <div className="desktop:pt-[80px] pt-[32px] pb-[64px]">
         <div className="flex flex-col gap-[24px] desktop:gap-[40px] text-center">
-          <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium">
+          <h5 className="text-[#28A645] text-[16px] desktop:text-[20px] font-medium uppercase">
             {t("sub_title")}
           </h5>
           <h1 className="mobile:text-[32px] tablet:text-[40px] desktop:text-[54px] font-bold">

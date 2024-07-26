@@ -38,10 +38,10 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
       <Swiper
         allowTouchMove={false}
         spaceBetween={30}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
@@ -69,19 +69,19 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                         </p>
                       </div>
                       <div className="col-span-1">
-                        <h2 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white">
+                        <h2 className="text-[28px] laptop:text-[48px] mobile:text-[24px] font-bold text-white line-clamp-3">
                           {item.title}
                         </h2>
                       </div>
                       <div className="col-span-1">
-                        <p className="text-white tablet:text-[18px] mobile:text-[14px]">
+                        <p className="text-white tablet:text-[18px] mobile:text-[14px] line-clamp-3 ">
                           {item.description}
                         </p>
                       </div>
                       <div className="col-span-1">
                         <Link
                           href={item.path ? item.path : "/"}
-                          className="rounded-[32px] py-[12px] font-medium px-[24px] bg-white text-black border border-white hover:text-white hover:bg-transparent">
+                          className="rounded-[32px] py-[12px] font-bold px-[24px] bg-[#28A645] text-white border border-[#28A645] hover:text-white hover:bg-transparent transition-all 300ms">
                           {t("see_more")}
                         </Link>
                       </div>

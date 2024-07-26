@@ -233,7 +233,7 @@ const Page: React.FC = (params: any) => {
                                     ? `/${item.attributes.slug}`
                                     : "/"
                                 }
-                                className="text-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
+                                className="text-[#3B559E] font-bold border border-[#3B559E] px-[24px] py-[8px] rounded-[50px] btn-view">
                                 {t("read_now")}
                               </Link>
                             </div>
@@ -303,7 +303,7 @@ const Page: React.FC = (params: any) => {
                           : `bg-[#fff] border  border-[#3B559E]`
                       } py-[8px] px-[10px] flex items-center rounded-[24px] border w-fit`}>
                       <span
-                        className={`text-12px font-medium text-nowrap  ${
+                        className={`text-12px font-bold text-nowrap  ${
                           filterDanhMuc === item?.attributes?.name
                             ? `text-[#fff]`
                             : `text-[#3B559E] `

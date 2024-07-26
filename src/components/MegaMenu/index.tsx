@@ -110,7 +110,7 @@ const MegaMenu = ({
 
                         <Link
                           href={menuItems.pathname || "/"}
-                          className="text-center text-base font-medium leading-normal px-6 py-3 bg-[#3B559E] border border-[#3B559E] hover:bg-[#fff] hover:border-[#3B559E] text-white hover:text-[#3B559E] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                          className="text-center text-base font-bold leading-normal px-6 py-3 bg-[#28A645] border border-[#28A645] hover:bg-[#fff] hover:border-[#28A645] text-white hover:text-[#28A645] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
                           {t("see_more")}
                         </Link>
                       </div>

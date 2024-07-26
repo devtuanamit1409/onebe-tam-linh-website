@@ -392,7 +392,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       <>
         <div className="desktop:pt-[80px] pt-[32px] pb-[64px] container">
           <div className="flex flex-col gap-[24px] desktop:gap-[40px]">
-            <h3 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium text-center">
+            <h3 className="text-[#28A645]  text-[18px] desktop:text-[20px] font-medium text-center uppercase">
               {renderCategory(detailSubCategory[0]?.attributes?.category)}
             </h3>
             <h1 className="text-[24px] laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold text-center">
@@ -493,7 +493,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
               </div>
             </div>
 
-            <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4">
+            <p className="text-center text-green-600 mobile:text-[18px] tablet:text-[20px] font-medium leading-normal tablet:my-6 mobile:my-4 uppercase">
               {breadcum && renderCategory(breadcum)}
             </p>
             <h1 className="laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
