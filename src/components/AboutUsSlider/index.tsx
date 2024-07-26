@@ -108,9 +108,9 @@ const AboutUsSlider: React.FC<AboutUsSliderProps> = ({
                       height={item.image.height}
                     />
                   </div>
-                  <h4 className="pt-[16px] text-[24px] font-bold text-[#fff] line-clamp-2">
+                  <h2 className="pt-[16px] text-[24px] font-bold text-[#fff] line-clamp-2">
                     {item.title}
-                  </h4>
+                  </h2>
                   <p className="text-[16px] pt-[16px] text-[#fff] h-[182px] relative z-30 line-clamp-7">
                     {item.description}
                   </p>
