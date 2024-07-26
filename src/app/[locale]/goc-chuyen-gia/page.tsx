@@ -410,11 +410,11 @@ const Page: React.FC = (params: any) => {
                               : t("lastest_news_tag")}
                           </div>
                         </div>
-                        <h3
+                        <h2
                           className="laptop:text-[20px] tablet:text-[16px] mobile:text-[18px] laptop:text-[#374151] mobile:text-black font-[500] line-clamp-2"
                           title={item.attributes.title}>
                           {item.attributes.title}
-                        </h3>
+                        </h2>
                         <p className="laptop:text-[18px] tablet:text-[13px] mobile:text-[16px] text-[#8899A8] line-clamp-3">
                           {item.attributes.seo.description}
                         </p>
