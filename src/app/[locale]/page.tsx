@@ -8,13 +8,14 @@ import Construction from "@/components/Construction/Construction";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
 import bannerMember from "../../../public/images/bannerHome/banner-member.png";
 import Link from "next/link";
-import AboutUsSlider from "@/components/AboutUsSlider";
+import AboutUsSlider from "@/components/BoxServices";
 import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import Boxservices from "@/components/BoxServices";
 
 const searchData = {
   populate: [
@@ -25,7 +26,7 @@ const searchData = {
     "gioiThieu.image1",
     "gioiThieu.image2",
     "gioiThieu.image3",
-    "boxServices",
+    "boxServices.image",
     "descriptionThanhVien",
     "cardThanhVien.logo",
   ].toString(),
@@ -248,7 +249,7 @@ const Home: React.FC = async (params: any) => {
         </div>
         <div className="h-[0px] laptop:h-[110px]"></div>
       </div>
-      <AboutUsSlider dataBoxService={boxService} locale={locale} />
+      <Boxservices dataBoxService={boxService} locale={locale} />
       <div className="section-member tablet:my-[120px] mobile:my-[32px] relative">
         <Image
           src={bannerMember.src || "/"}
