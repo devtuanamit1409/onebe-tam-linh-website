@@ -117,15 +117,13 @@ const ListMember = ({ url, locale }: UrlProps) => {
                     </p>
                   </div>
                   <div className="flex justify-center">
-                    <button className="py-[16px] flex items-center text-[16px] text-white px-[24px] bg-[#28A645] btn-truy-cap-web font-bold">
-                      <Link
-                        href={item.path || "/"}
-                        target="_blank"
-                        className="mr-[8px]">
-                        {t("visit_our_website")}
-                      </Link>
+                    <Link
+                      href={item.path || "/"}
+                      target="_blank"
+                      className=" py-[16px] flex items-center text-[16px] text-white px-[24px] bg-[#28A645] btn-truy-cap-web font-bold">
+                      <p className="mr-[8px]">{t("visit_our_website")}</p>
                       <IconAngleRight width="16" height="16" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
