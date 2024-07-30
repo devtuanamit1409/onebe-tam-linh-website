@@ -9,6 +9,7 @@ import NextTopLoader from "nextjs-toploader";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import HeaderNew from "@/components/layout/HeaderNew";
+import ContactBlock from "@/components/ContactBlock";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -53,6 +54,7 @@ export default async function RootLayout({
             id="top-content"
             className="desktop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
+          <ContactBlock />
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
