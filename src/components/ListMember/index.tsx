@@ -120,7 +120,7 @@ const ListMember = ({ url, locale }: UrlProps) => {
                     <Link
                       href={item.path || "/"}
                       target="_blank"
-                      className=" py-[16px] flex items-center text-[16px] text-white px-[24px] bg-[#28A645] btn-truy-cap-web font-bold">
+                      className=" py-[16px] flex items-center text-[16px] text-[#28A645] px-[24px] bg-transparent btn-truy-cap-web font-bold">
                       <p className="mr-[8px]">{t("visit_our_website")}</p>
                       <IconAngleRight width="16" height="16" />
                     </Link>
