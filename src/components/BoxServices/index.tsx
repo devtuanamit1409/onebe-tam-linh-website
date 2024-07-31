@@ -49,8 +49,8 @@ const Boxservices: React.FC<AboutUsSliderProps> = ({
         width: 32,
         height: 32,
       },
-      background: dataBoxService[0]?.image?.data.attributes.url
-        ? `${baseUrl}${dataBoxService[0]?.image?.data.attributes.url}`
+      background: dataBoxService[0]?.image?.data?.attributes?.url
+        ? `${baseUrl}${dataBoxService[0]?.image?.data?.attributes?.url}`
         : sp,
       title: dataBoxService[0]?.title || "english title",
       titleStyle: dataBoxService[0]?.title_style || "normal",
@@ -67,8 +67,8 @@ const Boxservices: React.FC<AboutUsSliderProps> = ({
         width: 32,
         height: 32,
       },
-      background: dataBoxService[1]?.image?.data.attributes.url
-        ? `${baseUrl}${dataBoxService[1]?.image?.data.attributes.url}`
+      background: dataBoxService[1]?.image?.data?.attributes?.url
+        ? `${baseUrl}${dataBoxService[1]?.image?.data?.attributes?.url}`
         : dv,
       title: dataBoxService[1]?.title || "english title",
       titleStyle: dataBoxService[1]?.title_style || "normal",
@@ -85,8 +85,8 @@ const Boxservices: React.FC<AboutUsSliderProps> = ({
         width: 32,
         height: 32,
       },
-      background: dataBoxService[2]?.image?.data.attributes.url
-        ? `${baseUrl}${dataBoxService[2]?.image?.data.attributes.url}`
+      background: dataBoxService[2]?.image?.data?.attributes?.url
+        ? `${baseUrl}${dataBoxService[2]?.image?.data?.attributes?.url}`
         : du,
       title: dataBoxService[2]?.title || "english title",
       titleStyle: dataBoxService[2]?.title_style || "normal",
