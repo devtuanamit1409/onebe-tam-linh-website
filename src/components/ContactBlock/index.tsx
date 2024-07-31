@@ -40,6 +40,7 @@ const ContactBlock = async () => {
 
   const removeSpaceOnPhoneNumber = (phoneNumber: String) => {
     // remove all space at phoneNumber string
+    if (!phoneNumber) return null;
     return phoneNumber.replace(/\s/g, "");
   };
 
@@ -48,8 +49,7 @@ const ContactBlock = async () => {
       <Link
         href={`tel:${removeSpaceOnPhoneNumber(phoneNumber)}`}
         target="_blank"
-        className="relative call-btn"
-      >
+        className="relative call-btn">
         <div className="wrapper h-[60px] w-[60px]">
           <div className="ring">
             <div className="coccoc-alo-phone coccoc-alo-green coccoc-alo-show">
@@ -64,8 +64,7 @@ const ContactBlock = async () => {
       <Link
         target="_blank"
         href={`https://zalo.me/${removeSpaceOnPhoneNumber(zaloNumber)}`}
-        className="h-[60px] w-[60px]"
-      >
+        className="h-[60px] w-[60px]">
         <Image src={IconZalo} alt="call for calltact" objectFit="cover" />
       </Link>
     </div>
