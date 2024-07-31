@@ -29,23 +29,27 @@ async function fetchData(endpoint: string) {
 }
 
 const ContactBlock = async () => {
-  const dataFooter = await fetchData(`${ENDPOINT.GET_FOOTER}?${searchParams}`);
+  const dataFooter = await fetchData(`${ENDPOINT.GET_HOTLINE}?${searchParams}`);
 
   const phoneNumber = (dataFooter as { data: { attributes: { phone: any } } })
     ?.data?.attributes.phone;
+  const zaloNumber = (dataFooter as { data: { attributes: { zalo: any } } })
+    ?.data?.attributes.zalo;
+  console.log("phoneNumber", phoneNumber);
+  console.log("zaloNumber", zaloNumber);
 
   const removeSpaceOnPhoneNumber = (phoneNumber: String) => {
     // remove all space at phoneNumber string
     return phoneNumber.replace(/\s/g, "");
   };
 
-  console.log("dataFooter", dataFooter);
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-[24px]">
       <Link
         href={`tel:${removeSpaceOnPhoneNumber(phoneNumber)}`}
         target="_blank"
-        className="relative call-btn">
+        className="relative call-btn"
+      >
         <div className="wrapper h-[60px] w-[60px]">
           <div className="ring">
             <div className="coccoc-alo-phone coccoc-alo-green coccoc-alo-show">
@@ -59,8 +63,9 @@ const ContactBlock = async () => {
       </Link>
       <Link
         target="_blank"
-        href={`https://zalo.me/${removeSpaceOnPhoneNumber(phoneNumber)}`}
-        className="h-[60px] w-[60px]">
+        href={`https://zalo.me/${removeSpaceOnPhoneNumber(zaloNumber)}`}
+        className="h-[60px] w-[60px]"
+      >
         <Image src={IconZalo} alt="call for calltact" objectFit="cover" />
       </Link>
     </div>
