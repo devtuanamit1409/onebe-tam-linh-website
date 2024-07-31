@@ -15,4 +15,5 @@ export const ENDPOINT = {
   GET_CHILDTTND: `${process.env.URL_API}/api/child-page-thong-tu-nghi-dinhs`,
   GET_HEADER: `${process.env.URL_API}/api/custom-`,
   GET_MENU_SANPHAM: `${process.env.URL_API}/api/custom-san-pham`,
+  GET_HOTLINE: `${process.env.URL_API}/api/hotline`,
 };
