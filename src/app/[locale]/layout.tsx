@@ -52,7 +52,7 @@ export default async function RootLayout({
           <HeaderNew locale={locale} />
           <div
             id="top-content"
-            className="desktop:mt-[100px] mobile:mt-[72px]"></div>
+            className="laptop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
           <ContactBlock />
           <Footer locale={locale} />

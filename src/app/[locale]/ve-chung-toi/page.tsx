@@ -143,7 +143,7 @@ const page = async (params: any) => {
   return (
     <>
       <div className=" justify-center ">
-        <div className="container">
+        <div className="laptop:px-[140px] tablet:px-[72px] mobile:px-[16px]">
           {content ? (
             <div
               className="blog-content pt-[40px]"
