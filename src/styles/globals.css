@@ -102,6 +102,21 @@ h6 {
       font-weight: inherit;
     }
   }
+  menu,
+  ol,
+  ul {
+    list-style: disc;
+  }
+  li {
+    margin-left: 20px;
+  }
+  iframe {
+    width: 100%;
+    height: auto;
+    min-height: 600px;
+  }
+
+  
 }
 
 .blog-content table {
