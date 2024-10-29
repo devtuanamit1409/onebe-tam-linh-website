@@ -115,8 +115,6 @@ h6 {
     height: auto;
     min-height: 600px;
   }
-
-  
 }
 
 .blog-content table {
@@ -194,7 +192,6 @@ h6 {
     justify-content: center;
   }
 }
-
 /* components/BrandingSlider.module.css */
 .sliderContainer {
   width: 100%;
@@ -254,6 +251,9 @@ h6 {
   > .ant-menu
   .ant-menu-item-selected {
   background-color: transparent;
+}
+.detailNew-category .ant-collapse-content {
+  border-top: 1px solid transparent;
 }
 
 .ant-menu-submenu-title {

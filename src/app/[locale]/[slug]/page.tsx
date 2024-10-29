@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Loading from "@/components/Loading";
 import MetaData from "@/components/MetaData/MetaData";
+import DetailCategory from "@/components/DetailCategory";
 
 interface Article {
   id: number;
@@ -137,6 +138,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     DetailSubCategory[]
   >([]);
   const [detailBaiViet, setDetailBaiViet] = useState<DetailArticle[]>([]);
+  const [detailCategory, setDetailCategory] = useState<any>([]);
   const [baiVietTieuDiem, setBaiVietTieuDiem] = useState<DetailArticle[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<DetailArticle[]>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -206,7 +208,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localization,seo.thumbnail&locale=${locale}&populate=danh_muc_cons,localizations`,
+        `${ENDPOINT.GET_BAIVIET}?filters[slug]=${params.slug}&populate=localization,category_details.childrens,seo.thumbnail&locale=${locale}&populate=danh_muc_cons,localizations`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -215,6 +217,7 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
       );
       const result: DetailArticleData = await response.json();
       setDetailBaiViet(result.data);
+      setDetailCategory(result.data);
       result.data.length === 0 && setIsHaveData(false);
       setSeoDetailNews(result.data[0]?.attributes?.seo);
     } catch (error) {
@@ -457,6 +460,13 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
     );
   };
 
+  useEffect(() => {
+    console.log(
+      "detailCategory",
+      detailCategory[0]?.attributes?.category_details
+    );
+  }, [detailCategory]);
+
   const DetailNew = () => {
     return (
       <>
@@ -499,6 +509,11 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             <h1 className="laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
               {detailBaiViet[0]?.attributes?.title}
             </h1>
+            {detailCategory[0]?.attributes?.category_details && (
+              <DetailCategory
+                categories={detailCategory[0]?.attributes?.category_details}
+              />
+            )}
 
             <div
               className="blog-content py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"

@@ -76,8 +76,8 @@ const PageMenu = (props: props): JSX.Element => {
                 <div key={item.id} className="flex w-full">
                   <div className=" flex-col w-full gap-4">
                     <div className="text-gray-700 tablet:text-[28px] mobile:text-lg font-bold   leading-[44.80px] flex justify-between items-center mb-8">
-                      <div className="flex items-center capitalize gap-6">
-                        <h2>{item.name}</h2>
+                      <div className="flex items-center gap-6">
+                        <h2 className="first-letter:uppercase">{item.name}</h2>
                       </div>
                       <Link
                         href={item.slug ? `/${locale}/${item.slug}` : "/"}
@@ -110,7 +110,7 @@ const PageMenu = (props: props): JSX.Element => {
                                 </div>
                               </div>
                               <div
-                                className={`transform origin-top transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
+                                className={`transform origin-top first-letter:uppercase transition-all desktop:mt-4  w-full  overflow-hidden duration-300 ease-in-out ${
                                   activeMenu === child.title
                                     ? "max-h-96 pb-4 mt-4"
                                     : "max-h-0"
