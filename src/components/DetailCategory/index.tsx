@@ -50,33 +50,42 @@ const DetailCategory: React.FC<DetailCategoryProps> = ({ categories }) => {
           key="main">
           {/* Lặp qua các danh mục lớn */}
           {categories.map((category) => (
-            <Collapse
-              key={category.id}
-              activeKey={activeCategory === category.id ? "active" : undefined}
-              onChange={() => handleCategoryClick(category.id)}
-              // expandIcon={({ isActive }) =>
-              //   isActive ? (
-              //     <DownOutlined className="mr-2" />
-              //   ) : (
-              //     <RightOutlined className="mr-2" />
-              //   )
-              // }
-              className="border-none bg-white text-base font-bold flex items-center py-0 px-[23px]">
-              <Panel header={category.title} key="active">
-                {/* Danh mục con */}
-                <ul className="ml-4 space-y-2">
-                  {category.childrens?.map((child) => (
-                    <li key={child.id}>
-                      <span
-                        onClick={() => scrollToSection(child.slug)}
-                        className="text-gray-600 ml-[16px] hover:text-blue-500 cursor-pointer">
-                        {child.title}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-            </Collapse>
+            <div key={category.id} className="mb-2">
+              {category.childrens && category.childrens.length > 0 ? (
+                // Nếu có danh mục con, sử dụng Collapse để hiển thị danh mục cha với danh mục con
+                <Collapse
+                  activeKey={
+                    activeCategory === category.id ? "active" : undefined
+                  }
+                  onChange={() => handleCategoryClick(category.id)}
+                  className="border-none bg-white text-base font-bold flex items-center py-0 px-[23px]">
+                  <Panel
+                    header={category.title}
+                    key="active"
+                    className="!border-none !bg-white">
+                    {/* Danh mục con */}
+                    <ul className="ml-4 space-y-2">
+                      {category.childrens.map((child) => (
+                        <li key={child.id}>
+                          <span
+                            onClick={() => scrollToSection(child.slug)}
+                            className="text-gray-600 ml-[16px] hover:text-blue-500 cursor-pointer">
+                            {child.title}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Panel>
+                </Collapse>
+              ) : (
+                // Nếu không có danh mục con, hiển thị danh mục cha như một liên kết để cuộn đến
+                <div
+                  onClick={() => scrollToSection(category.slug)}
+                  className="text-base font-bold text-gray-800 hover:text-blue-500 cursor-pointer py-2 px-[23px] ml-[40px]">
+                  {category.title}
+                </div>
+              )}
+            </div>
           ))}
         </Panel>
       </Collapse>
