@@ -509,11 +509,12 @@ const Page: React.FC<{ params: any }> = ({ params }) => {
             <h1 className="laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
               {detailBaiViet[0]?.attributes?.title}
             </h1>
-            {detailCategory[0]?.attributes?.category_details && (
-              <DetailCategory
-                categories={detailCategory[0]?.attributes?.category_details}
-              />
-            )}
+            {detailCategory[0]?.attributes?.category_details &&
+              detailCategory[0]?.attributes?.category_details.length > 0 && (
+                <DetailCategory
+                  categories={detailCategory[0]?.attributes?.category_details}
+                />
+              )}
 
             <div
               className="blog-content py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
