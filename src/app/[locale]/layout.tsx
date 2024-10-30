@@ -10,6 +10,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import HeaderNew from "@/components/layout/HeaderNew";
 import ContactBlock from "@/components/ContactBlock";
+import Script from "next/script";
+import ScriptFromAPI from "@/components/ScriptFromAPI";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -27,15 +29,19 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params: { locale, slug },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale: string; slug: string };
 }) {
   const messages = await getMessages();
 
   return (
     <html lang={locale}>
+      <head>
+        {/* Sử dụng ScriptFromAPI với slug */}
+        <ScriptFromAPI slug={slug} />
+      </head>
       <body className={`${montserrat.variable} ${lora.variable}`}>
         <NextTopLoader
           color="#28A645"
@@ -50,9 +56,7 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider messages={messages}>
           <HeaderNew locale={locale} />
-          <div
-            id="top-content"
-            className="laptop:mt-[100px] mobile:mt-[72px]"></div>
+          <div className="laptop:mt-[100px] mobile:mt-[72px]"></div>
           <main>{children}</main>
           <ContactBlock />
           <Footer locale={locale} />

@@ -1,3 +1,4 @@
+"use client";
 import { Collapse, Typography } from "antd";
 import { useState } from "react";
 import { DownOutlined, MenuOutlined, RightOutlined } from "@ant-design/icons"; // Thêm icon từ Ant Design

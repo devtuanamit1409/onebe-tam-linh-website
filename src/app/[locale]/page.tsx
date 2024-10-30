@@ -16,6 +16,7 @@ import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Boxservices from "@/components/BoxServices";
+import Head from "next/head";
 
 const searchData = {
   populate: [
@@ -63,6 +64,9 @@ export async function generateMetadata(params: any): Promise<Metadata> {
       seo.keywords ||
       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    alternates: {
+      canonical: "https://ntse.vn/",
+    },
     openGraph: {
       title:
         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
@@ -98,6 +102,12 @@ export async function generateMetadata(params: any): Promise<Metadata> {
       ],
       card: "summary_large_image",
     },
+    robots: "noodp,index,follow",
+    other: {
+      "http-equiv": "content-language",
+      content: "vi",
+    },
+    publisher: "https://maps.app.goo.gl/gcCxAPv43RtkVjvF9",
   };
 }
 
@@ -183,141 +193,159 @@ const Home: React.FC = async (params: any) => {
   const t = await getTranslations("home");
 
   return (
-    <main>
-      <SlideHome banner={banner} />
-
-      <div className="flex justify-center">
-        <div className="container">
-          <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">
-            <SliderKhachHang listlogo={listlogo} />
-          </div>
-        </div>
-      </div>
-      <div className="section-gioi-thieu py-6">
-        <div>
-          <div className="flex justify-center">
-            <div className="container z-30">
-              <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
-                <div className="col-span-1 grid grid-cols-2 tablet:gap-[25px] mobile:gap-4">
-                  <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
-                    <Image
-                      src={`${baseUrl}${gioiThieuImage1}` || "/"}
-                      alt="Image 1"
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center gap-[25px]">
-                    <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
-                      <Image
-                        src={`${baseUrl}${gioiThieuImage2}` || "/"}
-                        alt="Image 1"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                    <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
-                      <Image
-                        src={`${baseUrl}${gioiThieuImage3}` || "/"}
-                        alt="Image 1"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-1 flex items-center">
-                  <div className="gap-6">
-                    <h1 className="text-[#3B559E] desktop:text-[52px] mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
-                      {t("introduce_about_us")}
-                    </h1>
-                    <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-4 laptop:text-left mobile:text-center">
-                      {gioiThieu && gioiThieu?.description}
-                    </div>
-                    <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
-                      <Link
-                        href={`/${locale}/ve-chung-toi`}
-                        className="bg-transparent text-[#3B559E] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E] font-bold transition-all 300ms">
-                        {t("about_us")}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="h-[0px] laptop:h-[110px]"></div>
-      </div>
-      <Boxservices dataBoxService={boxService} locale={locale} />
-      <div className="section-member tablet:my-[120px] mobile:my-[32px] relative">
-        <Image
-          src={bannerMember.src || "/"}
-          alt="banner"
-          layout="fill"
-          objectFit="cover"
-          className="-z-10"
+    <>
+      <Head>
+        <meta name="robots" content="noodp,index,follow" />
+        <meta name="title" content="Trang chủ - Công ty TNHH Kỹ thuật NTS" />
+        <meta
+          name="description"
+          content="Công ty TNHH Kỹ thuật NTS cung cấp các giải pháp kỹ thuật công trình hàng đầu."
         />
+        <meta http-equiv="content-language" content="vi" />
+        <meta name="author" content="NTSE" />
+        <meta
+          name="publisher"
+          content="https://maps.app.goo.gl/gcCxAPv43RtkVjvF9"
+        />
+        <link rel="canonical" href="https://ntse.vn/" />
+      </Head>
+
+      <main>
+        <SlideHome banner={banner} />
+
         <div className="flex justify-center">
           <div className="container">
-            <div className="grid grid-cols-12 gap-6 pt-[5%]">
-              <div className="col-span-12">
-                <div className="flex justify-center">
-                  <div>
-                    <h2 className="font-bold laptop:text-[48px] tablet:text-[40px] mobile:text-[28px] text-center">
-                      {t("member_company")}
-                    </h2>
-                    <p className="pt-[24px] mobile:text-[16px] tablet:text-[20px] laptop:text-[18px] max-w-[572px] font-medium text-center">
-                      {descriptionThanhVien && descriptionThanhVien}
-                    </p>
-                    <div className="pt-[24px] flex justify-center">
-                      <Link
-                        href={"/cong-ty-thanh-vien"}
-                        className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] font-bold">
-                        {t("see_more")}
-                      </Link>
+            <div className="laptop:pb-[80px] mobile:pb-[72px] laptop:pt-[48px] mobile:pt-[40px]">
+              <SliderKhachHang listlogo={listlogo} />
+            </div>
+          </div>
+        </div>
+        <div className="section-gioi-thieu py-6">
+          <div>
+            <div className="flex justify-center">
+              <div className="container z-30">
+                <div className="grid laptop:grid-cols-2 mobile:grid-cols-1 laptop:gap-[45px] mobile:gap-[72px]">
+                  <div className="col-span-1 grid grid-cols-2 tablet:gap-[25px] mobile:gap-4">
+                    <div className="relative h-full desktop:max-h-[400px] laptop:max-h-[320px] tablet:max-h-[390px] mobile:max-h-[200px] rounded-2xl overflow-hidden my-auto">
+                      <Image
+                        src={`${baseUrl}${gioiThieuImage1}` || "/"}
+                        alt="Image 1"
+                        layout="fill"
+                        objectFit="cover"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center gap-[25px]">
+                      <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
+                        <Image
+                          src={`${baseUrl}${gioiThieuImage2}` || "/"}
+                          alt="Image 1"
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
+                      <div className="flex-1 relative desktop:min-h-[400px] laptop:min-h-[320px] tablet:min-h-[390px] mobile:min-h-[200px] rounded-2xl overflow-hidden">
+                        <Image
+                          src={`${baseUrl}${gioiThieuImage3}` || "/"}
+                          alt="Image 1"
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-1 flex items-center">
+                    <div className="gap-6">
+                      <h1 className="text-[#3B559E] desktop:text-[52px] mobile:text-[28px] tablet:text-[40px] font-semibold capitalize tablet:leading-[76.80px] mobile:leading-[44.8px] mobile:text-center laptop:text-left">
+                        {t("introduce_about_us")}
+                      </h1>
+                      <div className="text-gray-900 desktop:text-2xl mobile:text-base tablet:text-[20px] font-medium leading-[38.40px] laptop:my-6 mobile:my-4 laptop:text-left mobile:text-center">
+                        {gioiThieu && gioiThieu?.description}
+                      </div>
+                      <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
+                        <Link
+                          href={`/${locale}/ve-chung-toi`}
+                          className="bg-transparent text-[#3B559E] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E] font-bold transition-all 300ms">
+                          {t("about_us")}
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-span-12 relativ flex justify-center">
-                <div className="h-[417px] w-[356px] card-member relative z-30">
-                  <SlideMember cardThanhVien={cardThanhVien} />
+            </div>
+          </div>
+          <div className="h-[0px] laptop:h-[110px]"></div>
+        </div>
+        <Boxservices dataBoxService={boxService} locale={locale} />
+        <div className="section-member tablet:my-[120px] mobile:my-[32px] relative">
+          <Image
+            src={bannerMember.src || "/"}
+            alt="banner"
+            layout="fill"
+            objectFit="cover"
+            className="-z-10"
+          />
+          <div className="flex justify-center">
+            <div className="container">
+              <div className="grid grid-cols-12 gap-6 pt-[5%]">
+                <div className="col-span-12">
+                  <div className="flex justify-center">
+                    <div>
+                      <h2 className="font-bold laptop:text-[48px] tablet:text-[40px] mobile:text-[28px] text-center">
+                        {t("member_company")}
+                      </h2>
+                      <p className="pt-[24px] mobile:text-[16px] tablet:text-[20px] laptop:text-[18px] max-w-[572px] font-medium text-center">
+                        {descriptionThanhVien && descriptionThanhVien}
+                      </p>
+                      <div className="pt-[24px] flex justify-center">
+                        <Link
+                          href={"/cong-ty-thanh-vien"}
+                          className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] font-bold">
+                          {t("see_more")}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-12 relativ flex justify-center">
+                  <div className="h-[417px] w-[356px] card-member relative z-30">
+                    <SlideMember cardThanhVien={cardThanhVien} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="pt-[80px]">
-        <div className="flex justify-center">
-          <div className="laptop:w-[1038px]">
-            <div className="text-center">
-              <h3 className="text-[#28A645] text-[20px] font-bold uppercase">
-                {t("project")}
-              </h3>
-              <h2 className="text-[#111928] laptop:text-[48px] tablet:text-[40px] mobile:text-[28px]  mobile:font-[600] laptop:py-[16px]">
-                {t("our_project")}
-              </h2>
-              <div className="flex justify-center px-4">
-                <p className="laptop:text-[#637381] tablet:text-[#1F2A37] tablet:text-[20px] mobile:text-base tablet:leading-[32px] laptop:w-[572px] laptop:font-[400] mobile:font-[500] ">
-                  {(descriptionDuAn && descriptionDuAn) ||
-                    "no content description"}
-                </p>
+        <div className="pt-[80px]">
+          <div className="flex justify-center">
+            <div className="laptop:w-[1038px]">
+              <div className="text-center">
+                <h3 className="text-[#28A645] text-[20px] font-bold uppercase">
+                  {t("project")}
+                </h3>
+                <h2 className="text-[#111928] laptop:text-[48px] tablet:text-[40px] mobile:text-[28px]  mobile:font-[600] laptop:py-[16px]">
+                  {t("our_project")}
+                </h2>
+                <div className="flex justify-center px-4">
+                  <p className="laptop:text-[#637381] tablet:text-[#1F2A37] tablet:text-[20px] mobile:text-base tablet:leading-[32px] laptop:w-[572px] laptop:font-[400] mobile:font-[500] ">
+                    {(descriptionDuAn && descriptionDuAn) ||
+                      "no content description"}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center">
-          <div className="container">
-            <div className="pt-[40px]">
-              <Construction locale={locale} />
+          <div className="flex justify-center">
+            <div className="container">
+              <div className="pt-[40px]">
+                <Construction locale={locale} />
+              </div>
+              <ContactEnd />
             </div>
-            <ContactEnd />
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 

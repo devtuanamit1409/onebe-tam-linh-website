@@ -20,12 +20,37 @@ const MetaData = ({
   seoUrl,
   seoType = "website",
 }: Props) => {
+  console.log("MetaData Props:", {
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    seoAuthor,
+    seoImage,
+    seoUrl,
+    seoType,
+  });
+
   return (
-    <>
+    <Head>
       <title>{seoTitle}</title>
       <meta name="description" content={seoDescription} />
       {seoKeywords && <meta name="keywords" content={seoKeywords} />}
       {seoAuthor && <meta name="author" content={seoAuthor} />}
+
+      {/* Robots */}
+      <meta name="robots" content="noodp,index,follow" />
+
+      {/* Canonical */}
+      {seoUrl && <link rel="canonical" href={seoUrl} />}
+
+      {/* Content Language */}
+      <meta http-equiv="content-language" content="vi" />
+
+      {/* Publisher */}
+      <meta
+        name="publisher"
+        content="https://maps.app.goo.gl/gcCxAPv43RtkVjvF9"
+      />
 
       {/* Open Graph / Facebook */}
       <meta property="og:title" content={seoTitle} />
@@ -39,7 +64,7 @@ const MetaData = ({
       <meta name="twitter:title" content={seoTitle} />
       <meta name="twitter:description" content={seoDescription} />
       {seoImage && <meta name="twitter:image" content={seoImage} />}
-    </>
+    </Head>
   );
 };
 

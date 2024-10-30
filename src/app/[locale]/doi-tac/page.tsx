@@ -39,6 +39,9 @@ export async function generateMetadata(params: any): Promise<Metadata> {
       seo.keywords ||
       "kỹ thuật, công trình, tư vấn cơ điện, xử lý nước, tái sử dụng nước",
     authors: [{ name: seo.author || "Công ty TNHH Kỹ thuật NTS" }],
+    alternates: {
+      canonical: "https://ntse.vn/doi-tac",
+    },
     openGraph: {
       title:
         seo.ogTitle || seo.title || "Trang chủ - Công ty TNHH Kỹ thuật NTS",
@@ -74,6 +77,12 @@ export async function generateMetadata(params: any): Promise<Metadata> {
       ],
       card: "summary_large_image",
     },
+    robots: "noodp,index,follow",
+    other: {
+      "http-equiv": "content-language",
+      content: "vi",
+    },
+    publisher: "https://maps.app.goo.gl/gcCxAPv43RtkVjvF9",
   };
 }
 
