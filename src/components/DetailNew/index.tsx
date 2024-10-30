@@ -1,10 +1,22 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import BoxTinTuc from "@/components/BoxTinTuc/BoxTinTuc";
 import ContactEndClient from "@/components/ContactEndClient/ContactEndClient";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import DetailCategory from "@/components/DetailCategory";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+import zaloIcon from "public/images/logo/zalo-rounded.png";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface DetailNewProps {
   detailBaiViet: {
@@ -37,12 +49,13 @@ const DetailNew: React.FC<DetailNewProps> = ({
   recomenData,
 }) => {
   const t = useTranslations("detail_post");
-
   const translate = useTranslations("404");
+
   return (
     <>
       {detailBaiViet ? (
         <>
+          {/* Breadcrumb */}
           <div className="bg-gray-50">
             <div className="container mx-auto py-4 text-gray-500 text-base font-medium leading-normal">
               <Link href={"/"}>{locale === "en" ? "Home" : "Trang chủ"}</Link>
@@ -68,24 +81,56 @@ const DetailNew: React.FC<DetailNewProps> = ({
                 {subBreadcum}
               </Link>
               {subBreadcum && <span className="mx-2"> / </span>}
-              <Link className="text-[#000]" href={``}>
-                {detailBaiViet.title}
-              </Link>
+              <span className="text-[#000]">{detailBaiViet.title}</span>
             </div>
           </div>
+
+          {/* Title */}
           <h1 className="laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] text-gray-800 laptop:text-[54px] tablet:text-[40px] mobile:text-[32px] font-bold leading-normal text-center laptop:mb-[24px] mobile:mb-[16px]">
             {detailBaiViet.title}
           </h1>
+
+          {/* Category Details */}
           {detailCategory?.category_details?.length > 0 && (
             <DetailCategory categories={detailCategory.category_details} />
           )}
+
+          {/* Content */}
           <div
             className="blog-content py-[40px] laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]"
             dangerouslySetInnerHTML={{ __html: detailBaiViet.content || "" }}
           />
+
+          {/* Social Share Buttons */}
+          <div className="flex space-x-4 my-4  laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]">
+            <p className="text-black text-base font-medium leading-normal">
+              Chia sẻ ngay:
+            </p>
+            <FacebookShareButton url={window.location.href}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <LinkedinShareButton url={window.location.href}>
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+            <TwitterShareButton url={window.location.href}>
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+            <a
+              href={`https://zalo.me/share/?url=${encodeURIComponent(
+                window.location.href
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer">
+              <Image src={zaloIcon} alt="Chia sẻ zalo" width={32} height={32} />
+            </a>
+          </div>
+
+          {/* Contact Component */}
           <div className="container">
             <ContactEndClient />
           </div>
+
+          {/* Related Posts */}
           <div className="bg-[#F3F6FE] py-[80px]">
             <div className="container">
               <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
@@ -104,29 +149,25 @@ const DetailNew: React.FC<DetailNewProps> = ({
           </div>
         </>
       ) : (
-        <>
-          <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
-            <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
-              <p className="text-center text-[#fff] text-[48px] font-bold ">
-                {translate("404")}
-              </p>
-              <p className="text-center text-[#fff] text-[23px] font-bold ">
-                {translate("not_found")}
-              </p>
-              <p className="text-center text-[#fff] text-[23px] font-bold ">
-                {translate("maybe_delete")}
-              </p>
-              <Link
-                href="/"
-                className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
-                {translate("back_home")}
-              </Link>
-            </div>
+        // 404 Content
+        <div className="flex h-[500px] bg-[#3B559E] mb-[80px]">
+          <div className="w-full h-full flex flex-col justify-center items-center gap-[35px]">
+            <p className="text-center text-[#fff] text-[48px] font-bold ">
+              {translate("404")}
+            </p>
+            <p className="text-center text-[#fff] text-[23px] font-bold ">
+              {translate("not_found")}
+            </p>
+            <p className="text-center text-[#fff] text-[23px] font-bold ">
+              {translate("maybe_delete")}
+            </p>
+            <Link
+              href="/"
+              className="min-w-[187px] h-12 px-6 py-3 rounded-md border border-white justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal">
+              {translate("back_home")}
+            </Link>
           </div>
-          <div className="container">
-            <ContactEndClient />
-          </div>
-        </>
+        </div>
       )}
     </>
   );

@@ -119,7 +119,7 @@ export async function generateMetadata(params: any): Promise<Metadata> {
         {
           url: seo.thumbnail?.data?.attributes?.url
             ? `${baseUrl}${seo.thumbnail.data.attributes.url}`
-            : "/path/to/default-image.jpg",
+            : `${baseUrl}/logo/logo-fullwidth.png`,
           width: 800,
           height: 600,
           alt: "Image description",
