@@ -51,6 +51,15 @@ const DetailNew: React.FC<DetailNewProps> = ({
   const t = useTranslations("detail_post");
   const translate = useTranslations("404");
 
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Đảm bảo mã này chỉ chạy trên client
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
   return (
     <>
       {detailBaiViet ? (
@@ -102,22 +111,19 @@ const DetailNew: React.FC<DetailNewProps> = ({
           />
 
           {/* Social Share Buttons */}
-          <div className="flex space-x-4 my-4  laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]">
+          <div className="flex space-x-4 my-4 laptop:px-[156px] tablet:px-[128px] mobile:px-[16px] mobile:pb-[20px]">
             <p className="text-black text-base font-medium leading-normal">
               Chia sẻ ngay:
             </p>
-            <FacebookShareButton url={window.location.href}>
+            <FacebookShareButton url={currentUrl}>
               <FacebookIcon size={32} round />
             </FacebookShareButton>
-            <LinkedinShareButton url={window.location.href}>
+            <LinkedinShareButton url={currentUrl}>
               <LinkedinIcon size={32} round />
             </LinkedinShareButton>
-            <TwitterShareButton url={window.location.href}>
-              <TwitterIcon size={32} round />
-            </TwitterShareButton>
             <a
               href={`https://zalo.me/share/?url=${encodeURIComponent(
-                window.location.href
+                currentUrl
               )}`}
               target="_blank"
               rel="noopener noreferrer">
