@@ -221,7 +221,7 @@ const HeaderNew = (params: any) => {
 
   const handleMouseEnter = (key: string, condition: boolean) => {
     if (condition) {
-      console.log('cachedData[key]',cachedData[key])
+      // console.log('cachedData[key]',cachedData[key])
       setActiveKey(key);
       setIsMenuOpen(true);
       if (cachedData[key]) {

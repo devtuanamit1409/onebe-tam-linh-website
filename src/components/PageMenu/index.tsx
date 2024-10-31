@@ -52,9 +52,6 @@ const PageMenu = (props: props): JSX.Element => {
     };
     fetchMenu();
   }, [menu]);
-  useEffect(() => {
-    console.log("formatMenu", formatMenu);
-  }, [formatMenu]);
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null); // Khởi tạo với null
   const [isLoading, setIsLoading] = useState(true);

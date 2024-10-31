@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 
-interface ScriptFromAPIProps {
-  slug: string; // Nhận slug từ props
-}
-
-const ScriptFromAPI: React.FC<ScriptFromAPIProps> = ({ slug }) => {
-  const [scriptContent, setScriptContent] = useState<string | null>(null);
+const ScriptFromAPI: React.FC = () => {
+  const [scriptContent, setScriptContent] = useState<any | null>(null);
+  const pathname = usePathname();
 
   // Hàm để xác định endpoint dựa trên slug
   const getEndpoint = (slug: string): string | null => {
@@ -21,24 +19,26 @@ const ScriptFromAPI: React.FC<ScriptFromAPIProps> = ({ slug }) => {
 
     // Xử lý các slug tĩnh khác (danh mục)
     switch (slug) {
+      case "":
+        return `${ENDPOINT.GET_HOME}`;
       case "cong-ty-thanh-vien":
-        return ENDPOINT.GET_CTTV;
+        return `${ENDPOINT.GET_CTTV}`;
       case "dich-vu":
-        return ENDPOINT.GET_DICHVU;
+        return `${ENDPOINT.GET_DICHVU}?populate=main.top_content`;
       case "doi-tac":
         return ENDPOINT.GET_DOITAC;
       case "du-an":
-        return ENDPOINT.GET_DUAN;
+        return `${ENDPOINT.GET_DUAN}?populate=main.top_content`;
       case "goc-chuyen-gia":
-        return ENDPOINT.GET_TTND;
+        return ENDPOINT.GET_GOCCHUYEN_GIA;
       case "san-pham":
-        return ENDPOINT.GET_SANPHAM;
+        return `${ENDPOINT.GET_SANPHAM}?populate=main.top_content`;
       case "thong-tu-nghi-dinh":
-        return ENDPOINT.GET_TTND;
+        return `${ENDPOINT.GET_TTND}?populate=main.top_content`;
       case "tin-tuc":
         return ENDPOINT.GET_BAIVIET;
       case "ve-chung-toi":
-        return ENDPOINT.GET_VECHUNGTOI;
+        return `${ENDPOINT.GET_VECHUNGTOI}?populate=main.top_content`;
       default:
         // Nếu không có trong danh sách danh mục và không có timestamp, coi là bài viết chi tiết
         return `${ENDPOINT.GET_BAIVIET}?filters[slug]=${slug}`;
@@ -46,28 +46,47 @@ const ScriptFromAPI: React.FC<ScriptFromAPIProps> = ({ slug }) => {
   };
 
   useEffect(() => {
+    // Tách slug từ đường dẫn hiện tại
+    const slug = pathname.split("/").pop() || ""; // Lấy phần cuối của đường dẫn làm slug
+    console.log("slug", slug);
+    const token =
+      process.env.NODE_ENV !== "production"
+        ? process.env.DEV_TOKEN
+        : process.env.DEV_TOKEN;
+
     const fetchScriptContent = async () => {
       const endpoint = getEndpoint(slug);
+      console.log("endpoint", endpoint);
+      if (!endpoint) {
+        console.error("No endpoint found for this slug:", slug);
+        return;
+      }
+
       if (!endpoint) {
         console.error("No endpoint found for this slug:", slug);
         return;
       }
 
       try {
-        const response = await fetch(endpoint);
+        const response = await fetch(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thay 'token' bằng mã token của bạn
+          },
+        });
         if (!response.ok) {
           throw new Error(`Failed to fetch from ${endpoint}`);
         }
 
         const data = await response.json();
-        setScriptContent(data.content || "");
+        console.log("data", data.data[0].attributes);
+        setScriptContent(data.data.attributes || data.data[0].attributes);
       } catch (error) {
         console.error("Error fetching script content:", error);
       }
     };
 
     fetchScriptContent();
-  }, [slug]);
+  }, [pathname]); // Thực thi lại khi đường dẫn thay đổi
 
   if (!scriptContent) {
     return null;
@@ -75,10 +94,14 @@ const ScriptFromAPI: React.FC<ScriptFromAPIProps> = ({ slug }) => {
 
   return (
     // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
-    <Script id="dynamic-script" strategy="beforeInteractive">
-      {scriptContent}
-      {`console.log("Script loaded from API with slug:", "${slug}");`}
-    </Script>
+    <script
+      id="dynamic-script"
+      dangerouslySetInnerHTML={{
+        __html: scriptContent?.main
+          ? scriptContent.main.top_content
+          : scriptContent.top_content,
+      }}
+    />
   );
 };
 

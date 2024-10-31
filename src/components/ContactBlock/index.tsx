@@ -35,8 +35,6 @@ const ContactBlock = async () => {
     ?.data?.attributes.phone;
   const zaloNumber = (dataFooter as { data: { attributes: { zalo: any } } })
     ?.data?.attributes.zalo;
-  console.log("phoneNumber", phoneNumber);
-  console.log("zaloNumber", zaloNumber);
 
   const removeSpaceOnPhoneNumber = (phoneNumber: String) => {
     // remove all space at phoneNumber string

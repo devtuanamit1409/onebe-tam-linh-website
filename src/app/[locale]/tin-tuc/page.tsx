@@ -181,7 +181,6 @@ const Page: React.FC = (params: any) => {
     });
     return timeAgo;
   };
-  console.log("locale", locale);
 
   return (
     <>

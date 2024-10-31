@@ -11,8 +11,6 @@ interface BoxTinTucProps {
 }
 
 const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, locale }) => {
-  console.log("locale at box", locale);
-
   const baseUrl = process.env.URL_API;
   const t = useTranslations("detail_post");
 

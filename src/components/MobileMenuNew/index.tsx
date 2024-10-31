@@ -188,7 +188,7 @@ const MobileMenuNew = ({
     const endpoint = `${process.env.URL_API}/api/custom-${handleGetEndPoint(
       key
     )}?&locale=${locale}`;
-    console.log("engpoint", endpoint);
+
     try {
       const response = await apiService.get<any>(endpoint);
 
@@ -299,9 +299,6 @@ const MobileMenuNew = ({
       document.body.classList.remove("overflow-hidden");
     }
   }, [isOpen]);
-  useEffect(() => {
-    console.log("cachedData", cachedData);
-  }, [cachedData]);
 
   return (
     <div

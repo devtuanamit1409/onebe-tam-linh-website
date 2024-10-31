@@ -82,8 +82,6 @@ async function fetchData(endpoint: string) {
 export async function generateMetadata(params: any): Promise<Metadata> {
   const { slug, locale } = params.params;
 
-  console.log("params", params);
-
   const dataVeChungToi = await fetchData(
     `${ENDPOINT.GET_DUAN}?filters[slug]=${slug}&locale=${locale}`
   );

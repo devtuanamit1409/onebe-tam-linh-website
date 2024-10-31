@@ -20,15 +20,15 @@ const MetaData = ({
   seoUrl,
   seoType = "website",
 }: Props) => {
-  console.log("MetaData Props:", {
-    seoTitle,
-    seoDescription,
-    seoKeywords,
-    seoAuthor,
-    seoImage,
-    seoUrl,
-    seoType,
-  });
+  // console.log("MetaData Props:", {
+  //   seoTitle,
+  //   seoDescription,
+  //   seoKeywords,
+  //   seoAuthor,
+  //   seoImage,
+  //   seoUrl,
+  //   seoType,
+  // });
 
   return (
     <Head>

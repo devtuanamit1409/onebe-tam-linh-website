@@ -3,7 +3,7 @@ import { Lora, Montserrat } from "next/font/google";
 import "../../styles/globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import NextTopLoader from "nextjs-toploader";
 import { NextIntlClientProvider } from "next-intl";
@@ -29,18 +29,27 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale, slug },
+  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string; slug: string };
+  params: { locale: string };
 }) {
   const messages = await getMessages();
+  // const headersList = headers();
+  // const url = headersList.get("x-url") || headersList.get("referer");
+
+  // // Extract slug from URL if needed
+  // let slug = "";
+  // if (url) {
+  //   const urlObj = new URL(url);
+  //   slug = urlObj.pathname.split("/").pop() || "";
+  // }
+  // console.log("slug at layout", slug);
 
   return (
     <html lang={locale}>
       <head>
-        {/* Sử dụng ScriptFromAPI với slug */}
-        <ScriptFromAPI slug={slug} />
+        <ScriptFromAPI />
       </head>
       <body className={`${montserrat.variable} ${lora.variable}`}>
         <NextTopLoader

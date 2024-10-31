@@ -64,9 +64,6 @@ const MegaMenu = ({
   handleMouseLeave: (event: React.MouseEvent) => void;
 }) => {
   const t = useTranslations("home");
-  useEffect(() => {
-    console.log("loading", loading);
-  }, [loading]);
 
   return (
     <>

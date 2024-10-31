@@ -147,7 +147,6 @@ const Boxservices: React.FC<AboutUsSliderProps> = ({
           modules={[Navigation]}
           className="about-us-slider">
           {data?.map((item, index) => {
-            console.log(`item + ${index}`, item);
             return (
               <SwiperSlide
                 className={`min-h-[398px] max-h-[436px] min-w-[330px] w-[330px] max-w-[330px] relative`}

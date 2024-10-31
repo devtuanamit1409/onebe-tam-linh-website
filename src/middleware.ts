@@ -44,7 +44,7 @@ export default async function (req: NextRequest): Promise<NextResponse> {
   if (matchedPost) {
     const newUrl = req.nextUrl.clone();
     newUrl.pathname = `/${matchedPost.attributes?.slug}`;
-    console.log("Redirecting to:", newUrl.toString()); // In ra URL để kiểm tra
+    // console.log("Redirecting to:", newUrl.toString()); // In ra URL để kiểm tra
     return NextResponse.redirect(newUrl);
   }
 

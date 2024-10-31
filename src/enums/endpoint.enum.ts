@@ -16,4 +16,5 @@ export const ENDPOINT = {
   GET_HEADER: `${process.env.URL_API}/api/custom-`,
   GET_MENU_SANPHAM: `${process.env.URL_API}/api/custom-san-pham`,
   GET_HOTLINE: `${process.env.URL_API}/api/hotline`,
+  GET_GOCCHUYEN_GIA: `${process.env.URL_API}/api/goc-chuyen-gia`,
 };
