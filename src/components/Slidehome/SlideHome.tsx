@@ -58,6 +58,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                   layout="fill"
                   // width={1000}
                   // height={1000}
+                  priority
                   objectFit="cover"
                 />
                 {/* asndashdaskdhlsandlasbkdjsalkdb */}

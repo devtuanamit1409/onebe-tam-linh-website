@@ -140,7 +140,7 @@ const DetailNew: React.FC<DetailNewProps> = ({
           <div className="bg-[#F3F6FE] py-[80px]">
             <div className="container">
               <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-                <p className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize ">
+                <p className="text-black laptop:text-[32px] mobile:text-[18px] font-bold capitalize pr-4">
                   {t("title_post")}
                 </p>
                 <Link

@@ -75,7 +75,7 @@ const BoxTinTuc: React.FC<BoxTinTucProps> = ({ data, locale }) => {
           })
         ) : (
           <div className="col-span-12">
-            <h3 className="text-center text-black text-[32px] font-bold">
+            <h3 className="text-center text-black text-[32px] font-bold pr-8">
               {t("nodata_news")}
             </h3>
           </div>
