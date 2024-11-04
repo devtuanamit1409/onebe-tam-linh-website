@@ -78,7 +78,6 @@ const ScriptFromAPI: React.FC = () => {
         }
 
         const data = await response.json();
-        console.log("data", data.data[0].attributes);
         setScriptContent(data.data.attributes || data.data[0].attributes);
       } catch (error) {
         console.error("Error fetching script content:", error);
