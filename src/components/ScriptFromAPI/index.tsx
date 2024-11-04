@@ -101,13 +101,13 @@ const ScriptFromAPI: React.FC = () => {
   let scriptType = "application/ld+json"; // Giá trị mặc định nếu không tìm thấy type
 
   // Sử dụng regex để tìm và tách thuộc tính type từ thẻ <script> nếu nó tồn tại
-  const typeMatch = jsonLdContent.match(/<script.*?type=["'](.*?)["'].*?>/i);
+  const typeMatch = jsonLdContent?.match(/<script.*?type=["'](.*?)["'].*?>/i);
   if (typeMatch && typeMatch[1]) {
     scriptType = typeMatch[1]; // Lấy giá trị của type
   }
 
   // Loại bỏ thẻ <script> mở và đóng khỏi nội dung
-  jsonLdContent = jsonLdContent.replace(/<script.*?>|<\/script>/gi, "");
+  jsonLdContent = jsonLdContent?.replace(/<script.*?>|<\/script>/gi, "");
 
   return (
     // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
