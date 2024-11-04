@@ -51,7 +51,9 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
             <SwiperSlide key={item.id}>
               <div className="image-container">
                 <Image
-                  src={`${baseUrl}${item.urlImage.data.attributes.url}` || "/"}
+                  src={
+                    `${baseUrl}${item.urlImage?.data?.attributes?.url}` || "/"
+                  }
                   alt="Slide Home"
                   layout="fill"
                   // width={1000}
