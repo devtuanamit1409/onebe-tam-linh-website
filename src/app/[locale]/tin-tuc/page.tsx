@@ -79,6 +79,7 @@ const Page: React.FC = (params: any) => {
   const [filterDanhMuc, setFilterDanhMuc] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
+  const [noiBat, setNoiBat] = useState<tintuc[]>([]);
 
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearchValue(searchValue), 300);
@@ -138,9 +139,20 @@ const Page: React.FC = (params: any) => {
     }
   };
 
+  const fetchBaiVietNoiBat = async () => {
+    try {
+      const endpoint = `${process.env.URL_API}/api/bai-viets?locale=${locale}&filters[bai_viet_tieu_diem][$eq]=true&populate=seo.thumbnail`;
+      const response = await apiService.get<ResponseDataTinTuc>(endpoint);
+      setNoiBat(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
     fetchDataTinTuc();
     fetchDataDanhMucBaiViet();
+    fetchBaiVietNoiBat();
   }, []);
 
   useEffect(() => {
@@ -189,11 +201,7 @@ const Page: React.FC = (params: any) => {
           <div className="col-span-12 tablet:col-span-6">
             {tintuc && tintuc.length > 0 ? (
               <TintucNoibat
-                data={tintuc
-                  .filter(
-                    (item) => item?.attributes?.bai_viet_tieu_diem === true
-                  )
-                  .map((item) => item?.attributes)}
+                data={noiBat && noiBat.map((item) => item?.attributes)}
                 name={t("features_article")}
               />
             ) : (
@@ -207,6 +215,11 @@ const Page: React.FC = (params: any) => {
                   {t("lastest_news")}
                 </p>
                 {tintuc.slice(0, 3).map((item) => {
+                  const imageUrl = item.attributes?.seo?.thumbnail?.data
+                    ?.attributes?.url
+                    ? `${baseUrl}${item.attributes.seo.thumbnail.data.attributes.url}`
+                    : "/path/to/default-image.jpg"; // Fallback image if URL is missing
+
                   return (
                     <div key={item.id} className="py-[16px]">
                       <div className="p-[24px] grid grid-cols-12 gap-4 items-center box-tin-tuc-noi-bat">
@@ -242,12 +255,7 @@ const Page: React.FC = (params: any) => {
                         <div className="tablet:col-span-5 mobile:col-span-12">
                           <div className="mobile:min-w-[196px] mobile:min-h-[196px] tablet:aspect-square laptop:max-w-[196px] tablet:min-h-[100px] tablet:min-w-[100px] relative mobile:mx-auto">
                             <Image
-                              // height={196}
-                              // width={196}
-                              src={
-                                `${baseUrl}${item.attributes?.seo?.thumbnail?.data?.attributes?.url}` ||
-                                "/"
-                              }
+                              src={imageUrl}
                               fill
                               objectFit="cover"
                               alt="tin-tuc-moi-len"

@@ -68,7 +68,7 @@ const HeaderNew = (params: any) => {
     {
       key: "Sản phẩm",
       name: t("products"),
-      pathname: "/san-pham",
+      pathname: "/triet-ly",
       label: t("products"),
       showIcon: true,
     },
