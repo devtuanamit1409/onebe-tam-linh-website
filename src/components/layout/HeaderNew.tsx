@@ -77,7 +77,7 @@ const HeaderNew = (params: any) => {
       name: t("services"),
       pathname: "/dich-vu",
       label: t("services"),
-      showIcon: true,
+      showIcon: false,
     },
     {
       key: "Dự án",
@@ -86,13 +86,13 @@ const HeaderNew = (params: any) => {
       label: t("projects"),
       showIcon: true,
     },
-    {
-      key: "Đối tác",
-      name: t("partners"),
-      pathname: "/doi-tac",
-      label: t("partners"),
-      showIcon: false,
-    },
+    // {
+    //   key: "Đối tác",
+    //   name: t("partners"),
+    //   pathname: "/doi-tac",
+    //   label: t("partners"),
+    //   showIcon: false,
+    // },
 
     {
       key: "Tin tức",
@@ -106,7 +106,7 @@ const HeaderNew = (params: any) => {
       name: t("circular_decree"),
       pathname: "/thong-tu-nghi-dinh",
       label: t("circular_decree"),
-      showIcon: true,
+      showIcon: false,
     },
   ]);
   const [cachedData, setCachedData] = useState<{ [key: string]: any }>({});
@@ -191,12 +191,12 @@ const HeaderNew = (params: any) => {
             description: veChungToi.attributes.main.description,
             slug: "/ve-chung-toi",
           },
-          {
-            id: 2,
-            name: t("expertopinion"),
-            description: gocChuyenGia?.attributes?.description,
-            slug: "/goc-chuyen-gia",
-          },
+          // {
+          //   id: 2,
+          //   name: t("expertopinion"),
+          //   description: gocChuyenGia?.attributes?.description,
+          //   slug: "/goc-chuyen-gia",
+          // },
           {
             id: 3,
             name: t("member_company"),
@@ -284,12 +284,7 @@ const HeaderNew = (params: any) => {
           <div className="hidden laptop:flex w-full max-w-full  p-0  h-[100px] mx-auto justify-between">
             <div className="flex w-full">
               <Link href={`/${locale}`} className="my-auto">
-                <Image
-                  src={NTSLogo.src}
-                  alt="NTS Logo"
-                  width={80}
-                  height={40}
-                />
+                <Image src="/logo.jpg" alt="NTS Logo" width={80} height={40} />
               </Link>
               <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
                 {menuItems.map((item) => {
@@ -301,12 +296,14 @@ const HeaderNew = (params: any) => {
                       onMouseEnter={() => {
                         handleMouseEnter(item.key, item.showIcon);
                       }}
-                      onMouseLeave={handleMouseLeave}>
+                      onMouseLeave={handleMouseLeave}
+                    >
                       <div
                         className={`font-inter text-base font-medium leading-6 hover:text-[#28A645] ${
                           isActive ? "text-[#28A645]" : "text-[#3B559E]"
                         } text-left flex items-center gap-3 cursor-pointer 
-                    ${activeKey === item.key ? "text-[#28A645]" : ""}`}>
+                    ${activeKey === item.key ? "text-[#28A645]" : ""}`}
+                      >
                         <Link href={item.pathname}>{item.label}</Link>
                         {item.showIcon &&
                           (activeKey === item.key ? (
@@ -326,12 +323,13 @@ const HeaderNew = (params: any) => {
           </div>
           <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
             <Link href={`/${locale}`}>
-              <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
+              <Image src="/logo.jpg" alt="NTS Logo" width={60} height={40} />
             </Link>
             <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
               <button
                 className="w-[30.30px] h-[19.40px] relative"
-                onClick={toggleMenu}>
+                onClick={toggleMenu}
+              >
                 <IconMenu />
               </button>
 

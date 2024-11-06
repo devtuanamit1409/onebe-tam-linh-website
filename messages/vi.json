@@ -17,16 +17,16 @@
     "call_now": "Gọi ngay"
   },
   "menu": {
-    "newsTitle": "Tin tức",
-    "products": "Sản phẩm",
-    "services": "Dịch vụ",
+    "newsTitle": "Sách",
+    "products": "Triết lý",
+    "services": "Thông tin quan trọng",
     "projects": "Dự án",
-    "member_company": "Công ty thành viên",
+    "member_company": "Các hoạt động",
     "expertopinion": "Góc chuyên gia",
     "partners": "Đối tác",
     "about_us": "Về chúng tôi",
     "news": "Tin tức",
-    "circular_decree": "Thông tư - Nghị định"
+    "circular_decree": "Ủng Hộ"
   },
   "detail_post": {
     "title_post": "Bài viết liên quan",
