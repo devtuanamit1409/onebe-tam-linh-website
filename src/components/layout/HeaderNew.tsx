@@ -75,7 +75,7 @@ const HeaderNew = (params: any) => {
     {
       key: "Dịch vụ",
       name: t("services"),
-      pathname: "/dich-vu",
+      pathname: "/thong-tin-quan-trong",
       label: t("services"),
       showIcon: false,
     },
@@ -97,14 +97,14 @@ const HeaderNew = (params: any) => {
     {
       key: "Tin tức",
       name: t("newsTitle"),
-      pathname: "/tin-tuc",
+      pathname: "/sach",
       label: t("newsTitle"),
       showIcon: false,
     },
     {
       key: "Thông tư nghị định",
       name: t("circular_decree"),
-      pathname: "/thong-tu-nghi-dinh",
+      pathname: "/ung-ho",
       label: t("circular_decree"),
       showIcon: false,
     },

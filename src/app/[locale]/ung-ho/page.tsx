@@ -11,9 +11,22 @@ import { apiService } from "@/services/api.service";
 import { ENDPOINT } from "@/enums/endpoint.enum";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-
+interface DataVeChungToi {
+  data: {
+    id: number;
+    attributes: {
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      locale: string;
+      content: string;
+      seo: any;
+    };
+  };
+  meta: object;
+}
 const searchData = {
-  populate: ["seo.thumbnail", "danh_muc_bai_viets "].toString(),
+  populate: ["seo", "seo.thumbnail"].toString(),
 };
 
 const searhDichVu = {
@@ -24,12 +37,12 @@ const searchParamsDichVu = new URLSearchParams(searhDichVu).toString();
 const searchParams = new URLSearchParams(searchData).toString();
 export async function generateMetadata(params: any): Promise<Metadata> {
   const dataVeChungToi = await fetchData(
-    `${ENDPOINT.GET_TTND}?${searchParams}}&locale=${params.params.locale}`
+    `${ENDPOINT.GET_TTND}?populate=seo,seo.thumbnail&locale=${params.params.locale}`
   );
 
   const seo =
-    (dataVeChungToi as { data: { attributes: { main: { seo: any } } } })?.data
-      ?.attributes?.main?.seo || {};
+    (dataVeChungToi as { data: { attributes: { seo: any } } })?.data?.attributes
+      ?.seo || {};
 
   const baseUrl = process.env.URL_API;
   const t = await getTranslations("detail_post");
@@ -111,6 +124,7 @@ const page = async (params: any) => {
   const dataDichVu = await fetchData(
     `${ENDPOINT.GET_TTND}?${searchParamsDichVu}&locale=${locale}`
   );
+
   const dichVu = (
     dataDichVu as {
       data: {
@@ -133,6 +147,13 @@ const page = async (params: any) => {
       };
     }
   )?.data?.attributes?.main;
+
+  const dataVeChungToi = await fetchData(
+    `${ENDPOINT.GET_TTND}?populate=seo,seo.thumbnail&locale=${params.params.locale}`
+  );
+
+  const content = (dataVeChungToi as any)?.data?.attributes?.content;
+  console.log(content);
 
   const baseUrl = process.env.URL_API;
   const baiViet = dataTinTuc as {
@@ -234,40 +255,8 @@ const page = async (params: any) => {
 
   return (
     <div>
-      <div className="relative w-full h-[18.5%] desktop:min-h-[682px] laptop:min-h-[455px] tablet:min-h-[400px] mobile:min-h-[200px] overflow-hidden">
-        <Image
-          src={baseUrl + dichVu?.banner?.urlImage?.data?.attributes?.url || "/"}
-          alt="banner"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
       <div className="container">
-        <div className=" flex-col justify-start items-center gap-6 flex mt-[40px]">
-          <h1 className="text-black mobile:text-[32px] tablet:text-[40px] desktop:text-[54px] font-bold  capitalize leading-normal text-center">
-            {dichVu?.name || "Chưa ráp CMS"}
-          </h1>
-          <p className="text-gray-500 text-xl font-medium mobile:text-[16px] tablet:text-[20px]   leading-normal desktop:px-[120px] text-center">
-            {dichVu?.description || "Chưa ráp CMS"}
-          </p>
-        </div>
-        <PageMenu menu="thong-tu-nghi-dinh" locale={locale} />
-      </div>
-      <div className="bg-[#F3F6FE] py-[80px]">
-        <div className="container">
-          <div className="inline-flex justify-between items-center w-full py-2 pb-[40px]">
-            <h1 className="text-black text-[32px] font-bold capitalize leading-[51.20px]">
-              {translate("news")}
-            </h1>
-            <Link
-              href={`/${locale}/tin-tuc`}
-              className="text-center text-[#3B559E] text-base font-medium leading-normal inline-flex gap-2.5  hover:text-[#28A645] transition-all ease-linear">
-              {t("go_to_news_page")} <IconArrowRight width={20} height={20} />
-            </Link>
-          </div>
-
-          <BoxTinTuc data={tintuc.slice(0, 3)} locale={locale} />
-        </div>
+        <div dangerouslySetInnerHTML={{ __html: content }}></div>
       </div>
       <div className="container">
         <ContactEnd />

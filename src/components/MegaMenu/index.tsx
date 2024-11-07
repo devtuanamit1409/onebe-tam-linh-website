@@ -76,7 +76,8 @@ const MegaMenu = ({
                 : "-translate-y-full top-[0px] opacity-0"
             }`}
             onMouseEnter={() => setIsMenuOpen(true)}
-            onMouseLeave={handleMouseLeave}>
+            onMouseLeave={handleMouseLeave}
+          >
             {loading || !menuItems.danh_muc_cons ? (
               <MegaMenuSkeleton activeKey={activeKey} />
             ) : (
@@ -107,7 +108,8 @@ const MegaMenu = ({
 
                         <Link
                           href={menuItems.pathname || "/"}
-                          className="text-center text-base font-bold leading-normal px-6 py-3 bg-[#28A645] border border-[#28A645] hover:bg-[#fff] hover:border-[#28A645] text-white hover:text-[#28A645] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex">
+                          className="text-center text-base font-bold leading-normal px-6 py-3 bg-[#28A645] border border-[#28A645] hover:bg-[#fff] hover:border-[#28A645] text-white hover:text-[#28A645] transition-colors transition-border duration-300 ease-in-out rounded-[32px] justify-center items-center gap-2.5 inline-flex"
+                        >
                           {t("see_more")}
                         </Link>
                       </div>
@@ -120,12 +122,14 @@ const MegaMenu = ({
                             .map((item: any, index: any) => (
                               <div
                                 className="flex flex-col items-start gap-4"
-                                key={index}>
+                                key={index}
+                              >
                                 <div className="w-full min-h-[108px] gap-4">
                                   <Link
                                     href={item.slug || "/"}
                                     key={index}
-                                    className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear">
+                                    className="flex gap-2 items-center justify-between text-black hover:text-[#28A645] transition-colors ease-linear"
+                                  >
                                     <p className=" text-lg font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2">
                                       {item.name}
                                     </p>
@@ -145,13 +149,16 @@ const MegaMenu = ({
                                     .map((child: any, childIndex: any) => (
                                       <div
                                         key={childIndex}
-                                        className="text-black  hover:text-[#28A645] transition-colors ease-linear text-base font-semibold leading-normal w-full">
+                                        className="text-black  hover:text-[#28A645] transition-colors ease-linear text-base font-semibold leading-normal w-full"
+                                      >
                                         <Link
                                           href={child.slug || "/"}
-                                          className=" flex items-center justify-between ">
+                                          className=" flex items-center justify-between "
+                                        >
                                           <p
                                             className="!line-clamp-1"
-                                            title={child.title}>
+                                            title={child.title}
+                                          >
                                             {child.title}
                                           </p>
                                           <span>
@@ -173,12 +180,14 @@ const MegaMenu = ({
                             .map((item: any, index: any) => (
                               <div
                                 className="flex flex-col items-start gap-4"
-                                key={index}>
+                                key={index}
+                              >
                                 <div className="w-full min-h-[108px] gap-4">
                                   <Link
                                     href={item.slug || "/"}
                                     key={index}
-                                    className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear">
+                                    className="flex gap-2 items-center justify-between text-black text-lg hover:text-[#28A645] transition-colors ease-linear"
+                                  >
                                     <p className=" font-semibold leading-relaxed flex items-center justify-between h-[58px] !line-clamp-2 ">
                                       {item.name}
                                     </p>
@@ -201,12 +210,14 @@ const MegaMenu = ({
                             .map((item: any, index: any) => (
                               <div
                                 className="flex flex-col items-start gap-4"
-                                key={index}>
+                                key={index}
+                              >
                                 <div className="w-full min-h-[108px] gap-4">
                                   <Link
                                     href={item.slug || "/"}
                                     key={index}
-                                    className="flex gap-2 items-center justify-between hover:text-[#28A645] text-lg font-semibold leading-relaxed flextext-black transition-colors ease-linear">
+                                    className="flex gap-2 items-center justify-between hover:text-[#28A645] text-lg font-semibold leading-relaxed flextext-black transition-colors ease-linear"
+                                  >
                                     <p className="  items-center justify-between !line-clamp-2 ">
                                       {item.name}
                                     </p>

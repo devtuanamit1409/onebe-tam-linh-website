@@ -34,15 +34,15 @@
     "news": "Tất cả tin tức",
     "go_to_news_page": "Tới trang tin tức",
     "search": "Nhập từ khóa tìm kiếm",
-    "features_article": "Tin nổi bật",
+    "features_article": "Sách nổi bật",
     "nodata_news": "Không có bài viết phù hợp",
     "load_more_news": "Tải thêm",
-    "lastest_news": "Tin mới lên",
-    "lastest_news_tag": "Tin mới lên"
+    "lastest_news": "Sách mới lên",
+    "lastest_news_tag": "Sách mới lên"
   },
   "professionalist": {
     "title": "Góc chuyên gia",
-    "expertopinion": "Góc chuyên gia",
+    "expertopinion": "Thông tin quan trọng",
     "q&a": "Hỏi và đáp",
     "sub_title": "Các chuyên gia của chúng tôi",
     "description": "There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."

@@ -89,7 +89,7 @@ const Page: React.FC = (params: any) => {
   const fetchDataTinTuc = async () => {
     try {
       setLoading(true);
-      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Tin tức&sort=createdAt:DESC `;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?${searchParams}&locale=${locale}&filters[type][$containsi]=Sách&sort=createdAt:DESC `;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setTintuc(response.data);
       setLoading(false);
@@ -106,7 +106,7 @@ const Page: React.FC = (params: any) => {
       setLoading(true);
       const filters = [
         `filters[title][$containsi]=${searchValue}`,
-        `filters[type][$containsi]=Tin tức`,
+        `filters[type][$containsi]=Sách`,
         `pagination[pageSize]=${displayedCount}`,
         `sort=createdAt:DESC`,
       ];
@@ -141,7 +141,7 @@ const Page: React.FC = (params: any) => {
 
   const fetchBaiVietNoiBat = async () => {
     try {
-      const endpoint = `${process.env.URL_API}/api/bai-viets?locale=${locale}&filters[bai_viet_tieu_diem][$eq]=true&populate=seo.thumbnail`;
+      const endpoint = `${process.env.URL_API}/api/bai-viets?locale=${locale}&filters[bai_viet_tieu_diem][$eq]=true&populate=seo.thumbnail&filters[type][$eq]=Sách`;
       const response = await apiService.get<ResponseDataTinTuc>(endpoint);
       setNoiBat(response.data);
     } catch (error) {
