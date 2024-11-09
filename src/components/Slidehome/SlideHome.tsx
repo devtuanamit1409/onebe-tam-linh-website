@@ -53,7 +53,8 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
         effect={"fade"}
         modules={[EffectFade, Pagination, Autoplay]}
         className="swiper-home relative"
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}>
+        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+      >
         {filteredBanner?.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="image-container">
@@ -65,7 +66,8 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                 objectFit="cover"
               />
               <div
-                className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}>
+                className={`content-baner flex justify-center desktop:items-center mobile:pt-[60px]`}
+              >
                 <div className="w-[90%] laptop:w-[846px]">
                   <div className="grid grid-cols-1 gap-[32px]">
                     <div className="col-span-1">
@@ -86,7 +88,8 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
                     <div className="col-span-1">
                       <Link
                         href={item.path ? item.path : "/"}
-                        className="rounded-[32px] py-[12px] font-bold px-[24px] bg-[#28A645] text-white border border-[#28A645] hover:text-white hover:bg-transparent transition-all 300ms">
+                        className="rounded-[32px] py-[12px] font-bold px-[24px] bg-[#28A645] text-white border border-[#28A645] hover:text-white hover:bg-transparent transition-all 300ms"
+                      >
                         {t("see_more")}
                       </Link>
                     </div>
@@ -96,7 +99,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
             </div>
           </SwiperSlide>
         ))}
-        <div className="flex justify-center items-center container">
+        {/* <div className="flex justify-center items-center container">
           <div className="laptop:w-[846px] tablet:w-full container mobile:pr-[32px] mobile:pl-[32px] desktop:pl-0 absolute tablet:top-1/2 mobile:bottom-[86px] translate-y-[70%] z-30">
             <ProgressBar
               currentIndex={currentIndex}
@@ -104,7 +107,7 @@ const SlideHome = ({ banner }: { banner: BannerItem[] }) => {
               labels={labels}
             />
           </div>
-        </div>
+        </div> */}
       </Swiper>
     </>
   );

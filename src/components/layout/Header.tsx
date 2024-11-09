@@ -152,7 +152,7 @@ const Header = (params: any) => {
           id: 3,
           name: t("member_company"),
           description: congTyThanhVien.attributes.description,
-          slug: "/cong-ty-thanh-vien",
+          slug: "/thong-tin-dao-tao",
         },
         {
           id: 4,
@@ -337,12 +337,14 @@ const Header = (params: any) => {
                     onMouseEnter={() => {
                       handleMouseEnter(item.key, item.showIcon);
                     }}
-                    onMouseLeave={handleMouseLeave}>
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <div
                       className={`font-inter text-base font-medium leading-6 hover:text-[#28A645] ${
                         isActive ? "text-[#28A645]" : "text-[#3B559E]"
                       } text-left flex items-center gap-3 cursor-pointer 
-                    ${activeKey === item.key ? "text-[#28A645]" : ""}`}>
+                    ${activeKey === item.key ? "text-[#28A645]" : ""}`}
+                    >
                       {item.label}
                       {item.showIcon &&
                         (activeKey === item.key ? (
@@ -367,7 +369,8 @@ const Header = (params: any) => {
           <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
             <button
               className="w-[30.30px] h-[19.40px] relative"
-              onClick={toggleMenu}>
+              onClick={toggleMenu}
+            >
               <IconMenu />
             </button>
 

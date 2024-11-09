@@ -7,6 +7,7 @@ import SlideMember from "@/components/SlideMember/SlideMember";
 import Construction from "@/components/Construction/Construction";
 import ContactEnd from "@/components/ContactEnd/ContactEnd";
 import bannerMember from "../../../public/images/bannerHome/banner-member.png";
+import testBanner from "../../../public/images/banner/banner-dich-vu.png";
 import Link from "next/link";
 import AboutUsSlider from "@/components/BoxServices";
 import { apiService } from "@/services/api.service";
@@ -30,6 +31,7 @@ const searchData = {
     "boxServices.image",
     "descriptionThanhVien",
     "cardThanhVien.logo",
+    "imageDocument.urlImage",
   ].toString(),
 };
 const searchParams = new URLSearchParams(searchData).toString();
@@ -143,6 +145,13 @@ const Home: React.FC = async (params: any) => {
   const listlogo =
     (dataHome as { data: { attributes: { listlogo: any } } })?.data?.attributes
       ?.listlogo || [];
+  const bannerDocument =
+    (dataHome as { data: { attributes: { imageDocument: any } } })?.data
+      ?.attributes?.imageDocument || "";
+  console.log(
+    "bannerdoc",
+    `${process.env.URL_API}${bannerDocument?.urlImage?.data?.attributes?.url}`
+  );
 
   const banner = (dataHome as { data: { attributes: { banner: any } } })?.data
     ?.attributes?.banner;
@@ -264,7 +273,8 @@ const Home: React.FC = async (params: any) => {
                       <div className="inline-flex mobile:justify-center laptop:justify-start  w-full">
                         <Link
                           href={`/${locale}/ve-chung-toi`}
-                          className="bg-transparent text-[#3B559E] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E] font-bold transition-all 300ms">
+                          className="bg-transparent text-[#3B559E] py-[12px] px-[24px] rounded-[50px] border border-[#3B559E] hover:bg-[#fff] hover:text-[#3B559E] font-bold transition-all 300ms"
+                        >
                           {t("about_us")}
                         </Link>
                       </div>
@@ -299,8 +309,9 @@ const Home: React.FC = async (params: any) => {
                       </p>
                       <div className="pt-[24px] flex justify-center">
                         <Link
-                          href={"/cong-ty-thanh-vien"}
-                          className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] font-bold">
+                          href={"/thong-tin-dao-tao"}
+                          className="py-[12px] px-[24px] bg-[#28A645] text-[white] rounded-[50px] border border-[#28A645] hover:bg-[#fff] hover:text-[#28A645] font-bold"
+                        >
                           {t("see_more")}
                         </Link>
                       </div>
@@ -308,9 +319,16 @@ const Home: React.FC = async (params: any) => {
                   </div>
                 </div>
                 <div className="col-span-12 relativ flex justify-center">
-                  <div className="h-[417px] w-[356px] card-member relative z-30">
+                  {/* <div className="h-[417px] w-[356px] card-member relative z-30">
                     <SlideMember cardThanhVien={cardThanhVien} />
-                  </div>
+                  </div> */}
+                  <Image
+                    src={`${process.env.URL_API}${bannerDocument?.urlImage?.data?.attributes?.url}`}
+                    alt="sadsadas"
+                    width={200}
+                    height={200}
+                    className="w-full"
+                  />
                 </div>
               </div>
             </div>

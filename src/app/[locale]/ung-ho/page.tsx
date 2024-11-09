@@ -1,3 +1,4 @@
+"use server";
 import IconAngleRightColorFull from "@/components/icons/IconAngleRightColorFull";
 import bannerDichVu from "../../../../public/images/banner/banner-dich-vu.png";
 import Image from "next/image";

@@ -158,7 +158,7 @@ const MobileMenuNew = ({
             id: 3,
             name: t("member_company"),
             description: congTyThanhVien?.attributes?.description,
-            slug: "/cong-ty-thanh-vien",
+            slug: "/thong-tin-dao-tao",
           },
           {
             id: 4,
@@ -304,7 +304,8 @@ const MobileMenuNew = ({
     <div
       className={`${
         isOpen ? "fixed" : "hidden"
-      } top-0 left-0 w-full h-full bg-white z-50 overflow-y-auto`}>
+      } top-0 left-0 w-full h-full bg-white z-50 overflow-y-auto`}
+    >
       <div className="flex justify-between items-center mb-4 shadow px-[31px] py-4">
         <Link href={`/${locale}`} className="my-auto">
           <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
@@ -319,7 +320,8 @@ const MobileMenuNew = ({
           {Array.from({ length: 7 }).map((_, index) => (
             <Menu.Item
               key={index}
-              className="text-black text-lg font-semibold leading-relaxed">
+              className="text-black text-lg font-semibold leading-relaxed"
+            >
               <Skeleton height={30} />
             </Menu.Item>
           ))}
@@ -329,7 +331,8 @@ const MobileMenuNew = ({
           mode="inline"
           className="mt-4 flex flex-col gap-2"
           openKeys={openKeys}
-          onOpenChange={onOpenChange}>
+          onOpenChange={onOpenChange}
+        >
           {menuItems.map((item: any) => {
             const cachedItem = cachedData[item.key];
             if (
@@ -339,10 +342,12 @@ const MobileMenuNew = ({
               return (
                 <Menu.Item
                   key={item.key}
-                  className="text-black text-lg font-semibold leading-relaxed">
+                  className="text-black text-lg font-semibold leading-relaxed"
+                >
                   <Link
                     href={item.pathname || "/"}
-                    className="!text-black !text-lg !font-semibold leading-relaxed">
+                    className="!text-black !text-lg !font-semibold leading-relaxed"
+                  >
                     {item.name}
                   </Link>
                 </Menu.Item>
@@ -352,16 +357,19 @@ const MobileMenuNew = ({
               <Menu.SubMenu
                 key={item.key}
                 title={renderTitleWithIcon(item.name, item.key)}
-                className="text-black text-lg font-semibold px-0">
+                className="text-black text-lg font-semibold px-0"
+              >
                 <Menu
                   mode="inline"
                   openKeys={openSubKeys[item.key] || []}
-                  onOpenChange={(keys) => onSubOpenChange(item.key, keys)}>
+                  onOpenChange={(keys) => onSubOpenChange(item.key, keys)}
+                >
                   {item.key === "Về chúng tôi" ? null : (
                     <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
                       <Link
                         href={item.pathname || "/"}
-                        className="!text-[#3B559E] text-base font-normal leading-relaxed px-0">
+                        className="!text-[#3B559E] text-base font-normal leading-relaxed px-0"
+                      >
                         {locale === "vi" ? "Đến trang " : "Go to "} {item.name}
                       </Link>
                     </Menu.Item>
@@ -375,10 +383,12 @@ const MobileMenuNew = ({
                       return (
                         <Menu.Item
                           key={danhMucItem.slug}
-                          className="!text-base !font-normal !text-[#000]">
+                          className="!text-base !font-normal !text-[#000]"
+                        >
                           <Link
                             href={danhMucItem.slug || "/"}
-                            className="!text-base !font-normal !text-[#000] ">
+                            className="!text-base !font-normal !text-[#000] "
+                          >
                             {danhMucItem.name}
                           </Link>
                         </Menu.Item>
@@ -392,11 +402,13 @@ const MobileMenuNew = ({
                           danhMucItem.slug,
                           item.key
                         )}
-                        className="!text-base !font-normal !text-[#000] ">
+                        className="!text-base !font-normal !text-[#000] "
+                      >
                         <Menu.Item className="text-[#3B559E] text-base font-normal leading-relaxed">
                           <Link
                             href={danhMucItem.slug || "/"}
-                            className="!text-[#3B559E] text-base font-normal leading-relaxed">
+                            className="!text-[#3B559E] text-base font-normal leading-relaxed"
+                          >
                             {locale === "vi" ? "Đến trang " : "Go to "}{" "}
                             {danhMucItem.name}
                           </Link>
@@ -406,10 +418,12 @@ const MobileMenuNew = ({
                           .map((baiVietItem: any) => (
                             <Menu.Item
                               key={baiVietItem.slug}
-                              className="text-[#3B559E] text-base font-normal leading-relaxed">
+                              className="text-[#3B559E] text-base font-normal leading-relaxed"
+                            >
                               <Link
                                 href={baiVietItem.slug || "/"}
-                                className="!text-gray-500 !text-base !font-normal leading-relaxed">
+                                className="!text-gray-500 !text-base !font-normal leading-relaxed"
+                              >
                                 {baiVietItem.title}
                               </Link>
                             </Menu.Item>

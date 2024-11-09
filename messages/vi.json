@@ -4,12 +4,12 @@
     "see_all": "Xem tất cả",
     "let_see": "Xem chi tiết",
     "read_now": "Đọc ngay",
-    "member_company": "Các Công Ty Thành Viên",
+    "member_company": "Tài liệu hướng dẫn và đào tạo",
     "introduce_about_us": "Giới Thiệu Về Chúng Tôi",
-    "visit_our_website": "Truy cập trang web",
-    "about_us": "Về Chúng Tôi",
-    "project": "Dự án",
-    "our_project": "Công Trình Đã Thực Hiện"
+    "visit_our_website": "Xem thêm",
+    "about_us": "Xem thêm",
+    "project": "Bài viết",
+    "our_project": "Những bài viết liên quan"
   },
   "contact_end": {
     "introduce": "Khởi đầu dự án của bạn ngay thôi",
@@ -52,8 +52,8 @@
     "sub_title": "ĐỐI TÁC LIÊN KẾT"
   },
   "member": {
-    "title": "Đồng hành cùng chúng tôi",
-    "sub_title": "CÁC CÔNG TY THÀNH VIÊN"
+    "title": "Học viện đào tạo",
+    "sub_title": "THÔNG TIN ĐÀO TẠO"
   },
   "footer": {
     "licence": "Giấy chứng nhận đăng ký doanh nghiệp số 0312218474, đăng ký lần đầu ngày 03/04/2013, tại Sở KH&ĐT TP.HCM.",

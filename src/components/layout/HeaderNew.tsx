@@ -201,7 +201,7 @@ const HeaderNew = (params: any) => {
             id: 3,
             name: t("member_company"),
             description: congTyThanhVien?.attributes?.description,
-            slug: "/cong-ty-thanh-vien",
+            slug: "/thong-tin-dao-tao",
           },
           {
             id: 4,
