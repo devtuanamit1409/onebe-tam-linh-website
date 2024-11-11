@@ -308,7 +308,7 @@ const MobileMenuNew = ({
     >
       <div className="flex justify-between items-center mb-4 shadow px-[31px] py-4">
         <Link href={`/${locale}`} className="my-auto">
-          <Image src={NTSLogo.src} alt="NTS Logo" width={60} height={40} />
+          <Image src="/logo.png" alt="NTS Logo" width={60} height={40} />
         </Link>
         <button onClick={toggleMenu} className="text-lg">
           <IconClose />

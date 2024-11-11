@@ -284,7 +284,7 @@ const HeaderNew = (params: any) => {
           <div className="hidden laptop:flex w-full max-w-full  p-0  h-[100px] mx-auto justify-between">
             <div className="flex w-full">
               <Link href={`/${locale}`} className="my-auto">
-                <Image src="/logo.jpg" alt="NTS Logo" width={80} height={40} />
+                <Image src="/logo.png" alt="NTS Logo" width={120} height={40} />
               </Link>
               <ul className="hidden laptop:flex bg-transparent w-full justify-between mx-8">
                 {menuItems.map((item) => {
@@ -323,7 +323,7 @@ const HeaderNew = (params: any) => {
           </div>
           <div className="mobile:flex laptop:hidden w-full h-[72px] px-[15px] py-4 bg-white justify-between items-center inline-flex">
             <Link href={`/${locale}`}>
-              <Image src="/logo.jpg" alt="NTS Logo" width={60} height={40} />
+              <Image src="/logo.png" alt="NTS Logo" width={60} height={40} />
             </Link>
             <div className="w-8 h-8 px-[0.85px] py-[6.30px] justify-center items-center">
               <button
